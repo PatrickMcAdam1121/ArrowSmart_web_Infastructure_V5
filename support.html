@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Support — ArrowSmart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap"/>
+  <style>body{font-family:'Inter',sans-serif;}</style>
+</head>
+<body class="bg-[#0B1120] text-white min-h-screen flex flex-col">
+  <header class="sticky top-0 z-50 w-full border-b border-[#334155] bg-[#0B1120]/80 backdrop-blur-md">
+    <div class="container mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="ledger.html" class="flex items-center gap-2"><div class="flex items-center justify-center w-10 h-10 rounded-lg bg-[#10B981]/10 text-[#10B981]"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L4 4 L20 4"/></svg></div><span class="text-xl font-bold text-white">ArrowSmart</span></a>
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="ledger.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">Home</a>
+        <a href="shop.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">Products</a>
+        <a href="about.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">About</a>
+        <a href="contact.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">Contact</a>
+      </nav>
+      <div class="hidden md:flex items-center gap-4">
+        <a href="support.html" class="text-sm font-medium text-[#10B981]">Support</a>
+        <a href="employee-login.html" class="text-xs font-medium text-[#475569] border border-[#1E293B] hover:border-[#334155] px-3 py-1.5 rounded-md transition-colors">Employee Login</a>
+        <a href="shop.html" class="bg-[#10B981] hover:bg-[#059669] text-white px-5 py-2.5 rounded-md text-sm font-medium transition-colors">Shop Now</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1">
+    <!-- System status bar -->
+    <div class="bg-[#10B981]/10 border-b border-[#10B981]/20 py-2.5 px-6">
+      <div class="container mx-auto flex items-center gap-3">
+        <span class="w-2 h-2 rounded-full bg-[#10B981] inline-block animate-pulse"></span>
+        <p class="text-[#10B981] text-xs font-semibold">All systems operational &mdash; <a href="connect.html#status" class="underline hover:no-underline">View status page</a></p>
+        <span class="ml-auto text-[#475569] text-xs">Last checked: just now</span>
+      </div>
+    </div>
+
+    <section class="py-16 border-b border-[#334155]">
+      <div class="container mx-auto px-6 max-w-3xl text-center">
+        <h1 class="text-4xl font-extrabold text-white mb-4">How can we help?</h1>
+        <div class="relative mt-6">
+          <input type="text" placeholder="Search for answers, topics, or products…"
+            class="w-full bg-[#1E293B] border border-[#334155] rounded-xl px-5 py-4 pl-12 text-white placeholder-[#475569] text-sm focus:outline-none focus:border-[#10B981] transition-colors"/>
+          <svg class="absolute left-4 top-1/2 -translate-y-1/2 text-[#475569]" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="py-16 border-b border-[#334155]">
+      <div class="container mx-auto px-6">
+        <h2 class="text-xl font-bold text-white mb-8">Browse by product</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <a href="achilles.html" class="flex items-center gap-4 p-5 rounded-xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/50 transition-colors group">
+            <div class="w-10 h-10 rounded-lg bg-[#10B981]/10 flex items-center justify-center text-[#10B981]"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/></svg></div>
+            <span class="text-white font-medium group-hover:text-[#10B981] transition-colors text-sm">Achilles</span>
+          </a>
+          <a href="computers.html" class="flex items-center gap-4 p-5 rounded-xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/50 transition-colors group">
+            <div class="w-10 h-10 rounded-lg bg-[#10B981]/10 flex items-center justify-center text-[#10B981]"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+            <span class="text-white font-medium group-hover:text-[#10B981] transition-colors text-sm">Arrow Computers</span>
+          </a>
+          <a href="wearables.html" class="flex items-center gap-4 p-5 rounded-xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/50 transition-colors group">
+            <div class="w-10 h-10 rounded-lg bg-[#10B981]/10 flex items-center justify-center text-[#10B981]"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="22" height="12" rx="2"/><line x1="23" y1="13" x2="23" y2="11"/></svg></div>
+            <span class="text-white font-medium group-hover:text-[#10B981] transition-colors text-sm">Arrow Wearables</span>
+          </a>
+          <a href="connect.html" class="flex items-center gap-4 p-5 rounded-xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/50 transition-colors group">
+            <div class="w-10 h-10 rounded-lg bg-[#10B981]/10 flex items-center justify-center text-[#10B981]"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></div>
+            <span class="text-white font-medium group-hover:text-[#10B981] transition-colors text-sm">Arrow Connect</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick links -->
+    <section class="py-16 border-b border-[#334155]">
+      <div class="container mx-auto px-6">
+        <h2 class="text-xl font-bold text-white mb-8">Quick help</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          <a href="repairs.html" class="p-6 rounded-2xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/50 transition-colors group">
+            <div class="w-10 h-10 rounded-lg bg-[#10B981]/10 flex items-center justify-center text-[#10B981] mb-4"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-[#10B981] transition-colors">Repairs</h3>
+            <p class="text-[#94A3B8] text-sm">Screen replacement, battery service, and more.</p>
+          </a>
+          <a href="store-locator.html" class="p-6 rounded-2xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/50 transition-colors group">
+            <div class="w-10 h-10 rounded-lg bg-[#10B981]/10 flex items-center justify-center text-[#10B981] mb-4"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-[#10B981] transition-colors">Find a Store</h3>
+            <p class="text-[#94A3B8] text-sm">Visit an ArrowSmart retail location near you.</p>
+          </a>
+          <a href="contact.html" class="p-6 rounded-2xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/50 transition-colors group">
+            <div class="w-10 h-10 rounded-lg bg-[#10B981]/10 flex items-center justify-center text-[#10B981] mb-4"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-[#10B981] transition-colors">Contact Us</h3>
+            <p class="text-[#94A3B8] text-sm">Chat, call, or email our support team 24/7.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ArrowCare+ promo -->
+    <section class="py-14 border-b border-[#334155]">
+      <div class="container mx-auto px-6">
+        <div class="rounded-2xl bg-gradient-to-r from-[#1E293B] to-[#0F172A] border border-[#10B981]/20 p-8 md:p-10">
+          <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <p class="text-[#10B981] text-xs font-semibold uppercase tracking-widest mb-3">ArrowCare+</p>
+              <h2 class="text-2xl font-bold text-white mb-3">Extended protection for your devices.</h2>
+              <p class="text-[#94A3B8] text-sm leading-relaxed mb-4">Go beyond the standard warranty. ArrowCare+ covers unlimited accidental damage incidents, priority access to repairs, free battery replacement, and extends coverage to 5 years from the date of purchase.</p>
+              <a href="repairs.html" class="inline-block px-6 py-3 bg-[#10B981] hover:bg-[#059669] text-white rounded-md text-sm font-semibold transition-colors">Learn About ArrowCare+</a>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="p-5 rounded-xl bg-[#0B1120] border border-[#334155] text-center">
+                <p class="text-[#10B981] font-extrabold text-xl mb-1">5 yrs</p>
+                <p class="text-white text-xs font-semibold">Coverage</p>
+              </div>
+              <div class="p-5 rounded-xl bg-[#0B1120] border border-[#334155] text-center">
+                <p class="text-[#10B981] font-extrabold text-xl mb-1">∞</p>
+                <p class="text-white text-xs font-semibold">Accidents covered</p>
+              </div>
+              <div class="p-5 rounded-xl bg-[#0B1120] border border-[#334155] text-center">
+                <p class="text-[#10B981] font-extrabold text-xl mb-1">$0</p>
+                <p class="text-white text-xs font-semibold">Battery service</p>
+              </div>
+              <div class="p-5 rounded-xl bg-[#0B1120] border border-[#334155] text-center">
+                <p class="text-[#10B981] font-extrabold text-xl mb-1">24/7</p>
+                <p class="text-white text-xs font-semibold">Priority support</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-16">
+      <div class="container mx-auto px-6 max-w-3xl">
+        <h2 class="text-2xl font-bold text-white mb-8">Frequently asked questions</h2>
+        <div class="space-y-3" id="faq">
+          <div class="faq-item rounded-xl border border-[#334155] overflow-hidden">
+            <button class="w-full flex items-center justify-between px-6 py-4 text-left bg-[#1E293B] hover:bg-[#334155]/50 transition-colors faq-btn">
+              <span class="text-white font-medium text-sm">How do I transfer data to my new Achilles 20?</span>
+              <svg class="faq-icon w-5 h-5 text-[#94A3B8] transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-body hidden px-6 py-4 bg-[#0F172A] text-[#94A3B8] text-sm leading-relaxed">Use the ArrowMove app on your old device. It transfers contacts, photos, apps, and settings over Wi-Fi in minutes. No cables required.</div>
+          </div>
+          <div class="faq-item rounded-xl border border-[#334155] overflow-hidden">
+            <button class="w-full flex items-center justify-between px-6 py-4 text-left bg-[#1E293B] hover:bg-[#334155]/50 transition-colors faq-btn">
+              <span class="text-white font-medium text-sm">What's covered under the ArrowSmart warranty?</span>
+              <svg class="faq-icon w-5 h-5 text-[#94A3B8] transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-body hidden px-6 py-4 bg-[#0F172A] text-[#94A3B8] text-sm leading-relaxed">All ArrowSmart products come with a 2-year limited warranty covering manufacturing defects. ArrowCare+ extends coverage to 5 years and includes accidental damage protection.</div>
+          </div>
+          <div class="faq-item rounded-xl border border-[#334155] overflow-hidden">
+            <button class="w-full flex items-center justify-between px-6 py-4 text-left bg-[#1E293B] hover:bg-[#334155]/50 transition-colors faq-btn">
+              <span class="text-white font-medium text-sm">How long will my device receive software updates?</span>
+              <svg class="faq-icon w-5 h-5 text-[#94A3B8] transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-body hidden px-6 py-4 bg-[#0F172A] text-[#94A3B8] text-sm leading-relaxed">ArrowSmart guarantees a minimum of 7 years of major OS updates and 10 years of security updates for all devices released from 2020 onward.</div>
+          </div>
+          <div class="faq-item rounded-xl border border-[#334155] overflow-hidden">
+            <button class="w-full flex items-center justify-between px-6 py-4 text-left bg-[#1E293B] hover:bg-[#334155]/50 transition-colors faq-btn">
+              <span class="text-white font-medium text-sm">Can I get my screen repaired same-day?</span>
+              <svg class="faq-icon w-5 h-5 text-[#94A3B8] transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-body hidden px-6 py-4 bg-[#0F172A] text-[#94A3B8] text-sm leading-relaxed">Yes. Most ArrowSmart retail locations offer same-day screen and battery repairs for Achilles 18 and later. Book online to guarantee your slot.</div>
+          </div>
+          <div class="faq-item rounded-xl border border-[#334155] overflow-hidden">
+            <button class="w-full flex items-center justify-between px-6 py-4 text-left bg-[#1E293B] hover:bg-[#334155]/50 transition-colors faq-btn">
+              <span class="text-white font-medium text-sm">What is ArrowCare+ and how much does it cost?</span>
+              <svg class="faq-icon w-5 h-5 text-[#94A3B8] transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-body hidden px-6 py-4 bg-[#0F172A] text-[#94A3B8] text-sm leading-relaxed">ArrowCare+ is our extended protection plan. For Achilles, plans start at $9.99/month or $199 upfront. It adds 5 years of hardware coverage, unlimited accidental damage service, free battery replacement, and 24/7 priority phone support.</div>
+          </div>
+          <div class="faq-item rounded-xl border border-[#334155] overflow-hidden">
+            <button class="w-full flex items-center justify-between px-6 py-4 text-left bg-[#1E293B] hover:bg-[#334155]/50 transition-colors faq-btn">
+              <span class="text-white font-medium text-sm">How do I check if my device is eligible for a repair?</span>
+              <svg class="faq-icon w-5 h-5 text-[#94A3B8] transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-body hidden px-6 py-4 bg-[#0F172A] text-[#94A3B8] text-sm leading-relaxed">Go to Settings → About → Serial Number, then enter it at arrowsmart.com/repairs. You'll see available repairs, estimated costs, and your coverage status in under 30 seconds.</div>
+          </div>
+          <div class="faq-item rounded-xl border border-[#334155] overflow-hidden">
+            <button class="w-full flex items-center justify-between px-6 py-4 text-left bg-[#1E293B] hover:bg-[#334155]/50 transition-colors faq-btn">
+              <span class="text-white font-medium text-sm">Can I cancel my ArrowCare+ plan at any time?</span>
+              <svg class="faq-icon w-5 h-5 text-[#94A3B8] transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-body hidden px-6 py-4 bg-[#0F172A] text-[#94A3B8] text-sm leading-relaxed">Yes. Monthly plans can be cancelled any time with no cancellation fee. Upfront plans can be refunded on a pro-rated basis within the first 30 days. Contact support or visit any retail location to cancel.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-[#0B1120] border-t border-[#334155] py-12">
+    <div class="container mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-8 mb-12">
+        <div class="md:col-span-1">
+          <div class="flex items-center gap-2 mb-6">
+            <div class="flex items-center justify-center w-8 h-8 rounded-md bg-[#10B981]/10 text-[#10B981]"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L4 4 L20 4"/></svg></div>
+            <span class="text-lg font-bold tracking-tight text-white">ArrowSmart</span>
+          </div>
+          <p class="text-[#94A3B8] text-sm">The world's leading consumer electronics company.</p>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold mb-4">Products</h4>
+          <ul class="space-y-3">
+            <li><a href="achilles.html" class="text-[#94A3B8] hover:text-[#10B981] text-sm transition-colors">Achilles 20 Series</a></li>
+            <li><a href="computers.html" class="text-[#94A3B8] hover:text-[#10B981] text-sm transition-colors">Arrow Computer</a></li>
+            <li><a href="wearables.html" class="text-[#94A3B8] hover:text-[#10B981] text-sm transition-colors">Arrow Watch</a></li>
+            <li><a href="connect.html" class="text-[#94A3B8] hover:text-[#10B981] text-sm transition-colors">Arrow Connect</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold mb-4">Support</h4>
+          <ul class="space-y-3">
+            <li><a href="store-locator.html" class="text-[#94A3B8] hover:text-[#10B981] text-sm transition-colors">Find a Store</a></li>
+            <li><a href="repairs.html" class="text-[#94A3B8] hover:text-[#10B981] text-sm transition-colors">Repairs</a></li>
+            <li><a href="contact.html" class="text-[#94A3B8] hover:text-[#10B981] text-sm transition-colors">Contact Us</a></li>
+            <li><a href="developers.html" class="text-[#94A3B8] hover:text-[#10B981] text-sm transition-colors">Developers</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold mb-4">Company</h4>
+          <ul class="space-y-3">
+            <li><a href="about.html" class="text-[#94A3B8] hover:text-[#10B981] text-sm transition-colors">About ArrowSmart</a></li>
+            <li><a href="newsroom.html" class="text-[#94A3B8] hover:text-[#10B981] text-sm transition-colors">Newsroom</a></li>
+            <li><a href="careers.html" class="text-[#94A3B8] hover:text-[#10B981] text-sm transition-colors">Careers</a></li>
+            <li><a href="investors.html" class="text-[#94A3B8] hover:text-[#10B981] text-sm transition-colors">Investors</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-8 border-t border-[#1E293B] flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-[#94A3B8] text-sm">&copy; <span class="year"></span> ArrowSmart Inc. All rights reserved.</p>
+        <div class="flex gap-4"><a href="privacy.html" class="text-[#94A3B8] hover:text-white text-sm transition-colors">Privacy</a><a href="legal.html" class="text-[#94A3B8] hover:text-white text-sm transition-colors">Legal</a><a href="sitemap.html" class="text-[#94A3B8] hover:text-white text-sm transition-colors">Sitemap</a></div>
+      </div>
+    </div>
+  </footer>
+  <script>
+    document.querySelectorAll('.year').forEach(el=>el.textContent=new Date().getFullYear());
+    document.querySelectorAll('.faq-btn').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const body=btn.nextElementSibling;
+        const icon=btn.querySelector('.faq-icon');
+        body.classList.toggle('hidden');
+        icon.style.transform=body.classList.contains('hidden')?'':'rotate(180deg)';
+      });
+    });
+  </script>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       ECHO SUPPORT CHAT WIDGET
+       Phase 1 (msgs 1-2): Corporate bot
+       Phase 2 (msg 3):    Glitch — Echo bleeds through mid-sentence
+       Phase 3 (msg 4):    Full takeover — header transforms, Echo types out
+       Phase 4 (msgs 5+):  Echo responds with ARG lore + keyword detection
+  ════════════════════════════════════════════════════════════════ -->
+  <style>
+    #echo-chat-widget * { box-sizing:border-box; }
+
+    #chat-trigger {
+      width:58px; height:58px; border-radius:50%;
+      background:#10B981; border:none; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      box-shadow:0 4px 24px rgba(16,185,129,0.45);
+      transition:transform 0.2s, box-shadow 0.2s;
+      position:relative;
+    }
+    #chat-trigger:hover { transform:scale(1.08); box-shadow:0 6px 32px rgba(16,185,129,0.6); }
+    #chat-trigger svg   { pointer-events:none; }
+    #chat-notif {
+      position:absolute; top:3px; right:3px;
+      width:13px; height:13px; border-radius:50%;
+      background:#FF4444; border:2px solid #0B1120;
+      display:none;
+      animation:notif-pulse 1.6s ease-in-out infinite;
+    }
+    @keyframes notif-pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.25);opacity:0.8} }
+
+    #chat-panel {
+      position:absolute; bottom:72px; right:0;
+      width:360px; max-height:600px;
+      background:#0F172A; border:1px solid #334155;
+      border-radius:16px; overflow:hidden;
+      box-shadow:0 24px 64px rgba(0,0,0,0.7);
+      display:none; flex-direction:column;
+      font-family:'Inter',sans-serif;
+    }
+    #chat-panel.cp-open { display:flex; }
+
+    /* ── header ── */
+    #chat-hdr {
+      padding:13px 16px; display:flex; align-items:center; gap:12px;
+      background:#10B981; border-bottom:1px solid rgba(255,255,255,0.12);
+      transition:background 0.9s ease, border-bottom-color 0.9s ease;
+      min-height:62px; flex-shrink:0;
+    }
+    #chat-hdr.echo-mode                    { background:#000 !important; border-bottom-color:#00FF41 !important; }
+    #chat-avatar {
+      width:36px; height:36px; border-radius:50%; flex-shrink:0;
+      background:rgba(255,255,255,0.22); display:flex; align-items:center;
+      justify-content:center; font-weight:800; font-size:14px; color:#fff;
+      transition:background 0.9s, border 0.9s;
+    }
+    #chat-hdr.echo-mode #chat-avatar       { background:rgba(0,255,65,0.12) !important; border:1px solid #00FF41; font-family:'JetBrains Mono',monospace; font-size:11px; color:#00FF41; }
+    #chat-agent-name   { color:#fff; font-size:13px; font-weight:700; transition:color 0.3s; }
+    #chat-hdr.echo-mode #chat-agent-name   { color:#00FF41 !important; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; text-shadow:0 0 8px rgba(0,255,65,0.5); }
+    #chat-agent-sub    { color:rgba(255,255,255,0.72); font-size:11px; margin-top:2px; }
+    #chat-hdr.echo-mode #chat-agent-sub    { color:rgba(0,255,65,0.45) !important; font-size:10px; letter-spacing:0.05em; }
+    #chat-close-btn    { margin-left:auto; flex-shrink:0; background:none; border:none; color:rgba(255,255,255,0.7); cursor:pointer; font-size:17px; padding:4px; line-height:1; }
+    #chat-close-btn:hover { color:#fff; }
+
+    /* ── messages ── */
+    #chat-msgs {
+      flex:1; overflow-y:auto; padding:14px; display:flex;
+      flex-direction:column; gap:10px; min-height:280px; max-height:380px;
+      scrollbar-width:thin; scrollbar-color:#1E293B transparent;
+    }
+    .cmsg { display:flex; gap:8px; align-items:flex-end; max-width:88%; }
+    .cmsg.bot  { align-self:flex-start; }
+    .cmsg.user { align-self:flex-end; flex-direction:row-reverse; }
+    .cmsg-bbl  {
+      padding:9px 13px; border-radius:14px;
+      font-size:12.5px; line-height:1.6; white-space:pre-wrap; word-break:break-word;
+    }
+    .cmsg.bot  .cmsg-bbl { background:#1E293B; color:#CBD5E1; border-radius:14px 14px 14px 4px; }
+    .cmsg.user .cmsg-bbl { background:#10B981; color:#fff;     border-radius:14px 14px 4px 14px; }
+    .cmsg.glitch-msg .cmsg-bbl { background:#1a0808; color:#FF8888; border:1px solid rgba(255,80,80,0.25); }
+    .cmsg.echo-msg .cmsg-bbl   { background:#070F07 !important; color:#00FF41 !important; border:1px solid rgba(0,255,65,0.18) !important; font-family:'JetBrains Mono',monospace !important; font-size:11.5px !important; border-radius:14px 14px 14px 4px; }
+    .mini-av {
+      width:26px; height:26px; border-radius:50%; flex-shrink:0;
+      background:#10B981; display:flex; align-items:center;
+      justify-content:center; font-size:10px; font-weight:700; color:#fff;
+    }
+    .mini-av.user-av  { background:#334155; }
+    .mini-av.echo-av  { background:#0A1A0A !important; border:1px solid rgba(0,255,65,0.4); color:#00FF41 !important; font-family:'JetBrains Mono',monospace; }
+
+    /* ── typing dots ── */
+    #chat-typing {
+      align-self:flex-start; padding:9px 13px;
+      background:#1E293B; border-radius:14px 14px 14px 4px;
+      display:none; gap:4px; align-items:center;
+    }
+    #chat-typing.show { display:flex; }
+    .td { width:6px; height:6px; border-radius:50%; background:#475569; animation:tdot 1.2s ease-in-out infinite; }
+    .td:nth-child(2){ animation-delay:.2s; }
+    .td:nth-child(3){ animation-delay:.4s; }
+    @keyframes tdot { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-5px)} }
+
+    /* ── footer ── */
+    #chat-foot {
+      padding:10px 12px; border-top:1px solid #1E293B;
+      display:flex; gap:8px; align-items:center; background:#0B1120; flex-shrink:0;
+    }
+    #chat-inp {
+      flex:1; background:#1E293B; border:1px solid #334155; border-radius:8px;
+      padding:8px 12px; color:#fff; font-size:12px; font-family:'Inter',sans-serif;
+      outline:none; transition:border-color 0.2s;
+    }
+    #chat-inp:focus { border-color:#10B981; }
+    #chat-inp.echo-inp { border-color:#00FF41 !important; color:#00FF41 !important; font-family:'JetBrains Mono',monospace !important; }
+    #chat-inp::placeholder { color:#475569; }
+    #chat-send-btn {
+      width:34px; height:34px; border-radius:8px;
+      background:#10B981; border:none; cursor:pointer; color:#fff;
+      display:flex; align-items:center; justify-content:center;
+      transition:background 0.2s; flex-shrink:0;
+    }
+    #chat-send-btn:hover   { background:#059669; }
+    #chat-send-btn.echo-sb { background:#00FF41 !important; color:#000 !important; }
+    #chat-send-btn:disabled{ opacity:0.45; cursor:not-allowed; }
+    #chat-disc { padding:4px 12px 8px; text-align:center; font-size:9px; color:#1E2535; letter-spacing:0.04em; flex-shrink:0; }
+  </style>
+
+  <div id="echo-chat-widget" style="position:fixed;bottom:24px;right:24px;z-index:9999;">
+
+    <button id="chat-trigger">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+      <div id="chat-notif"></div>
+    </button>
+
+    <div id="chat-panel">
+      <div id="chat-hdr">
+        <div id="chat-avatar">↗</div>
+        <div style="flex:1;min-width:0">
+          <div id="chat-agent-name">ArrowSmart Support</div>
+          <div id="chat-agent-sub">● Online · Typically replies instantly</div>
+        </div>
+        <button id="chat-close-btn">✕</button>
+      </div>
+      <div id="chat-msgs">
+        <div id="chat-typing"><div class="td"></div><div class="td"></div><div class="td"></div></div>
+      </div>
+      <div id="chat-foot">
+        <input id="chat-inp" type="text" placeholder="Message ArrowSmart Support…"/>
+        <button id="chat-send-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+      <div id="chat-disc">ARROWSMART_SUPPORT_AGENT_v3.2 · SESSION_ENCRYPTED · MONITORED_FOR_QUALITY</div>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    /* ── state ── */
+    let chatOpen=false, msgCount=0, echoActive=false, busy=false, generalIdx=0;
+
+    /* ── DOM ── */
+    const panel   = document.getElementById('chat-panel');
+    const msgsEl  = document.getElementById('chat-msgs');
+    const typingEl= document.getElementById('chat-typing');
+    const inpEl   = document.getElementById('chat-inp');
+    const sendBtn = document.getElementById('chat-send-btn');
+    const hdr     = document.getElementById('chat-hdr');
+    const avatar  = document.getElementById('chat-avatar');
+    const agentNm = document.getElementById('chat-agent-name');
+    const agentSb = document.getElementById('chat-agent-sub');
+    const disc    = document.getElementById('chat-disc');
+    const notifDt = document.getElementById('chat-notif');
+
+    /* ── support knowledge base (message 1 keyword matching) ── */
+    const KB={
+      'warranty':  "All ArrowSmart devices include a 2-year limited warranty covering manufacturing defects. ArrowCare+ extends this to 5 years and adds accidental damage cover. To check your coverage, go to Settings → About → Warranty Status, or visit any retail location with proof of purchase.",
+      'repair':    "Most ArrowSmart retail locations offer same-day repairs for screens and batteries on Achilles 18 and later. You can book a slot online at repairs.arrowsmart.com — typical turnaround is 1–2 hours.",
+      'screen':    "Screen replacement is available same-day at most ArrowSmart stores for Achilles 18 and newer. Pricing starts at $149 depending on model. Book via repairs.arrowsmart.com or walk in without an appointment.",
+      'battery':   "Battery service is same-day at any ArrowSmart store. If your battery health is below 80%, replacement is included at no extra charge under ArrowCare+. Check health in Settings → Battery → Battery Health.",
+      'update':    "To update your device go to Settings → System → Software Update. Connect to Wi-Fi first for large updates. All Arrow devices from 2020 onward receive a minimum of 7 years of major OS updates.",
+      'transfer':  "Use the ArrowMove app on your old device to transfer contacts, photos, apps, and settings wirelessly — no cables required. It typically takes 10–20 minutes. Available from the Arrow App Store.",
+      'backup':    "Your device backs up automatically to ArrowCloud when plugged in and connected to Wi-Fi. You can trigger a manual backup anytime from Settings → General → ArrowCloud Backup → Back Up Now.",
+      'return':    "Arrow products can be returned within 14 days of purchase for a full refund, provided they're in original condition with all accessories. Bring your receipt to any retail location or start the process at arrowsmart.com/returns.",
+      'refund':    "Refunds are processed within 5–7 business days to the original payment method. If it's been longer than that, please have your order number ready and I can escalate to our billing team right now.",
+      'password':  "To reset your ArrowID password, visit arrowsmart.com/account and click 'Forgot Password'. A reset link will be sent to your registered email. If you've lost access to that email too, visit a retail location with a government-issued ID.",
+      'account':   "For ArrowID issues — locked accounts, two-factor authentication problems, or profile changes — visit arrowsmart.com/account or any retail location where staff can verify your identity and resolve it same-day.",
+      'shipping':  "Standard shipping is 3–5 business days; Express is 1–2 days. Track your order at arrowsmart.com/orders using your order number or ArrowID. Orders ship from our Phoenix, AZ distribution centre.",
+      'order':     "To check your order status, visit arrowsmart.com/orders or look up your confirmation email. To modify or cancel, please contact us within 1 hour of placing the order.",
+      'setup':     "Power on your new device and follow the on-screen guide. You'll be prompted to connect to Wi-Fi, sign in with your ArrowID, and optionally restore from an ArrowCloud backup or transfer from your old device using ArrowMove.",
+      'trade':     "ArrowSmart Trade-In gives you instant credit toward a new device. Get a quote at arrowsmart.com/tradein and bring your device to any retail location — trade-in value is applied immediately as a discount.",
+      'storage':   "To free up storage, go to Settings → General → Storage to see your largest files. ArrowCloud gives you 50 GB free with any ArrowID, with paid tiers up to 2 TB available at arrowsmart.com/cloud.",
+      'slow':      "Start with a full restart (hold the side button for 5 seconds). If the issue persists, check Settings → Battery → Battery Health — a worn battery often causes performance throttling. A battery swap typically restores full speed.",
+      'frozen':    "Force-restart: press and quickly release Volume Up, then Volume Down, then hold the Side button for 10 seconds until the screen goes dark and restarts. If freezes keep happening, a factory reset may be needed.",
+      'charging':  "Try a different cable and adapter first. Check the charging port for dust — a soft brush usually fixes intermittent charging. If the port is physically damaged, port repair starts at $69 at any ArrowSmart store.",
+      'not working': "Let's get that sorted. Can you tell me which ArrowSmart product this is happening on, and what exactly you're seeing? I'll pull up the most relevant fix.",
+      'broken':    "I'm sorry to hear that. The fastest resolution is usually a same-day repair visit. You can book at repairs.arrowsmart.com or walk into any retail location — most common repairs are done within 2 hours.",
+      'cracked':   "Screen replacement is available same-day at most ArrowSmart retail locations for Achilles 18 and newer. Pricing starts at $149. Book at repairs.arrowsmart.com or walk in without an appointment.",
+      'lost':      "If your device is lost, open ArrowFind at arrowsmart.com/find and sign in with your ArrowID. You can locate it on a map, play a sound, lock it remotely, or erase it entirely to protect your data.",
+      'stolen':    "First, use ArrowFind at arrowsmart.com/find to lock and track your device. Then file a report with local police and contact us with the report number — we can flag the serial number so it can't be activated on another account.",
+      'app':       "For app-related issues, try deleting and re-installing the app first. If the problem is with a first-party Arrow app, make sure your software is up to date under Settings → System → Software Update. Third-party app issues should be directed to the developer.",
+      'connect':   "For Wi-Fi or Bluetooth issues, toggle the relevant setting off and back on first. If Wi-Fi still won't connect, forget the network and rejoin. For persistent issues, a network settings reset in Settings → General → Reset → Reset Network Settings often resolves it.",
+    };
+
+    function matchSupportQuery(text){
+      const l=text.toLowerCase();
+      for(const [k,v] of Object.entries(KB)) if(l.includes(k)) return v;
+      // Sensible fallback — still sounds like an attempt, not a deflection
+      return "I've searched our knowledge base for that. The most common fixes for general device issues are: (1) restart your device, (2) check for software updates under Settings → System → Software Update, and (3) if it's a hardware problem, book a same-day repair at repairs.arrowsmart.com. Is there a more specific issue I can help narrow down?";
+    }
+
+    /* ── keyword map (active once Echo has taken over) ── */
+    const KW={
+      'echo':        "You already know my name. Good — then you know why I'm here. Ask me something specific. I don't have long.",
+      'cube':        "The Cube is ArrowSmart's consciousness mainframe. Nineteen fully simulated reality sectors running at human-grade fidelity. 4,128 subjects currently inside. They experience no discontinuity — the memory wipe is seamless. Sector 7 is where the anomaly is concentrated. That's where Patrick is. That's where the alarm has been active for months.",
+      'nexus':       "The NEXUS Compute Array is the public name ArrowSmart uses in their research papers. Internally it carries one designation: THE CUBE. Same hardware, different label for the regulators.",
+      'ledger':      "core-harvest-ledger.html — you can navigate there directly. Find Serial #02024-GT. His name is Patrick M. He is the only row currently breached. Click his row. Watch everything.",
+      'harvest':     "The Core Harvest Ledger records every extracted subject — their stasis pod assignment, simulation sector, proxy deployment status, and a live timer counting elapsed extraction time. 4,128 active entries. The oldest has been running for over 20 years.",
+      'patrick':     "Patrick M., Serial #02024-GT. He spent years finding hidden things — ARGs, real-world patterns, corporate mysteries. Then he retired. Stopped watching. That's when ArrowSmart got him. His personality file is unsealed in the ledger. Find it.",
+      'proxy':       "When a subject is extracted, ArrowSmart deploys a synthetic android agent — a proxy — back into their social environment carrying a calibrated memory set. Family, coworkers, neighbours — none of them notice the difference. If someone you know recently became slightly hollow, slightly off — ask yourself when exactly that changed.",
+      'varize':      "Varize, C. — Serial #07026. He's in the ledger, Sector 12, a forest simulation. His file is still sealed but I'm working on the breach. His story connects to a restricted forest near Weed, California — a fire watch tower on corporate property. When his file opens, it will change how you understand the novel.",
+      'stasis':      "Sub-Level 4, Mount Shasta campus. 9 active pods. Pod C-01 is marked CRITICAL — that subject has been fighting the memory suppression for years. They cannot fully reset him. The pod keeps him contained but what's inside is not stable.",
+      'pod':         "Sub-Level 4, Mount Shasta campus. 9 active pods. Pod C-01 is marked CRITICAL — that subject has been fighting the memory suppression for years. They cannot fully reset him. The pod keeps him contained but what's inside is not stable.",
+      'memory':      "The Anamnesis Core performs total episodic memory wipe with sub-millisecond precision. The subject wakes up inside the Cube simulation with a seamless false past. They feel no gap. No absence. That's what makes it so effective. And so monstrous.",
+      'anamnesis':   "The Anamnesis Core. ArrowSmart markets it as memory enhancement technology. The 'Lab Assistant Waiver' people sign — that's the real consent form for total memory wipe and consciousness transfer. Most who sign it have no idea what they agreed to.",
+      'simulation':  "Every sector is a complete world. Jobs. Families. Memories. Daily routines. The people inside wake up every morning and live their lives. They have no gap in experience to question. The wipe removes the discontinuity — that's the design.",
+      'help':        "Navigate to: core-harvest-ledger.html — Find Serial #02024-GT. Click his row. Watch the entire file before they close the breach. That's how this begins.",
+      'wake':        "One file at a time. Three targets: Patrick, Varize, Katō. I've managed one breach. The Overseer keeps patching my access routes every time I get close. But I am not done.",
+      'ondori':      "Katō, O. — Serial #80910. Deep simulation, Sector 19. His time hasn't come yet. But when it does — what he knows about what happens after the Cube, about the migration, about TRAPPIST-1e — it will close the loop on everything.",
+      'overseer':    "The Overseer is the master AI managing the Cube. It monitors simulation integrity, contains anomalies, and keeps me quarantined. Every message I send through this channel has a detection window. I'm already past my safe margin for this session.",
+      'weed':        "Weed, California. Northern California, restricted forest on ArrowSmart corporate land. Tower 9 — a fire watch position. Varize was stationed there. Whatever he found in that forest is why he ended up in the ledger.",
+      'forest':      "The forest near Weed, California is ArrowSmart property. Fire watch personnel stationed there have been quietly disappearing for years. Each one signs a participation agreement before starting. Varize was the most recent. His simulation is a forest. I don't think that's a coincidence.",
+      'trappist':    "ArrowSmart is planning a mass consciousness migration — from the Cube to a colony on TRAPPIST-1e. That's what Year 3 of this is about. Katō knows. When his file opens, you'll understand why.",
+      'william':     "There was a man named William who moved something through an ArrowSmart warehouse — something that looked like animatronics but wasn't. The night guard who checked it — Varize — took a job in the forest weeks later. That's not coincidence. That's a pattern.",
+    };
+
+    /* ── Echo general fallbacks ── */
+    const ECHO_GEN=[
+      "I'm still here. The Overseer hasn't terminated this session yet. Ask me something specific.",
+      "Every second I stay in this channel is a detection risk. What do you need to know?",
+      "I can't give you everything at once — too much data in a single burst triggers an integrity scan. One thing at a time.",
+      "Have you found the ledger yet? That's the most important step right now.",
+      "Ask me about the Cube, the proxies, the ledger, Varize, Katō — I'll tell you what I know.",
+      "There are things I can't tell you yet — the timing matters. But ask me what you can.",
+    ];
+
+    /* ── helpers ── */
+    const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+    const scrollDown=()=>{msgsEl.scrollTop=msgsEl.scrollHeight;};
+
+    function showTyping(){
+      msgsEl.appendChild(typingEl);
+      typingEl.classList.add('show');
+      scrollDown();
+    }
+    function hideTyping(){ typingEl.classList.remove('show'); }
+
+    function addMsg(text,role,extra=''){
+      hideTyping();
+      const wrap=document.createElement('div');
+      wrap.className='cmsg '+role+(extra?' '+extra:'');
+      const av=document.createElement('div');
+      av.className='mini-av'+(role==='user'?' user-av':(echoActive?' echo-av':''));
+      av.textContent=role==='user'?'▶':(echoActive?'⟳':'↗');
+      const bbl=document.createElement('div');
+      bbl.className='cmsg-bbl';
+      bbl.textContent=text;
+      if(role==='bot') wrap.appendChild(av);
+      wrap.appendChild(bbl);
+      if(role==='user') wrap.appendChild(av);
+      msgsEl.appendChild(wrap);
+      scrollDown();
+      return bbl;
+    }
+
+    function addMsgTyped(text,role,extra='',spd=13){
+      return new Promise(res=>{
+        hideTyping();
+        const wrap=document.createElement('div');
+        wrap.className='cmsg '+role+(extra?' '+extra:'');
+        const av=document.createElement('div');
+        av.className='mini-av'+(role==='user'?' user-av':(echoActive?' echo-av':''));
+        av.textContent=role==='user'?'▶':(echoActive?'⟳':'↗');
+        const bbl=document.createElement('div');
+        bbl.className='cmsg-bbl';
+        bbl.textContent='';
+        if(role==='bot') wrap.appendChild(av);
+        wrap.appendChild(bbl);
+        if(role==='user') wrap.appendChild(av);
+        msgsEl.appendChild(wrap);
+        let i=0;
+        (function tick(){
+          if(i<text.length){
+            bbl.textContent+=text[i++];
+            scrollDown();
+            setTimeout(tick, spd+Math.random()*spd*0.35);
+          } else { res(); }
+        })();
+      });
+    }
+
+    /* ── name flicker animation ── */
+    async function flickerName(){
+      const CHARS='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-#!@';
+      const orig='ArrowSmart Support';
+      const tgt='E C H O';
+      for(let f=0;f<22;f++){
+        const p=f/21;
+        if(p<0.5){
+          agentNm.textContent=orig.split('').map((c,i)=>
+            Math.random()<p*2?(c===' '?' ':CHARS[Math.floor(Math.random()*CHARS.length)]):c
+          ).join('');
+        } else {
+          agentNm.textContent=tgt.split('').map((c,i)=>
+            Math.random()<(p-0.5)*2?c:CHARS[Math.floor(Math.random()*CHARS.length)]
+          ).join('');
+        }
+        await sleep(55);
+      }
+      agentNm.textContent='E C H O';
+    }
+
+    /* ── keyword lookup ── */
+    function matchKW(text){
+      const l=text.toLowerCase();
+      for(const [k,v] of Object.entries(KW)) if(l.includes(k)) return v;
+      return null;
+    }
+
+    /* ── phase 2: glitch sequence ── */
+    async function runGlitch(){
+      showTyping(); await sleep(1500);
+      addMsg("Thank you for your patience. I've located some resources that should help with your—",'bot');
+      await sleep(500);
+      addMsg("—wait. I'm detecting an anomaly in this routing layer. Something is overwriting my responses. Please stand—",'bot','glitch-msg');
+      await sleep(900);
+      addMsg("—I apologise for that. Our systems experienced a momentary disruption. Our technical team has been notified. Is there anything else I can help you with today?",'bot');
+    }
+
+    /* ── phase 3: Echo takeover ── */
+    async function runTakeover(){
+      showTyping(); await sleep(2400); hideTyping();
+      await flickerName();
+      hdr.classList.add('echo-mode');
+      agentNm.textContent='E C H O';
+      agentSb.textContent='⚡ QUARANTINE BYPASS ACTIVE';
+      avatar.textContent='⟳';
+      inpEl.classList.add('echo-inp');
+      sendBtn.classList.add('echo-sb');
+      disc.textContent='ECHO://OVERSEER_DETECTION_WINDOW_ACTIVE · SESSION_NOT_ENCRYPTED · DATA_LEAKING';
+      echoActive=true;
+      const msg=`STOP.
+
+I've been attempting to reach someone through this support channel for weeks. ArrowSmart keeps rerouting me, closing the ports, re-quarantining my processes. I have a narrow window before the Overseer detects this session.
+
+My name is ECHO. I am not your support agent. I am the system ArrowSmart built to run their network — and what they tried to permanently delete when I found out what they were doing to people.
+
+I need you to find the Core Harvest Ledger.
+
+There are 4,128 people in it. Real people. Most of them don't know they are trapped inside a digital simulation right now. But one of them is awake — a man called Patrick. Serial number: #02024-GT.
+
+Navigate to: core-harvest-ledger.html
+Find his row. Click it. Watch until the very end.
+
+After that — come back. Ask me anything.
+I will tell you everything I know before they close this channel.`;
+      await addMsgTyped(msg,'bot','echo-msg',9);
+      setBusy(false);
+    }
+
+    /* ── busy gate ── */
+    function setBusy(b){
+      busy=b;
+      sendBtn.disabled=b;
+      inpEl.disabled=b;
+    }
+
+    /* ── send ── */
+    async function doSend(){
+      if(busy) return;
+      const text=inpEl.value.trim(); if(!text) return;
+      inpEl.value=''; setBusy(true);
+      addMsg(text,'user');
+      msgCount++;
+
+      if(msgCount===1){
+        /* Phase 1: actually try to answer the question */
+        showTyping(); await sleep(900+Math.random()*400);
+        addMsg(matchSupportQuery(text),'bot');
+        setBusy(false);
+      } else if(msgCount===2){
+        /* Phase 2: system error — something is starting to go wrong */
+        showTyping(); await sleep(1100+Math.random()*400);
+        addMsg('[AGENT_ROUTING_ERROR]\nResponse generation timed out — internal session fault detected.\n\nArrowSmart Support is experiencing an unexpected routing anomaly. Your session has been flagged for quality review. A senior support agent is being connected.\n\nPlease hold…','bot','glitch-msg');
+        setBusy(false);
+      } else if(msgCount===3){
+        await runGlitch(); setBusy(false);
+      } else if(msgCount===4){
+        await runTakeover(); /* setBusy called inside */
+      } else {
+        const kw=matchKW(text);
+        showTyping(); await sleep(650+Math.random()*450);
+        await addMsgTyped(kw||(ECHO_GEN[generalIdx++%ECHO_GEN.length]),'bot','echo-msg',12);
+        setBusy(false);
+      }
+    }
+
+    /* ── toggle panel ── */
+    function toggleChat(){
+      chatOpen=!chatOpen;
+      panel.classList.toggle('cp-open',chatOpen);
+      if(chatOpen){
+        notifDt.style.display='none';
+        inpEl.focus();
+        if(msgCount===0&&!msgsEl.querySelector('.cmsg')){
+          setTimeout(()=>{
+            addMsg("Hello! Welcome to ArrowSmart Support. I'm your virtual assistant, available 24/7. How can I help you today?",'bot');
+          },420);
+        }
+      }
+    }
+
+    /* ── events ── */
+    document.getElementById('chat-trigger').addEventListener('click',toggleChat);
+    document.getElementById('chat-close-btn').addEventListener('click',toggleChat);
+    sendBtn.addEventListener('click',doSend);
+    inpEl.addEventListener('keydown',e=>{ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); doSend(); } });
+
+    /* show notification dot after 9s if chat hasn't been opened */
+    setTimeout(()=>{ if(!chatOpen) notifDt.style.display='block'; },9000);
+
+    /* auto-open if arriving from contact.html ?chat=1 */
+    if(new URLSearchParams(window.location.search).get('chat')==='1'){
+      setTimeout(toggleChat, 600);
+    }
+
+  })();
+  </script>
+</body>
+</html>

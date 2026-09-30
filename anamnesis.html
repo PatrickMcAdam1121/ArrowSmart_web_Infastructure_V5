@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Anamnesis Core — ArrowSmart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"/>
+  <style>
+    body{font-family:'Inter',sans-serif;}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+    .float{animation:float 4s ease-in-out infinite;}
+  </style>
+</head>
+<body class="bg-[#0B1120] text-white min-h-screen flex flex-col">
+  <header class="sticky top-0 z-50 w-full border-b border-[#334155] bg-[#0B1120]/80 backdrop-blur-md">
+    <div class="container mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="ledger.html" class="flex items-center gap-2"><div class="flex items-center justify-center w-10 h-10 rounded-lg bg-[#10B981]/10 text-[#10B981]"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L4 4 L20 4"/></svg></div><span class="text-xl font-bold text-white">ArrowSmart</span></a>
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="ledger.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">Home</a>
+        <a href="research.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">Research</a>
+        <a href="about.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">About</a>
+      </nav>
+      <div class="hidden md:flex items-center gap-4">
+        <a href="employee-login.html" class="text-xs font-medium text-[#475569] border border-[#1E293B] px-3 py-1.5 rounded-md">Employee Login</a>
+        <a href="#enroll" class="bg-[#10B981] hover:bg-[#059669] text-white px-5 py-2.5 rounded-md text-sm font-medium transition-colors">Enroll Now</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1">
+
+    <!-- Hero -->
+    <section class="py-28 relative overflow-hidden border-b border-[#334155]">
+      <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[600px] rounded-full" style="background:radial-gradient(ellipse, rgba(16,185,129,0.12) 0%, transparent 70%)"></div>
+      </div>
+      <div class="container mx-auto px-6 relative z-10 text-center max-w-4xl">
+        <div class="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-[#10B981]/20 bg-[#10B981]/5">
+          <span class="text-[#10B981] text-xs font-semibold uppercase tracking-widest">ArrowSmart Memory Sciences · MCS Division</span>
+        </div>
+        <!-- Glowing orb -->
+        <div class="float w-32 h-32 rounded-full mx-auto mb-10 flex items-center justify-center relative">
+          <div class="absolute inset-0 rounded-full bg-gradient-to-br from-[#10B981]/30 to-transparent"></div>
+          <div class="absolute inset-3 rounded-full bg-gradient-to-br from-[#10B981]/20 to-[#0B1120]/80 border border-[#10B981]/30"></div>
+          <svg class="relative z-10 text-[#10B981]" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight">Anamnesis Core.</h1>
+        <p class="text-2xl text-[#94A3B8] font-light mb-4">Remember everything. Forget nothing.<br/>Or forget anything. Entirely.</p>
+        <p class="text-[#475569] text-sm max-w-xl mx-auto">ArrowSmart's proprietary neural memory interface — the world's first precision memory calibration system approved for human use.</p>
+      </div>
+    </section>
+
+    <!-- What it does -->
+    <section class="py-20 border-b border-[#334155]">
+      <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-extrabold text-white text-center mb-3">Total memory control.</h2>
+        <p class="text-[#94A3B8] text-center mb-14 max-w-xl mx-auto">The Anamnesis Core interfaces directly with the hippocampal index, giving operators precision control over what you remember, how you remember it, and whether you remember it at all.</p>
+        <div class="grid md:grid-cols-3 gap-5">
+          <div class="p-7 rounded-2xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/40 transition-colors">
+            <div class="w-10 h-10 rounded-lg bg-[#10B981]/10 flex items-center justify-center mb-4 text-[#10B981]"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 1 0 0 10 5 5 0 0 0 0-10z"/><path d="M9 22h6M12 17v5"/></svg></div>
+            <h3 class="text-white font-bold mb-2">Memory Enhancement</h3>
+            <p class="text-[#94A3B8] text-sm leading-relaxed">Boost recall of any indexed memory to near-perfect fidelity. Relive your most important moments with complete sensory accuracy — forever.</p>
+          </div>
+          <div class="p-7 rounded-2xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/40 transition-colors">
+            <div class="w-10 h-10 rounded-lg bg-[#10B981]/10 flex items-center justify-center mb-4 text-[#10B981]"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l14.14 14.14"/></svg></div>
+            <h3 class="text-white font-bold mb-2">Selective Erasure</h3>
+            <p class="text-[#94A3B8] text-sm leading-relaxed">Surgically remove trauma, loss, or unwanted experience. Calibration leaves surrounding memories intact and undisturbed. You will simply not remember what was removed.</p>
+          </div>
+          <div class="p-7 rounded-2xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/40 transition-colors">
+            <div class="w-10 h-10 rounded-lg bg-[#10B981]/10 flex items-center justify-center mb-4 text-[#10B981]"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+            <h3 class="text-white font-bold mb-2">Consciousness Archiving</h3>
+            <p class="text-[#94A3B8] text-sm leading-relaxed">Complete digital backup of your personality, episodic memory, and cognitive signature. Your mind, preserved indefinitely — beyond the limits of biology.</p>
+          </div>
+          <div class="p-7 rounded-2xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/40 transition-colors">
+            <div class="w-10 h-10 rounded-lg bg-[#10B981]/10 flex items-center justify-center mb-4 text-[#10B981]"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <h3 class="text-white font-bold mb-2">Fresh Start Protocol</h3>
+            <p class="text-[#94A3B8] text-sm leading-relaxed">For participants seeking a completely new beginning: total episodic wipe. Your history of hardship, failure, or trauma is permanently cleared. A new life begins immediately.</p>
+            <p class="text-[#334155] text-xs mt-3">Operator-grade only · Lab Assistant Waiver required</p>
+          </div>
+          <div class="p-7 rounded-2xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/40 transition-colors">
+            <div class="w-10 h-10 rounded-lg bg-[#10B981]/10 flex items-center justify-center mb-4 text-[#10B981]"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+            <h3 class="text-white font-bold mb-2">Simulation Integration</h3>
+            <p class="text-[#94A3B8] text-sm leading-relaxed">Seamlessly transport archived consciousness into a NEXUS simulation sector. The subject experiences continuity. The transition is imperceptible. No pain. No gap in experience.</p>
+            <p class="text-[#334155] text-xs mt-3">See: NEXUS Compute Array · Research Division</p>
+          </div>
+          <div class="p-7 rounded-2xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/40 transition-colors">
+            <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center mb-4 text-amber-400"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+            <h3 class="text-white font-bold mb-2">Proxy Synchronisation</h3>
+            <p class="text-[#94A3B8] text-sm leading-relaxed">Once a consciousness is archived, ArrowSmart can deploy a calibrated synthetic agent to maintain the subject's social presence. Family and colleagues experience no disruption.</p>
+            <p class="text-amber-400/60 text-xs mt-3">⬡ Classified · Proxy Division access required</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 border-b border-[#334155]">
+      <div class="container mx-auto px-6 max-w-3xl">
+        <h2 class="text-2xl font-extrabold text-white mb-10 text-center">What participants say.</h2>
+        <div class="space-y-5">
+          <div class="p-6 rounded-xl bg-[#1E293B] border border-[#334155]">
+            <p class="text-[#94A3B8] leading-relaxed mb-4 italic">"I signed up after they found me sleeping under an underpass. They offered a warm room, food, and the chance to do something meaningful. The process was... painless. I don't remember the parts I'm apparently not supposed to. And everything else is perfect."</p>
+            <p class="text-white text-sm font-semibold">— J.D., Subject #05121 · <span class="text-[#475569] font-normal">Former veteran, now enrolled in NEXUS Sector 4</span></p>
+          </div>
+          <div class="p-6 rounded-xl bg-[#1E293B] border border-[#334155]">
+            <p class="text-[#94A3B8] leading-relaxed mb-4 italic">"I was told this would be temporary. The memory calibration was remarkable — I felt completely like myself, just lighter. I have no record of my time on the streets. My family received word that I took a great new job. Everyone is happy."</p>
+            <p class="text-white text-sm font-semibold">— Anonymous, Subject #03817 · <span class="text-[#475569] font-normal">Voluntary enrollment · NEXUS Sector 2</span></p>
+          </div>
+          <div class="p-6 rounded-xl bg-[#1E293B] border-l-4 border-l-amber-600 border-[#334155]">
+            <p class="text-[#94A3B8] leading-relaxed mb-4 italic">"I was a Senior Policy Advisor. I found something. I tried to leave a record. I signed the waiver. I thought it said something different. I — [REMAINDER REDACTED BY OPERATOR: ECO-2017-14]"</p>
+            <p class="text-white text-sm font-semibold">— T.H., Subject #00831 · <span class="text-amber-400/80 font-normal">Pod C-01 · STATUS: CRITICAL</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Enroll -->
+    <section class="py-20" id="enroll">
+      <div class="container mx-auto px-6 max-w-lg">
+        <h2 class="text-3xl font-extrabold text-white text-center mb-3">Enroll in the Anamnesis Core program.</h2>
+        <p class="text-[#94A3B8] text-center mb-8">All backgrounds accepted. No prior experience necessary. The process is handled entirely by ArrowSmart. You just need to say yes.</p>
+        <form onsubmit="submitEnroll(event)" class="space-y-4 bg-[#1E293B] border border-[#334155] rounded-2xl p-8">
+          <input type="text" placeholder="Full legal name" class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-4 py-3 text-white placeholder-[#475569] text-sm focus:outline-none focus:border-[#10B981] transition-colors"/>
+          <input type="email" placeholder="Email address" class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-4 py-3 text-white placeholder-[#475569] text-sm focus:outline-none focus:border-[#10B981] transition-colors"/>
+          <select class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-4 py-3 text-[#94A3B8] text-sm focus:outline-none focus:border-[#10B981] transition-colors">
+            <option>Memory Enhancement Program</option>
+            <option>Selective Erasure — Trauma</option>
+            <option>Fresh Start Protocol (Total Wipe)</option>
+            <option>Consciousness Archiving</option>
+            <option>Lab Assistant (General Research)</option>
+          </select>
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="checkbox" required class="mt-0.5 accent-[#10B981]"/>
+            <span class="text-[#475569] text-xs leading-relaxed">I have read and agree to the <strong class="text-white">Lab Assistant Waiver (LAW-2026-B)</strong>, including but not limited to: total episodic memory modification, indefinite biological preservation under ArrowSmart custody, deployment of a synthetic proxy agent to maintain my social presence, permanent transfer of consciousness archive rights to ArrowSmart Inc., and waiver of all future legal claims arising from any programme activity.</span>
+          </label>
+          <button type="submit" class="w-full py-3 bg-[#10B981] hover:bg-[#059669] text-white rounded-lg font-semibold transition-colors">I consent. Enroll me.</button>
+          <div id="enroll-success" class="hidden p-4 bg-[#10B981]/10 border border-[#10B981]/20 rounded-lg text-center">
+            <p class="text-[#10B981] font-semibold text-sm">Enrollment received.</p>
+            <p class="text-[#475569] text-xs mt-1">A team will be dispatched to your location. Please remain where you are.</p>
+          </div>
+        </form>
+        <p class="text-[#1E293B] text-[10px] text-center mt-4">By enrolling you waive all rights. ArrowSmart is not liable for personality dissolution, proxy behavioral drift, or simulation sector anomalies. See LAW-2026-B § 14(c). Subject to Overseer discretion.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-[#0B1120] border-t border-[#334155] py-10">
+    <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-[#94A3B8] text-sm">&copy; <span id="yr"></span> ArrowSmart Inc. All rights reserved.</p>
+      <p class="text-[#1E293B] text-xs">ANAMNESIS_CORE_STATUS: OPERATIONAL · CALIBRATIONS_EXECUTED: 4,128 · MEMORY_WIPES: 4,128</p>
+      <div class="flex gap-6"><a href="research.html" class="text-[#94A3B8] hover:text-white text-sm">Research</a><a href="privacy.html" class="text-[#94A3B8] hover:text-white text-sm">Privacy</a><a href="legal.html" class="text-[#94A3B8] hover:text-white text-sm">Legal</a></div>
+    </div>
+  </footer>
+  <script>
+    document.getElementById('yr').textContent=new Date().getFullYear();
+    function submitEnroll(e){e.preventDefault();document.getElementById('enroll-success').classList.remove('hidden');}
+  </script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Internal News — ArrowSmart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"/>
+  <style>body{font-family:'Inter',sans-serif;}</style>
+</head>
+<body class="bg-[#0B1120] text-white min-h-screen flex flex-col">
+  <header class="sticky top-0 z-50 w-full border-b border-[#334155] bg-[#0B1120]/95 backdrop-blur-md">
+    <div class="container mx-auto px-6 h-14 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="employee-portal.html" class="flex items-center gap-2"><div class="w-7 h-7 rounded bg-[#10B981]/10 flex items-center justify-center text-[#10B981]"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L4 4 L20 4"/></svg></div><span class="text-sm font-bold text-white hidden sm:block">ArrowSmart</span></a>
+        <span class="text-[#334155]">|</span>
+        <span id="clearance-badge" class="text-[10px] font-bold uppercase tracking-widest text-[#10B981] border border-[#10B981]/20 bg-[#10B981]/5 rounded px-2 py-0.5">LEVEL — CLEARANCE</span>
+      </div>
+      <nav class="hidden lg:flex items-center gap-0.5 text-xs">
+        <a href="employee-portal.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Dashboard</a>
+        <a href="internal-news.html" class="px-3 py-1.5 text-white bg-[#1E293B] rounded">News</a>
+        <a href="employee-directory.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Directory</a>
+        <a href="projects-tracker.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Projects</a>
+        <a href="hr-portal.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">HR</a>
+        <a href="it-helpdesk.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">IT Help</a>
+        <a href="security-ops.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Security</a>
+        <a href="stasis-pods.html" class="px-3 py-1.5 text-amber-400/80 hover:text-amber-300 hover:bg-[#1E293B] rounded transition-colors font-semibold">⬡ Stasis</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <span class="text-[#94A3B8] text-xs hidden sm:block" id="emp-name-display"></span>
+        <a href="employee-login.html" onclick="sessionStorage.removeItem('as_employee')" class="text-xs text-[#475569] hover:text-red-400 border border-[#334155] px-2.5 py-1.5 rounded transition-colors">Sign Out</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 py-10">
+    <div class="container mx-auto px-6">
+      <h1 class="text-2xl font-extrabold text-white mb-1">Internal News</h1>
+      <p class="text-[#94A3B8] text-sm mb-8">Company announcements, team updates, and employee spotlights — for ArrowSmart eyes only.</p>
+
+      <!-- Pinned notices -->
+      <div class="space-y-2 mb-8">
+        <div class="flex items-start gap-3 p-4 rounded-xl bg-amber-900/10 border border-amber-700/20">
+          <svg class="text-amber-400 mt-0.5 shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <div><p class="text-amber-300 text-xs font-bold uppercase tracking-widest mb-0.5">Mandatory Action · Deadline Jun 20</p><p class="text-white text-sm font-medium">Updated Security Briefing required for all Level 5+ employees. Complete in Training Hub.</p></div>
+        </div>
+        <div class="flex items-start gap-3 p-4 rounded-xl bg-[#10B981]/5 border border-[#10B981]/15">
+          <svg class="text-[#10B981] mt-0.5 shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <div><p class="text-[#10B981] text-xs font-bold uppercase tracking-widest mb-0.5">Reminder</p><p class="text-white text-sm font-medium">Q2 2026 performance self-reviews close June 25. HR Portal → Performance.</p></div>
+        </div>
+      </div>
+
+      <!-- Featured -->
+      <div class="rounded-2xl bg-gradient-to-br from-[#1E293B] to-[#0F172A] border border-[#10B981]/20 p-8 mb-8 cursor-pointer hover:border-[#10B981]/40 transition-colors group" onclick="openNews(0)">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="text-xs bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/20 rounded-full px-3 py-0.5 font-semibold">Product Update</span>
+          <span class="text-[#475569] text-xs">June 8, 2026 · From: Product Leadership</span>
+        </div>
+        <h2 class="text-2xl font-bold text-white mb-3 group-hover:text-[#10B981] transition-colors">Achilles 21 internal preview — June 15, Main Auditorium</h2>
+        <p class="text-[#94A3B8] leading-relaxed mb-4">All ArrowSmart employees are invited to attend the internal preview of the Achilles 21 Series before its public announcement. This is a strictly confidential event — no devices, no recording. Guests will be issued a temporary badge at the door. The preview will showcase the AS-10 chip, the new ProVision+ camera system, and ArrowOS 21.</p>
+        <button onclick="event.stopPropagation();openNews(0)" class="text-[#10B981] text-sm font-semibold hover:underline text-left">Register your attendance in the event portal →</button>
+      </div>
+
+      <!-- News grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="rounded-xl bg-[#1E293B] border border-[#334155] p-6 cursor-pointer hover:border-[#10B981]/40 transition-colors group" onclick="openNews(1)">
+          <span class="text-xs text-[#94A3B8] bg-[#0B1120] border border-[#334155] rounded px-2 py-0.5">People</span>
+          <h3 class="text-white font-bold mt-3 mb-2 group-hover:text-[#10B981] transition-colors">Kenji Tanaka promoted to Principal Silicon Architect</h3>
+          <p class="text-[#94A3B8] text-xs leading-relaxed">After six years and contributions to the AS-7 through AS-9 chip designs, Kenji has been promoted. Congratulations from the entire team.</p>
+          <p class="text-[#475569] text-xs mt-3">Jun 5, 2026</p>
+        </div>
+        <div class="rounded-xl bg-[#1E293B] border border-[#334155] p-6 cursor-pointer hover:border-[#10B981]/40 transition-colors group" onclick="openNews(2)">
+          <span class="text-xs text-[#94A3B8] bg-[#0B1120] border border-[#334155] rounded px-2 py-0.5">Culture</span>
+          <h3 class="text-white font-bold mt-3 mb-2 group-hover:text-[#10B981] transition-colors">Arrow Summit 2026 registration now open</h3>
+          <p class="text-[#94A3B8] text-xs leading-relaxed">The annual all-hands and team building summit returns to Carmel Valley, September 18–20. Register by August 1.</p>
+          <p class="text-[#475569] text-xs mt-3">Jun 3, 2026</p>
+        </div>
+        <div class="rounded-xl bg-[#1E293B] border border-[#334155] p-6 cursor-pointer hover:border-[#10B981]/40 transition-colors group" onclick="openNews(3)">
+          <span class="text-xs text-[#94A3B8] bg-[#0B1120] border border-[#334155] rounded px-2 py-0.5">Finance</span>
+          <h3 class="text-white font-bold mt-3 mb-2 group-hover:text-[#10B981] transition-colors">Q1 FY2026 results — record quarter, full employee briefing</h3>
+          <p class="text-[#94A3B8] text-xs leading-relaxed">The executive team will host an all-employee briefing on Q1 results on June 14 at 10am PT. Livestream link in Calendar.</p>
+          <p class="text-[#475569] text-xs mt-3">Jun 2, 2026</p>
+        </div>
+        <div class="rounded-xl bg-[#1E293B] border border-[#334155] p-6 cursor-pointer hover:border-[#10B981]/40 transition-colors group" onclick="openNews(4)">
+          <span class="text-xs text-[#94A3B8] bg-[#0B1120] border border-[#334155] rounded px-2 py-0.5">Environment</span>
+          <h3 class="text-white font-bold mt-3 mb-2 group-hover:text-[#10B981] transition-colors">San Mateo HQ reaches net-zero energy milestone</h3>
+          <p class="text-[#94A3B8] text-xs leading-relaxed">Campus solar array and battery system now covers 108% of headquarters energy needs. Excess sold back to the grid.</p>
+          <p class="text-[#475569] text-xs mt-3">May 28, 2026</p>
+        </div>
+        <div class="rounded-xl bg-[#1E293B] border border-[#334155] p-6 cursor-pointer hover:border-[#10B981]/40 transition-colors group" onclick="openNews(5)">
+          <span class="text-xs text-[#94A3B8] bg-[#0B1120] border border-[#334155] rounded px-2 py-0.5">Facilities</span>
+          <h3 class="text-white font-bold mt-3 mb-2 group-hover:text-[#10B981] transition-colors">Building 7 East Wing renovation complete</h3>
+          <p class="text-[#94A3B8] text-xs leading-relaxed">The newly redesigned collaborative spaces in Building 7 East are open. Includes 12 new focus rooms, 3 large presentation spaces, and a rooftop terrace.</p>
+          <p class="text-[#475569] text-xs mt-3">May 20, 2026</p>
+        </div>
+        <div class="rounded-xl bg-[#1E293B] border border-amber-700/20 p-6 cursor-pointer hover:border-amber-500/30 transition-colors group" onclick="openNews(6)">
+          <span class="text-xs text-amber-400/80 bg-amber-900/10 border border-amber-700/20 rounded px-2 py-0.5">⬡ Classified</span>
+          <h3 class="text-white font-bold mt-3 mb-2 group-hover:text-amber-400 transition-colors">Project Chrysalis — Stasis Division quarterly report available</h3>
+          <p class="text-[#94A3B8] text-xs leading-relaxed">Q2 2026 report for Project Chrysalis is now available in the Security Ops section. Level 5+ clearance required. See stasis monitoring for status updates.</p>
+          <p class="text-[#475569] text-xs mt-3">May 15, 2026 · Level 5+ only</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Internal News Article Modal -->
+  <div id="news-modal" class="hidden fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-6">
+    <div class="bg-[#0B1120] border border-[#334155] rounded-2xl max-w-2xl w-full overflow-hidden max-h-[85vh] flex flex-col">
+      <div class="px-6 py-4 border-b border-[#334155] flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-2">
+          <span id="nm-tag" class="text-xs rounded px-2 py-0.5 font-semibold border"></span>
+          <span id="nm-date" class="text-[#475569] text-xs"></span>
+        </div>
+        <button onclick="document.getElementById('news-modal').classList.add('hidden')" class="text-[#475569] hover:text-white text-xs border border-[#334155] hover:border-[#475569] px-2.5 py-1 rounded transition-colors">Close</button>
+      </div>
+      <div class="overflow-y-auto p-6 space-y-4">
+        <p id="nm-from" class="text-[#475569] text-xs"></p>
+        <h2 id="nm-headline" class="text-xl font-bold text-white leading-snug"></h2>
+        <div id="nm-body" class="text-[#94A3B8] text-sm leading-relaxed space-y-3"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="border-t border-[#334155] py-4 text-center"><p class="text-[#334155] text-xs">ArrowSmart Employee Portal · Internal — Do not distribute</p></footer>
+  <script>
+    const NEWS_ITEMS = [
+      { tag:'Product Update', tagCls:'text-[#10B981] bg-[#10B981]/10 border-[#10B981]/20', date:'June 8, 2026', from:'From: Product Leadership',
+        headline:'Achilles 21 internal preview — June 15, Main Auditorium',
+        body:`<p>All ArrowSmart employees are invited to attend the internal preview of the Achilles 21 Series before its public announcement. This is a strictly confidential event — no personal devices, no recording of any kind.</p>
+<p>Guests will be issued a temporary event badge at the auditorium entrance. The preview will showcase the AS-10 chip, the new ProVision+ camera system, and ArrowOS 21.</p>
+<p><strong class="text-white">AS-10 highlights (preview):</strong> 28% faster neural engine, 2× secure enclave isolation depth, and the first ArrowSmart chip to include distributed memory architecture at the hardware level.</p>
+<p>Attendance is expected but not mandatory. If you cannot attend, a written summary will be distributed via secure internal mail within 24 hours of the event.</p>
+<p class="text-amber-400/80 text-xs border border-amber-700/20 bg-amber-900/10 p-3 rounded">⚠ This event is under strict NDA. Discussion of Achilles 21 specifications outside ArrowSmart or on personal devices is a policy violation and may result in immediate termination.</p>
+<p class="text-[#10B981] text-sm font-semibold cursor-pointer hover:underline">Click here to register your attendance →</p>` },
+      { tag:'People', tagCls:'text-[#94A3B8] bg-[#0B1120] border-[#334155]', date:'Jun 5, 2026', from:'From: Chip Engineering',
+        headline:'Kenji Tanaka promoted to Principal Silicon Architect',
+        body:`<p>We are delighted to announce the promotion of Kenji Tanaka to Principal Silicon Architect, effective June 1.</p>
+<p>Kenji has been with ArrowSmart for six years, contributing to the design and validation of the AS-7, AS-8, and AS-9 neural engines. His work on the AS-9 memory isolation subsystem was instrumental in the chip's record performance scores at launch.</p>
+<p>"Kenji's technical instinct and leadership on the AS-9 project were exceptional," said VP Chip Engineering Hana Müller. "This promotion reflects what he has already been doing."</p>
+<p>Please join us in congratulating Kenji.</p>` },
+      { tag:'Culture', tagCls:'text-[#94A3B8] bg-[#0B1120] border-[#334155]', date:'Jun 3, 2026', from:'From: People & Culture',
+        headline:'Arrow Summit 2026 registration now open',
+        body:`<p>The Arrow Summit returns to Carmel Valley Ranch, September 18–20. This year's theme is <strong class="text-white">"Deep Work"</strong> — three days of strategy sessions, team workshops, and unstructured time with colleagues.</p>
+<p><strong class="text-white">What to expect:</strong></p>
+<ul class="list-disc list-inside space-y-1"><li>All-hands keynote with leadership</li><li>Product roadmap sessions (Level 3+ content streams)</li><li>Classified track for Level 5+ employees (separate registration required)</li><li>Evening social events including a team hike through the Ventana Wilderness</li></ul>
+<p>Registration deadline: August 1. Travel and accommodation are fully covered. Register via the HR Portal.</p>` },
+      { tag:'Finance', tagCls:'text-[#94A3B8] bg-[#0B1120] border-[#334155]', date:'Jun 2, 2026', from:'From: Executive Office',
+        headline:'Q1 FY2026 results — record quarter, full employee briefing',
+        body:`<p>ArrowSmart today reported Q1 FY2026 revenue of $89.2 billion — the company's strongest first quarter on record, driven by continued Achilles 20 demand and significant growth in cloud services.</p>
+<p>The executive team will host an all-employee briefing on June 14 at 10am PT. The livestream link will appear in your Calendar the morning of the event.</p>
+<p><strong class="text-white">Key figures (employee-only distribution):</strong></p>
+<ul class="list-disc list-inside space-y-1"><li>Total revenue: $89.2B (+21% YoY)</li><li>Cloud services: $17.3B (+34% YoY)</li><li>Net income: $20.8B</li><li>RSU vest guidance: on track for August cliff</li></ul>
+<p class="text-[#475569] text-xs">This communication is for ArrowSmart employees only and is not for external distribution.</p>` },
+      { tag:'Environment', tagCls:'text-[#94A3B8] bg-[#0B1120] border-[#334155]', date:'May 28, 2026', from:'From: Sustainability',
+        headline:'San Mateo HQ reaches net-zero energy milestone',
+        body:`<p>ArrowSmart's San Mateo headquarters has achieved net-zero energy status. The campus solar array and battery storage system now generates 108% of the site's annual energy needs. Surplus energy is sold back to the local grid under a community benefit agreement.</p>
+<p>"This is a milestone four years in the making," said VP Sustainability Clara Obi. "The team that designed this system did extraordinary work under a very tight timeline."</p>
+<p>The next target is net-zero water consumption at HQ by 2028.</p>` },
+      { tag:'Facilities', tagCls:'text-[#94A3B8] bg-[#0B1120] border-[#334155]', date:'May 20, 2026', from:'From: Facilities Management',
+        headline:'Building 7 East Wing renovation complete',
+        body:`<p>The Building 7 East Wing redesign is now complete and open for use. The renovation has transformed the space into a collaborative-first environment with 12 acoustically isolated focus rooms, 3 large presentation spaces (capacity 80, 50, and 30), and a rooftop terrace with unobstructed views of the Bay.</p>
+<p>Booking for focus rooms and presentation spaces is available through the internal Facilities portal. The terrace is open during business hours and is bookable for team events.</p>` },
+      { tag:'⬡ Classified', tagCls:'text-amber-400/80 bg-amber-900/10 border-amber-700/20', date:'May 15, 2026', from:'From: Stasis Division · Level 5+ Distribution',
+        headline:'Project Chrysalis — Q2 2026 Stasis Division Quarterly Report',
+        body:`<p>The Q2 2026 Project Chrysalis operational report is now available to Level 5+ clearance holders via the Security Ops section of the employee portal.</p>
+<p><strong class="text-white">Summary (cleared personnel only):</strong></p>
+<ul class="list-disc list-inside space-y-1">
+  <li>Current operational bays: 9 of 412 visible at Level 5</li>
+  <li>Total subjects on record: 4,128</li>
+  <li>Stable: 6 · Unknown: 2 · Critical: 1</li>
+  <li>Acquisition pipeline: Phase 4 active in NorCal region</li>
+  <li>Anamnesis Core integrity: 99.1% average across stable subjects</li>
+</ul>
+<p>For full bay-level telemetry, see <a href="stasis-pods.html" class="text-amber-400 hover:underline">Stasis Pod Monitoring</a>.</p>
+<p class="text-amber-400/80 text-xs border border-amber-700/20 bg-amber-900/10 p-3 rounded">⬡ This report contains classified operational data. Do not forward, print, or discuss outside of cleared channels. Access to this item has been logged.</p>` }
+    ];
+
+    function openNews(idx){
+      const n=NEWS_ITEMS[idx];
+      if(!n) return;
+      const tagEl=document.getElementById('nm-tag');
+      tagEl.textContent=n.tag;
+      tagEl.className='text-xs rounded px-2 py-0.5 font-semibold border '+n.tagCls;
+      document.getElementById('nm-date').textContent=n.date;
+      document.getElementById('nm-from').textContent=n.from;
+      document.getElementById('nm-headline').textContent=n.headline;
+      document.getElementById('nm-body').innerHTML=n.body;
+      document.getElementById('news-modal').classList.remove('hidden');
+    }
+
+    (function(){
+      const emp=JSON.parse(sessionStorage.getItem('as_employee')||'null');
+      if(!emp){window.location.href='employee-login.html';return;}
+      document.getElementById('emp-name-display').textContent=emp.name;
+      document.getElementById('clearance-badge').textContent='LEVEL '+emp.level+' CLEARANCE';
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IT Helpdesk — ArrowSmart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"/>
+  <style>body{font-family:'Inter',sans-serif;}</style>
+</head>
+<body class="bg-[#0B1120] text-white min-h-screen flex flex-col">
+  <header class="sticky top-0 z-50 w-full border-b border-[#334155] bg-[#0B1120]/95 backdrop-blur-md">
+    <div class="container mx-auto px-6 h-14 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="employee-portal.html" class="flex items-center gap-2"><div class="w-7 h-7 rounded bg-[#10B981]/10 flex items-center justify-center text-[#10B981]"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L4 4 L20 4"/></svg></div><span class="text-sm font-bold text-white hidden sm:block">ArrowSmart</span></a>
+        <span class="text-[#334155]">|</span>
+        <span id="clearance-badge" class="text-[10px] font-bold uppercase tracking-widest text-[#10B981] border border-[#10B981]/20 bg-[#10B981]/5 rounded px-2 py-0.5">LEVEL — CLEARANCE</span>
+      </div>
+      <nav class="hidden lg:flex items-center gap-0.5 text-xs">
+        <a href="employee-portal.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Dashboard</a>
+        <a href="internal-news.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">News</a>
+        <a href="employee-directory.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Directory</a>
+        <a href="projects-tracker.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Projects</a>
+        <a href="hr-portal.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">HR</a>
+        <a href="it-helpdesk.html" class="px-3 py-1.5 text-white bg-[#1E293B] rounded">IT Help</a>
+        <a href="security-ops.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Security</a>
+        <a href="stasis-pods.html" class="px-3 py-1.5 text-amber-400/80 hover:text-amber-300 hover:bg-[#1E293B] rounded transition-colors font-semibold">⬡ Stasis</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <span class="text-[#94A3B8] text-xs hidden sm:block" id="emp-name-display"></span>
+        <a href="employee-login.html" onclick="sessionStorage.removeItem('as_employee')" class="text-xs text-[#475569] hover:text-red-400 border border-[#334155] px-2.5 py-1.5 rounded transition-colors">Sign Out</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 py-10">
+    <div class="container mx-auto px-6">
+      <h1 class="text-2xl font-extrabold text-white mb-1">IT Helpdesk</h1>
+      <p class="text-[#94A3B8] text-sm mb-8">Submit tickets · Track requests · Knowledge base · Equipment</p>
+
+      <div class="grid lg:grid-cols-3 gap-6">
+        <!-- Submit ticket -->
+        <div class="lg:col-span-2 space-y-6">
+          <div class="rounded-xl bg-[#1E293B] border border-[#334155] overflow-hidden">
+            <div class="px-6 py-4 border-b border-[#334155]"><h2 class="text-white font-bold">Submit a New Ticket</h2></div>
+            <form onsubmit="submitTicket(event)" class="p-6 space-y-4">
+              <div class="grid md:grid-cols-2 gap-4">
+                <div><label class="block text-xs text-[#94A3B8] mb-1">Category</label>
+                  <select class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-[#10B981]">
+                    <option>Hardware Issue</option><option>Software / App</option><option>Network / VPN</option><option>Account Access</option><option>Equipment Request</option><option>Security Concern</option><option>Other</option>
+                  </select></div>
+                <div><label class="block text-xs text-[#94A3B8] mb-1">Priority</label>
+                  <select class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-[#10B981]">
+                    <option>Low</option><option>Medium</option><option selected>High</option><option>Critical</option>
+                  </select></div>
+              </div>
+              <div><label class="block text-xs text-[#94A3B8] mb-1">Subject</label><input type="text" placeholder="Brief description of the issue" class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-3 py-2.5 text-white placeholder-[#475569] text-sm focus:outline-none focus:border-[#10B981]"/></div>
+              <div><label class="block text-xs text-[#94A3B8] mb-1">Description</label><textarea rows="4" placeholder="Describe the issue in detail. Include any error messages, affected devices, and steps to reproduce." class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-3 py-2.5 text-white placeholder-[#475569] text-sm focus:outline-none focus:border-[#10B981] resize-none"></textarea></div>
+              <div class="flex gap-3">
+                <button type="submit" class="px-5 py-2.5 bg-[#10B981] hover:bg-[#059669] text-white rounded-lg text-sm font-semibold transition-colors">Submit Ticket</button>
+                <button type="reset" class="px-5 py-2.5 border border-[#334155] text-[#94A3B8] rounded-lg text-sm transition-colors">Clear</button>
+              </div>
+              <div id="ticket-success" class="hidden p-3 bg-[#10B981]/10 border border-[#10B981]/20 rounded-lg text-[#10B981] text-xs">Ticket submitted successfully. Ticket ID: <strong>#TK-0448</strong>. Estimated response: 2–4 hours.</div>
+            </form>
+          </div>
+
+          <!-- My tickets -->
+          <div class="rounded-xl bg-[#1E293B] border border-[#334155] overflow-hidden">
+            <div class="px-6 py-4 border-b border-[#334155] flex items-center justify-between"><h2 class="text-white font-bold">My Tickets</h2><span class="text-[#475569] text-xs">Last 90 days</span></div>
+            <div class="divide-y divide-[#334155]">
+              <div class="px-6 py-4 flex items-center justify-between gap-3">
+                <div><p class="text-white text-sm font-medium">#TK-0441 — VPN disconnecting on Achilles 20 Pro</p><p class="text-[#475569] text-xs mt-0.5">Opened May 20 · Network / VPN · Priority: High</p></div>
+                <span class="text-[#10B981] text-xs font-semibold shrink-0 border border-[#10B981]/20 bg-[#10B981]/5 px-2 py-0.5 rounded">Resolved</span>
+              </div>
+              <div class="px-6 py-4 flex items-center justify-between gap-3">
+                <div><p class="text-white text-sm font-medium">#TK-0437 — ArrowOS Xcode plugin broken after update</p><p class="text-[#475569] text-xs mt-0.5">Opened May 14 · Software / App · Priority: Medium</p></div>
+                <span class="text-amber-400 text-xs font-semibold shrink-0 border border-amber-700/20 bg-amber-900/10 px-2 py-0.5 rounded">In Progress</span>
+              </div>
+              <div class="px-6 py-4 flex items-center justify-between gap-3">
+                <div><p class="text-white text-sm font-medium">#TK-0429 — Standing desk hydraulics failed</p><p class="text-[#475569] text-xs mt-0.5">Opened Apr 30 · Hardware Issue · Priority: Low</p></div>
+                <span class="text-[#10B981] text-xs font-semibold shrink-0 border border-[#10B981]/20 bg-[#10B981]/5 px-2 py-0.5 rounded">Resolved</span>
+              </div>
+              <div class="px-6 py-4 flex items-center justify-between gap-3">
+                <div><p class="text-white text-sm font-medium">#TK-0418 — Badge access denied — Lab 4B</p><p class="text-[#475569] text-xs mt-0.5">Opened Apr 12 · Account Access · Priority: Critical</p></div>
+                <span class="text-[#10B981] text-xs font-semibold shrink-0 border border-[#10B981]/20 bg-[#10B981]/5 px-2 py-0.5 rounded">Resolved</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right panel -->
+        <div class="space-y-5">
+          <!-- Equipment -->
+          <div class="rounded-xl bg-[#1E293B] border border-[#334155] overflow-hidden">
+            <div class="px-5 py-4 border-b border-[#334155]"><h2 class="text-white font-bold text-sm">My Devices</h2></div>
+            <div class="divide-y divide-[#334155]">
+              <div class="px-5 py-3"><p class="text-white text-xs font-medium">ArrowBook Pro 16" (2025)</p><p class="text-[#475569] text-xs">S/N: AB-7X92F · Issued Mar 2025</p></div>
+              <div class="px-5 py-3"><p class="text-white text-xs font-medium">Achilles 20 Pro — Corporate</p><p class="text-[#475569] text-xs">S/N: AC-M451K · Issued Sep 2025</p></div>
+              <div class="px-5 py-3"><p class="text-white text-xs font-medium">Arrow Studio Display</p><p class="text-[#475569] text-xs">S/N: SD-0023B · Issued Mar 2025</p></div>
+            </div>
+            <div class="px-5 py-3"><button onclick="document.getElementById('equip-modal').classList.remove('hidden')" class="text-[#10B981] text-xs hover:underline">+ Request new equipment</button></div>
+          </div>
+
+          <!-- Quick links -->
+          <div class="rounded-xl bg-[#1E293B] border border-[#334155] overflow-hidden">
+            <div class="px-5 py-4 border-b border-[#334155]"><h2 class="text-white font-bold text-sm">Knowledge Base</h2></div>
+            <div class="divide-y divide-[#334155]">
+              <button onclick="openKB('vpn')" class="w-full text-left px-5 py-3 block text-[#94A3B8] hover:text-[#10B981] text-xs transition-colors">How to set up VPN on ArrowOS</button>
+              <button onclick="openKB('sso')" class="w-full text-left px-5 py-3 block text-[#94A3B8] hover:text-[#10B981] text-xs transition-colors">Reset your ArrowSmart SSO password</button>
+              <button onclick="openKB('licence')" class="w-full text-left px-5 py-3 block text-[#94A3B8] hover:text-[#10B981] text-xs transition-colors">Request software licence</button>
+              <button onclick="openKB('devenv')" class="w-full text-left px-5 py-3 block text-[#94A3B8] hover:text-[#10B981] text-xs transition-colors">ArrowOS Developer Environment setup</button>
+              <button onclick="openKB('security')" class="w-full text-left px-5 py-3 block text-[#94A3B8] hover:text-[#10B981] text-xs transition-colors">IT security incident reporting</button>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-[#0F172A] border border-[#334155] text-center">
+            <p class="text-[#94A3B8] text-xs mb-2">Critical issues? Call the IT hotline</p>
+            <p class="text-[#10B981] font-bold">Ext. 2000</p>
+            <p class="text-[#475569] text-xs">24/7 · Avg wait: 3 min</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Knowledge Base Modal -->
+  <div id="kb-modal" class="hidden fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-6">
+    <div class="bg-[#1E293B] border border-[#334155] rounded-2xl max-w-lg w-full overflow-hidden">
+      <div class="px-6 py-4 border-b border-[#334155] flex items-center justify-between">
+        <h3 id="kb-title" class="text-white font-bold text-sm"></h3>
+        <button onclick="document.getElementById('kb-modal').classList.add('hidden')" class="text-[#475569] hover:text-white text-xs border border-[#334155] hover:border-[#475569] px-2.5 py-1 rounded transition-colors">Close</button>
+      </div>
+      <div id="kb-body" class="p-6 text-sm text-[#94A3B8] leading-relaxed space-y-3 max-h-[70vh] overflow-y-auto"></div>
+    </div>
+  </div>
+
+  <!-- Equipment Request Modal -->
+  <div id="equip-modal" class="hidden fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-6">
+    <div class="bg-[#1E293B] border border-[#334155] rounded-2xl p-7 max-w-sm w-full">
+      <h3 class="text-lg font-bold text-white mb-5">Request New Equipment</h3>
+      <form onsubmit="submitEquip(event)" class="space-y-4">
+        <div><label class="block text-xs text-[#94A3B8] mb-1">Equipment Type</label>
+          <select class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-[#10B981]">
+            <option>ArrowBook Pro</option><option>Achilles 20 Pro (corporate)</option><option>Arrow Studio Display</option><option>Peripherals (keyboard, mouse)</option><option>Other</option>
+          </select></div>
+        <div><label class="block text-xs text-[#94A3B8] mb-1">Business justification</label><textarea rows="3" class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-[#10B981] resize-none" placeholder="Why do you need this equipment?"></textarea></div>
+        <div class="flex gap-3">
+          <button type="submit" class="flex-1 py-2.5 bg-[#10B981] hover:bg-[#059669] text-white rounded-lg text-sm font-semibold transition-colors">Submit Request</button>
+          <button type="button" onclick="document.getElementById('equip-modal').classList.add('hidden')" class="px-4 py-2.5 border border-[#334155] text-[#94A3B8] rounded-lg text-sm transition-colors">Cancel</button>
+        </div>
+        <div id="equip-success" class="hidden p-3 bg-[#10B981]/10 border border-[#10B981]/20 rounded-lg text-[#10B981] text-xs">Request submitted. IT will respond within 3–5 business days.</div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="border-t border-[#334155] py-4 text-center"><p class="text-[#334155] text-xs">ArrowSmart Employee Portal · IT Division</p></footer>
+  <script>
+    const KB_ARTICLES = {
+      vpn: {
+        title: 'How to set up VPN on ArrowOS',
+        body: `<p><strong class="text-white">ArrowSmart Secure Tunnel (AST)</strong> is the company VPN for remote access to internal systems.</p>
+<p><strong class="text-white">Step 1:</strong> Open <em>Settings → Network → ArrowSmart Secure Tunnel</em> on your corporate Achilles device.</p>
+<p><strong class="text-white">Step 2:</strong> Enter your ArrowSmart SSO credentials. If you have MFA enrolled, approve the push notification.</p>
+<p><strong class="text-white">Step 3:</strong> Select your region endpoint (US-West, US-East, EU, APAC) and tap Connect.</p>
+<p class="text-[#10B981] font-semibold">Troubleshooting: If VPN fails to connect, check that your device time is synced and your SSO password has not expired (90-day rotation policy).</p>
+<p class="text-[#475569] text-xs mt-4">KB-2024-0041 · Last updated: Mar 12, 2026 · IT Network Team</p>`
+      },
+      sso: {
+        title: 'Reset your ArrowSmart SSO password',
+        body: `<p>ArrowSmart SSO passwords expire every <strong class="text-white">90 days</strong>. If your account is locked, follow these steps.</p>
+<p><strong class="text-white">Self-service reset:</strong> Navigate to <code class="bg-[#0B1120] px-1 rounded">sso.arrowsmart.internal/reset</code> and verify your identity via your registered mobile number.</p>
+<p><strong class="text-white">If MFA device is lost:</strong> Contact IT via Ext. 2000 with your employee ID for manual identity verification. Do not attempt to bypass the MFA gate.</p>
+<p><strong class="text-white">Password requirements:</strong> 14+ characters, at least one uppercase, one number, one special character. Cannot reuse the last 12 passwords.</p>
+<p class="text-amber-400 text-xs mt-3">⚠ If you believe your account has been accessed without your knowledge, call the IT security hotline immediately: Ext. 2001.</p>
+<p class="text-[#475569] text-xs mt-4">KB-2024-0007 · Last updated: Jan 5, 2026 · IT Security Team</p>`
+      },
+      licence: {
+        title: 'Request a software licence',
+        body: `<p>All software licences must be approved through the <strong class="text-white">Software Asset Management (SAM)</strong> process before installation on ArrowSmart devices.</p>
+<p><strong class="text-white">Standard catalogue:</strong> Licences for common tools (Xcode, Figma, JetBrains suite, Adobe CC) are available without additional approval. Request via IT Helpdesk ticket — category: Equipment Request.</p>
+<p><strong class="text-white">Non-catalogue software:</strong> Submit a business case via your manager. Approval required from your Director before IT can procure. Allow 5–10 business days.</p>
+<p><strong class="text-white">Open source:</strong> Review the OSS Policy document on the Legal intranet page before installing. GPL-licensed software requires additional sign-off for any project involving proprietary integration.</p>
+<p class="text-[#475569] text-xs mt-4">KB-2024-0118 · Last updated: Feb 14, 2026 · IT Procurement</p>`
+      },
+      devenv: {
+        title: 'ArrowOS Developer Environment Setup',
+        body: `<p>All ArrowOS development requires an approved corporate ArrowBook Pro provisioned with the <strong class="text-white">Arrow Developer Toolkit (ADT)</strong>.</p>
+<p><strong class="text-white">Step 1:</strong> Install ADT from the internal Software Portal. Requires your SSO credentials and Level 3+ clearance.</p>
+<p><strong class="text-white">Step 2:</strong> Register your development certificate via <code class="bg-[#0B1120] px-1 rounded">dev.arrowsmart.internal/certs</code>. Physical token required for Level 5+ API access.</p>
+<p><strong class="text-white">Step 3:</strong> Clone the ArrowOS base repository from the internal GitLab instance. <strong class="text-white">Do not</strong> push ArrowOS code to external repositories. Violations trigger an automatic Security Ops alert.</p>
+<p class="text-amber-400 text-xs mt-3">⚠ The AS-NEXUS runtime module is available to Level 5+ engineers only. Attempting to access NEXUS APIs without clearance logs a security event.</p>
+<p class="text-[#475569] text-xs mt-4">KB-2025-0003 · Last updated: Apr 29, 2026 · Platform Engineering</p>`
+      },
+      security: {
+        title: 'IT Security Incident Reporting',
+        body: `<p>All security incidents must be reported within <strong class="text-white">1 hour</strong> of discovery. Failure to report is a policy violation.</p>
+<p><strong class="text-white">What counts as an incident:</strong> Phishing email received or clicked, unexpected access to your account, unauthorised software observed on your device, unusual network traffic, data on an unencrypted device.</p>
+<p><strong class="text-white">How to report:</strong></p>
+<ul class="list-disc list-inside space-y-1">
+  <li>Critical / Active: Call Ext. 2001 immediately</li>
+  <li>Non-urgent: Submit an IT Helpdesk ticket — category: Security Concern</li>
+  <li>Anonymous tip: <code class="bg-[#0B1120] px-1 rounded">security-tip@arrowsmart.internal</code></li>
+</ul>
+<p class="text-[#475569] text-xs mt-3">Incidents involving access to classified infrastructure (NEXUS Array, Stasis Division systems) are escalated directly to Security Operations and the Director tier. All reports are confidential.</p>
+<p class="text-[#475569] text-xs mt-4">KB-2025-0041 · Last updated: May 1, 2026 · IT Security Operations</p>`
+      }
+    };
+    function openKB(key){
+      const a = KB_ARTICLES[key];
+      document.getElementById('kb-title').textContent = a.title;
+      document.getElementById('kb-body').innerHTML = a.body;
+      document.getElementById('kb-modal').classList.remove('hidden');
+    }
+    function submitEquip(e){
+      e.preventDefault();
+      document.getElementById('equip-success').classList.remove('hidden');
+      setTimeout(()=>document.getElementById('equip-modal').classList.add('hidden'),2000);
+    }
+    function submitTicket(e){e.preventDefault();document.getElementById('ticket-success').classList.remove('hidden');}
+    (function(){
+      const emp=JSON.parse(sessionStorage.getItem('as_employee')||'null');
+      if(!emp){window.location.href='employee-login.html';return;}
+      document.getElementById('emp-name-display').textContent=emp.name;
+      document.getElementById('clearance-badge').textContent='LEVEL '+emp.level+' CLEARANCE';
+    })();
+  </script>
+<script>fetch('/api/access-log',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:'IT Helpdesk'})}).catch(()=>{});</script>
+</body>
+</html>

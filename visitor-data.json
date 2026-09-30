@@ -1,0 +1,21 @@
+{
+  "127.0.0.1": {
+    "firstSeen": 1781901586001,
+    "lastSeen": 1781901586001,
+    "visits": 1,
+    "coursesTriggered": [],
+    "pagesViewed": []
+  },
+  "76.235.223.239": {
+    "firstSeen": 1781901644503,
+    "lastSeen": 1781901694846,
+    "visits": 2,
+    "coursesTriggered": [
+      "Security Briefing 2026",
+      "Chrysalis NDA"
+    ],
+    "pagesViewed": [
+      "training-hub.html"
+    ]
+  }
+}

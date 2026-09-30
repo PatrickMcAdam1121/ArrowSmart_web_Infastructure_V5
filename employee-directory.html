@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Employee Directory — ArrowSmart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"/>
+  <style>body{font-family:'Inter',sans-serif;}</style>
+</head>
+<body class="bg-[#0B1120] text-white min-h-screen flex flex-col">
+  <header class="sticky top-0 z-50 w-full border-b border-[#334155] bg-[#0B1120]/95 backdrop-blur-md">
+    <div class="container mx-auto px-6 h-14 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="employee-portal.html" class="flex items-center gap-2"><div class="w-7 h-7 rounded bg-[#10B981]/10 flex items-center justify-center text-[#10B981]"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L4 4 L20 4"/></svg></div><span class="text-sm font-bold text-white hidden sm:block">ArrowSmart</span></a>
+        <span class="text-[#334155]">|</span>
+        <span id="clearance-badge" class="text-[10px] font-bold uppercase tracking-widest text-[#10B981] border border-[#10B981]/20 bg-[#10B981]/5 rounded px-2 py-0.5">LEVEL — CLEARANCE</span>
+      </div>
+      <nav class="hidden lg:flex items-center gap-0.5 text-xs">
+        <a href="employee-portal.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Dashboard</a>
+        <a href="internal-news.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">News</a>
+        <a href="employee-directory.html" class="px-3 py-1.5 text-white bg-[#1E293B] rounded">Directory</a>
+        <a href="projects-tracker.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Projects</a>
+        <a href="hr-portal.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">HR</a>
+        <a href="it-helpdesk.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">IT Help</a>
+        <a href="security-ops.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Security</a>
+        <a href="stasis-pods.html" class="px-3 py-1.5 text-amber-400/80 hover:text-amber-300 hover:bg-[#1E293B] rounded transition-colors font-semibold">⬡ Stasis</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <span class="text-[#94A3B8] text-xs hidden sm:block" id="emp-name-display"></span>
+        <a href="employee-login.html" onclick="sessionStorage.removeItem('as_employee')" class="text-xs text-[#475569] hover:text-red-400 border border-[#334155] px-2.5 py-1.5 rounded transition-colors">Sign Out</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 py-10">
+    <div class="container mx-auto px-6">
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+        <div>
+          <h1 class="text-2xl font-extrabold text-white">Employee Directory</h1>
+          <p class="text-[#94A3B8] text-sm mt-1">ArrowSmart global workforce · <span id="emp-count">0</span> employees listed</p>
+        </div>
+        <div class="relative">
+          <input id="search" type="text" placeholder="Search by name, role, or dept…" oninput="filterDir()" class="w-72 bg-[#1E293B] border border-[#334155] rounded-lg px-4 py-2.5 pl-9 text-white placeholder-[#475569] text-sm focus:outline-none focus:border-[#10B981] transition-colors"/>
+          <svg class="absolute left-2.5 top-1/2 -translate-y-1/2 text-[#475569]" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+      </div>
+
+      <!-- Dept filters -->
+      <div class="flex flex-wrap gap-2 mb-8" id="dept-filters"></div>
+
+      <!-- Grid -->
+      <div class="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4" id="dir-grid"></div>
+    </div>
+  </main>
+
+  <footer class="border-t border-[#334155] py-4 text-center"><p class="text-[#334155] text-xs">ArrowSmart Employee Portal · Confidential</p></footer>
+
+  <script>
+    const EMPLOYEES = [
+      {name:'Sophia Meridian',role:'VP, Platform Engineering',dept:'Engineering',loc:'San Mateo, CA',ext:'x4201',cl:5},
+      {name:'James Doe',role:'Software Engineer II',dept:'Engineering',loc:'Remote — US',ext:'x5512',cl:1},
+      {name:'Kenji Tanaka',role:'Senior Silicon Engineer',dept:'Chip Engineering',loc:'San Mateo, CA',ext:'x4107',cl:7},
+      {name:'Aisha Kamara',role:'Product Designer',dept:'Design',loc:'New York, NY',ext:'x6032',cl:2},
+      {name:'Carlos Vega',role:'Marketing Lead',dept:'Marketing',loc:'Austin, TX',ext:'x7215',cl:3},
+      {name:'Ingrid Larsen',role:'Head of Legal',dept:'Legal',loc:'San Mateo, CA',ext:'x3301',cl:6},
+      {name:'Darius Webb',role:'IT Infrastructure Manager',dept:'IT',loc:'San Mateo, CA',ext:'x2001',cl:4},
+      {name:'Mei Lin Zhou',role:'Data Scientist',dept:'Research',loc:'Cambridge, MA',ext:'x8823',cl:5},
+      {name:'Tobias Brandt',role:'Finance Director',dept:'Finance',loc:'San Mateo, CA',ext:'x3102',cl:6},
+      {name:'Priya Anand',role:'UX Researcher',dept:'Design',loc:'London, UK',ext:'x6119',cl:2},
+      {name:'Marcus Freeman',role:'Security Analyst',dept:'Security',loc:'San Mateo, CA',ext:'x2200',cl:7},
+      {name:'Natalie Orlov',role:'Technical Program Manager',dept:'Engineering',loc:'Seattle, WA',ext:'x4499',cl:4},
+      {name:'Leo Okonkwo',role:'Supply Chain Manager',dept:'Operations',loc:'Shenzhen, China',ext:'x9001',cl:3},
+      {name:'Amelia Hart',role:'HR Business Partner',dept:'HR',loc:'San Mateo, CA',ext:'x1105',cl:2},
+      {name:'Ramirez Flores',role:'AR/VR Engineer',dept:'Engineering',loc:'San Mateo, CA',ext:'x4678',cl:5},
+      {name:'Yuki Sato',role:'Firmware Engineer',dept:'Chip Engineering',loc:'Tokyo, Japan',ext:'x4220',cl:6},
+      {name:'Claire Beaumont',role:'Brand Director',dept:'Marketing',loc:'Paris, France',ext:'x7300',cl:4},
+      {name:'Director',role:'Executive Director',dept:'Executive',loc:'San Mateo, CA',ext:'x1000',cl:9},
+      {name:'Owen Park',role:'Retail Operations Lead',dept:'Operations',loc:'New York, NY',ext:'x9105',cl:3},
+      {name:'Fatima Al-Rashid',role:'Machine Learning Engineer',dept:'Research',loc:'San Mateo, CA',ext:'x8710',cl:6},
+      {name:'Samuel Greene',role:'Compliance Manager',dept:'Legal',loc:'San Mateo, CA',ext:'x3400',cl:5},
+      {name:'Hana Müller',role:'Software Engineer III',dept:'Engineering',loc:'Berlin, Germany',ext:'x4511',cl:3},
+    ];
+
+    const DEPTS = ['All',...new Set(EMPLOYEES.map(e=>e.dept))];
+    let activeDept = 'All';
+
+    function colorForDept(d){
+      const map={Engineering:'bg-blue-500/20 text-blue-300',Design:'bg-purple-500/20 text-purple-300','Chip Engineering':'bg-[#10B981]/20 text-[#10B981]',Marketing:'bg-pink-500/20 text-pink-300',Legal:'bg-yellow-500/20 text-yellow-300',IT:'bg-cyan-500/20 text-cyan-300',Research:'bg-indigo-500/20 text-indigo-300',Finance:'bg-green-500/20 text-green-300',Security:'bg-red-500/20 text-red-300',Operations:'bg-orange-500/20 text-orange-300',HR:'bg-rose-500/20 text-rose-300',Executive:'bg-amber-500/20 text-amber-300'};
+      return map[d]||'bg-[#1E293B] text-[#94A3B8]';
+    }
+
+    function initFilters(){
+      const c = document.getElementById('dept-filters');
+      DEPTS.forEach(d=>{
+        const b = document.createElement('button');
+        b.className = `dept-btn px-3 py-1.5 rounded-full border text-xs font-medium transition-colors ${d==='All'?'border-[#10B981] text-[#10B981]':'border-[#334155] text-[#94A3B8] hover:border-[#10B981]/50'}`;
+        b.textContent = d;
+        b.onclick = () => { activeDept=d; document.querySelectorAll('.dept-btn').forEach(x=>{x.className=x.className.replace('border-[#10B981] text-[#10B981]','border-[#334155] text-[#94A3B8]');}); b.className=b.className.replace('border-[#334155] text-[#94A3B8]','border-[#10B981] text-[#10B981]'); filterDir(); };
+        c.appendChild(b);
+      });
+    }
+
+    function filterDir(){
+      const q = document.getElementById('search').value.toLowerCase();
+      const filtered = EMPLOYEES.filter(e=>(activeDept==='All'||e.dept===activeDept)&&(e.name.toLowerCase().includes(q)||e.role.toLowerCase().includes(q)||e.dept.toLowerCase().includes(q)));
+      renderDir(filtered);
+    }
+
+    function renderDir(list){
+      const g = document.getElementById('dir-grid');
+      document.getElementById('emp-count').textContent = list.length;
+      g.innerHTML = list.map(e=>{
+        const init = e.name.split(' ').map(n=>n[0]).slice(0,2).join('');
+        const dc = colorForDept(e.dept);
+        return `<div class="p-5 rounded-xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/40 transition-colors">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-11 h-11 rounded-full bg-[#10B981]/10 flex items-center justify-center text-[#10B981] text-sm font-bold shrink-0">${init}</div>
+            <div class="min-w-0"><p class="text-white font-semibold text-sm truncate">${e.name}</p><p class="text-[#94A3B8] text-xs truncate">${e.role}</p></div>
+          </div>
+          <div class="space-y-1.5 text-xs">
+            <div class="flex items-center gap-1.5"><span class="inline-block w-1.5 h-1.5 rounded-full bg-[#334155]"></span><span class="text-[#94A3B8]">${e.loc}</span></div>
+            <div class="flex items-center gap-1.5"><span class="inline-block w-1.5 h-1.5 rounded-full bg-[#334155]"></span><span class="text-[#475569]">${e.ext}</span></div>
+          </div>
+          <div class="mt-3 flex items-center justify-between"><span class="text-[10px] px-2 py-0.5 rounded-full ${dc}">${e.dept}</span><span class="text-[#334155] text-[10px]">CL:${e.cl}</span></div>
+        </div>`;
+      }).join('');
+    }
+
+    initFilters();
+    filterDir();
+
+    (function(){
+      const emp = JSON.parse(sessionStorage.getItem('as_employee')||'null');
+      if(!emp){ window.location.href='employee-login.html'; return; }
+      document.getElementById('emp-name-display').textContent = emp.name;
+      document.getElementById('clearance-badge').textContent = 'LEVEL '+emp.level+' CLEARANCE';
+    })();
+  </script>
+<script>fetch('/api/access-log',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:'Employee Directory'})}).catch(()=>{});</script>
+</body>
+</html>

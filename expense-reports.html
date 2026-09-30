@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Expense Reports — ArrowSmart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"/>
+  <style>body{font-family:'Inter',sans-serif;}</style>
+</head>
+<body class="bg-[#0B1120] text-white min-h-screen flex flex-col">
+  <header class="sticky top-0 z-50 w-full border-b border-[#334155] bg-[#0B1120]/95 backdrop-blur-md">
+    <div class="container mx-auto px-6 h-14 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="employee-portal.html" class="flex items-center gap-2"><div class="w-7 h-7 rounded bg-[#10B981]/10 flex items-center justify-center text-[#10B981]"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L4 4 L20 4"/></svg></div><span class="text-sm font-bold text-white hidden sm:block">ArrowSmart</span></a>
+        <span class="text-[#334155]">|</span>
+        <span id="clearance-badge" class="text-[10px] font-bold uppercase tracking-widest text-[#10B981] border border-[#10B981]/20 bg-[#10B981]/5 rounded px-2 py-0.5">LEVEL — CLEARANCE</span>
+      </div>
+      <nav class="hidden lg:flex items-center gap-0.5 text-xs">
+        <a href="employee-portal.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Dashboard</a>
+        <a href="internal-news.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">News</a>
+        <a href="employee-directory.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Directory</a>
+        <a href="projects-tracker.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Projects</a>
+        <a href="hr-portal.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">HR</a>
+        <a href="it-helpdesk.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">IT Help</a>
+        <a href="security-ops.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Security</a>
+        <a href="stasis-pods.html" class="px-3 py-1.5 text-amber-400/80 hover:text-amber-300 hover:bg-[#1E293B] rounded transition-colors font-semibold">⬡ Stasis</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <span class="text-[#94A3B8] text-xs hidden sm:block" id="emp-name-display"></span>
+        <a href="employee-login.html" onclick="sessionStorage.removeItem('as_employee')" class="text-xs text-[#475569] hover:text-red-400 border border-[#334155] px-2.5 py-1.5 rounded transition-colors">Sign Out</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 py-10">
+    <div class="container mx-auto px-6">
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+        <div>
+          <h1 class="text-2xl font-extrabold text-white">Expense Reports</h1>
+          <p class="text-[#94A3B8] text-sm mt-1">Submit and track your business expense claims</p>
+        </div>
+        <button onclick="document.getElementById('new-expense-modal').classList.remove('hidden')" class="px-5 py-2.5 bg-[#10B981] hover:bg-[#059669] text-white rounded-lg text-sm font-semibold transition-colors flex items-center gap-2">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          New Expense
+        </button>
+      </div>
+
+      <!-- Summary cards -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="p-5 rounded-xl bg-[#1E293B] border border-[#334155]">
+          <p class="text-[#475569] text-xs mb-2">Pending Approval</p>
+          <p class="text-2xl font-bold text-amber-400">$1,240</p>
+          <p class="text-[#475569] text-xs mt-1">2 reports</p>
+        </div>
+        <div class="p-5 rounded-xl bg-[#1E293B] border border-[#334155]">
+          <p class="text-[#475569] text-xs mb-2">Approved (unpaid)</p>
+          <p class="text-2xl font-bold text-[#10B981]">$380</p>
+          <p class="text-[#475569] text-xs mt-1">Payment: Jun 30</p>
+        </div>
+        <div class="p-5 rounded-xl bg-[#1E293B] border border-[#334155]">
+          <p class="text-[#475569] text-xs mb-2">YTD Reimbursed</p>
+          <p class="text-2xl font-bold text-white">$4,820</p>
+          <p class="text-[#475569] text-xs mt-1">FY2026</p>
+        </div>
+        <div class="p-5 rounded-xl bg-[#1E293B] border border-[#334155]">
+          <p class="text-[#475569] text-xs mb-2">Learning Stipend</p>
+          <p class="text-2xl font-bold text-white">$3,200</p>
+          <p class="text-[#475569] text-xs mt-1">Remaining of $5,000</p>
+        </div>
+      </div>
+
+      <!-- Expense reports table -->
+      <div class="rounded-xl border border-[#334155] overflow-hidden">
+        <div class="px-6 py-4 bg-[#1E293B] border-b border-[#334155] flex items-center justify-between">
+          <h2 class="text-white font-bold">My Reports</h2>
+          <div class="flex gap-2 text-xs">
+            <button class="exp-filter active px-3 py-1 rounded border border-[#10B981] text-[#10B981]" onclick="filterExp(this,'all')">All</button>
+            <button class="exp-filter px-3 py-1 rounded border border-[#334155] text-[#94A3B8] transition-colors" onclick="filterExp(this,'pending')">Pending</button>
+            <button class="exp-filter px-3 py-1 rounded border border-[#334155] text-[#94A3B8] transition-colors" onclick="filterExp(this,'approved')">Approved</button>
+          </div>
+        </div>
+        <table class="w-full text-sm">
+          <thead><tr class="border-b border-[#334155]"><th class="text-left px-5 py-3 text-[#475569] text-xs font-semibold">Report / Description</th><th class="px-5 py-3 text-[#475569] text-xs font-semibold">Category</th><th class="px-5 py-3 text-[#475569] text-xs font-semibold text-right">Amount</th><th class="px-5 py-3 text-[#475569] text-xs font-semibold">Submitted</th><th class="px-5 py-3 text-[#475569] text-xs font-semibold">Status</th></tr></thead>
+          <tbody id="exp-body" class="divide-y divide-[#334155]">
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Policy notes -->
+      <div class="mt-6 p-5 rounded-xl bg-[#0F172A] border border-[#334155]">
+        <h3 class="text-white font-bold text-sm mb-3">Expense Policy Reminders</h3>
+        <ul class="text-[#94A3B8] text-xs space-y-1.5">
+          <li class="flex items-start gap-2"><span class="text-[#10B981] mt-0.5">·</span>Receipts required for all expenses over $25</li>
+          <li class="flex items-start gap-2"><span class="text-[#10B981] mt-0.5">·</span>Meal expenses limited to $80/person/day for domestic travel; $120 for international</li>
+          <li class="flex items-start gap-2"><span class="text-[#10B981] mt-0.5">·</span>Air travel must be economy for domestic; business class permitted for flights over 8 hours</li>
+          <li class="flex items-start gap-2"><span class="text-[#10B981] mt-0.5">·</span>Hotel rate limit: $300/night domestic; $450/night international (San Francisco/NYC exception: $400/$600)</li>
+          <li class="flex items-start gap-2"><span class="text-[#10B981] mt-0.5">·</span>Learning stipend: $5,000/yr — covers courses, books, conferences, certifications. No gaming hardware.</li>
+          <li class="flex items-start gap-2"><span class="text-[#475569] mt-0.5">·</span>Questions? Contact <a href="hr-portal.html" class="text-[#10B981] hover:underline">HR Portal</a> or email expenses@arrowsmart.com</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <!-- New expense modal -->
+  <div id="new-expense-modal" class="hidden fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-6">
+    <div class="bg-[#1E293B] border border-[#334155] rounded-2xl p-7 max-w-md w-full max-h-[90vh] overflow-y-auto">
+      <h3 class="text-lg font-bold text-white mb-5">New Expense Report</h3>
+      <form onsubmit="submitExpense(event)" class="space-y-4">
+        <div><label class="block text-xs text-[#94A3B8] mb-1">Report Title</label><input type="text" placeholder="e.g. WWDC 2026 Travel" class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-3 py-2.5 text-white placeholder-[#475569] text-sm focus:outline-none focus:border-[#10B981]"/></div>
+        <div class="grid grid-cols-2 gap-3">
+          <div><label class="block text-xs text-[#94A3B8] mb-1">Category</label>
+            <select class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-[#10B981]">
+              <option>Travel — Air</option><option>Travel — Ground</option><option>Hotel</option><option>Meals</option><option>Client Entertainment</option><option>Training / Learning</option><option>Equipment</option><option>Software</option><option>Other</option>
+            </select></div>
+          <div><label class="block text-xs text-[#94A3B8] mb-1">Amount (USD)</label><input type="number" placeholder="0.00" class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-3 py-2.5 text-white placeholder-[#475569] text-sm focus:outline-none focus:border-[#10B981]"/></div>
+        </div>
+        <div><label class="block text-xs text-[#94A3B8] mb-1">Date of Expense</label><input type="date" class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-[#10B981]"/></div>
+        <div><label class="block text-xs text-[#94A3B8] mb-1">Project Code (optional)</label>
+          <select class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-[#10B981]">
+            <option value="">No project</option><option>NEXUS-7</option><option>Achilles 21 HW Validation</option><option>Connect Matter 2.0</option><option>G&amp;A</option>
+          </select></div>
+        <div><label class="block text-xs text-[#94A3B8] mb-1">Notes / Justification</label><textarea rows="3" placeholder="Brief description and business purpose…" class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-3 py-2 text-white placeholder-[#475569] text-sm focus:outline-none focus:border-[#10B981] resize-none"></textarea></div>
+        <div class="border border-dashed border-[#334155] rounded-lg p-4 text-center cursor-pointer hover:border-[#10B981]/50 transition-colors">
+          <p class="text-[#475569] text-xs">Click to attach receipt (PDF, JPG, PNG)</p>
+        </div>
+        <div class="flex gap-3">
+          <button type="submit" class="flex-1 py-2.5 bg-[#10B981] hover:bg-[#059669] text-white rounded-lg text-sm font-semibold transition-colors">Submit Report</button>
+          <button type="button" onclick="document.getElementById('new-expense-modal').classList.add('hidden')" class="px-4 py-2.5 border border-[#334155] text-[#94A3B8] rounded-lg text-sm transition-colors">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="border-t border-[#334155] py-4 text-center"><p class="text-[#334155] text-xs">ArrowSmart Employee Portal · Finance Division</p></footer>
+
+  <script>
+    const EXPENSES = [
+      {title:'Q4 2025 Conference — re:Invent',cat:'Travel — Air',amount:'$1,240',date:'Nov 28, 2025',status:'pending'},
+      {title:'Client dinner — SF',cat:'Client Entertainment',amount:'$380',date:'May 15, 2026',status:'approved'},
+      {title:'ArrowOS SDK Mastery — Udemy',cat:'Training / Learning',amount:'$89',date:'Apr 3, 2026',status:'approved'},
+      {title:'WWDC 2026 Hotel — 3 nights',cat:'Hotel',amount:'$1,440',date:'Jun 1, 2026',status:'pending'},
+      {title:'Taxi — SFO to HQ',cat:'Travel — Ground',amount:'$58',date:'Mar 19, 2026',status:'paid'},
+      {title:'Working lunch with design team',cat:'Meals',amount:'$142',date:'Mar 10, 2026',status:'paid'},
+      {title:'O\'Reilly Learning subscription',cat:'Software',amount:'$499',date:'Jan 10, 2026',status:'paid'},
+      {title:'International flight — Tokyo (AS Silicon Summit)',cat:'Travel — Air',amount:'$2,100',date:'Feb 20, 2026',status:'paid'},
+    ];
+
+    const STATUS_STYLE = {
+      pending:'text-amber-400 border border-amber-700/20 bg-amber-900/10',
+      approved:'text-[#10B981] border border-[#10B981]/20 bg-[#10B981]/5',
+      paid:'text-[#475569] border border-[#334155]',
+      rejected:'text-red-400 border border-red-700/20 bg-red-900/10'
+    };
+
+    let activeFilter = 'all';
+
+    function renderExpenses(){
+      const body = document.getElementById('exp-body');
+      const filtered = EXPENSES.filter(e=>activeFilter==='all'||e.status===activeFilter);
+      body.innerHTML = filtered.map(e=>`
+        <tr class="hover:bg-[#1E293B]/50 transition-colors">
+          <td class="px-5 py-3 text-white text-xs">${e.title}</td>
+          <td class="px-5 py-3 text-[#94A3B8] text-xs">${e.cat}</td>
+          <td class="px-5 py-3 text-white text-xs font-mono text-right">${e.amount}</td>
+          <td class="px-5 py-3 text-[#475569] text-xs">${e.date}</td>
+          <td class="px-5 py-3"><span class="text-[10px] font-semibold px-2 py-0.5 rounded capitalize ${STATUS_STYLE[e.status]||''}">${e.status}</span></td>
+        </tr>
+      `).join('');
+    }
+
+    function filterExp(btn,f){
+      activeFilter=f;
+      document.querySelectorAll('.exp-filter').forEach(b=>{b.classList.remove('border-[#10B981]','text-[#10B981]');b.classList.add('border-[#334155]','text-[#94A3B8]');});
+      btn.classList.add('border-[#10B981]','text-[#10B981]');
+      renderExpenses();
+    }
+
+    function submitExpense(e){e.preventDefault();document.getElementById('new-expense-modal').classList.add('hidden');alert('Expense report submitted! Your manager will review within 2 business days.');}
+
+    renderExpenses();
+
+    (function(){
+      const emp=JSON.parse(sessionStorage.getItem('as_employee')||'null');
+      if(!emp){window.location.href='employee-login.html';return;}
+      document.getElementById('emp-name-display').textContent=emp.name;
+      document.getElementById('clearance-badge').textContent='LEVEL '+emp.level+' CLEARANCE';
+    })();
+  </script>
+<script>fetch('/api/access-log',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:'Expense Reports'})}).catch(()=>{});</script>
+</body>
+</html>

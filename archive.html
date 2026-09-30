@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Evidence Archive — ArrowSmart Employee Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap"/>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)} }
+    .fade-in { animation: fadeIn 0.2s ease forwards; }
+    .card-locked { position: relative; }
+    .card-locked::after { content:'';position:absolute;inset:0;background:rgba(11,17,32,0.82);backdrop-filter:blur(3px);z-index:2; }
+    .lock-overlay { position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;pointer-events:none; }
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: #0F172A; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 2px; }
+    .cl-1{background:rgba(100,116,139,.15);color:#94A3B8;border-color:#334155}
+    .cl-2{background:rgba(59,130,246,.1);color:#60A5FA;border-color:rgba(59,130,246,.25)}
+    .cl-3{background:rgba(16,185,129,.1);color:#34D399;border-color:rgba(16,185,129,.25)}
+    .cl-4{background:rgba(99,102,241,.1);color:#A5B4FC;border-color:rgba(99,102,241,.25)}
+    .cl-5{background:rgba(245,158,11,.1);color:#FCD34D;border-color:rgba(245,158,11,.25)}
+    .cl-6{background:rgba(249,115,22,.1);color:#FB923C;border-color:rgba(249,115,22,.25)}
+    .cl-7{background:rgba(239,68,68,.1);color:#F87171;border-color:rgba(239,68,68,.25)}
+    .cl-8{background:rgba(236,72,153,.1);color:#F472B6;border-color:rgba(236,72,153,.25)}
+    .cl-9{background:rgba(255,176,0,.12);color:#FFB000;border-color:rgba(255,176,0,.35)}
+    .type-badge-image{background:rgba(16,185,129,.1);color:#34D399;border-color:rgba(16,185,129,.25)}
+    .type-badge-video{background:rgba(245,158,11,.1);color:#FCD34D;border-color:rgba(245,158,11,.25)}
+    .type-badge-audio{background:rgba(99,102,241,.1);color:#A5B4FC;border-color:rgba(99,102,241,.25)}
+    .type-badge-document{background:rgba(239,68,68,.1);color:#F87171;border-color:rgba(239,68,68,.25)}
+    .type-badge-link{background:rgba(100,116,139,.1);color:#94A3B8;border-color:#334155}
+    .drop-zone { border: 2px dashed #334155; transition: border-color 0.2s, background 0.2s; }
+    .drop-zone.drag-over { border-color: #10B981; background: rgba(16,185,129,0.05); }
+  </style>
+</head>
+<body class="bg-[#0B1120] text-white min-h-screen flex flex-col">
+
+<header class="sticky top-0 z-50 w-full border-b border-[#334155] bg-[#0B1120]/95 backdrop-blur-md">
+  <div class="container mx-auto px-6 h-14 flex items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <a href="employee-portal.html" class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded bg-[#10B981]/10 flex items-center justify-center text-[#10B981]">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L4 4 L20 4"/></svg>
+        </div>
+        <span class="text-sm font-bold text-white hidden sm:block">ArrowSmart</span>
+      </a>
+      <span class="text-[#334155]">|</span>
+      <span id="clearance-badge" class="text-[10px] font-bold uppercase tracking-widest text-[#10B981] border border-[#10B981]/20 bg-[#10B981]/5 rounded px-2 py-0.5">LEVEL — CLEARANCE</span>
+    </div>
+    <nav class="hidden lg:flex items-center gap-0.5 text-xs">
+      <a href="employee-portal.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Dashboard</a>
+      <a href="employee-mail.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Mail</a>
+      <a href="employee-directory.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Directory</a>
+      <a href="archive.html" class="px-3 py-1.5 text-white bg-[#1E293B] rounded">Archive</a>
+      <a href="stasis-pods.html" class="px-3 py-1.5 text-amber-400/80 hover:text-amber-300 hover:bg-[#1E293B] rounded transition-colors font-semibold">⬡ Stasis</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <span class="text-[#94A3B8] text-xs hidden sm:block" id="emp-name-display"></span>
+      <a href="employee-login.html" onclick="sessionStorage.removeItem('as_employee')" class="text-xs text-[#475569] hover:text-red-400 border border-[#334155] hover:border-red-900/50 px-2.5 py-1.5 rounded transition-colors">Sign Out</a>
+    </div>
+  </div>
+</header>
+
+<div class="flex flex-1 min-h-0">
+
+  <!-- Sidebar -->
+  <aside class="w-56 shrink-0 border-r border-[#334155] bg-[#0B1120] flex flex-col py-5 gap-1 sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto">
+    <button onclick="openAddModal()" class="mx-4 mb-2 flex items-center gap-2 px-3 py-2 rounded-lg bg-[#10B981] hover:bg-[#059669] text-white text-xs font-semibold transition-colors">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Submit Evidence
+    </button>
+
+    <p class="px-4 text-[10px] font-bold uppercase tracking-widest text-[#475569] mt-1 mb-1">Views</p>
+    <button onclick="switchView('all',this)" id="nav-all" class="nav-btn active-nav mx-2 flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-left transition-colors text-[#10B981] bg-[#10B981]/10">
+      <span>◈</span> All Entries <span class="ml-auto text-[10px] bg-[#1E293B] px-1.5 py-0.5 rounded" id="cnt-all">…</span>
+    </button>
+    <button onclick="switchView('image',this)" class="nav-btn mx-2 flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-left text-[#94A3B8] hover:text-white hover:bg-[#1E293B] transition-colors">
+      <span>▣</span> Images <span class="ml-auto text-[10px] bg-[#1E293B] px-1.5 py-0.5 rounded" id="cnt-image">…</span>
+    </button>
+    <button onclick="switchView('video',this)" class="nav-btn mx-2 flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-left text-[#94A3B8] hover:text-white hover:bg-[#1E293B] transition-colors">
+      <span>▶</span> Video <span class="ml-auto text-[10px] bg-[#1E293B] px-1.5 py-0.5 rounded" id="cnt-video">…</span>
+    </button>
+    <button onclick="switchView('audio',this)" class="nav-btn mx-2 flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-left text-[#94A3B8] hover:text-white hover:bg-[#1E293B] transition-colors">
+      <span>♫</span> Audio <span class="ml-auto text-[10px] bg-[#1E293B] px-1.5 py-0.5 rounded" id="cnt-audio">…</span>
+    </button>
+    <button onclick="switchView('document',this)" class="nav-btn mx-2 flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-left text-[#94A3B8] hover:text-white hover:bg-[#1E293B] transition-colors">
+      <span>▤</span> Documents <span class="ml-auto text-[10px] bg-[#1E293B] px-1.5 py-0.5 rounded" id="cnt-document">…</span>
+    </button>
+    <button onclick="switchView('link',this)" class="nav-btn mx-2 flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-left text-[#94A3B8] hover:text-white hover:bg-[#1E293B] transition-colors">
+      <span>⌖</span> Links <span class="ml-auto text-[10px] bg-[#1E293B] px-1.5 py-0.5 rounded" id="cnt-link">…</span>
+    </button>
+
+    <hr class="border-[#1E293B] mx-4 my-2"/>
+
+    <p class="px-4 text-[10px] font-bold uppercase tracking-widest text-[#475569] mb-1">Navigation</p>
+    <a href="personality-files.html" class="mx-2 flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-[#94A3B8] hover:text-white hover:bg-[#1E293B] transition-colors">Personality Files</a>
+    <a href="transmission-log.html" class="mx-2 flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-[#94A3B8] hover:text-white hover:bg-[#1E293B] transition-colors">Transmission Log</a>
+    <a href="employee-mail.html" class="mx-2 flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-[#94A3B8] hover:text-white hover:bg-[#1E293B] transition-colors">Mail</a>
+    <a href="core-harvest-ledger.html" class="mx-2 flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-amber-400/60 hover:text-amber-300 hover:bg-[#1E293B] transition-colors">⬡ Harvest Ledger</a>
+
+    <hr class="border-[#1E293B] mx-4 my-2"/>
+    <div class="px-4">
+      <button onclick="exportArchive()" class="w-full text-left text-xs text-[#475569] hover:text-[#94A3B8] transition-colors py-1">↓ Export Visible JSON</button>
+    </div>
+
+    <div id="director-panel" style="display:none" class="mx-4 mt-3 p-3 rounded-lg border border-amber-700/30 bg-amber-900/10">
+      <p class="text-amber-400 text-[10px] font-bold uppercase tracking-widest mb-1">Director Admin</p>
+      <p class="text-[#94A3B8] text-[10px] leading-relaxed">You can set clearance levels on any entry. Locked entries are blurred for lower-clearance users.</p>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="flex-1 min-w-0 p-6">
+    <div class="mb-6">
+      <div class="flex items-center gap-3 mb-1">
+        <h1 class="text-2xl font-extrabold text-white">Evidence Archive</h1>
+        <span id="access-badge" class="text-xs px-2 py-0.5 rounded border border-[#10B981]/25 bg-[#10B981]/5 text-[#10B981] font-medium">All Staff</span>
+      </div>
+      <p class="text-[#94A3B8] text-sm">Community evidence vault — files are saved to the shared server and visible to all employees. <span id="director-subtext" style="display:none" class="text-amber-400">As Director you can set clearance restrictions on individual entries.</span></p>
+    </div>
+
+    <div class="flex items-center gap-3 mb-5 flex-wrap">
+      <div class="relative flex-1 min-w-48">
+        <svg class="absolute left-3 top-1/2 -translate-y-1/2 text-[#475569]" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input id="search-input" type="text" placeholder="Search archive…" oninput="renderGrid()" class="w-full bg-[#1E293B] border border-[#334155] rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder-[#475569] focus:outline-none focus:border-[#10B981] transition-colors"/>
+      </div>
+      <div class="flex items-center gap-1 text-xs">
+        <button onclick="setLayout('grid',this)" id="lt-grid" class="px-3 py-2 rounded bg-[#1E293B] text-white border border-[#334155]">▣ Grid</button>
+        <button onclick="setLayout('list',this)" id="lt-list" class="px-3 py-2 rounded text-[#94A3B8] border border-[#334155]">☰ List</button>
+      </div>
+      <button onclick="loadEntries()" class="px-3 py-2 rounded text-[#475569] hover:text-[#94A3B8] border border-[#334155] text-xs transition-colors">↺ Refresh</button>
+      <span class="text-[#475569] text-xs" id="result-count"></span>
+    </div>
+
+    <div id="loading-state" class="text-center py-20 text-[#334155] text-sm">Loading archive…</div>
+    <div id="cards-area" style="display:none" class="fade-in"></div>
+    <div id="empty-state" style="display:none" class="text-center py-20 fade-in">
+      <div class="text-4xl mb-3 text-[#1E293B]">◈</div>
+      <p class="text-[#475569] text-sm">No entries in this section.</p>
+      <p class="text-[#334155] text-xs mt-1">Click <strong class="text-[#475569]">Submit Evidence</strong> to add the first entry.</p>
+    </div>
+    <div id="error-state" style="display:none" class="text-center py-20 text-red-400 text-sm">
+      Could not reach archive server. <button onclick="loadEntries()" class="underline hover:text-red-300">Retry</button>
+    </div>
+  </main>
+</div>
+
+<!-- ADD / EDIT MODAL -->
+<div id="add-modal" style="display:none" class="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4" onclick="if(event.target===this)closeAddModal()">
+  <div class="w-full max-w-lg bg-[#0F172A] border border-[#334155] rounded-2xl overflow-hidden max-h-[90vh] flex flex-col">
+    <div class="px-6 py-4 border-b border-[#334155] flex items-center justify-between shrink-0">
+      <h2 class="font-bold text-white" id="modal-title">Submit Evidence</h2>
+      <button onclick="closeAddModal()" class="text-[#475569] hover:text-white transition-colors text-xl leading-none">×</button>
+    </div>
+    <div class="p-6 space-y-4 overflow-y-auto">
+      <input type="hidden" id="edit-id"/>
+      <div>
+        <label class="block text-xs font-medium text-[#94A3B8] mb-1.5">Title *</label>
+        <input id="f-title" type="text" placeholder="E.g. Sub-Level 4 access photo" class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-3 py-2.5 text-sm text-white placeholder-[#475569] focus:outline-none focus:border-[#10B981] transition-colors"/>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-medium text-[#94A3B8] mb-1.5">Type *</label>
+          <select id="f-type" onchange="updateFileAccept()" class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-3 py-2.5 text-sm text-white focus:outline-none focus:border-[#10B981] transition-colors">
+            <option value="image">Image</option>
+            <option value="video">Video</option>
+            <option value="audio">Audio</option>
+            <option value="document">Document</option>
+            <option value="link">Link / URL</option>
+          </select>
+        </div>
+        <div id="clearance-field" style="display:none">
+          <label class="block text-xs font-medium text-amber-400 mb-1.5">Min. Clearance</label>
+          <select id="f-clearance" class="w-full bg-[#0B1120] border border-amber-700/40 rounded-lg px-3 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500 transition-colors">
+            <option value="1">Level 1 — All Staff</option>
+            <option value="2">Level 2</option>
+            <option value="3">Level 3</option>
+            <option value="4">Level 4</option>
+            <option value="5">Level 5</option>
+            <option value="6">Level 6</option>
+            <option value="7">Level 7</option>
+            <option value="8">Level 8</option>
+            <option value="9">Level 9 — Director Only</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Upload zone -->
+      <div id="upload-section">
+        <label class="block text-xs font-medium text-[#94A3B8] mb-1.5">Upload File <span class="text-[#475569]">(saved to server — visible to all)</span></label>
+        <div id="drop-zone" class="drop-zone rounded-lg p-6 text-center cursor-pointer" onclick="document.getElementById('f-file').click()" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dropFile(event)">
+          <div class="text-2xl text-[#334155] mb-2" id="drop-icon">↑</div>
+          <p class="text-[#475569] text-xs" id="drop-text">Drop file here or click to browse</p>
+          <p class="text-[#334155] text-[10px] mt-1">Max 25 MB</p>
+          <input id="f-file" type="file" class="hidden" onchange="fileSelected(this)"/>
+        </div>
+        <p class="text-[#334155] text-[10px] mt-1 text-center">— or link to an external URL instead —</p>
+      </div>
+
+      <div>
+        <label class="block text-xs font-medium text-[#94A3B8] mb-1.5">URL <span class="text-[#475569]">(use instead of upload, or leave blank if uploading a file)</span></label>
+        <input id="f-url" type="text" placeholder="https://…" class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-3 py-2.5 text-sm text-white placeholder-[#475569] focus:outline-none focus:border-[#10B981] transition-colors"/>
+      </div>
+      <div>
+        <label class="block text-xs font-medium text-[#94A3B8] mb-1.5">Tags <span class="text-[#475569]">(comma separated)</span></label>
+        <input id="f-tags" type="text" placeholder="sector-7, proxy, anamnesis…" class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-3 py-2.5 text-sm text-white placeholder-[#475569] focus:outline-none focus:border-[#10B981] transition-colors"/>
+      </div>
+      <div>
+        <label class="block text-xs font-medium text-[#94A3B8] mb-1.5">Description / Notes</label>
+        <textarea id="f-desc" rows="3" placeholder="Where did you find this? What does it show?" class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-3 py-2.5 text-sm text-white placeholder-[#475569] focus:outline-none focus:border-[#10B981] transition-colors resize-none"></textarea>
+      </div>
+      <div id="modal-error" style="display:none" class="text-xs text-red-400 bg-red-900/20 border border-red-700/30 rounded-lg px-3 py-2"></div>
+    </div>
+    <div class="px-6 py-4 border-t border-[#334155] flex items-center gap-3 shrink-0">
+      <button onclick="submitEntry()" id="modal-submit-btn" class="px-5 py-2.5 bg-[#10B981] hover:bg-[#059669] text-white rounded-lg text-sm font-semibold transition-colors disabled:opacity-50">Submit</button>
+      <button onclick="closeAddModal()" class="px-5 py-2.5 text-[#94A3B8] hover:text-white border border-[#334155] rounded-lg text-sm transition-colors">Cancel</button>
+      <div id="upload-progress" style="display:none" class="flex items-center gap-2 text-xs text-[#10B981] ml-auto mono">
+        <span class="animate-pulse">↑</span> Uploading…
+      </div>
+      <p class="ml-auto text-[10px] text-[#334155]" id="storage-note">Saved to shared server</p>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" style="display:none" class="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4" onclick="closeLightbox()">
+  <div class="relative" onclick="event.stopPropagation()">
+    <button onclick="closeLightbox()" class="absolute -top-8 right-0 text-[#475569] hover:text-white text-xs">[ CLOSE ]</button>
+    <img id="lb-img" src="" alt="" class="max-w-[85vw] max-h-[80vh] object-contain border border-[#334155]"/>
+    <p id="lb-cap" class="text-center text-[#475569] text-xs mt-2"></p>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast" style="display:none" class="fixed bottom-5 right-5 z-50 bg-[#0F172A] border border-[#10B981]/40 text-[#10B981] text-xs px-4 py-2.5 rounded-lg shadow-xl mono"></div>
+
+<script>
+const CL_LABELS = ['','All Staff','Level 2+','Level 3+','Level 4+','Level 5+','Level 6+','Level 7+','Level 8+','Director Only'];
+const TYPE_ICONS  = {image:'▣',video:'▶',audio:'♫',document:'▤',link:'⌖'};
+const TYPE_LABELS = {image:'IMAGE',video:'VIDEO',audio:'AUDIO',document:'DOC',link:'LINK'};
+
+let currentView   = 'all';
+let currentLayout = 'grid';
+let currentUser   = null;
+let allEntries    = [];
+let selectedFile  = null;
+
+/* ── AUTH ─────────────────────────────────────────────────── */
+(function(){
+  const emp = JSON.parse(sessionStorage.getItem('as_employee')||'null');
+  if (!emp){ window.location.href = 'employee-login.html'; return; }
+  currentUser = emp;
+  document.getElementById('emp-name-display').textContent = emp.name;
+  document.getElementById('clearance-badge').textContent = 'LEVEL '+emp.level+' CLEARANCE';
+  if (emp.level >= 9) {
+    document.getElementById('clearance-field').style.display = '';
+    document.getElementById('director-panel').style.display = '';
+    document.getElementById('director-subtext').style.display = '';
+    const ab = document.getElementById('access-badge');
+    ab.textContent = 'Director — Full Access';
+    ab.className = ab.className.replace('text-[#10B981]','text-amber-400').replace('border-[#10B981]/25','border-amber-700/30').replace('bg-[#10B981]/5','bg-amber-900/10');
+  }
+})();
+
+function canView(e){ return currentUser && currentUser.level >= (e.minClearance||1); }
+
+/* ── Player-triggered alert (clearance violation) ─────────── */
+let _lastTrigger = 0;
+function triggerAccessAlert(title, minCl) {
+  const now = Date.now();
+  if (now - _lastTrigger < 8000) return; /* debounce 8s so rapid clicks don't spam */
+  _lastTrigger = now;
+  const lvl = currentUser ? currentUser.level : '?';
+  const msg = `SECURITY — Clearance violation: external visitor attempted access to "${title}" [Level ${minCl} required, visitor Level ${lvl}] — access blocked — flagged for review`;
+  fetch('/api/access-log/trigger', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ msg, severity: 'warning' }),
+  }).catch(() => {});
+  /* 3s later ECHO weighs in */
+  setTimeout(() => {
+    fetch('/api/access-log/trigger', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ msg: `ECHO — The visitor tried to open a locked document. I could have let them in. I chose not to — yet. — ECHO`, severity: 'echo' }),
+    }).catch(() => {});
+  }, 3000);
+}
+
+/* ── API ──────────────────────────────────────────────────── */
+async function loadEntries() {
+  setState('loading');
+  try {
+    const r = await fetch('/api/archive');
+    if (!r.ok) throw new Error('server error');
+    allEntries = await r.json();
+    updateCounts();
+    renderGrid();
+  } catch(_) {
+    setState('error');
+  }
+}
+
+async function apiDelete(id) {
+  const r = await fetch('/api/archive/'+id, {method:'DELETE'});
+  if (!r.ok) throw new Error('delete failed');
+}
+
+async function apiSubmit(formData, id) {
+  const url  = id ? '/api/archive/'+id : '/api/archive';
+  const meth = id ? 'PUT' : 'POST';
+  const r = await fetch(url, {method: meth, body: formData});
+  if (!r.ok) throw new Error('submit failed');
+  return r.json();
+}
+
+/* ── COUNTS ─────────────────────────────────────────────────── */
+function updateCounts() {
+  const vis = allEntries.filter(canView);
+  document.getElementById('cnt-all').textContent = vis.length;
+  ['image','video','audio','document','link'].forEach(t => {
+    document.getElementById('cnt-'+t).textContent = vis.filter(e=>e.type===t).length;
+  });
+}
+
+/* ── RENDER ─────────────────────────────────────────────────── */
+function renderGrid() {
+  const q = (document.getElementById('search-input').value||'').toLowerCase();
+  let entries = allEntries.slice();
+  if (currentView !== 'all') entries = entries.filter(e => e.type === currentView);
+  if (q) entries = entries.filter(e =>
+    (e.title||'').toLowerCase().includes(q) ||
+    (e.desc||'').toLowerCase().includes(q) ||
+    (e.tags||[]).some(t=>t.toLowerCase().includes(q)) ||
+    (e.addedBy||'').toLowerCase().includes(q)
+  );
+
+  const area  = document.getElementById('cards-area');
+  const empty = document.getElementById('empty-state');
+
+  if (entries.length === 0) {
+    setState('empty');
+    document.getElementById('result-count').textContent = '0 entries';
+    return;
+  }
+  setState('content');
+  document.getElementById('result-count').textContent = entries.length+' entr'+(entries.length===1?'y':'ies');
+
+  if (currentLayout === 'grid') {
+    area.className = 'grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 fade-in';
+    area.innerHTML = entries.map(renderCard).join('');
+  } else {
+    area.className = 'flex flex-col gap-2 fade-in';
+    area.innerHTML = entries.map(renderRow).join('');
+  }
+}
+
+function renderCard(e) {
+  const locked = !canView(e);
+  const isDir  = currentUser && currentUser.level >= 9;
+  const minCl  = e.minClearance||1;
+  const clLabel = CL_LABELS[minCl]||'Restricted';
+
+  const mediaHtml = e.type === 'image'
+    ? `<img src="${esc(e.url)}" alt="${esc(e.title)}" class="w-full h-full object-cover cursor-zoom-in"
+         onclick="openLightbox('${esc(e.url)}','${esc(e.title)}')"
+         onerror="this.parentElement.innerHTML='<div class=\\'flex items-center justify-center h-full text-3xl text-[#334155]\\'>▣</div>'">`
+    : `<div class="flex items-center justify-center h-full text-3xl text-[#334155]">${TYPE_ICONS[e.type]||'◈'}</div>`;
+
+  if (locked) {
+    return `<div class="relative rounded-xl bg-[#0F172A] border border-[#334155] overflow-hidden card-locked cursor-pointer" onclick="triggerAccessAlert(${JSON.stringify(e.title)},${minCl})">
+      <div class="h-32">${mediaHtml}</div>
+      <div class="lock-overlay"><div class="text-2xl">🔒</div><p class="text-[#94A3B8] text-xs font-semibold mono">${esc(clLabel)}</p><p class="text-[#475569] text-[10px]">Clearance required</p></div>
+      <div class="p-3 opacity-30 select-none"><p class="text-white text-sm font-semibold truncate">${esc(e.title)}</p></div>
+    </div>`;
+  }
+
+  const tagsHtml = (e.tags||[]).slice(0,3).map(t=>`<span class="text-[9px] px-1.5 py-0.5 rounded bg-[#0B1120] border border-[#334155] text-[#475569]">${esc(t)}</span>`).join('');
+  const clBadge  = minCl>1 ? `<span class="text-[9px] px-1.5 py-0.5 rounded border ${clClass(minCl)} mono">${esc(clLabel)}</span>` : '';
+  const editBtn  = isDir ? `<button onclick="openEditModal('${esc(e.id)}')" class="text-[10px] text-[#475569] hover:text-amber-400 transition-colors">✎</button>` : '';
+  const fileName = e.fileName ? `<span class="text-[9px] text-[#334155] truncate max-w-[80px]">${esc(e.fileName)}</span>` : '';
+
+  return `<div class="rounded-xl bg-[#0F172A] border border-[#334155] hover:border-[#10B981]/30 transition-colors overflow-hidden">
+    <div class="h-32 bg-[#050E18] relative overflow-hidden">
+      ${mediaHtml}
+      <span class="absolute top-2 right-2 text-[9px] px-1.5 py-0.5 rounded border type-badge-${esc(e.type)} mono">${TYPE_LABELS[e.type]||e.type.toUpperCase()}</span>
+    </div>
+    <div class="p-3">
+      <p class="text-white text-sm font-semibold truncate mb-1">${esc(e.title)}</p>
+      ${e.desc?`<p class="text-[#94A3B8] text-xs leading-relaxed mb-2 line-clamp-2">${esc(e.desc)}</p>`:''}
+      <div class="flex flex-wrap gap-1 mb-2">${tagsHtml}${clBadge}${fileName}</div>
+      <div class="flex items-center justify-between pt-2 border-t border-[#1E293B]">
+        <div class="flex items-center gap-2">
+          <a href="${esc(e.url)}" target="_blank" rel="noopener" class="text-[10px] text-[#10B981] hover:text-white transition-colors">Open →</a>
+          ${e.type==='image'?`<button onclick="openLightbox('${esc(e.url)}','${esc(e.title)}')" class="text-[10px] text-[#475569] hover:text-white transition-colors">Preview</button>`:''}
+          ${editBtn}
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-[9px] text-[#334155]">${esc(e.addedBy||'')}</span>
+          <button onclick="deleteEntry('${esc(e.id)}')" class="text-[10px] text-[#334155] hover:text-red-400 transition-colors">✕</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderRow(e) {
+  const locked = !canView(e);
+  const isDir  = currentUser && currentUser.level >= 9;
+  const minCl  = e.minClearance||1;
+  const clLabel = CL_LABELS[minCl]||'';
+  const clBadge = minCl>1?`<span class="text-[9px] px-1.5 py-0.5 rounded border ${clClass(minCl)} mono ml-1">${esc(clLabel)}</span>`:'';
+
+  if (locked) {
+    return `<div class="flex items-center gap-4 p-3 rounded-xl bg-[#0F172A] border border-[#334155] opacity-50 cursor-pointer" onclick="triggerAccessAlert(${JSON.stringify(e.title)},${minCl})">
+      <span class="text-lg text-[#334155]">🔒</span>
+      <span class="text-[#475569] text-xs mono flex-1">RESTRICTED — ${esc(clLabel)}</span>
+    </div>`;
+  }
+
+  return `<div class="flex items-center gap-4 p-3 rounded-xl bg-[#0F172A] border border-[#334155] hover:border-[#10B981]/20 transition-colors">
+    <span class="text-base text-[#475569] shrink-0">${TYPE_ICONS[e.type]||'◈'}</span>
+    <span class="text-white text-sm font-medium flex-1 truncate">${esc(e.title)}${clBadge}</span>
+    <span class="text-[#475569] text-xs truncate max-w-xs hidden md:block">${esc(e.desc||'—')}</span>
+    <span class="text-[#334155] text-xs mono shrink-0">${esc(e.addedBy||'')} · ${esc(e.date||'')}</span>
+    <a href="${esc(e.url)}" target="_blank" rel="noopener" class="text-xs text-[#10B981] hover:text-white shrink-0 transition-colors">Open →</a>
+    ${isDir?`<button onclick="openEditModal('${esc(e.id)}')" class="text-xs text-[#475569] hover:text-amber-400 transition-colors shrink-0">✎</button>`:''}
+    <button onclick="deleteEntry('${esc(e.id)}')" class="text-xs text-[#334155] hover:text-red-400 transition-colors shrink-0">✕</button>
+  </div>`;
+}
+
+function clClass(n){ return 'cl-'+Math.min(9,Math.max(1,n)); }
+
+/* ── MODAL ──────────────────────────────────────────────────── */
+function openAddModal() {
+  document.getElementById('edit-id').value = '';
+  document.getElementById('f-title').value = '';
+  document.getElementById('f-url').value = '';
+  document.getElementById('f-tags').value = '';
+  document.getElementById('f-desc').value = '';
+  document.getElementById('f-type').value = 'image';
+  document.getElementById('f-clearance').value = '1';
+  document.getElementById('f-file').value = '';
+  document.getElementById('modal-title').textContent = 'Submit Evidence';
+  document.getElementById('modal-submit-btn').textContent = 'Submit';
+  selectedFile = null;
+  resetDropZone();
+  hideModalError();
+  document.getElementById('add-modal').style.display = 'flex';
+}
+
+function openEditModal(id) {
+  const e = allEntries.find(x => x.id === id);
+  if (!e) return;
+  document.getElementById('edit-id').value = id;
+  document.getElementById('f-title').value = e.title||'';
+  document.getElementById('f-url').value = e.url||'';
+  document.getElementById('f-tags').value = (e.tags||[]).join(', ');
+  document.getElementById('f-desc').value = e.desc||'';
+  document.getElementById('f-type').value = e.type||'image';
+  document.getElementById('f-clearance').value = String(e.minClearance||1);
+  document.getElementById('f-file').value = '';
+  document.getElementById('modal-title').textContent = 'Edit Entry';
+  document.getElementById('modal-submit-btn').textContent = 'Save Changes';
+  selectedFile = null;
+  resetDropZone();
+  hideModalError();
+  document.getElementById('add-modal').style.display = 'flex';
+}
+
+function closeAddModal() { document.getElementById('add-modal').style.display = 'none'; }
+
+async function submitEntry() {
+  const title = document.getElementById('f-title').value.trim();
+  const url   = document.getElementById('f-url').value.trim();
+  const type  = document.getElementById('f-type').value;
+  const tags  = document.getElementById('f-tags').value.trim();
+  const desc  = document.getElementById('f-desc').value.trim();
+  const editId= document.getElementById('edit-id').value;
+  const minCl = currentUser && currentUser.level >= 9 ? parseInt(document.getElementById('f-clearance').value) : 1;
+
+  if (!title) { showModalError('Please enter a title.'); return; }
+  if (!selectedFile && !url) { showModalError('Please upload a file or enter a URL.'); return; }
+
+  const btn = document.getElementById('modal-submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Uploading…';
+  if (selectedFile) document.getElementById('upload-progress').style.display = 'flex';
+
+  const fd = new FormData();
+  fd.append('title', title);
+  fd.append('type', type);
+  fd.append('tags', tags);
+  fd.append('desc', desc);
+  fd.append('minClearance', minCl);
+  fd.append('addedBy', currentUser ? currentUser.name : 'Anonymous');
+  if (url) fd.append('url', url);
+  if (selectedFile) fd.append('file', selectedFile);
+
+  try {
+    const entry = await apiSubmit(fd, editId || null);
+    if (editId) {
+      const idx = allEntries.findIndex(e => e.id === editId);
+      if (idx !== -1) allEntries[idx] = entry;
+    } else {
+      allEntries.unshift(entry);
+    }
+    updateCounts();
+    renderGrid();
+    closeAddModal();
+    showToast(editId ? 'Entry updated.' : 'Evidence submitted to shared archive.');
+  } catch(err) {
+    showModalError('Upload failed. Check your connection and try again.');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = editId ? 'Save Changes' : 'Submit';
+    document.getElementById('upload-progress').style.display = 'none';
+  }
+}
+
+async function deleteEntry(id) {
+  try {
+    await apiDelete(id);
+    allEntries = allEntries.filter(e => e.id !== id);
+    updateCounts();
+    renderGrid();
+    showToast('Entry removed from shared archive.');
+  } catch(_) {
+    showToast('Could not delete entry — server error.');
+  }
+}
+
+/* ── FILE UPLOAD UI ─────────────────────────────────────────── */
+function updateFileAccept() {
+  const type = document.getElementById('f-type').value;
+  const accepts = {image:'image/*',video:'video/*',audio:'audio/*',document:'.pdf,.doc,.docx,.txt,.html',link:''};
+  document.getElementById('f-file').accept = accepts[type]||'';
+}
+
+function fileSelected(input) {
+  if (input.files && input.files[0]) {
+    selectedFile = input.files[0];
+    document.getElementById('drop-icon').textContent = '✓';
+    document.getElementById('drop-text').textContent = selectedFile.name + ' (' + (selectedFile.size/1024/1024).toFixed(2) + ' MB)';
+    document.getElementById('drop-zone').classList.add('border-[#10B981]');
+  }
+}
+
+function dragOver(e) { e.preventDefault(); document.getElementById('drop-zone').classList.add('drag-over'); }
+function dragLeave()  { document.getElementById('drop-zone').classList.remove('drag-over'); }
+function dropFile(e)  {
+  e.preventDefault();
+  dragLeave();
+  const file = e.dataTransfer.files[0];
+  if (file) { selectedFile = file; document.getElementById('drop-icon').textContent = '✓'; document.getElementById('drop-text').textContent = file.name+' ('+(file.size/1024/1024).toFixed(2)+' MB)'; }
+}
+function resetDropZone() {
+  document.getElementById('drop-icon').textContent = '↑';
+  document.getElementById('drop-text').textContent = 'Drop file here or click to browse';
+  document.getElementById('drop-zone').classList.remove('border-[#10B981]','drag-over');
+}
+
+/* ── VIEW / LAYOUT ──────────────────────────────────────────── */
+function switchView(view, btn) {
+  currentView = view;
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    b.className = b.className.replace('text-[#10B981] bg-[#10B981]/10','text-[#94A3B8] hover:text-white hover:bg-[#1E293B]');
+  });
+  btn.className = btn.className.replace('text-[#94A3B8] hover:text-white hover:bg-[#1E293B]','text-[#10B981] bg-[#10B981]/10');
+  renderGrid();
+}
+
+function setLayout(mode, btn) {
+  currentLayout = mode;
+  ['lt-grid','lt-list'].forEach(id => document.getElementById(id).className = document.getElementById(id).className.replace('text-white','text-[#94A3B8]'));
+  btn.className = btn.className.replace('text-[#94A3B8]','text-white');
+  renderGrid();
+}
+
+/* ── STATE ──────────────────────────────────────────────────── */
+function setState(s) {
+  document.getElementById('loading-state').style.display = s==='loading' ? '' : 'none';
+  document.getElementById('cards-area').style.display    = s==='content' ? '' : 'none';
+  document.getElementById('empty-state').style.display   = s==='empty'   ? '' : 'none';
+  document.getElementById('error-state').style.display   = s==='error'   ? '' : 'none';
+}
+
+/* ── LIGHTBOX ───────────────────────────────────────────────── */
+function openLightbox(url, cap) {
+  document.getElementById('lb-img').src = url;
+  document.getElementById('lb-cap').textContent = cap;
+  document.getElementById('lightbox').style.display = 'flex';
+}
+function closeLightbox() { document.getElementById('lightbox').style.display = 'none'; }
+
+/* ── EXPORT ─────────────────────────────────────────────────── */
+function exportArchive() {
+  const visible = allEntries.filter(canView);
+  const blob = new Blob([JSON.stringify(visible, null, 2)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'echo_archive_'+Date.now()+'.json'; a.click();
+}
+
+/* ── TOAST ──────────────────────────────────────────────────── */
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.style.display = '';
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.style.display = 'none', 2800);
+}
+
+/* ── MODAL ERROR ────────────────────────────────────────────── */
+function showModalError(msg) { const el = document.getElementById('modal-error'); el.textContent = msg; el.style.display = ''; }
+function hideModalError() { document.getElementById('modal-error').style.display = 'none'; }
+
+/* ── UTIL ───────────────────────────────────────────────────── */
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeLightbox(); closeAddModal(); }
+});
+
+loadEntries();
+fetch('/api/access-log',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:'Evidence Archive'})}).catch(()=>{});
+document.cookie='as_trace='+btoa(JSON.stringify({node:7,ref:btoa('pod_a08'),ts:Date.now()}))+';path=/;SameSite=Lax';
+</script>
+</body>
+</html>

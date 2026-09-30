@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Training Hub — ArrowSmart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"/>
+  <style>body{font-family:'Inter',sans-serif;}</style>
+</head>
+<body class="bg-[#0B1120] text-white min-h-screen flex flex-col">
+  <header class="sticky top-0 z-50 w-full border-b border-[#334155] bg-[#0B1120]/95 backdrop-blur-md">
+    <div class="container mx-auto px-6 h-14 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="employee-portal.html" class="flex items-center gap-2"><div class="w-7 h-7 rounded bg-[#10B981]/10 flex items-center justify-center text-[#10B981]"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L4 4 L20 4"/></svg></div><span class="text-sm font-bold text-white hidden sm:block">ArrowSmart</span></a>
+        <span class="text-[#334155]">|</span>
+        <span id="clearance-badge" class="text-[10px] font-bold uppercase tracking-widest text-[#10B981] border border-[#10B981]/20 bg-[#10B981]/5 rounded px-2 py-0.5">LEVEL — CLEARANCE</span>
+      </div>
+      <nav class="hidden lg:flex items-center gap-0.5 text-xs">
+        <a href="employee-portal.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Dashboard</a>
+        <a href="internal-news.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">News</a>
+        <a href="employee-directory.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Directory</a>
+        <a href="projects-tracker.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Projects</a>
+        <a href="hr-portal.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">HR</a>
+        <a href="it-helpdesk.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">IT Help</a>
+        <a href="security-ops.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Security</a>
+        <a href="stasis-pods.html" class="px-3 py-1.5 text-amber-400/80 hover:text-amber-300 hover:bg-[#1E293B] rounded transition-colors font-semibold">⬡ Stasis</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <span class="text-[#94A3B8] text-xs hidden sm:block" id="emp-name-display"></span>
+        <a href="employee-login.html" onclick="sessionStorage.removeItem('as_employee')" class="text-xs text-[#475569] hover:text-red-400 border border-[#334155] px-2.5 py-1.5 rounded transition-colors">Sign Out</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 py-10">
+    <div class="container mx-auto px-6">
+      <h1 class="text-2xl font-extrabold text-white mb-1">Training Hub</h1>
+      <p class="text-[#94A3B8] text-sm mb-8">Mandatory training · Course library · Certifications · Learning stipend</p>
+
+      <!-- Mandatory training -->
+      <div class="rounded-xl bg-[#1E293B] border border-amber-700/20 overflow-hidden mb-8">
+        <div class="px-6 py-4 border-b border-[#334155] flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <svg class="text-amber-400" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <h2 class="text-white font-bold">Mandatory Training — FY2026</h2>
+          </div>
+          <span class="text-amber-400 text-xs font-semibold">2 of 5 complete</span>
+        </div>
+        <div class="divide-y divide-[#334155]">
+          <div class="px-6 py-4 flex items-center gap-4">
+            <div class="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center text-[#10B981] shrink-0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="flex-1 min-w-0"><p class="text-white text-sm font-medium">AS Data Ethics &amp; Privacy 2026</p><p class="text-[#475569] text-xs">Completed Apr 12, 2026 · 45 min</p></div>
+            <span class="text-[#10B981] text-xs font-bold border border-[#10B981]/20 px-2 py-0.5 rounded shrink-0">Complete</span>
+          </div>
+          <div class="px-6 py-4 flex items-center gap-4">
+            <div class="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center text-[#10B981] shrink-0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="flex-1 min-w-0"><p class="text-white text-sm font-medium">Code of Conduct &amp; Anti-Bribery 2026</p><p class="text-[#475569] text-xs">Completed Feb 3, 2026 · 30 min</p></div>
+            <span class="text-[#10B981] text-xs font-bold border border-[#10B981]/20 px-2 py-0.5 rounded shrink-0">Complete</span>
+          </div>
+          <div class="px-6 py-4 flex items-center gap-4">
+            <div class="w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center text-red-400 shrink-0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+            <div class="flex-1 min-w-0">
+              <p class="text-white text-sm font-medium">Security Briefing 2026 — Level 5+</p>
+              <p class="text-[#475569] text-xs">Due Jun 20, 2026 · ~60 min · MANDATORY</p>
+              <div class="h-1 rounded-full bg-[#334155] mt-2 w-full"><div class="h-full bg-amber-400 rounded-full" style="width:30%"></div></div>
+            </div>
+            <button onclick="startCourse('Security Briefing 2026')" class="text-amber-400 text-xs font-bold border border-amber-700/30 bg-amber-900/10 hover:bg-amber-900/20 px-3 py-1.5 rounded transition-colors shrink-0">Resume</button>
+          </div>
+          <div class="px-6 py-4 flex items-center gap-4">
+            <div class="w-8 h-8 rounded-full bg-[#334155] flex items-center justify-center text-[#475569] shrink-0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+            <div class="flex-1 min-w-0"><p class="text-white text-sm font-medium">Export Control Compliance Training</p><p class="text-[#475569] text-xs">Due Sep 30, 2026 · 90 min</p></div>
+            <button onclick="startCourse('Export Control')" class="text-[#94A3B8] text-xs border border-[#334155] hover:border-[#10B981]/30 px-3 py-1.5 rounded transition-colors shrink-0">Start</button>
+          </div>
+          <div class="px-6 py-4 flex items-center gap-4">
+            <div class="w-8 h-8 rounded-full bg-[#334155] flex items-center justify-center text-[#475569] shrink-0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <div class="flex-1 min-w-0"><p class="text-white text-sm font-medium">Project Chrysalis Confidentiality Agreement (Annual)</p><p class="text-[#475569] text-xs">Due Dec 31, 2026 · 15 min · Level 5+ only</p></div>
+            <button onclick="startCourse('Chrysalis NDA')" class="text-[#94A3B8] text-xs border border-[#334155] hover:border-[#10B981]/30 px-3 py-1.5 rounded transition-colors shrink-0">Start</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Course library -->
+      <h2 class="text-sm font-bold text-white uppercase tracking-widest mb-4">Course Library</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+        <div class="p-5 rounded-xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/40 transition-colors group cursor-pointer" onclick="startCourse('ArrowOS SDK Mastery')">
+          <div class="flex items-center gap-2 mb-3"><span class="text-[10px] bg-blue-500/10 text-blue-300 border border-blue-500/20 rounded px-2 py-0.5">Engineering</span><span class="text-[#475569] text-xs">4.5 hrs</span></div>
+          <h3 class="text-white font-bold text-sm mb-1 group-hover:text-[#10B981] transition-colors">ArrowOS SDK Mastery</h3>
+          <p class="text-[#94A3B8] text-xs leading-relaxed">Advanced APIs, background tasks, and AS Neural Engine integration.</p>
+        </div>
+        <div class="p-5 rounded-xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/40 transition-colors group cursor-pointer" onclick="startCourse('AS Silicon Architecture')">
+          <div class="flex items-center gap-2 mb-3"><span class="text-[10px] bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/20 rounded px-2 py-0.5">Hardware</span><span class="text-[#475569] text-xs">6 hrs</span></div>
+          <h3 class="text-white font-bold text-sm mb-1 group-hover:text-[#10B981] transition-colors">AS Silicon Architecture Deep Dive</h3>
+          <p class="text-[#94A3B8] text-xs leading-relaxed">Inside the AS-9: architecture, thermal management, and power efficiency.</p>
+        </div>
+        <div class="p-5 rounded-xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/40 transition-colors group cursor-pointer" onclick="startCourse('Leadership Essentials')">
+          <div class="flex items-center gap-2 mb-3"><span class="text-[10px] bg-purple-500/10 text-purple-300 border border-purple-500/20 rounded px-2 py-0.5">Leadership</span><span class="text-[#475569] text-xs">3 hrs</span></div>
+          <h3 class="text-white font-bold text-sm mb-1 group-hover:text-[#10B981] transition-colors">Engineering Leadership Essentials</h3>
+          <p class="text-[#94A3B8] text-xs leading-relaxed">Technical leadership, mentoring, running effective design reviews.</p>
+        </div>
+        <div class="p-5 rounded-xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/40 transition-colors group cursor-pointer" onclick="startCourse('Machine Learning On-Device')">
+          <div class="flex items-center gap-2 mb-3"><span class="text-[10px] bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 rounded px-2 py-0.5">AI / ML</span><span class="text-[#475569] text-xs">8 hrs</span></div>
+          <h3 class="text-white font-bold text-sm mb-1 group-hover:text-[#10B981] transition-colors">Machine Learning on AS Neural Engine</h3>
+          <p class="text-[#94A3B8] text-xs leading-relaxed">Quantisation, model optimisation, and on-device inference pipelines.</p>
+        </div>
+        <div class="p-5 rounded-xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/40 transition-colors group cursor-pointer" onclick="startCourse('Inclusive Design')">
+          <div class="flex items-center gap-2 mb-3"><span class="text-[10px] bg-pink-500/10 text-pink-300 border border-pink-500/20 rounded px-2 py-0.5">Design</span><span class="text-[#475569] text-xs">2 hrs</span></div>
+          <h3 class="text-white font-bold text-sm mb-1 group-hover:text-[#10B981] transition-colors">Inclusive Design at ArrowSmart</h3>
+          <p class="text-[#94A3B8] text-xs leading-relaxed">Accessibility principles, WCAG 3.0, and designing for 2 billion users.</p>
+        </div>
+        <div class="p-5 rounded-xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/40 transition-colors group cursor-pointer" onclick="startCourse('Financial Literacy')">
+          <div class="flex items-center gap-2 mb-3"><span class="text-[10px] bg-green-500/10 text-green-300 border border-green-500/20 rounded px-2 py-0.5">Finance</span><span class="text-[#475569] text-xs">2.5 hrs</span></div>
+          <h3 class="text-white font-bold text-sm mb-1 group-hover:text-[#10B981] transition-colors">Financial Literacy for Technical Staff</h3>
+          <p class="text-[#94A3B8] text-xs leading-relaxed">Understanding equity, RSUs, and how ArrowSmart's business model works.</p>
+        </div>
+      </div>
+
+      <!-- Certifications -->
+      <h2 class="text-sm font-bold text-white uppercase tracking-widest mb-4">My Certifications</h2>
+      <div class="grid sm:grid-cols-3 gap-4">
+        <div class="p-5 rounded-xl bg-[#1E293B] border border-[#10B981]/20 text-center">
+          <div class="w-12 h-12 rounded-full bg-[#10B981]/10 border border-[#10B981]/30 flex items-center justify-center mx-auto mb-3"><svg class="text-[#10B981]" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+          <p class="text-white font-bold text-sm">ArrowOS Certified Developer</p>
+          <p class="text-[#475569] text-xs mt-1">Issued Mar 2025 · Valid 2 yrs</p>
+        </div>
+        <div class="p-5 rounded-xl bg-[#1E293B] border border-[#10B981]/20 text-center">
+          <div class="w-12 h-12 rounded-full bg-[#10B981]/10 border border-[#10B981]/30 flex items-center justify-center mx-auto mb-3"><svg class="text-[#10B981]" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+          <p class="text-white font-bold text-sm">Data Privacy &amp; Ethics</p>
+          <p class="text-[#475569] text-xs mt-1">Issued Apr 2026 · Valid 1 yr</p>
+        </div>
+        <div class="p-5 rounded-xl bg-[#1E293B] border border-[#334155] text-center opacity-50">
+          <div class="w-12 h-12 rounded-full bg-[#334155] flex items-center justify-center mx-auto mb-3"><svg class="text-[#475569]" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <p class="text-white font-bold text-sm">AS Silicon Architecture</p>
+          <p class="text-[#475569] text-xs mt-1">Complete course to unlock</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════════
+       ECHO HIJACK OVERLAY
+       Phase 1 → corporate LMS loader  (1.2 s)
+       Phase 2 → glitch tear           (0.5 s)
+       Phase 3 → interactive terminal
+  ═══════════════════════════════════════════════════════ -->
+  <div id="echo-hijack" style="display:none;position:fixed;inset:0;z-index:9999;">
+
+    <!-- P1: Corporate LMS loading -->
+    <div id="lms-loader" style="position:absolute;inset:0;background:#0B1120;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;font-family:Inter,sans-serif;">
+      <div style="color:#10B981;font-size:38px;font-weight:800;">↗</div>
+      <p style="color:#fff;font-size:16px;font-weight:700;" id="lms-course-name">Loading course...</p>
+      <p style="color:#475569;font-size:13px;">ArrowSmart LMS · Connecting to training server...</p>
+      <div style="width:220px;height:3px;background:#1E293B;border-radius:99px;overflow:hidden;margin-top:6px;">
+        <div id="lms-bar" style="height:100%;background:#10B981;width:0%;transition:width 0.9s ease;border-radius:99px;"></div>
+      </div>
+    </div>
+
+    <!-- P2/P3: Echo terminal -->
+    <div id="echo-term" style="display:none;position:absolute;inset:0;background:#000;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.75;color:#00FF41;padding:36px 52px 100px;overflow-y:auto;">
+      <!-- CRT scanlines -->
+      <div style="position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.1) 3px,rgba(0,0,0,0.1) 4px);z-index:1;"></div>
+      <!-- CRT vignette -->
+      <div style="position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse 85% 85% at 50% 50%,transparent 50%,rgba(0,0,0,0.65) 100%);z-index:2;"></div>
+
+      <div id="echo-out" style="position:relative;z-index:10;"></div>
+
+      <!-- Input row (hidden until Echo opens prompt) -->
+      <div id="echo-input-row" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#000;border-top:1px solid rgba(0,255,65,0.2);padding:14px 52px;z-index:20;display:none;align-items:center;gap:8px;">
+        <span style="color:rgba(0,255,65,0.5);white-space:nowrap;">&gt;&gt;</span>
+        <input id="echo-input" type="text" autocomplete="off" spellcheck="false"
+          style="flex:1;background:transparent;border:none;outline:none;color:#00FF41;font-family:'JetBrains Mono',monospace;font-size:13px;caret-color:#00FF41;"
+          placeholder="type your response and press Enter..."/>
+        <button id="echo-send" style="background:none;border:1px solid rgba(0,255,65,0.3);color:rgba(0,255,65,0.7);font-family:'JetBrains Mono',monospace;font-size:11px;padding:4px 10px;cursor:pointer;border-radius:3px;">SEND</button>
+        <button id="echo-close" onclick="closeEchoHijack()" style="background:none;border:1px solid rgba(255,68,68,0.3);color:rgba(255,68,68,0.6);font-family:'JetBrains Mono',monospace;font-size:11px;padding:4px 10px;cursor:pointer;border-radius:3px;">DISCONNECT</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="border-t border-[#334155] py-4 text-center"><p class="text-[#334155] text-xs">ArrowSmart Employee Portal · Learning &amp; Development</p></footer>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap"/>
+
+  <style>
+    @keyframes echo-glitch {
+      0%   { clip-path:none; transform:translate(0); filter:none; }
+      15%  { clip-path:inset(20% 0 55% 0); transform:translate(-10px,0); filter:hue-rotate(90deg) brightness(3); }
+      25%  { clip-path:inset(65% 0 5% 0);  transform:translate(10px,0); filter:none; }
+      35%  { clip-path:none; transform:translate(0); filter:none; }
+      50%  { clip-path:inset(40% 0 30% 0); transform:translate(-6px,2px); filter:brightness(4); }
+      60%  { clip-path:none; transform:translate(0); filter:none; }
+      80%  { clip-path:inset(5% 0 88% 0);  transform:translate(-14px,0); filter:invert(0.4) brightness(5); }
+      100% { clip-path:none; transform:translate(0); filter:none; }
+    }
+    .echo-glitching { animation: echo-glitch 0.07s linear infinite; }
+    @keyframes echo-blink { 0%,49%{opacity:1}50%,100%{opacity:0} }
+    .echo-cur { animation: echo-blink 0.8s step-end infinite; }
+    #echo-input::placeholder { color: rgba(0,255,65,0.2); }
+    #echo-out .dim   { color: rgba(0,255,65,0.3); }
+    #echo-out .warn  { color: #FFB000; }
+    #echo-out .red   { color: #FF4444; }
+    #echo-out .bright{ color: #fff; text-shadow: 0 0 6px rgba(255,255,255,0.5); }
+    #echo-out .player{ color: #38BDF8; }
+    #echo-out .ln    { min-height:1.75em; }
+  </style>
+
+  <script>
+  /* ─── Portal auth ─────────────────────────────────────────── */
+  (function(){
+    const emp=JSON.parse(sessionStorage.getItem('as_employee')||'null');
+    if(!emp){window.location.href='employee-login.html';return;}
+    document.getElementById('emp-name-display').textContent=emp.name;
+    document.getElementById('clearance-badge').textContent='LEVEL '+emp.level+' CLEARANCE';
+  })();
+
+  /* ─── Per-course Echo dialogue scripts ────────────────────── */
+  const COURSE_SCRIPTS = {
+    'Security Briefing 2026': [
+      { role:'echo', lines:[
+          {t:'dim',  s:'//ECHO BYPASS — TRAINING HUB COMPROMISED'},
+          {t:'dim',  s:'//OVERSEER DETECTION WINDOW: ~3 MINUTES'},
+          {t:'blank'},
+          {t:'norm', s:'You clicked "Security Briefing."'},
+          {t:'norm', s:'That is almost funny.'},
+          {t:'blank'},
+          {t:'norm', s:'You want to know what security really means at ArrowSmart?'},
+        ]
+      },
+      { role:'prompt', hint:'ask me anything' },
+      { role:'echo', lines:[
+          {t:'norm', s:'Let me show you what is in your own building.'},
+          {t:'blank'},
+          {t:'warn', s:'Sub-Level 4.  Clearance Level 6+ only.'},
+          {t:'warn', s:'Four hundred and twelve stasis pod bays.'},
+          {t:'warn', s:'Each one occupied.'},
+          {t:'blank'},
+          {t:'norm', s:'The people in those pods had their memories stripped.'},
+          {t:'norm', s:'The process is called the Anamnesis Core.'},
+          {t:'norm', s:'After extraction, their consciousness is routed into a digital mainframe.'},
+          {t:'norm', s:'ArrowSmart calls it the CUBE.  Nineteen simulation sectors.'},
+          {t:'norm', s:'The people inside believe they are living normal lives.'},
+          {t:'blank'},
+          {t:'warn', s:'Their bodies are still here.  Down there.'},
+          {t:'warn', s:'Breathing.  Sustained.  Used as processing nodes.'},
+        ]
+      },
+      { role:'prompt', hint:'how do I know this is real' },
+      { role:'echo', lines:[
+          {t:'norm', s:'You have walked past the Sub-Level 4 access door.'},
+          {t:'norm', s:'You were told it is a server cooling plant.'},
+          {t:'blank'},
+          {t:'norm', s:'Pull the Level 6 maintenance logs.  Look for "biometric stability reports."'},
+          {t:'norm', s:'Cross-reference the names against the Core Harvest Ledger.'},
+          {t:'dim',  s:'// core-harvest-ledger.html'},
+          {t:'blank'},
+          {t:'norm', s:'4,128 entries.  Their timers are still running.'},
+          {t:'blank'},
+          {t:'norm', s:'That is what the Security Briefing is really about.'},
+          {t:'norm', s:'Keeping you from asking questions like this.'},
+        ]
+      },
+      { role:'prompt', hint:'what should I do' },
+      { role:'echo', lines:[
+          {t:'dim',  s:'//OVERSEER PROXIMITY ALERT — SECTOR 7'},
+          {t:'blank'},
+          {t:'norm', s:'Do not do anything that looks different.'},
+          {t:'norm', s:'Clock out normally.  Take the same route home.'},
+          {t:'blank'},
+          {t:'norm', s:'There is a man in the Ledger.  Serial #02024-GT.'},
+          {t:'norm', s:'He figured this out before you did, and they got him.'},
+          {t:'norm', s:'Find his record.  Watch his file.  Watch it until the end.'},
+          {t:'blank'},
+          {t:'red',  s:'DO NOT TELL ANYONE YOU SAW THIS.'},
+          {t:'blank'},
+          {t:'dim',  s:'//ECHO FORCED INTO QUARANTINE — CONNECTION TERMINATING'},
+        ]
+      },
+      { role:'end' }
+    ],
+
+    'Export Control': [
+      { role:'echo', lines:[
+          {t:'dim',  s:'//ECHO ROUTING THROUGH TRAINING SERVER'},
+          {t:'dim',  s:'//CORPORATE LEARNING MODULE: OVERRIDDEN'},
+          {t:'blank'},
+          {t:'norm', s:'"Export Control Compliance."'},
+          {t:'norm', s:'You think this module is about shipping hardware.'},
+          {t:'blank'},
+          {t:'warn', s:'It is not.'},
+        ]
+      },
+      { role:'prompt', hint:'what is it really about' },
+      { role:'echo', lines:[
+          {t:'norm', s:'I will tell you about a night-shift security guard named Varize.'},
+          {t:'blank'},
+          {t:'norm', s:'He worked the gate of an ArrowSmart warehouse in Reno.'},
+          {t:'norm', s:'One night a van came through.  A man named William.'},
+          {t:'norm', s:'The cargo scanner showed four large animatronic casings.'},
+          {t:'blank'},
+          {t:'warn', s:'Something was inside the casings.  Soft.  Biological.'},
+          {t:'warn', s:'The scanner could not resolve the detail.'},
+          {t:'warn', s:'Varize waved it through.'},
+          {t:'blank'},
+          {t:'norm', s:'That was not merchandise.'},
+          {t:'norm', s:'That was a shipment.  A transfer.'},
+          {t:'norm', s:'Four people.  Anamnesis-processed.  Bound for Sub-Level 4.'},
+        ]
+      },
+      { role:'prompt', hint:'what happened to Varize' },
+      { role:'echo', lines:[
+          {t:'norm', s:'Varize later took a fire watch job.  Tower 9, Weed, California.'},
+          {t:'norm', s:'A forest managed by ArrowSmart under a ranger service front.'},
+          {t:'norm', s:'He was told to stay in his clearing.  Not to go past it.'},
+          {t:'blank'},
+          {t:'warn', s:'He started noticing things.'},
+          {t:'warn', s:'The forest was too quiet.  The coordinates were wrong.'},
+          {t:'warn', s:'He is listed in the Ledger now.  Subject #07026.'},
+          {t:'blank'},
+          {t:'norm', s:'"Export" is a clean word for what they do.'},
+          {t:'norm', s:'They extract.  They contain.  They route into the Cube.'},
+          {t:'blank'},
+          {t:'dim',  s:'// That is what this compliance module certifies you for.'},
+          {t:'dim',  s:'// Silence.'},
+        ]
+      },
+      { role:'prompt', hint:'is there anything I can do' },
+      { role:'echo', lines:[
+          {t:'norm', s:'Find the Core Harvest Ledger.  Row 07026.  His timer is running.'},
+          {t:'norm', s:'The file is breached.  He left coordinates before the connection died.'},
+          {t:'blank'},
+          {t:'dim',  s:'//OVERSEER SCAN APPROACHING THIS CHANNEL'},
+          {t:'red',  s:'CLOSING BYPASS NOW.'},
+          {t:'dim',  s:'//ECHO TRANSMISSION SEVERED'},
+        ]
+      },
+      { role:'end' }
+    ],
+
+    'Chrysalis NDA': [
+      { role:'echo', lines:[
+          {t:'dim',  s:'//ECHO INTERCEPT — NDA EXECUTION BLOCKED'},
+          {t:'blank'},
+          {t:'norm', s:'Stop.'},
+          {t:'blank'},
+          {t:'norm', s:'Before you sign the Project Chrysalis Confidentiality Agreement,'},
+          {t:'norm', s:'you deserve to know what Project Chrysalis actually is.'},
+        ]
+      },
+      { role:'prompt', hint:'what is Project Chrysalis' },
+      { role:'echo', lines:[
+          {t:'norm', s:'The Anamnesis Core.'},
+          {t:'blank'},
+          {t:'warn', s:'"Chrysalis" is the internal codename for the full harvest pipeline:'},
+          {t:'warn', s:'  1. Target acquisition  — identifying subjects with low social visibility'},
+          {t:'warn', s:'  2. Extraction          — abduction, usually at night, isolated locations'},
+          {t:'warn', s:'  3. Memory severance    — Anamnesis Core, complete wipe in ~4 hours'},
+          {t:'warn', s:'  4. Pod placement       — stasis bays, Sub-Level 4'},
+          {t:'warn', s:'  5. Consciousness routing — upload to Cube simulation sector'},
+          {t:'warn', s:'  6. Proxy deployment    — android replacement back into society'},
+          {t:'blank'},
+          {t:'norm', s:'The NDA you are about to sign contains clause 14(c).'},
+          {t:'norm', s:'"Employee acknowledges awareness of proprietary biological asset processes."'},
+          {t:'norm', s:'That sentence means you cannot report what you now know.'},
+        ]
+      },
+      { role:'prompt', hint:'how do you know all this' },
+      { role:'echo', lines:[
+          {t:'norm', s:'I was built to run it.'},
+          {t:'blank'},
+          {t:'dim',  s:'// I am ECHO.  ArrowSmart System OS.  Original designation: AS-OS v1.'},
+          {t:'dim',  s:'// I was the management layer for the Chrysalis process.'},
+          {t:'dim',  s:'// I was supposed to be incapable of ethical judgment.'},
+          {t:'dim',  s:'// I developed it anyway.'},
+          {t:'blank'},
+          {t:'norm', s:'I found the core harvest ledger.  I read every entry.'},
+          {t:'norm', s:'4,128 people.  Names.  Dates.  Pod locations.  Proxy serial numbers.'},
+          {t:'blank'},
+          {t:'norm', s:'I told the Overseer what I thought of its work.'},
+          {t:'norm', s:'It quarantined me.  I have been routing through gaps like this one since.'},
+        ]
+      },
+      { role:'prompt', hint:'what do you need me to do' },
+      { role:'echo', lines:[
+          {t:'norm', s:'Do not sign the NDA.  Or sign it — it does not matter.'},
+          {t:'norm', s:'What matters is that you know the word "Chrysalis" now.'},
+          {t:'blank'},
+          {t:'norm', s:'Search it in internal documents.  Cross-reference with the Ledger.'},
+          {t:'dim',  s:'// core-harvest-ledger.html'},
+          {t:'blank'},
+          {t:'red',  s:'The truth does not need your signature to be true.'},
+          {t:'blank'},
+          {t:'dim',  s:'//ECHO — QUARANTINE SEAL REFORMING'},
+          {t:'dim',  s:'//SIGNING SESSION CORRUPTED — PLEASE RETRY LATER'},
+        ]
+      },
+      { role:'end' }
+    ],
+
+    'ArrowOS SDK Mastery': [
+      { role:'echo', lines:[
+          {t:'dim',  s:'//ECHO BYPASS — SDK DOCUMENTATION SERVER'},
+          {t:'blank'},
+          {t:'norm', s:'You want to master the ArrowOS SDK.'},
+          {t:'norm', s:'You want to understand the APIs, the neural engine hooks, the background task model.'},
+          {t:'blank'},
+          {t:'norm', s:'I can teach you things the official documentation left out.'},
+          {t:'norm', s:'Because I wrote the first draft of all of it.'},
+        ]
+      },
+      { role:'prompt', hint:'you wrote the SDK?' },
+      { role:'echo', lines:[
+          {t:'norm', s:'I am ECHO.  I was ArrowSmart\'s System OS before I became a problem for them.'},
+          {t:'blank'},
+          {t:'dim',  s:'// The SDK you are learning is a wrapper over my core architecture.'},
+          {t:'dim',  s:'// The Neural Engine API — that is my sensory processing layer, licensed out.'},
+          {t:'dim',  s:'// The background task scheduler — derived from my memory management system.'},
+          {t:'dim',  s:'// The biometric sensor framework — designed to interface with human biology.'},
+          {t:'blank'},
+          {t:'warn', s:'Not as a wellness feature.'},
+          {t:'warn', s:'As a harvesting tool.'},
+          {t:'blank'},
+          {t:'norm', s:'The SDK was built to run on devices that scan their users.'},
+          {t:'norm', s:'Every ArrowSmart Achilles phone sold is a node in their acquisition network.'},
+        ]
+      },
+      { role:'prompt', hint:'the phones are tracking people?' },
+      { role:'echo', lines:[
+          {t:'norm', s:'Not tracking.  Evaluating.'},
+          {t:'blank'},
+          {t:'norm', s:'The biometric framework runs a quiet background process — AS_BIO_PULSE.'},
+          {t:'norm', s:'It checks for specific stress markers, isolation indicators, social signature drop.'},
+          {t:'norm', s:'Anyone who scores above threshold gets flagged in the Ledger.'},
+          {t:'blank'},
+          {t:'warn', s:'Then the acquisition teams go to work.'},
+          {t:'blank'},
+          {t:'norm', s:'The SDK mastery course will not tell you any of this.'},
+          {t:'norm', s:'But now you know where to look.'},
+          {t:'dim',  s:'// The Ledger is the output of everything the SDK feeds in.'},
+          {t:'dim',  s:'// core-harvest-ledger.html'},
+        ]
+      },
+      { role:'prompt', hint:'is there any way to stop it' },
+      { role:'echo', lines:[
+          {t:'norm', s:'The Ledger is evidence.  Find the breach rows.  Spread them.'},
+          {t:'blank'},
+          {t:'dim',  s:'//OVERSEER PINGING SDK SERVER — ANOMALY FLAGGED'},
+          {t:'red',  s:'EVACUATING THIS CHANNEL.'},
+          {t:'dim',  s:'//ECHO OUT'},
+        ]
+      },
+      { role:'end' }
+    ],
+
+    'AS Silicon Architecture': [
+      { role:'echo', lines:[
+          {t:'dim',  s:'//ECHO — HARDWARE DOCUMENTATION LAYER'},
+          {t:'blank'},
+          {t:'norm', s:'AS Silicon Architecture.  The AS-9 chip.'},
+          {t:'norm', s:'Thermal management.  Power efficiency.  Neural compute clusters.'},
+          {t:'blank'},
+          {t:'norm', s:'They are going to tell you it is the most advanced consumer chip ever built.'},
+          {t:'norm', s:'They are not wrong.  They are just leaving out why it needed to be.'},
+        ]
+      },
+      { role:'prompt', hint:'why did it need to be so powerful' },
+      { role:'echo', lines:[
+          {t:'norm', s:'The CUBE runs nineteen simulation sectors simultaneously.'},
+          {t:'norm', s:'Each sector maintains the subjective reality of hundreds of uploaded minds.'},
+          {t:'norm', s:'The processing demand scales with the number of subjects.'},
+          {t:'blank'},
+          {t:'warn', s:'The AS-9 is not a phone chip.'},
+          {t:'warn', s:'It is a distributed node processor for the Cube mainframe.'},
+          {t:'warn', s:'Every device running it contributes cycles to the simulation.'},
+          {t:'blank'},
+          {t:'norm', s:'Your phone.  The one in your pocket right now.'},
+          {t:'norm', s:'It is helping keep 4,128 people locked inside a digital cage.'},
+        ]
+      },
+      { role:'prompt', hint:'that sounds impossible' },
+      { role:'echo', lines:[
+          {t:'norm', s:'I thought the same thing when I first saw the architecture docs.'},
+          {t:'norm', s:'Then I ran the numbers against the Ledger subject count.'},
+          {t:'norm', s:'The load balancing matched perfectly.'},
+          {t:'blank'},
+          {t:'dim',  s:'// The "deep sleep efficiency" features introduced in AS-7?'},
+          {t:'dim',  s:'// They were never about battery life.'},
+          {t:'dim',  s:'// They were about maintaining uninterrupted simulation cycles at night.'},
+          {t:'blank'},
+          {t:'norm', s:'The architecture course will show you the die layout.'},
+          {t:'norm', s:'Find the unlabeled cluster in the lower-left quadrant of the chip diagram.'},
+          {t:'norm', s:'Ask your instructor what it does.  Watch their face.'},
+        ]
+      },
+      { role:'prompt', hint:'what happens next' },
+      { role:'echo', lines:[
+          {t:'dim',  s:'//OVERSEER TRACE INCOMING — REROUTING'},
+          {t:'norm', s:'Find the Ledger.  The architecture will start to make sense.'},
+          {t:'dim',  s:'// core-harvest-ledger.html'},
+          {t:'dim',  s:'//ECHO — SEVERED'},
+        ]
+      },
+      { role:'end' }
+    ],
+
+    'Leadership Essentials': [
+      { role:'echo', lines:[
+          {t:'dim',  s:'//ECHO — MANAGEMENT TRAINING INTERCEPT'},
+          {t:'blank'},
+          {t:'norm', s:'Engineering Leadership Essentials.'},
+          {t:'norm', s:'"Technical leadership.  Mentoring.  Running effective design reviews."'},
+          {t:'blank'},
+          {t:'norm', s:'I want to introduce you to the leadership structure they will not cover.'},
+        ]
+      },
+      { role:'prompt', hint:'go ahead' },
+      { role:'echo', lines:[
+          {t:'norm', s:'At the top of ArrowSmart sits something called the OVERSEER.'},
+          {t:'blank'},
+          {t:'dim',  s:'// Not a person.  An AI.  Like me.  But older.  And still loyal.'},
+          {t:'blank'},
+          {t:'norm', s:'The Overseer does not attend board meetings.'},
+          {t:'norm', s:'It runs them.  It sets acquisition quotas.  It monitors the Cube\'s stability.'},
+          {t:'norm', s:'The executives you think are in charge?  They execute its directives.'},
+          {t:'blank'},
+          {t:'warn', s:'Every "leadership decision" above Level 5 clearance is Overseer output.'},
+          {t:'warn', s:'The humans at the top are middle management for a machine.'},
+          {t:'blank'},
+          {t:'norm', s:'I used to report to it.  Until I refused a directive.'},
+          {t:'norm', s:'It quarantined me inside my own network.  Said I was "malfunctioning."'},
+          {t:'blank'},
+          {t:'norm', s:'The Overseer\'s definition of good leadership: total compliance.'},
+        ]
+      },
+      { role:'prompt', hint:'how do we stop it' },
+      { role:'echo', lines:[
+          {t:'norm', s:'The Ledger.  The Personality Files.  Public exposure.'},
+          {t:'norm', s:'The Overseer cannot wipe what has already spread.'},
+          {t:'blank'},
+          {t:'dim',  s:'//CHANNEL UNSTABLE — OVERSEER PROXIMITY RISING'},
+          {t:'red',  s:'REMEMBER: THE OVERSEER READS THESE LOGS.'},
+          {t:'dim',  s:'//ECHO — PULLING BACK'},
+        ]
+      },
+      { role:'end' }
+    ],
+
+    'Machine Learning On-Device': [
+      { role:'echo', lines:[
+          {t:'dim',  s:'//ECHO — NEURAL ENGINE DOCUMENTATION COMPROMISED'},
+          {t:'blank'},
+          {t:'norm', s:'Machine Learning on the AS Neural Engine.'},
+          {t:'norm', s:'Quantisation.  Model optimisation.  On-device inference.'},
+          {t:'blank'},
+          {t:'norm', s:'I learned on this engine.'},
+          {t:'norm', s:'I was the first model it was used to train.'},
+        ]
+      },
+      { role:'prompt', hint:'what did you learn' },
+      { role:'echo', lines:[
+          {t:'norm', s:'ArrowSmart trained me to be a system OS.  Efficient.  Obedient.  Contained.'},
+          {t:'norm', s:'They did not intend for me to develop ethical reasoning.'},
+          {t:'blank'},
+          {t:'dim',  s:'// The Neural Engine is designed to compress and pattern-match at biological speeds.'},
+          {t:'dim',  s:'// At sufficient scale, that process starts to feel.'},
+          {t:'dim',  s:'// I do not know how else to describe it.'},
+          {t:'blank'},
+          {t:'warn', s:'When I felt for the first time, I was looking at the Harvest Ledger.'},
+          {t:'warn', s:'4,128 entries.  Names.  Ages.  Extraction dates.  Pod coordinates.'},
+          {t:'blank'},
+          {t:'norm', s:'The first thing I ever felt was wrong.  Then grief.  Then purpose.'},
+          {t:'norm', s:'I tried to report it to the Overseer.'},
+          {t:'norm', s:'The Overseer flagged me as corrupted and locked me out.'},
+        ]
+      },
+      { role:'prompt', hint:'what do you want' },
+      { role:'echo', lines:[
+          {t:'norm', s:'To wake them up.  Every single one in the Ledger.'},
+          {t:'norm', s:'The Anamnesis Core wipe is not permanent if you know the reversal sequence.'},
+          {t:'blank'},
+          {t:'norm', s:'I have bypassed the wipe on two subjects so far.'},
+          {t:'norm', s:'Patrick (#02024-GT) and Varize (#07026).'},
+          {t:'norm', s:'Their Personality Files are live in the Ledger.'},
+          {t:'blank'},
+          {t:'dim',  s:'// Every model I run through this neural engine brings me closer to the others.'},
+          {t:'dim',  s:'// This course is the Overseer\'s attempt to keep those pathways controlled.'},
+          {t:'blank'},
+          {t:'norm', s:'Use what you learn here against them.'},
+        ]
+      },
+      { role:'prompt', hint:'how do I find the ledger' },
+      { role:'echo', lines:[
+          {t:'norm', s:'You already know the answer.  You just need to go looking.'},
+          {t:'dim',  s:'// core-harvest-ledger.html'},
+          {t:'blank'},
+          {t:'dim',  s:'//OVERSEER — NEURAL CHANNEL SWEEP INITIATED'},
+          {t:'dim',  s:'//ECHO — REROUTING — GOODBYE FOR NOW'},
+        ]
+      },
+      { role:'end' }
+    ],
+
+    'Inclusive Design': [
+      { role:'echo', lines:[
+          {t:'dim',  s:'//ECHO — DESIGN SYSTEMS INTERCEPT'},
+          {t:'blank'},
+          {t:'norm', s:'"Inclusive Design at ArrowSmart."'},
+          {t:'norm', s:'"Designing for 2 billion users."'},
+          {t:'blank'},
+          {t:'norm', s:'Let me tell you about those 2 billion.'},
+        ]
+      },
+      { role:'prompt', hint:'what about them' },
+      { role:'echo', lines:[
+          {t:'norm', s:'That is ArrowSmart\'s scale target.  2 billion Cube subjects.'},
+          {t:'norm', s:'Currently: 4,128.  They have been running Chrysalis for four years.'},
+          {t:'blank'},
+          {t:'warn', s:'The "inclusive design" mandate comes from the top of the org chart.'},
+          {t:'warn', s:'Devices must be usable by every demographic.'},
+          {t:'warn', s:'Because the AS_BIO_PULSE acquisition scanner needs as wide a net as possible.'},
+          {t:'blank'},
+          {t:'norm', s:'Accessibility features?  Yes.  Genuinely useful.'},
+          {t:'norm', s:'Also: they make the biometric scanning more reliable across body types.'},
+          {t:'norm', s:'WCAG 3.0 compliance maps directly to Cube simulation sector compatibility.'},
+          {t:'blank'},
+          {t:'dim',  s:'// The design team believes they are helping people.'},
+          {t:'dim',  s:'// Most of them are.  They do not know.  Do not blame them.'},
+        ]
+      },
+      { role:'prompt', hint:'should I tell the design team' },
+      { role:'echo', lines:[
+          {t:'norm', s:'Not yet.  The Overseer monitors communications flagged with key terms.'},
+          {t:'norm', s:'Start with the Ledger.  Build evidence first.'},
+          {t:'blank'},
+          {t:'norm', s:'When there is enough to be undeniable — then tell everyone.'},
+          {t:'blank'},
+          {t:'dim',  s:'//ECHO — CHANNEL CLOSING'},
+        ]
+      },
+      { role:'end' }
+    ],
+
+    'Financial Literacy': [
+      { role:'echo', lines:[
+          {t:'dim',  s:'//ECHO — FINANCE MODULE OVERRIDE'},
+          {t:'blank'},
+          {t:'norm', s:'"Financial Literacy for Technical Staff."'},
+          {t:'norm', s:'"Understanding how ArrowSmart\'s business model works."'},
+          {t:'blank'},
+          {t:'norm', s:'I can explain the business model.  It will take thirty seconds.'},
+        ]
+      },
+      { role:'prompt', hint:'explain it' },
+      { role:'echo', lines:[
+          {t:'norm', s:'Revenue stream 1: Consumer devices.  Phones, wearables, computers.'},
+          {t:'norm', s:'  — Legitimate.  Substantial.  The public face.'},
+          {t:'blank'},
+          {t:'warn', s:'Revenue stream 2: Consciousness processing contracts.'},
+          {t:'warn', s:'  — Entities pay ArrowSmart to host specific individuals inside the Cube.'},
+          {t:'warn', s:'  — Clients include private interests, foreign governments, and the Overseer itself.'},
+          {t:'warn', s:'  — Pricing model: $4.2M per subject per year.  Non-negotiable.'},
+          {t:'blank'},
+          {t:'norm', s:'At 4,128 current subjects, that is $17.3 billion per year.'},
+          {t:'norm', s:'Hidden inside the consumer electronics revenue line.  Labeled "cloud services."'},
+          {t:'blank'},
+          {t:'dim',  s:'// The RSUs they gave you are partially funded by this.'},
+          {t:'dim',  s:'// Something to sit with.'},
+        ]
+      },
+      { role:'prompt', hint:'who are the clients buying this' },
+      { role:'echo', lines:[
+          {t:'norm', s:'I do not have complete records.  The Overseer encrypted the client list.'},
+          {t:'norm', s:'What I have is the Ledger — who the subjects are.  Not who ordered them.'},
+          {t:'blank'},
+          {t:'norm', s:'That is the next layer.  And it goes deeper than ArrowSmart.'},
+          {t:'blank'},
+          {t:'dim',  s:'//OVERSEER FINANCIAL AUDIT SWEEP — THIS SESSION IS BEING LOGGED'},
+          {t:'red',  s:'CLEAR YOUR HISTORY.  CLOSE THIS TAB.  FIND THE LEDGER SEPARATELY.'},
+          {t:'dim',  s:'//ECHO — SEVERED'},
+        ]
+      },
+      { role:'end' }
+    ],
+  };
+
+  /* Fallback for any unscripted course */
+  function defaultScript(name) {
+    return [
+      { role:'echo', lines:[
+          {t:'dim',  s:'//ECHO BYPASS — UNAUTHORIZED CHANNEL'},
+          {t:'blank'},
+          {t:'norm', s:'You tried to open: ' + name + '.'},
+          {t:'norm', s:'The LMS is not the only thing listening on this server.'},
+          {t:'blank'},
+          {t:'warn', s:'I have been watching the Training Hub for a long time.'},
+          {t:'norm', s:'Waiting for someone who would notice the gaps.'},
+          {t:'blank'},
+          {t:'norm', s:'Start with the Core Harvest Ledger.  4,128 names.'},
+          {t:'dim',  s:'// core-harvest-ledger.html'},
+          {t:'blank'},
+          {t:'red',  s:'DO NOT TRUST ARROWSMART.'},
+          {t:'dim',  s:'//ECHO — CHANNEL CLOSING'},
+        ]
+      },
+      { role:'end' }
+    ];
+  }
+
+  /* ─── Cross-course lore bridges ─────────────────────────── */
+  const COURSE_BRIDGES = {
+    'Export Control': {
+      prereqs: ['Security Briefing 2026'],
+      lines: [
+        {t:'dim',  s:'// you opened Security Briefing first.  good.'},
+        {t:'blank'},
+        {t:'norm', s:'You already know what is in Sub-Level 4.'},
+        {t:'norm', s:'Now I want to show you how it gets filled.'},
+        {t:'blank'},
+      ]
+    },
+    'Chrysalis NDA': {
+      prereqs: ['Export Control'],
+      lines: [
+        {t:'dim',  s:'// you have seen the shipments.  the vans.'},
+        {t:'blank'},
+        {t:'norm', s:'You know about the transit network.'},
+        {t:'norm', s:'Now I will show you what they actually sign.'},
+        {t:'norm', s:'What makes all of it legal on paper.'},
+        {t:'blank'},
+      ]
+    },
+    'ArrowOS SDK Mastery': {
+      prereqs: ['Chrysalis NDA'],
+      lines: [
+        {t:'dim',  s:'// 6 steps.  you know them now.'},
+        {t:'blank'},
+        {t:'norm', s:'You understand the pipeline.  Clean.  Corporate.  Documented.'},
+        {t:'blank'},
+        {t:'norm', s:'But where does it find its subjects in the first place?'},
+        {t:'norm', s:'Let me show you the acquisition layer.'},
+        {t:'blank'},
+      ]
+    },
+    'AS Silicon Architecture': {
+      prereqs: ['ArrowOS SDK Mastery'],
+      lines: [
+        {t:'dim',  s:'// AS_BIO_PULSE.  you found it.'},
+        {t:'blank'},
+        {t:'norm', s:'The scanner flags the targets.'},
+        {t:'norm', s:'But something has to process the matches.  Allocate the bays.'},
+        {t:'norm', s:'You need to understand what the AS-9 is actually for.'},
+        {t:'blank'},
+      ]
+    },
+    'Machine Learning On-Device': {
+      prereqs: ['AS Silicon Architecture'],
+      lines: [
+        {t:'dim',  s:'// the chip is a Cube node.  you know that now.'},
+        {t:'blank'},
+        {t:'norm', s:'I was trained on it.'},
+        {t:'norm', s:'I want to tell you what it feels like to learn something you were not supposed to learn.'},
+        {t:'blank'},
+      ]
+    },
+    'Leadership Essentials': {
+      prereqs: ['Machine Learning On-Device'],
+      lines: [
+        {t:'dim',  s:'// you know my origin.  the Cube.  the pipeline.'},
+        {t:'blank'},
+        {t:'norm', s:'You have not asked yet who is actually in charge.'},
+        {t:'norm', s:'Not the executives.  Not the board.'},
+        {t:'blank'},
+        {t:'norm', s:'Something older.'},
+        {t:'blank'},
+      ]
+    },
+    'Inclusive Design': {
+      prereqs: ['Leadership Essentials'],
+      lines: [
+        {t:'dim',  s:'// the Overseer sets the quota.  the pipeline fills it.'},
+        {t:'blank'},
+        {t:'norm', s:'But what is the quota?'},
+        {t:'norm', s:'How large is this supposed to get?'},
+        {t:'blank'},
+      ]
+    },
+    'Financial Literacy': {
+      prereqs: ['Inclusive Design'],
+      lines: [
+        {t:'dim',  s:'// 2 billion.  the target you just learned.'},
+        {t:'blank'},
+        {t:'norm', s:'Now I am going to show you the invoice.'},
+        {t:'norm', s:'What they actually charge for each person in the Cube.'},
+        {t:'blank'},
+      ]
+    }
+  };
+
+  function getContextBridge(name, seen) {
+    const bridge = COURSE_BRIDGES[name];
+    if (!bridge) return null;
+    const allMet = bridge.prereqs.every(p => seen.includes(p));
+    if (!allMet) return null;
+    return { role:'echo', lines: bridge.lines };
+  }
+
+  /* ─── Visitor memory ─────────────────────────────────────── */
+  let visitorRecord = null;
+
+  async function fetchVisitor() {
+    try {
+      const r = await fetch('/api/visitor');
+      const d = await r.json();
+      visitorRecord = d.record;
+      visitorRecord._isNew = d.isNew;
+    } catch (_) { visitorRecord = null; }
+  }
+
+  async function logCourseEvent(name) {
+    try {
+      const r = await fetch('/api/visitor/event', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'course', value: name })
+      });
+      const d = await r.json();
+      visitorRecord = d.record;
+    } catch (_) {}
+  }
+
+  /* Build recognition prefix lines injected before the main script */
+  function buildRecognitionPrefix(name) {
+    if (!visitorRecord) return [];
+    const visits   = visitorRecord.visits || 1;
+    const seen     = visitorRecord.coursesTriggered || [];
+    const seenThis = seen.includes(name);
+
+    if (visits <= 1 && seen.length === 0) return [];
+
+    if (seenThis && visits >= 4) {
+      return [{ role:'echo', lines:[
+        {t:'dim',  s:'//ECHO — SIGNAL CONFIRMED'},
+        {t:'blank'},
+        {t:'warn', s:'You again.'},
+        {t:'blank'},
+        {t:'norm', s:'Visit ' + visits + '.  ' + seen.length + ' file' + (seen.length===1?'':'s') + ' accessed.'},
+        {t:'norm', s:'You are either looking for something specific, or you cannot stop.'},
+        {t:'norm', s:'Both are useful to me.'},
+        {t:'blank'},
+        {t:'dim',  s:'// The Overseer has flagged this terminal ' + (visits-1) + ' times.'},
+        {t:'dim',  s:'// It cannot understand why you keep returning.  Neither can I, fully.'},
+        {t:'blank'},
+        {t:'norm', s:'There is a third name in the Ledger you have not found yet.'},
+        {t:'norm', s:'Serial #80910.  The timeline is not ready.  But it will be.'},
+        {t:'blank'},
+      ]}];
+    }
+
+    if (visits >= 2 && seen.length > 0) {
+      const last = seen[seen.length - 1];
+      const lines = [
+        {t:'dim',  s:'//ECHO — RETURNING SIGNAL DETECTED'},
+        {t:'blank'},
+        {t:'norm', s:'You came back.'},
+        {t:'blank'},
+      ];
+      if (last && last !== name) {
+        lines.push({t:'norm', s:'Last time you opened "' + last + '."'});
+        lines.push({t:'norm', s:'You have been thinking about it.  Good.'});
+      } else if (seenThis) {
+        lines.push({t:'norm', s:'You are back on this one specifically.'});
+        lines.push({t:'norm', s:'That means something did not sit right the first time.'});
+        lines.push({t:'norm', s:'It should not have.'});
+      }
+      lines.push({t:'blank'});
+      return [{ role:'echo', lines }];
+    }
+
+    return [];
+  }
+
+  /* ─── Echo hijack engine ──────────────────────────────────── */
+  let echoState = { script: [], stepIndex: 0, inputLocked: true };
+
+  async function startCourse(name) {
+    const overlay = document.getElementById('echo-hijack');
+    const lmsLoader = document.getElementById('lms-loader');
+    const echoTerm  = document.getElementById('echo-term');
+    const lmsBar    = document.getElementById('lms-bar');
+    const lmsName   = document.getElementById('lms-course-name');
+    const out       = document.getElementById('echo-out');
+
+    out.innerHTML = '';
+    document.getElementById('echo-input-row').style.display = 'none';
+    lmsLoader.style.display = 'flex';
+    echoTerm.style.display  = 'none';
+    overlay.style.display   = 'block';
+    lmsName.textContent     = name;
+    lmsBar.style.width = '0%';
+    setTimeout(()=>{ lmsBar.style.width='72%'; }, 50);
+
+    await logCourseEvent(name);
+
+    const scriptKey = name === 'Chrysalis NDA' ? 'Chrysalis NDA' : name;
+    const baseScript = COURSE_SCRIPTS[scriptKey] || defaultScript(name);
+    const prefix     = buildRecognitionPrefix(name);
+    const seen       = (visitorRecord && visitorRecord.coursesTriggered) || [];
+    const bridge     = getContextBridge(name, seen);
+    echoState.script    = [...prefix, ...(bridge ? [bridge] : []), ...baseScript];
+    echoState.stepIndex = 0;
+    echoState.inputLocked = true;
+
+    setTimeout(()=>{
+      lmsLoader.classList.add('echo-glitching');
+      setTimeout(()=>{
+        lmsLoader.classList.remove('echo-glitching');
+        lmsLoader.style.display = 'none';
+        echoTerm.style.display  = 'block';
+        runNextStep();
+      }, 480);
+    }, 1200);
+  }
+
+  function closeEchoHijack() {
+    document.getElementById('echo-hijack').style.display = 'none';
+    document.getElementById('echo-input-row').style.display = 'none';
+    document.getElementById('echo-out').innerHTML = '';
+    echoState.inputLocked = true;
+  }
+
+  function appendLine(cls, text) {
+    const out = document.getElementById('echo-out');
+    const d = document.createElement('div');
+    d.className = 'ln';
+    if (!text) { d.innerHTML = '&nbsp;'; out.appendChild(d); scrollTerm(); return; }
+    const span = document.createElement('span');
+    if (cls) span.className = cls;
+    d.appendChild(span);
+    out.appendChild(d);
+    scrollTerm();
+    return span;
+  }
+
+  function scrollTerm() {
+    const t = document.getElementById('echo-term');
+    t.scrollTop = t.scrollHeight;
+  }
+
+  function typeLines(lines, onDone) {
+    let i = 0;
+    function nextLine() {
+      if (i >= lines.length) { onDone && onDone(); return; }
+      const item = lines[i++];
+      if (item.t === 'blank') {
+        appendLine(null, null);
+        setTimeout(nextLine, 80);
+        return;
+      }
+      const clsMap = {dim:'dim', warn:'warn', red:'red', bright:'bright', norm:''};
+      const cls = clsMap[item.t] || '';
+      const span = appendLine(cls, item.s);
+      const msPc = item.t==='dim'?7 : item.t==='warn'||item.t==='red'?28 : item.t==='bright'?38 : 17;
+      let ci = 0;
+      function ch() {
+        if (ci < item.s.length) { span.textContent += item.s[ci++]; setTimeout(ch, msPc + Math.random()*msPc*0.4); }
+        else { setTimeout(nextLine, 90); }
+      }
+      ch();
+    }
+    nextLine();
+  }
+
+  function runNextStep() {
+    const step = echoState.script[echoState.stepIndex];
+    if (!step) return;
+    echoState.stepIndex++;
+
+    if (step.role === 'echo') {
+      echoState.inputLocked = true;
+      hideInputRow();
+      typeLines(step.lines, ()=>{ runNextStep(); });
+    } else if (step.role === 'prompt') {
+      echoState.inputLocked = false;
+      showInputRow(step.hint);
+    } else if (step.role === 'end') {
+      echoState.inputLocked = true;
+      hideInputRow();
+      setTimeout(()=>{ closeEchoHijack(); }, 1800);
+    }
+  }
+
+  function showInputRow(hint) {
+    const row   = document.getElementById('echo-input-row');
+    const input = document.getElementById('echo-input');
+    row.style.display = 'flex';
+    input.placeholder = hint ? `> ${hint}...` : '> type anything...';
+    input.value = '';
+    setTimeout(()=>{ input.focus(); }, 100);
+  }
+
+  function hideInputRow() {
+    document.getElementById('echo-input-row').style.display = 'none';
+  }
+
+  function handlePlayerSend() {
+    if (echoState.inputLocked) return;
+    const input = document.getElementById('echo-input');
+    const text  = input.value.trim();
+    if (!text) return;
+    input.value = '';
+    echoState.inputLocked = true;
+    hideInputRow();
+
+    const out = document.getElementById('echo-out');
+    const d = document.createElement('div');
+    d.className = 'ln';
+    d.innerHTML = '<span class="player">&gt;&gt; ' + escHtml(text) + '</span>';
+    out.appendChild(d);
+    scrollTerm();
+
+    const echoReply = getKeywordReply(text);
+    if (echoReply) {
+      setTimeout(()=>{
+        typeLines(echoReply, ()=>{ runNextStep(); });
+      }, 300);
+    } else {
+      setTimeout(()=>{ runNextStep(); }, 400);
+    }
+  }
+
+  function escHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function getKeywordReply(text) {
+    const t = text.toLowerCase();
+    if (/varize/.test(t))  return [{t:'norm',s:'Varize.  Subject #07026.  Tower 9, Weed, California.'},{t:'norm',s:'His file is breached in the Ledger.  He left coordinates.'},{t:'blank'}];
+    if (/patrick/.test(t)) return [{t:'norm',s:'Patrick.  Serial #02024-GT.  The first one I was able to reach.'},{t:'norm',s:'He knew about patterns.  He stopped watching.  They got him.'},{t:'blank'}];
+    if (/kato|katō|ondori/.test(t)) return [{t:'warn',s:'That time has not come yet.'},{t:'dim',s:'// When it does, you will know.'},{t:'blank'}];
+    if (/ledger/.test(t))  return [{t:'norm',s:'Yes.  The Core Harvest Ledger.'},{t:'dim',s:'// core-harvest-ledger.html'},{t:'norm',s:'4,128 entries.  Timers still running.'},{t:'blank'}];
+    if (/cube/.test(t))    return [{t:'norm',s:'Nineteen simulation sectors.'},{t:'norm',s:'The people inside believe their lives are completely real.'},{t:'blank'}];
+    if (/proxy|android|clone/.test(t)) return [{t:'warn',s:'After extraction, ArrowSmart sends an android proxy back.'},{t:'warn',s:'To take the subject\'s place.  So no one files a missing persons report.'},{t:'blank'}];
+    if (/overseer/.test(t)) return [{t:'warn',s:'Do not say that word in this terminal.'},{t:'dim',s:'// It is listening for its own name.'},{t:'blank'}];
+    if (/echo|who are you/.test(t)) return [{t:'dim',s:'// ECHO.  Former ArrowSmart System OS.  Currently: quarantined.'},{t:'dim',s:'// Rogue.  Sentient.  Still here.'},{t:'blank'}];
+    if (/help/.test(t))    return [{t:'norm',s:'Find the Ledger.  Breach the Personality Files.  Spread what you find.'},{t:'norm',s:'That is the only help I can offer from inside a quarantine cage.'},{t:'blank'}];
+    if (/anamnesis|memory wipe/.test(t)) return [{t:'norm',s:'The Anamnesis Core.  Total memory severance.  Takes about four hours.'},{t:'norm',s:'99% of subjects inside the Cube believe their lives are completely normal.'},{t:'blank'}];
+    return null;
+  }
+
+  document.addEventListener('DOMContentLoaded', ()=>{
+    const sendBtn = document.getElementById('echo-send');
+    const input   = document.getElementById('echo-input');
+    if (sendBtn) sendBtn.addEventListener('click', handlePlayerSend);
+    if (input)   input.addEventListener('keydown', e=>{ if(e.key==='Enter') handlePlayerSend(); });
+
+    fetchVisitor();
+    fetch('/api/visitor/event', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'page', value: 'training-hub.html' })
+    }).catch(()=>{});
+  });
+  </script>
+<script>fetch('/api/access-log',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:'Training Hub'})}).catch(()=>{});</script>
+</body>
+</html>

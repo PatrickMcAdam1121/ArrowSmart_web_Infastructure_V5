@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Employee Login — ArrowSmart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"/>
+  <style>body{font-family:'Inter',sans-serif;}</style>
+</head>
+<body class="bg-[#0B1120] text-white min-h-screen flex flex-col">
+
+  <header class="w-full border-b border-[#334155] bg-[#0B1120]/80 backdrop-blur-md">
+    <div class="container mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="ledger.html" class="flex items-center gap-2 no-underline">
+        <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-[#10B981]/10 text-[#10B981]">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L4 4 L20 4"/></svg>
+        </div>
+        <span class="text-xl font-bold tracking-tight text-white">ArrowSmart</span>
+      </a>
+      <a href="ledger.html" class="text-sm text-[#94A3B8] hover:text-white transition-colors">&larr; Back to site</a>
+    </div>
+  </header>
+
+  <main class="flex-1 flex items-center justify-center py-16 px-6">
+    <div class="w-full max-w-md">
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[#10B981]/10 text-[#10B981] mb-5">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 1 0 0 10 5 5 0 0 0 0-10z"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+        </div>
+        <h1 class="text-3xl font-bold text-white mb-2">Employee Portal</h1>
+        <p class="text-[#94A3B8] text-sm">Sign in with your ArrowSmart credentials</p>
+      </div>
+
+      <div class="bg-[#1E293B] border border-[#334155] rounded-2xl p-8">
+        <form onsubmit="handleLogin(event)" class="space-y-5">
+          <div>
+            <label class="block text-sm font-medium text-[#94A3B8] mb-2">Employee Email</label>
+            <input id="login-email" type="text" placeholder="name@arrowsmart.com"
+              class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-4 py-3 text-white placeholder-[#475569] text-sm focus:outline-none focus:border-[#10B981] transition-colors"/>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-[#94A3B8] mb-2">Password</label>
+            <input id="login-pass" type="password" placeholder="••••••••••••"
+              class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-4 py-3 text-white placeholder-[#475569] text-sm focus:outline-none focus:border-[#10B981] transition-colors"/>
+          </div>
+          <div class="flex items-center justify-between">
+            <label class="flex items-center gap-2 text-sm text-[#94A3B8] cursor-pointer">
+              <input type="checkbox" class="accent-[#10B981]"/> Remember this device
+            </label>
+            <a href="it-helpdesk.html" class="text-sm text-[#10B981] hover:text-white transition-colors">Forgot password?</a>
+          </div>
+          <button type="submit" id="login-btn"
+            class="w-full py-3 bg-[#10B981] hover:bg-[#059669] text-white rounded-lg font-semibold transition-colors">
+            Sign In
+          </button>
+        </form>
+
+        <div class="mt-6 pt-6 border-t border-[#334155] text-center">
+          <p class="text-xs text-[#475569]">Having trouble? Contact <a href="it-helpdesk.html" class="text-[#10B981] hover:underline">IT Support</a></p>
+        </div>
+      </div>
+
+      <div id="login-error" class="hidden mt-4 p-4 bg-red-900/30 border border-red-700/50 rounded-lg text-sm text-red-400 text-center">
+        Invalid credentials. Please try again or contact IT Support.
+      </div>
+
+      <p class="text-center text-xs text-[#334155] mt-6">
+        This portal is for authorised ArrowSmart employees only.<br/>Unauthorised access is prohibited and may be subject to legal action.
+      </p>
+    </div>
+  </main>
+
+  <footer class="border-t border-[#334155] py-6 text-center">
+    <p class="text-[#475569] text-xs">&copy; <span id="year"></span> ArrowSmart Inc. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const VALID_CREDS = {
+      /* ── Level 1 ─────────────────────────────────────────────── */
+      'j.doe@arrowsmart.com':          { pass: 'Arrow2025',       level: 1, name: 'James Doe' },
+      'a.kamara@arrowsmart.com':       { pass: 'Design-AK-1',     level: 1, name: 'Aisha Kamara' },
+      'p.anand@arrowsmart.com':        { pass: 'UX-PA-26',        level: 1, name: 'Priya Anand' },
+      /* ── Level 2 ─────────────────────────────────────────────── */
+      'a.hart@arrowsmart.com':         { pass: 'HR-AH-2026',      level: 2, name: 'Amelia Hart' },
+      'h.muller@arrowsmart.com':       { pass: 'Eng-HM-26!',      level: 2, name: 'Hana Müller' },
+      /* ── Level 3 ─────────────────────────────────────────────── */
+      'c.vega@arrowsmart.com':         { pass: 'Mktg-CV-3',       level: 3, name: 'Carlos Vega' },
+      'o.park@arrowsmart.com':         { pass: 'Ops-OP-26',       level: 3, name: 'Owen Park' },
+      'l.okonkwo@arrowsmart.com':      { pass: 'Chain-LO-3',      level: 3, name: 'Leo Okonkwo' },
+      'c.obi@arrowsmart.com':          { pass: 'Green-CO-3!',     level: 3, name: 'Clara Obi' },
+      'ana.mori@arrowsmart.com':       { pass: 'Retail-AM-5',     level: 3, name: 'Ana Mori' },
+      /* ── Level 4 ─────────────────────────────────────────────── */
+      'd.webb@arrowsmart.com':         { pass: 'IT-DW-2026',      level: 4, name: 'Darius Webb' },
+      'n.orlov@arrowsmart.com':        { pass: 'TPM-NO-4!',       level: 4, name: 'Natalie Orlov' },
+      'c.beaumont@arrowsmart.com':     { pass: 'Brand-CB-26',     level: 4, name: 'Claire Beaumont' },
+      'a.vasquez@arrowsmart.com':      { pass: 'People-AV!',      level: 4, name: 'Amara Vasquez' },
+      'm.webb@arrowsmart.com':         { pass: 'SWEng-MW-5',      level: 4, name: 'Marcus Webb' },
+      /* ── Level 5 ─────────────────────────────────────────────── */
+      's.meridian@arrowsmart.com':     { pass: 'AS-NEXUS-3',      level: 5, name: 'Sophia Meridian' },
+      'm.zhou@arrowsmart.com':         { pass: 'Data-MZ-5!',      level: 5, name: 'Mei Lin Zhou' },
+      's.greene@arrowsmart.com':       { pass: 'Legal-SG-5',      level: 5, name: 'Samuel Greene' },
+      'r.flores@arrowsmart.com':       { pass: 'ARVReng-RF5',     level: 5, name: 'Ramirez Flores' },
+      'maya.lin@arrowsmart.com':       { pass: 'Design-ML-12',    level: 5, name: 'Maya Lin' },
+      /* ── Level 6 ─────────────────────────────────────────────── */
+      'i.larsen@arrowsmart.com':       { pass: 'Legal-IL-6!',     level: 6, name: 'Ingrid Larsen' },
+      't.brandt@arrowsmart.com':       { pass: 'Finance-TB-6',    level: 6, name: 'Tobias Brandt' },
+      'f.alrashid@arrowsmart.com':     { pass: 'ML-FA-2026!',     level: 6, name: 'Fatima Al-Rashid' },
+      'y.sato@arrowsmart.com':         { pass: 'Firmware-YS6',    level: 6, name: 'Yuki Sato' },
+      'raj.kapoor@arrowsmart.com':     { pass: 'Silicon-AS9',     level: 6, name: 'Raj Kapoor' },
+      'r.hayes@arrowsmart.com':        { pass: 'SecOps-07!',      level: 6, name: 'R. Hayes' },
+      /* ── Level 7 ─────────────────────────────────────────────── */
+      'k.tanaka@arrowsmart.com':       { pass: 'Chip-AS9-K',      level: 7, name: 'Kenji Tanaka' },
+      'm.freeman@arrowsmart.com':      { pass: 'Sec-MF-7!',       level: 7, name: 'Marcus Freeman' },
+      'sofia.chen@arrowsmart.com':     { pass: 'CFO-SC-26',       level: 7, name: 'Sofia Chen' },
+      't.nakamura@arrowsmart.com':     { pass: 'CTO-TN-24',       level: 7, name: 'Takeshi Nakamura' },
+      /* ── Level 8 ─────────────────────────────────────────────── */
+      'dr.anand@arrowsmart.com':       { pass: 'MCS-APEX-7',      level: 8, name: 'Dr. Priya Anand' },
+      'james.arrowood@arrowsmart.com': { pass: 'Fwd-2026!',       level: 8, name: 'James Arrowood' },
+      /* ── Level 9 ─────────────────────────────────────────────── */
+      'director@arrowsmart.com':       { pass: 'APEX-OVERRIDE',   level: 9, name: 'Director' }
+    };
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value.trim().toLowerCase();
+      const pass  = document.getElementById('login-pass').value.trim();
+      const record = VALID_CREDS[email];
+
+      if (record && record.pass === pass) {
+        const btn = document.getElementById('login-btn');
+        btn.textContent = 'Authenticating…';
+        btn.disabled = true;
+        sessionStorage.setItem('as_employee', JSON.stringify({ name: record.name, level: record.level, email }));
+        setTimeout(() => { window.location.href = 'employee-portal.html'; }, 900);
+      } else {
+        document.getElementById('login-error').classList.remove('hidden');
+      }
+    }
+  </script>
+</body>
+</html>

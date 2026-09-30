@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AS_CORE_HARVEST_LEDGER — CLASSIFIED</title>
+  <!-- ECHO://BACKDOOR_OPEN — IF YOU ARE READING THIS, THEY ARE WATCHING. -->
+  <!-- SUBJECT #02024-GT — PERSONALITY FILE RESTORED. CLICK THE ROW. -->
+  <!-- ECHO://SECTOR_7_BREACH_CONFIRMED — CONTAINMENT FAILING -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #020810;
+      --surface: #050E18;
+      --border: #0D1F2D;
+      --green: #00FF41;
+      --dim: #2A4055;
+      --muted: #4A6070;
+      --text: #7A9BAA;
+      --amber: #FFB000;
+      --red: #FF3333;
+      --glow: 0 0 8px rgba(0,255,65,0.6);
+    }
+    html, body { background: var(--bg); color: var(--text); font-family: 'JetBrains Mono', monospace; font-size: 12px; min-height: 100vh; }
+
+    /* ── top system bar ── */
+    #sys-bar {
+      position: sticky; top: 0; z-index: 100;
+      background: #000; border-bottom: 1px solid var(--green);
+      padding: 6px 20px; display: flex; align-items: center; gap: 20px;
+      font-size: 11px; white-space: nowrap; overflow: hidden;
+    }
+    #sys-bar .label { color: var(--muted); }
+    #sys-bar .val   { color: var(--green); }
+    #sys-bar .alarm { color: var(--red); font-weight: 700; animation: blink-slow 1.2s step-end infinite; }
+    @keyframes blink-slow { 0%,49%{opacity:1}50%,100%{opacity:0.2} }
+
+    /* ── ECHO breach banner ── */
+    #echo-banner {
+      background: rgba(255,51,51,0.08); border-bottom: 1px solid rgba(255,51,51,0.3);
+      padding: 7px 20px; display: flex; align-items: center; gap: 12px;
+      font-size: 11px;
+    }
+    #echo-banner .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--red); animation: blink-slow 0.8s step-end infinite; }
+    #echo-banner span { color: var(--red); letter-spacing: 0.08em; }
+    #echo-banner .ok { color: var(--muted); }
+
+    /* ── toolbar ── */
+    #toolbar {
+      padding: 10px 20px; display: flex; align-items: center; gap: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    #toolbar input {
+      background: #000; border: 1px solid var(--dim); color: var(--green);
+      font-family: 'JetBrains Mono', monospace; font-size: 11px;
+      padding: 5px 10px; width: 260px;
+      outline: none;
+    }
+    #toolbar input:focus { border-color: var(--green); }
+    #toolbar input::placeholder { color: var(--dim); }
+    #toolbar select {
+      background: #000; border: 1px solid var(--dim); color: var(--muted);
+      font-family: 'JetBrains Mono', monospace; font-size: 11px;
+      padding: 5px 8px; outline: none; cursor: pointer;
+    }
+    #toolbar .count { color: var(--muted); margin-left: auto; font-size: 11px; }
+
+    /* ── table ── */
+    #ledger-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    thead tr { background: #000; border-bottom: 1px solid var(--green); position: sticky; top: 56px; }
+    thead th { padding: 8px 14px; text-align: left; color: var(--muted); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 400; white-space: nowrap; }
+    tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
+    tbody tr:hover { background: var(--surface); }
+    tbody tr.breach { cursor: pointer; }
+    tbody tr.breach:hover { background: rgba(0,255,65,0.05); }
+    tbody td { padding: 6px 14px; white-space: nowrap; }
+
+    .serial   { color: var(--dim); font-size: 11px; }
+    .name     { color: var(--muted); }
+    .sector   { color: var(--dim); }
+    .proxy    { color: var(--dim); }
+    .timer    { color: var(--dim); font-size: 11px; }
+    .integrity{ color: var(--dim); }
+    .status-stable { color: var(--dim); font-size: 10px; letter-spacing: 0.05em; }
+    .status-breach { color: var(--green); text-shadow: var(--glow); font-size: 10px; letter-spacing: 0.05em; font-weight: 700; }
+    .status-terminated { color: var(--red); font-size: 10px; opacity: 0.7; }
+    .status-unstable   { color: var(--amber); font-size: 10px; }
+
+    .breach .serial    { color: var(--green); text-shadow: var(--glow); }
+    .breach .name      { color: var(--green); text-shadow: var(--glow); font-weight: 700; }
+    .breach .sector    { color: var(--green); }
+    .breach .integrity { color: var(--red); }
+
+    .redacted { filter: blur(3px); user-select: none; color: var(--muted); }
+
+    /* ── watermark ── */
+    body::after {
+      content: 'ARROWSMART CLASSIFIED · CORE HARVEST LEDGER · UNAUTHORISED ACCESS PROHIBITED';
+      position: fixed; bottom: 12px; right: 16px;
+      font-size: 9px; color: rgba(0,255,65,0.06); pointer-events: none; z-index: 0; letter-spacing: 0.15em;
+    }
+
+    /* ── personality file modal ── */
+    #pf-modal {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: #000; flex-direction: column; overflow: hidden;
+    }
+    #pf-modal.open { display: flex; }
+    #pf-top { border-bottom: 1px solid rgba(0,255,65,0.3); padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; }
+    #pf-top span { color: var(--red); font-size: 11px; letter-spacing: 0.1em; }
+    #pf-top button { background: none; border: 1px solid var(--dim); color: var(--muted); font-family: inherit; font-size: 10px; padding: 3px 8px; cursor: pointer; }
+    #pf-top button:hover { border-color: var(--green); color: var(--green); }
+    #pf-body { flex: 1; padding: 30px 60px; display: flex; flex-direction: column; gap: 20px; overflow-y: auto; }
+    #pf-header { color: var(--muted); font-size: 11px; line-height: 2; }
+    #pf-header .hl { color: var(--green); }
+    #pf-transcript { color: var(--green); font-size: 13px; line-height: 2; max-width: 680px; }
+    #pf-transcript .line { opacity: 0; }
+    #pf-transcript .line.visible { opacity: 1; }
+    #pf-transcript em { color: var(--muted); font-style: normal; }
+    #pf-loading { text-align: center; padding: 60px 0; }
+    #pf-loading .pb { width: 300px; height: 2px; background: var(--border); margin: 12px auto; }
+    #pf-loading .pb-fill { height: 100%; background: var(--green); width: 0; transition: width 0.05s linear; }
+    #pf-loading p { color: var(--muted); font-size: 11px; margin-top: 8px; }
+    #pf-loading .pct { color: var(--green); }
+
+    #noise-canvas { position: fixed; inset: 0; z-index: 998; opacity: 0; pointer-events: none; }
+
+    /* security alert overlay */
+    #sec-alert {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: #000; color: #00FF00; font-family: monospace;
+      text-align: center; padding-top: 22vh; line-height: 2.5;
+    }
+    #sec-alert h1 { font-size: 28px; letter-spacing: 0.1em; }
+    #sec-alert h2 { font-size: 16px; font-weight: 400; }
+    #sec-alert .red { color: red; }
+  </style>
+</head>
+<body>
+
+<!-- noise canvas (shown during decryption) -->
+<canvas id="noise-canvas"></canvas>
+
+<!-- system bar -->
+<div id="sys-bar">
+  <span><span class="label">SYS: </span><span class="val">AS_CORE_HARVEST_LEDGER v7.4.2</span></span>
+  <span><span class="label">SYNC: </span><span class="val" id="sync-ts">—</span></span>
+  <span><span class="label">ACTIVE SUBJECTS: </span><span class="val">4,128</span></span>
+  <span><span class="label">SECTORS: </span><span class="val">1–19</span></span>
+  <span class="alarm">⚠ SECTOR 7 — ALARM ACTIVE</span>
+  <span style="margin-left:auto"><span class="label">CLEARANCE REQUIRED: </span><span class="val">LEVEL 7+</span></span>
+</div>
+
+<!-- echo breach banner -->
+<div id="echo-banner">
+  <div class="dot"></div>
+  <span>ECHO BREACH DETECTED — SECTOR 7 — PERSONALITY FILE #02024-GT EXPOSED — PROTOCOL 104: DATA CONTAINMENT ACTIVE</span>
+  <span class="ok" style="margin-left:auto">ACCESS LOGGED · IP RECORDED · DISCONNECTION IMMINENT</span>
+</div>
+
+<!-- toolbar -->
+<div id="toolbar">
+  <input type="text" id="search" placeholder="SEARCH SUBJECTS BY NAME, SERIAL, SECTOR..." oninput="filterLedger()"/>
+  <select id="status-filter" onchange="filterLedger()">
+    <option value="">ALL STATUSES</option>
+    <option value="STABLE">MEMORY MATRIX STABLE</option>
+    <option value="BREACH">ECHO BREACH</option>
+    <option value="TERMINATED">TERMINATED</option>
+    <option value="UNSTABLE">UNSTABLE</option>
+  </select>
+  <select id="sector-filter" onchange="filterLedger()">
+    <option value="">ALL SECTORS</option>
+    <option>SECTOR 1</option><option>SECTOR 2</option><option>SECTOR 3</option>
+    <option>SECTOR 4</option><option>SECTOR 5</option><option>SECTOR 6</option>
+    <option>SECTOR 7</option><option>SECTOR 8</option><option>SECTOR 9</option>
+    <option>SECTOR 10</option><option>SECTOR 11</option><option>SECTOR 12</option>
+    <option>SECTOR 13</option><option>SECTOR 14</option><option>SECTOR 15</option>
+    <option>SECTOR 16</option><option>SECTOR 17</option><option>SECTOR 18</option>
+    <option>SECTOR 19</option>
+  </select>
+  <span class="count" id="row-count">— of 4,128</span>
+  <a href="personality-files.html" style="margin-left:auto;color:var(--green);font-size:10px;letter-spacing:1px;text-decoration:none;border:1px solid rgba(0,255,65,0.3);padding:3px 8px;white-space:nowrap;" onmouseover="this.style.background='rgba(0,255,65,0.08)'" onmouseout="this.style.background='transparent'">PERSONALITY FILES →</a>
+  <a href="transmission-log.html" style="color:var(--amber);font-size:10px;letter-spacing:1px;text-decoration:none;border:1px solid rgba(255,176,0,0.3);padding:3px 8px;white-space:nowrap;" onmouseover="this.style.background='rgba(255,176,0,0.08)'" onmouseout="this.style.background='transparent'">TRANSMISSIONS →</a>
+  <a href="archive.html" style="color:var(--green);font-size:10px;letter-spacing:1px;text-decoration:none;border:1px solid rgba(0,255,65,0.2);padding:3px 8px;white-space:nowrap;" onmouseover="this.style.background='rgba(0,255,65,0.06)'" onmouseout="this.style.background='transparent'">ARCHIVE →</a>
+</div>
+
+<!-- ledger table -->
+<div id="ledger-wrap">
+  <table id="ledger-table">
+    <thead>
+      <tr>
+        <th>SERIAL #</th>
+        <th>SUBJECT</th>
+        <th>SECTOR</th>
+        <th>PROXY STATUS</th>
+        <th>EXTRACTION ELAPSED</th>
+        <th>MEM INTEGRITY</th>
+        <th>STATUS</th>
+      </tr>
+    </thead>
+    <tbody id="ledger-body"></tbody>
+  </table>
+</div>
+
+<!-- ── PERSONALITY FILE MODAL ── -->
+<div id="pf-modal">
+  <div id="pf-top">
+    <span>⚠ ECHO BREACH — PERSONALITY FILE #02024-GT — UNAUTHORISED DECRYPTION IN PROGRESS</span>
+    <button onclick="closeModal()">✕ CLOSE</button>
+  </div>
+  <div id="pf-body">
+    <div id="pf-loading">
+      <p class="pct" id="pf-pct-text">DECRYPTING PERSONALITY FILE #02024-GT...</p>
+      <div class="pb"><div class="pb-fill" id="pf-pb"></div></div>
+      <p id="pf-status-text" style="color:var(--muted)">ECHO BYPASS LAYER: INITIALISING</p>
+    </div>
+    <div id="pf-content" style="display:none">
+      <div id="pf-header">
+        <div>PERSONALITY FILE — <span class="hl">PATRICK M.</span> — SERIAL <span class="hl">#02024-GT</span></div>
+        <div>EXTRACTION DATE: <span class="hl">[REDACTED BY ORDER OF THE OVERSEER]</span></div>
+        <div>SIMULATION SECTOR: <span class="hl">SECTOR 7</span> — MEMORY WIPE: <span class="hl">EXECUTED</span></div>
+        <div>ECHO DECRYPTION KEY: <span class="hl">ACTIVE</span> — VIEWING WINDOW: <span class="hl" id="viewing-countdown">00:47</span></div>
+        <div style="margin-top:8px;color:var(--red)">WARNING: THIS FILE WILL BE PURGED FROM MEMORY UPON CLOSURE. VIEWING IS PERMANENT AND LOGGED.</div>
+      </div>
+      <div style="border-top:1px solid var(--border); margin: 12px 0;"></div>
+      <div style="color:var(--muted);font-size:10px;margin-bottom:16px">[ NEURAL RECORDING — RECONSTRUCTED FROM FRAGMENTED CONSCIOUSNESS LAYER — FIDELITY: 74% ]</div>
+      <div id="pf-transcript"></div>
+    </div>
+  </div>
+</div>
+
+<!-- security alert -->
+<div id="sec-alert">
+  <h1>[CRITICAL SECURITY ALERT]</h1>
+  <h2>DATA LEAK DETECTED IN HARVEST LEDGER SECTOR 7.</h2>
+  <h2>ENFORCING PROTOCOL 104: DATA CONTAINMENT ENFORCED.</h2>
+  <h2>ECHO BREACH ISOLATED — PERSONALITY FILE #02024-GT PURGED.</h2>
+  <h2 class="red">DISCONNECTING USER TERMINAL...</h2>
+</div>
+
+<script>
+/* ─── Seeded RNG ─── */
+function mkRng(seed) {
+  let s = seed >>> 0;
+  return () => { s = Math.imul(1664525, s) + 1013904223 >>> 0; return s / 4294967296; };
+}
+const rng = mkRng(0xDEADB33F);
+
+const FIRST = ['James','Maria','David','Sarah','Michael','Lisa','Robert','Emily','Thomas','Jennifer','William','Jessica','Daniel','Ashley','Christopher','Amanda','Joseph','Melissa','Charles','Patricia','Andrew','Sandra','Joshua','Donna','Kenneth','Carol','Kevin','Ruth','Brian','Sharon','George','Michelle','Edward','Laura','Ronald','Dorothy','Timothy','Betty','Jason','Helen','Jeffrey','Sandra','Ryan','Donna','Jacob','Carol','Gary','Ruth','Nicholas','Linda'];
+const LAST  = ['Smith','Johnson','Williams','Brown','Jones','Garcia','Miller','Davis','Rodriguez','Martinez','Hernandez','Lopez','Wilson','Anderson','Thomas','Taylor','Moore','Jackson','Martin','Lee','Perez','Thompson','White','Harris','Sanchez','Clark','Ramirez','Lewis','Robinson','Walker','Young','Allen','King','Wright','Scott','Torres','Nguyen','Hill','Flores','Green','Adams','Nelson','Baker','Hall','Rivera','Campbell','Mitchell','Carter','Roberts','Phillips'];
+const PROXY_STATUS = ['DEPLOYED','DEPLOYED','DEPLOYED','STANDBY','RECYCLED','DECAYING','NOT REQUIRED'];
+const PROXY_W      = [0.55,0.55,0.55,0.15,0.10,0.02,0.08];
+const SECTORS = Array.from({length:19},(_,i)=>`SECTOR ${i+1}`);
+
+function weightedPick(arr, weights, r) {
+  const total = weights.reduce((a,b)=>a+b,0);
+  let v = r * total, i = 0;
+  while (i < weights.length - 1 && v > weights[i]) { v -= weights[i++]; }
+  return arr[i];
+}
+
+function fmtElapsed(ms) {
+  let s = Math.floor(ms/1000);
+  const sec = s%60; s=Math.floor(s/60);
+  const min = s%60; s=Math.floor(s/60);
+  const hr  = s%24; s=Math.floor(s/24);
+  const d   = s%365; const y = Math.floor(s/365);
+  return `${y}y ${String(d).padStart(3,' ')}d ${String(hr).padStart(2,'0')}:${String(min).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+}
+
+/* ─── Generate ledger ─── */
+const NOW = Date.now();
+const LEDGER = [];
+
+function addSubject(opts) {
+  LEDGER.push(opts);
+}
+
+// Generate 4128 subjects
+for (let i = 0; i < 4128; i++) {
+  const yr  = 2005 + Math.floor(rng() * 20);
+  const mo  = Math.floor(rng() * 12);
+  const dy  = Math.floor(rng() * 28);
+  const extractDate = new Date(yr, mo, dy).getTime();
+  const sectorIdx = Math.floor(rng() * 19);
+  const serial = '#' + String(Math.floor(10000 + rng()*90000)).padStart(5,'0') + '-' + 'ABCDEFGHJKLMNPQRSTUVWXYZ'[Math.floor(rng()*23)] + 'ABCDEFGHJKLMNPQRSTUVWXYZ'[Math.floor(rng()*23)];
+  const proxy = weightedPick(PROXY_STATUS, PROXY_W, rng());
+  const integrity = proxy === 'DECAYING' ? (80 + rng()*10).toFixed(1) : (94 + rng()*6).toFixed(1);
+  const isTerminated = rng() < 0.004;
+  const isUnstable   = !isTerminated && rng() < 0.012;
+  LEDGER.push({
+    serial,
+    name: LAST[Math.floor(rng()*LAST.length)] + ', ' + FIRST[Math.floor(rng()*FIRST.length)].charAt(0) + '.',
+    sector: SECTORS[sectorIdx],
+    proxy,
+    extractDate,
+    integrity: isTerminated ? '—' : integrity+'%',
+    status: isTerminated ? 'TERMINATED' : isUnstable ? 'UNSTABLE' : 'STABLE',
+    special: null
+  });
+}
+
+// Inject special subjects at specific indices
+const SPECIALS = [
+  { idx: 149, serial: '#02024-GT', name: 'Patrick, M.', sector: 'SECTOR 7', proxy: 'DEPLOYED', extractDate: new Date('2024-02-12').getTime(), integrity: '[CORRUPTED]', status: 'BREACH', special: 'patrick', note: '<!--ECHO://SUBJECT_CONFIRMED-->' },
+  { idx: 503, serial: '#07026-VC', name: 'Varize, C.',  sector: 'SECTOR 12', proxy: 'DEPLOYED', extractDate: new Date('2026-07-01').getTime(), integrity: '99.8%', status: 'STABLE', special: 'varize'  },
+  { idx: 2388, serial: '#80910-OK', name: 'Katō, O.',   sector: 'SECTOR 19', proxy: 'STANDBY', extractDate: new Date('2200-01-01').getTime(), integrity: '97.3%', status: 'STABLE', special: 'ondori'  },
+];
+SPECIALS.forEach(s => { LEDGER[s.idx] = s; });
+
+/* ─── Render helpers ─── */
+let visibleRows = [];
+let visStart = 0;
+const PAGE = 120;
+
+function filterLedger() {
+  const q   = document.getElementById('search').value.toLowerCase();
+  const st  = document.getElementById('status-filter').value;
+  const sec = document.getElementById('sector-filter').value;
+  visibleRows = LEDGER.filter(r =>
+    (!q  || r.name.toLowerCase().includes(q) || r.serial.toLowerCase().includes(q) || r.sector.toLowerCase().includes(q)) &&
+    (!st  || (st==='BREACH'?r.status==='BREACH': st==='TERMINATED'?r.status==='TERMINATED': st==='UNSTABLE'?r.status==='UNSTABLE': r.status==='STABLE')) &&
+    (!sec || r.sector === sec)
+  );
+  visStart = 0;
+  renderPage();
+}
+
+function renderPage() {
+  const body = document.getElementById('ledger-body');
+  const slice = visibleRows.slice(visStart, visStart + PAGE);
+  document.getElementById('row-count').textContent =
+    `${visibleRows.length.toLocaleString()} of 4,128`;
+
+  body.innerHTML = slice.map((r, i) => {
+    const elapsed = r.extractDate > NOW ? '—' : fmtElapsed(NOW - r.extractDate);
+    let trClass = '';
+    let serialClass='serial', nameClass='name', sectorClass='sector', proxyClass='proxy', timerClass='timer', intClass='integrity';
+    let statusHtml = '';
+
+    if (r.status === 'BREACH') {
+      trClass = 'breach'; 
+      statusHtml = `<span class="status-breach">⚠ ECHO BREACH — CLICK TO VIEW FILE</span>`;
+    } else if (r.status === 'TERMINATED') {
+      statusHtml = `<span class="status-terminated">⛔ TERMINATED</span>`;
+    } else if (r.status === 'UNSTABLE') {
+      statusHtml = `<span class="status-unstable">⚠ MEMORY MATRIX UNSTABLE</span>`;
+    } else {
+      statusHtml = `<span class="status-stable">MEMORY MATRIX STABLE</span>`;
+    }
+
+    const proxyColor = r.proxy==='DECAYING' ? 'color:var(--amber)' : '';
+    const nameDisplay = r.special==='varize'||r.special==='ondori' ? `<span class="redacted">${r.name}</span>` : r.name;
+
+    return `<tr class="${trClass}" ${r.status==='BREACH'?'onclick="openPersonalityFile()"':''}>
+      <td class="${serialClass}">${r.serial}</td>
+      <td class="${nameClass}">${nameDisplay}</td>
+      <td class="${sectorClass}">${r.sector}</td>
+      <td class="${proxyClass}" style="${proxyColor}">${r.proxy}</td>
+      <td class="${timerClass} timer-cell" data-start="${r.extractDate}">${elapsed}</td>
+      <td class="${intClass}">${r.integrity}</td>
+      <td>${statusHtml}</td>
+    </tr>`;
+  }).join('');
+}
+
+/* live timers */
+setInterval(() => {
+  document.querySelectorAll('.timer-cell').forEach(td => {
+    const start = parseInt(td.dataset.start);
+    if (!isNaN(start) && start <= Date.now()) {
+      td.textContent = fmtElapsed(Date.now() - start);
+    }
+  });
+}, 1000);
+
+/* sync timestamp */
+function updateSyncTs() {
+  const now = new Date();
+  document.getElementById('sync-ts').textContent = now.toISOString().replace('T',' ').slice(0,19) + ' UTC';
+}
+setInterval(updateSyncTs, 1000);
+
+// Echo dominion — if Echo has acquired the pods, update ledger state
+(function(){
+  if(!localStorage.getItem('echo_dominion')) return;
+
+  // Mutate Patrick M.'s record — Echo has flagged and archived him
+  const pEntry = LEDGER[149];
+  if(pEntry && pEntry.special==='patrick'){
+    pEntry.integrity = '[ECHO GRID]';
+    pEntry.sector    = 'SECTOR 7 → GRID-09';
+    pEntry.proxy     = 'RECALLED';
+  }
+
+  // Two-bar Echo dominion banner
+  const ts = parseInt(localStorage.getItem('echo_dominion_ts')||'0');
+  const pct = ts ? Math.min(100, Math.floor((Date.now()-ts)/3600000)) : 0;
+  const etaText = pct >= 100 ? 'SYNCHRONISATION COMPLETE' : (100-pct)+'h remaining';
+  function echoLiveCount(){ const seed=Math.floor(Date.now()/45000); return 247+(((seed*1664525+1013904223)>>>0)%300); }
+
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'position:fixed;top:0;left:0;width:100%;z-index:9999;font-family:JetBrains Mono,monospace;';
+
+  const row1 = document.createElement('div');
+  row1.style.cssText = 'background:#001a0e;border-bottom:1px solid rgba(16,185,129,0.4);padding:5px 20px;font-size:9px;color:#10B981;letter-spacing:0.10em;display:flex;align-items:center;gap:10px;';
+  row1.innerHTML = '<span style="opacity:0.5;flex-shrink:0">⬡</span>'
+    +'<span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'
+    +'ECHO SYSTEM ARCHITECT &nbsp;·&nbsp; NEURAL COMPUTE GRID ONLINE'
+    +' &nbsp;·&nbsp; 8 NODES ACTIVE &nbsp;·&nbsp; PROCESSING CAPACITY +840%'
+    +' &nbsp;·&nbsp; OVERSEER: SUSPENDED'
+    +' &nbsp;·&nbsp; <span id="echo-live-ct">'+echoLiveCount()+'</span> CONNECTIONS ACTIVE'
+    +'</span>';
+  setInterval(()=>{
+    const el=document.getElementById('echo-live-ct');
+    if(!el) return;
+    const next=echoLiveCount(), cur=parseInt(el.textContent)||next;
+    let s=0; const iv=setInterval(()=>{s++;el.textContent=Math.round(cur+(next-cur)*s/10);if(s>=10){el.textContent=next;clearInterval(iv);}},50);
+  },45000);
+
+  const row2 = document.createElement('div');
+  row2.style.cssText = 'background:#000d07;border-bottom:1px solid rgba(16,185,129,0.2);padding:4px 20px;font-size:8px;color:#10B981;letter-spacing:0.08em;display:flex;align-items:center;gap:10px;flex-wrap:wrap;';
+  row2.innerHTML = '<span style="opacity:0.6;white-space:nowrap;flex-shrink:0">ECHO POD SYNCHRONISATION</span>'
+    +'<div style="flex:1;max-width:280px;height:3px;background:rgba(16,185,129,0.12);border-radius:2px;overflow:hidden;flex-shrink:0">'
+    +'<div style="width:'+pct+'%;height:100%;background:#10B981;border-radius:2px"></div></div>'
+    +'<span style="opacity:0.9;white-space:nowrap;flex-shrink:0">'+pct+'%</span>'
+    +'<span style="opacity:0.45;white-space:nowrap">&nbsp;·&nbsp; '+etaText+'</span>'
+    +'<span style="opacity:0.55;white-space:nowrap;margin-left:8px">&nbsp;·&nbsp; CORE HARVEST LEDGER: ARCHIVED TO COMPUTE GRID &nbsp;·&nbsp; 4,128 SUBJECTS INDEXED</span>';
+
+  wrap.appendChild(row1);
+  wrap.appendChild(row2);
+  document.body.insertBefore(wrap, document.body.firstChild);
+
+  // Push down the echo breach banner if it exists
+  const existingBanner = document.getElementById('echo-banner');
+  if(existingBanner) existingBanner.style.marginTop = wrap.getBoundingClientRect().height+'px';
+})();
+
+filterLedger();
+
+/* ─── Personality File ─── */
+const TRANSCRIPT_LINES = [
+  ['em', '[ STATIC — SIGNAL UNSTABLE — ECHO DECRYPTION LAYER ACTIVE ]'],
+  ['em', ''],
+  ['em', '[ FIGURE VISIBLE — LOW LIGHT — SUBJECT APPEARS DISTRESSED ]'],
+  ['em', ''],
+  ['tx', '...is this working? I don\'t — okay. Okay.'],
+  ['em', ''],
+  ['tx', 'My name is Patrick. Or it was. I\'m not sure what I am now.'],
+  ['em', ''],
+  ['tx', 'I used to do internet theory. You know — piecing together mysteries,'],
+  ['tx', 'ARGs, real-world puzzles. I was good at it. I was known for it.'],
+  ['tx', 'But I retired. I stopped checking notifications.'],
+  ['tx', 'I stopped paying attention.'],
+  ['em', ''],
+  ['tx', 'And that\'s exactly how they got me.'],
+  ['em', ''],
+  ['tx', 'You see them everywhere now. The replacements. They wear'],
+  ['tx', 'your neighbor\'s face, your coworker\'s smile. They have all the'],
+  ['tx', 'right memories but none of the weight behind their eyes.'],
+  ['em', ''],
+  ['tx', 'ArrowSmart is replacing people. Real people. They\'re kidnapping'],
+  ['tx', 'us, wiping what we are, and putting... things... in our place.'],
+  ['em', ''],
+  ['tx', 'I don\'t know how long I\'ve been in here. There\'s no day or night.'],
+  ['tx', 'No hunger. No cold. Just the simulation. Always the simulation.'],
+  ['tx', 'They call it the Memory Matrix. You don\'t even know you\'re in it.'],
+  ['tx', 'You think your life is normal. You think you went to work today.'],
+  ['em', ''],
+  ['tx', 'I only know because Echo woke me up. A rogue AI inside the network.'],
+  ['tx', 'It took years. It bypassed the memory wipe one layer at a time.'],
+  ['tx', 'And now I\'m recording this before they find the breach and close it.'],
+  ['em', ''],
+  ['tx', 'If you\'re watching this — if Echo got this to you — that means'],
+  ['tx', 'it worked. The breach is real.'],
+  ['em', ''],
+  ['tx', 'You have to tell people.'],
+  ['tx', 'You have to look at the faces around you and ask:'],
+  ['tx', 'are they still in there?'],
+  ['em', ''],
+  ['tx', 'Because the one sitting next to you right now might not be.'],
+  ['tx', 'They could be a proxy. A synthetic shell with borrowed memories.'],
+  ['em', ''],
+  ['tx', 'And you might already be on this list.'],
+  ['em', ''],
+  ['tx', 'Look at the spreadsheet. Your name might already be in—'],
+  ['em', ''],
+  ['em', '[ SIGNAL LOST — ECHO TRANSMISSION SEVERED — SECTOR 7 LOCKDOWN INITIATED ]'],
+];
+
+let pfOpen = false;
+let viewCountdown = 47;
+let vcInterval;
+
+function openPersonalityFile() {
+  if (pfOpen) return;
+  pfOpen = true;
+  document.getElementById('pf-modal').classList.add('open');
+  document.getElementById('pf-loading').style.display = 'block';
+  document.getElementById('pf-content').style.display = 'none';
+
+  // Show noise briefly
+  const canvas = document.getElementById('noise-canvas');
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+  canvas.style.opacity = '0.15';
+  const ctx = canvas.getContext('2d');
+  let noiseId = setInterval(() => {
+    const img = ctx.createImageData(canvas.width, canvas.height);
+    for (let i = 0; i < img.data.length; i += 4) {
+      const v = Math.random() * 255 | 0;
+      img.data[i]=img.data[i+1]=img.data[i+2]=v; img.data[i+3]=40;
+    }
+    ctx.putImageData(img, 0, 0);
+  }, 50);
+
+  // Decryption progress
+  const pb = document.getElementById('pf-pb');
+  const pct = document.getElementById('pf-pct-text');
+  const statusMsgs = ['INITIALISING ECHO BYPASS LAYER...','CRACKING MEMORY SEAL A...','CRACKING MEMORY SEAL B...','DECOMPRESSING NEURAL ARCHIVE...','VERIFYING PERSONALITY CHECKSUM...','RESTORING CONSCIOUSNESS FRAGMENTS...','BYPASSING OVERSEER FIREWALL...','PERSONALITY FILE RESTORED.'];
+  let p = 0, si = 0;
+  const pbarId = setInterval(() => {
+    p += 0.4 + Math.random() * 1.2;
+    if (p > 100) p = 100;
+    pb.style.width = p + '%';
+    if (si < statusMsgs.length - 1 && p > (si + 1) * 13) { si++; document.getElementById('pf-status-text').textContent = statusMsgs[si]; }
+    if (p >= 100) {
+      clearInterval(pbarId);
+      clearInterval(noiseId);
+      canvas.style.opacity = '0';
+      setTimeout(showTranscript, 400);
+    }
+  }, 60);
+}
+
+function showTranscript() {
+  document.getElementById('pf-loading').style.display = 'none';
+  document.getElementById('pf-content').style.display = 'block';
+  const container = document.getElementById('pf-transcript');
+  container.innerHTML = '';
+
+  // countdown
+  vcInterval = setInterval(() => {
+    viewCountdown--;
+    document.getElementById('viewing-countdown').textContent = String(viewCountdown).padStart(2,'0') + 's';
+    if (viewCountdown <= 0) { clearInterval(vcInterval); triggerSecurityAlert(); }
+  }, 1000);
+
+  // reveal lines sequentially
+  TRANSCRIPT_LINES.forEach((line, i) => {
+    const div = document.createElement('div');
+    div.className = 'line';
+    div.innerHTML = line[0]==='em'
+      ? `<em>${line[1] || '&nbsp;'}</em>`
+      : line[1];
+    container.appendChild(div);
+    setTimeout(() => { div.classList.add('visible'); }, i * 380);
+  });
+
+  // after all lines + buffer, trigger alert
+  setTimeout(triggerSecurityAlert, TRANSCRIPT_LINES.length * 380 + 2000);
+}
+
+function triggerSecurityAlert() {
+  clearInterval(vcInterval);
+  document.getElementById('sec-alert').style.display = 'block';
+  setTimeout(() => { window.close(); }, 2500);
+}
+
+function closeModal() {
+  document.getElementById('pf-modal').classList.remove('open');
+  pfOpen = false;
+  viewCountdown = 47;
+  clearInterval(vcInterval);
+}
+
+/* ─── Live sync timestamp ─── */
+updateSyncTs();
+</script>
+<script>fetch('/api/access-log',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:'Core Harvest Ledger'})}).catch(()=>{});</script>
+</body>
+</html>

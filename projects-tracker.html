@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projects — ArrowSmart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"/>
+  <style>body{font-family:'Inter',sans-serif;}</style>
+</head>
+<body class="bg-[#0B1120] text-white min-h-screen flex flex-col">
+  <header class="sticky top-0 z-50 w-full border-b border-[#334155] bg-[#0B1120]/95 backdrop-blur-md">
+    <div class="container mx-auto px-6 h-14 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="employee-portal.html" class="flex items-center gap-2"><div class="w-7 h-7 rounded bg-[#10B981]/10 flex items-center justify-center text-[#10B981]"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L4 4 L20 4"/></svg></div><span class="text-sm font-bold text-white hidden sm:block">ArrowSmart</span></a>
+        <span class="text-[#334155]">|</span>
+        <span id="clearance-badge" class="text-[10px] font-bold uppercase tracking-widest text-[#10B981] border border-[#10B981]/20 bg-[#10B981]/5 rounded px-2 py-0.5">LEVEL — CLEARANCE</span>
+      </div>
+      <nav class="hidden lg:flex items-center gap-0.5 text-xs">
+        <a href="employee-portal.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Dashboard</a>
+        <a href="internal-news.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">News</a>
+        <a href="employee-directory.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Directory</a>
+        <a href="projects-tracker.html" class="px-3 py-1.5 text-white bg-[#1E293B] rounded">Projects</a>
+        <a href="hr-portal.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">HR</a>
+        <a href="it-helpdesk.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">IT Help</a>
+        <a href="security-ops.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Security</a>
+        <a href="stasis-pods.html" class="px-3 py-1.5 text-amber-400/80 hover:text-amber-300 hover:bg-[#1E293B] rounded transition-colors font-semibold">⬡ Stasis</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <span class="text-[#94A3B8] text-xs hidden sm:block" id="emp-name-display"></span>
+        <a href="employee-login.html" onclick="sessionStorage.removeItem('as_employee')" class="text-xs text-[#475569] hover:text-red-400 border border-[#334155] px-2.5 py-1.5 rounded transition-colors">Sign Out</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 py-10">
+    <div class="container mx-auto px-6">
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+        <div>
+          <h1 class="text-2xl font-extrabold text-white">Projects</h1>
+          <p class="text-[#94A3B8] text-sm mt-1">Active internal projects · Milestones · Task assignments</p>
+        </div>
+        <div class="flex gap-2">
+          <button class="filter-btn active px-3 py-1.5 rounded-full border border-[#10B981] text-[#10B981] text-xs font-medium" onclick="filterProj(this,'all')">All</button>
+          <button class="filter-btn px-3 py-1.5 rounded-full border border-[#334155] text-[#94A3B8] text-xs font-medium transition-colors" onclick="filterProj(this,'mine')">My Projects</button>
+          <button class="filter-btn px-3 py-1.5 rounded-full border border-[#334155] text-[#94A3B8] text-xs font-medium transition-colors" onclick="filterProj(this,'classified')">⬡ Classified</button>
+        </div>
+      </div>
+
+      <div class="space-y-4" id="proj-list">
+
+        <div class="proj-card all mine rounded-xl bg-[#1E293B] border border-[#334155] p-6 hover:border-[#10B981]/40 transition-colors">
+          <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <h3 class="text-white font-bold">Project NEXUS-7 — ArrowOS 21 Core</h3>
+                <span class="text-[10px] bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/20 rounded px-1.5 py-0.5">Active</span>
+              </div>
+              <p class="text-[#94A3B8] text-xs">Platform Engineering · Target: Q3 2026</p>
+            </div>
+            <div class="text-right"><p class="text-[#10B981] font-bold text-lg">68%</p><p class="text-[#475569] text-xs">complete</p></div>
+          </div>
+          <div class="h-2 rounded-full bg-[#334155] overflow-hidden mb-4"><div class="h-full bg-[#10B981] rounded-full" style="width:68%"></div></div>
+          <div class="flex flex-wrap gap-2 text-xs">
+            <div class="flex items-center gap-1 text-[#94A3B8]"><span class="w-5 h-5 rounded-full bg-blue-500/20 flex items-center justify-center text-[9px] font-bold text-blue-300">SM</span>Sophia Meridian</div>
+            <div class="flex items-center gap-1 text-[#94A3B8]"><span class="w-5 h-5 rounded-full bg-[#10B981]/20 flex items-center justify-center text-[9px] font-bold text-[#10B981]">JD</span>James Doe</div>
+            <div class="flex items-center gap-1 text-[#94A3B8]"><span class="w-5 h-5 rounded-full bg-purple-500/20 flex items-center justify-center text-[9px] font-bold text-purple-300">HM</span>Hana Müller</div>
+            <span class="text-[#475569]">+4 more</span>
+          </div>
+          <div class="mt-4 border-t border-[#334155] pt-4 grid grid-cols-3 gap-3 text-xs text-center">
+            <div><p class="text-[#475569] mb-0.5">Open Tasks</p><p class="text-white font-bold">12</p></div>
+            <div><p class="text-[#475569] mb-0.5">Milestones</p><p class="text-white font-bold">4 / 6</p></div>
+            <div><p class="text-[#475569] mb-0.5">Days Left</p><p class="text-amber-400 font-bold">47</p></div>
+          </div>
+        </div>
+
+        <div class="proj-card all rounded-xl bg-[#1E293B] border border-[#334155] p-6 hover:border-[#10B981]/40 transition-colors">
+          <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <h3 class="text-white font-bold">Achilles 21 Hardware Validation</h3>
+                <span class="text-[10px] bg-amber-900/20 text-amber-400 border border-amber-700/20 rounded px-1.5 py-0.5">At Risk</span>
+              </div>
+              <p class="text-[#94A3B8] text-xs">Chip Engineering · Target: Aug 15, 2026</p>
+            </div>
+            <div class="text-right"><p class="text-amber-400 font-bold text-lg">41%</p><p class="text-[#475569] text-xs">complete</p></div>
+          </div>
+          <div class="h-2 rounded-full bg-[#334155] overflow-hidden mb-4"><div class="h-full bg-amber-400 rounded-full" style="width:41%"></div></div>
+          <div class="flex flex-wrap gap-2 text-xs">
+            <div class="flex items-center gap-1 text-[#94A3B8]"><span class="w-5 h-5 rounded-full bg-[#10B981]/20 flex items-center justify-center text-[9px] font-bold text-[#10B981]">KT</span>Kenji Tanaka</div>
+            <div class="flex items-center gap-1 text-[#94A3B8]"><span class="w-5 h-5 rounded-full bg-yellow-500/20 flex items-center justify-center text-[9px] font-bold text-yellow-300">YS</span>Yuki Sato</div>
+            <span class="text-[#475569]">+6 more</span>
+          </div>
+          <div class="mt-4 border-t border-[#334155] pt-4 grid grid-cols-3 gap-3 text-xs text-center">
+            <div><p class="text-[#475569] mb-0.5">Open Tasks</p><p class="text-white font-bold">31</p></div>
+            <div><p class="text-[#475569] mb-0.5">Milestones</p><p class="text-white font-bold">2 / 5</p></div>
+            <div><p class="text-[#475569] mb-0.5">Days Left</p><p class="text-red-400 font-bold">68</p></div>
+          </div>
+        </div>
+
+        <div class="proj-card all mine rounded-xl bg-[#1E293B] border border-[#334155] p-6 hover:border-[#10B981]/40 transition-colors">
+          <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <h3 class="text-white font-bold">Arrow Connect Matter 2.0 Integration</h3>
+                <span class="text-[10px] bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/20 rounded px-1.5 py-0.5">Active</span>
+              </div>
+              <p class="text-[#94A3B8] text-xs">Smart Home Division · Target: Q4 2026</p>
+            </div>
+            <div class="text-right"><p class="text-[#10B981] font-bold text-lg">82%</p><p class="text-[#475569] text-xs">complete</p></div>
+          </div>
+          <div class="h-2 rounded-full bg-[#334155] overflow-hidden mb-4"><div class="h-full bg-[#10B981] rounded-full" style="width:82%"></div></div>
+          <div class="mt-4 border-t border-[#334155] pt-4 grid grid-cols-3 gap-3 text-xs text-center">
+            <div><p class="text-[#475569] mb-0.5">Open Tasks</p><p class="text-white font-bold">5</p></div>
+            <div><p class="text-[#475569] mb-0.5">Milestones</p><p class="text-white font-bold">5 / 6</p></div>
+            <div><p class="text-[#475569] mb-0.5">Days Left</p><p class="text-[#10B981] font-bold">112</p></div>
+          </div>
+        </div>
+
+        <div class="proj-card all classified rounded-xl bg-amber-900/5 border border-amber-700/25 p-6 hover:border-amber-500/40 transition-colors">
+          <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="text-amber-400 text-xs font-bold">⬡ CLASSIFIED</span>
+                <h3 class="text-white font-bold">Project VOLTAIC — Post-Silicon Architecture</h3>
+                <span class="text-[10px] bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/20 rounded px-1.5 py-0.5">Active</span>
+              </div>
+              <p class="text-[#94A3B8] text-xs">Arrow Research Labs · CL-9 Required · Target: FY2028</p>
+            </div>
+            <div class="text-right"><p class="text-amber-400 font-bold text-lg">19%</p><p class="text-[#475569] text-xs">complete</p></div>
+          </div>
+          <div class="h-2 rounded-full bg-[#334155] overflow-hidden mb-4"><div class="h-full bg-amber-400 rounded-full" style="width:19%"></div></div>
+          <p class="text-[#475569] text-xs italic">Full project details restricted to Level 9 clearance holders.</p>
+        </div>
+
+        <div class="proj-card all classified rounded-xl bg-amber-900/5 border border-amber-700/25 p-6 hover:border-amber-500/40 transition-colors">
+          <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="text-amber-400 text-xs font-bold">⬡ CLASSIFIED</span>
+                <h3 class="text-white font-bold">Project CHRYSALIS — Acquisition &amp; Integration Pipeline</h3>
+                <span class="text-[10px] bg-amber-900/20 text-amber-400 border border-amber-700/20 rounded px-1.5 py-0.5">Ongoing</span>
+              </div>
+              <p class="text-[#94A3B8] text-xs">Stasis Division · CL-7 Required · No target date</p>
+            </div>
+            <div class="text-right"><p class="text-[#475569] font-bold text-lg">—</p><p class="text-[#475569] text-xs">classified</p></div>
+          </div>
+          <p class="text-[#475569] text-xs italic">6-phase acquisition and integration protocol. Details restricted to cleared personnel. Operational subjects: 4,128 on record. See <a href="stasis-pods.html" class="text-amber-400 hover:underline">Stasis Monitoring</a> for bay status.</p>
+        </div>
+
+      </div>
+
+      <!-- My Tasks -->
+      <div class="mt-10">
+        <h2 class="text-sm font-bold text-white uppercase tracking-widest mb-4">My Assigned Tasks</h2>
+        <div class="rounded-xl border border-[#334155] overflow-hidden">
+          <table class="w-full text-sm">
+            <thead><tr class="bg-[#1E293B] border-b border-[#334155]"><th class="text-left px-5 py-3 text-[#475569] text-xs font-semibold">Task</th><th class="px-5 py-3 text-[#475569] text-xs font-semibold">Project</th><th class="px-5 py-3 text-[#475569] text-xs font-semibold">Due</th><th class="px-5 py-3 text-[#475569] text-xs font-semibold">Status</th></tr></thead>
+            <tbody class="divide-y divide-[#334155]">
+              <tr class="bg-[#0B1120]/30 hover:bg-[#1E293B]/50 transition-colors"><td class="px-5 py-3 text-white text-xs">Implement delta-compression for ArrowOS update packages</td><td class="px-5 py-3 text-[#94A3B8] text-xs">NEXUS-7</td><td class="px-5 py-3 text-red-400 text-xs font-medium">Today</td><td class="px-5 py-3"><span class="text-amber-400 text-[10px] border border-amber-700/20 bg-amber-900/10 px-2 py-0.5 rounded">In Progress</span></td></tr>
+              <tr class="hover:bg-[#1E293B]/50 transition-colors"><td class="px-5 py-3 text-white text-xs">Write test coverage for Camera Framework changes</td><td class="px-5 py-3 text-[#94A3B8] text-xs">NEXUS-7</td><td class="px-5 py-3 text-amber-400 text-xs">Jun 12</td><td class="px-5 py-3"><span class="text-amber-400 text-[10px] border border-amber-700/20 bg-amber-900/10 px-2 py-0.5 rounded">In Progress</span></td></tr>
+              <tr class="bg-[#0B1120]/30 hover:bg-[#1E293B]/50 transition-colors"><td class="px-5 py-3 text-white text-xs">Matter 2.0 device pairing spec review</td><td class="px-5 py-3 text-[#94A3B8] text-xs">Connect Matter</td><td class="px-5 py-3 text-[#94A3B8] text-xs">Jun 18</td><td class="px-5 py-3"><span class="text-[#475569] text-[10px] border border-[#334155] px-2 py-0.5 rounded">Not Started</span></td></tr>
+              <tr class="hover:bg-[#1E293B]/50 transition-colors"><td class="px-5 py-3 text-white text-xs">Q2 self-review — complete 6 remaining goals</td><td class="px-5 py-3 text-[#94A3B8] text-xs">HR</td><td class="px-5 py-3 text-amber-400 text-xs">Jun 25</td><td class="px-5 py-3"><span class="text-[#475569] text-[10px] border border-[#334155] px-2 py-0.5 rounded">Not Started</span></td></tr>
+              <tr class="bg-[#0B1120]/30 hover:bg-[#1E293B]/50 transition-colors"><td class="px-5 py-3 text-white text-xs">Security briefing 2026 — mandatory completion</td><td class="px-5 py-3 text-[#94A3B8] text-xs">Training</td><td class="px-5 py-3 text-red-400 text-xs">Jun 20</td><td class="px-5 py-3"><span class="text-[#475569] text-[10px] border border-[#334155] px-2 py-0.5 rounded">Not Started</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t border-[#334155] py-4 text-center"><p class="text-[#334155] text-xs">ArrowSmart Employee Portal · Internal</p></footer>
+  <script>
+    function filterProj(btn,type){
+      document.querySelectorAll('.filter-btn').forEach(b=>{b.classList.remove('border-[#10B981]','text-[#10B981]');b.classList.add('border-[#334155]','text-[#94A3B8]');});
+      btn.classList.add('border-[#10B981]','text-[#10B981]');
+      document.querySelectorAll('.proj-card').forEach(c=>{c.style.display=(type==='all'||c.classList.contains(type))?'block':'none';});
+    }
+    (function(){
+      const emp=JSON.parse(sessionStorage.getItem('as_employee')||'null');
+      if(!emp){window.location.href='employee-login.html';return;}
+      document.getElementById('emp-name-display').textContent=emp.name;
+      document.getElementById('clearance-badge').textContent='LEVEL '+emp.level+' CLEARANCE';
+    })();
+  </script>
+<script>fetch('/api/access-log',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:'Project Tracker'})}).catch(()=>{});</script>
+</body>
+</html>

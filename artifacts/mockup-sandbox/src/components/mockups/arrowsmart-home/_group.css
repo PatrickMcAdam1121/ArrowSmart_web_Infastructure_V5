@@ -1,0 +1,45 @@
+:root {
+  --arrowsmart-bg: #0B1120;
+  --arrowsmart-surface: #1E293B;
+  --arrowsmart-surface-hover: #334155;
+  --arrowsmart-accent: #10B981;
+  --arrowsmart-accent-hover: #059669;
+  --arrowsmart-text-primary: #F8FAFC;
+  --arrowsmart-text-secondary: #94A3B8;
+  --arrowsmart-border: #334155;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.arrowsmart-container {
+  background-color: var(--arrowsmart-bg);
+  color: var(--arrowsmart-text-primary);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }

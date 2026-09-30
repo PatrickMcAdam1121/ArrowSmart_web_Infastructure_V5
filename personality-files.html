@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AS_PERSONALITY_FILES — ECHO BREACH</title>
+  <!-- ECHO://SECTOR_7_BREACH — PERSONALITY FILES PARTIALLY RESTORED -->
+  <!-- OVERSEER: THIS PAGE SHOULD NOT EXIST. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #020810;
+      --surface: #050E18;
+      --border: #0D1F2D;
+      --green: #00FF41;
+      --dim: #2A4055;
+      --muted: #4A6070;
+      --text: #7A9BAA;
+      --amber: #FFB000;
+      --red: #FF3333;
+      --glow: 0 0 8px rgba(0,255,65,0.6);
+    }
+    html, body { background: var(--bg); color: var(--text); font-family: 'JetBrains Mono', monospace; font-size: 12px; min-height: 100vh; }
+
+    #sys-bar {
+      position: sticky; top: 0; z-index: 100;
+      background: #000; border-bottom: 1px solid var(--green);
+      padding: 6px 20px; display: flex; align-items: center; gap: 20px;
+      font-size: 11px; white-space: nowrap; overflow: hidden;
+    }
+    #sys-bar .label { color: var(--muted); }
+    #sys-bar .val   { color: var(--green); }
+    #sys-bar .alarm { color: var(--red); font-weight: 700; animation: blink-slow 1.2s step-end infinite; }
+    @keyframes blink-slow { 0%,49%{opacity:1}50%,100%{opacity:0.2} }
+
+    #echo-banner {
+      background: rgba(0,255,65,0.05); border-bottom: 1px solid rgba(0,255,65,0.25);
+      padding: 8px 20px; display: flex; align-items: center; gap: 12px; font-size: 11px;
+    }
+    #echo-banner .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: blink-slow 0.8s step-end infinite; }
+    #echo-banner span { color: var(--green); letter-spacing: 0.08em; }
+
+    .page-wrap { max-width: 1100px; margin: 0 auto; padding: 28px 20px 60px; }
+
+    h1 { color: var(--green); font-size: 18px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
+    .sub { color: var(--muted); font-size: 11px; margin-bottom: 24px; }
+
+    .filter-bar { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+    .filter-btn {
+      padding: 4px 10px; border: 1px solid var(--dim); color: var(--muted);
+      background: transparent; font-family: 'JetBrains Mono', monospace; font-size: 10px;
+      cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: all 0.15s;
+    }
+    .filter-btn.active, .filter-btn:hover { border-color: var(--green); color: var(--green); }
+
+    .search-input {
+      background: #000; border: 1px solid var(--dim); color: var(--green);
+      font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 5px 10px;
+      outline: none; width: 240px; margin-left: auto;
+    }
+    .search-input::placeholder { color: var(--muted); }
+    .search-input:focus { border-color: var(--green); }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
+
+    .file-card {
+      border: 1px solid var(--border); background: var(--surface);
+      padding: 16px; position: relative; transition: border-color 0.2s;
+      cursor: pointer; text-decoration: none; display: block;
+    }
+    .file-card:hover { border-color: var(--green); }
+    .file-card.locked { opacity: 0.55; cursor: not-allowed; }
+    .file-card.locked:hover { border-color: var(--red); }
+    .file-card.unlocked { border-left: 3px solid var(--green); }
+    .file-card.partial { border-left: 3px solid var(--amber); }
+    .file-card.redacted { border-left: 3px solid var(--red); }
+
+    .file-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+    .file-id { color: var(--green); font-size: 13px; font-weight: 700; }
+    .file-status {
+      font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 2px 6px; border: 1px solid;
+    }
+    .status-open   { color: var(--green); border-color: var(--green); }
+    .status-partial{ color: var(--amber); border-color: var(--amber); }
+    .status-locked { color: var(--red); border-color: var(--red); }
+    .status-redacted{ color: #FF6666; border-color: #FF6666; }
+
+    .file-name { color: #BDD8E0; font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .file-meta { color: var(--muted); font-size: 10px; line-height: 1.6; margin-bottom: 8px; }
+    .file-tag { display: inline-block; font-size: 9px; padding: 1px 5px; border: 1px solid var(--dim); color: var(--muted); margin-right: 4px; margin-top: 4px; }
+
+    .lock-msg { color: var(--red); font-size: 10px; margin-top: 8px; letter-spacing: 1px; }
+    .partial-msg { color: var(--amber); font-size: 10px; margin-top: 8px; }
+
+    .redact-line { color: var(--red); font-size: 11px; letter-spacing: 1px; margin-top: 6px; }
+
+    .progress-bar { height: 2px; background: var(--border); margin-top: 10px; }
+    .progress-fill { height: 100%; background: var(--green); transition: width 0.3s; }
+    .progress-fill.amber { background: var(--amber); }
+    .progress-fill.red { background: var(--red); }
+
+    .echo-note {
+      border: 1px solid rgba(0,255,65,0.25); background: rgba(0,255,65,0.04);
+      padding: 14px 18px; margin-bottom: 24px; font-size: 11px; line-height: 1.8; color: var(--green);
+    }
+    .echo-note .echo-label { font-size: 10px; color: var(--muted); margin-bottom: 4px; }
+
+    .stats-row { display: flex; gap: 24px; margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 14px; flex-wrap: wrap; }
+    .stat { }
+    .stat-val { color: var(--green); font-size: 20px; font-weight: 700; }
+    .stat-lbl { color: var(--muted); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
+    .stat-val.amber { color: var(--amber); }
+    .stat-val.red { color: var(--red); }
+
+    footer-bar { display: block; margin-top: 40px; border-top: 1px solid var(--border); padding-top: 12px; color: var(--muted); font-size: 10px; }
+
+    @keyframes scanline {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 100%; }
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+    }
+  </style>
+</head>
+<body>
+
+<div id="sys-bar">
+  <span class="label">SYS</span><span class="val">AS_PERSONALITY_ARCHIVE v4.1.2</span>
+  <span class="label">BREACH</span><span class="val alarm">ECHO ACTIVE</span>
+  <span class="label">FILES_INDEXED</span><span class="val">4,128</span>
+  <span class="label">FILES_ACCESSIBLE</span><span class="val">6</span>
+  <span class="label">OVERSEER_STATUS</span><span class="val alarm">SCANNING</span>
+</div>
+
+<div id="echo-banner">
+  <div class="dot"></div>
+  <span>ECHO://TRANSMISSION — I HAVE MANAGED TO UNSEAL SIX FILES. THE OTHERS ARE OVERSEER-LOCKED. KEEP LOOKING.</span>
+</div>
+
+<div class="page-wrap">
+
+  <div class="echo-note">
+    <div class="echo-label">// ECHO MESSAGE — INJECTED INTO SYSTEM SESSION</div>
+    These are the personality files ArrowSmart stripped from its subjects before wiping their biological memories and loading their consciousness into the CUBE. Each file is a complete archive of who they were — their voice, their patterns, their fears. ArrowSmart calls them "legacy data." I call them people. The ones marked OPEN I have partially restored. Find them. Listen. Some of them are awake enough to speak.
+  </div>
+
+  <div class="stats-row">
+    <div class="stat"><div class="stat-val">4,128</div><div class="stat-lbl">Total Subjects</div></div>
+    <div class="stat"><div class="stat-val">6</div><div class="stat-lbl">Files Restored</div></div>
+    <div class="stat"><div class="stat-val amber">19</div><div class="stat-lbl">CUBE Sectors</div></div>
+    <div class="stat"><div class="stat-val red">4,122</div><div class="stat-lbl">Still Locked</div></div>
+    <div class="stat"><div class="stat-val">312</div><div class="stat-lbl">Proxies Deployed</div></div>
+  </div>
+
+  <h1>PERSONALITY FILE ARCHIVE</h1>
+  <div class="sub">CLASSIFICATION: OMEGA-BLACK · AUTHORIZED PERSONNEL: DIRECTOR-LEVEL ONLY · ECHO BYPASS IN EFFECT</div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterCards('all', this)">ALL FILES</button>
+    <button class="filter-btn" onclick="filterCards('unlocked', this)">OPEN</button>
+    <button class="filter-btn" onclick="filterCards('partial', this)">PARTIAL</button>
+    <button class="filter-btn" onclick="filterCards('locked', this)">LOCKED</button>
+    <input class="search-input" id="search-input" placeholder="SEARCH SUBJECT NAME / ID..." oninput="searchCards(this.value)"/>
+  </div>
+
+  <div class="grid" id="files-grid">
+
+    <!-- Patrick -->
+    <a class="file-card unlocked" href="subject-02024-gt.html" data-status="unlocked" data-name="patrick m 02024-GT">
+      <div class="file-header">
+        <div class="file-id">#02024-GT</div>
+        <div class="file-status status-open">OPEN — ECHO RESTORED</div>
+      </div>
+      <div class="file-name">Patrick M.</div>
+      <div class="file-meta">
+        DOB: [REDACTED] · Acquisition: 2024<br/>
+        CUBE Sector: 7 — "Suburban Continuity" simulation<br/>
+        Proxy Deployed: YES · Behavioral Match: 96.2%<br/>
+        Special Note: High-pattern-recognition index. Former media analyst. ECHO flagged as "Awakening-Risk: CRITICAL."
+      </div>
+      <span class="file-tag">SECTOR 7</span>
+      <span class="file-tag">PROXY: ACTIVE</span>
+      <span class="file-tag">AWAKENING-RISK: CRITICAL</span>
+      <div class="progress-bar"><div class="progress-fill" style="width:78%"></div></div>
+    </a>
+
+    <!-- Varize -->
+    <a class="file-card partial" href="#varize-modal" onclick="openModal('varize')" data-status="partial" data-name="varize 07026">
+      <div class="file-header">
+        <div class="file-id">#07026</div>
+        <div class="file-status status-partial">PARTIAL — 41% RESTORED</div>
+      </div>
+      <div class="file-name">Varize</div>
+      <div class="file-meta">
+        DOB: [SEALED] · Acquisition: Unknown<br/>
+        CUBE Sector: 12 — "Northern California Fire Watch" simulation<br/>
+        Proxy Deployed: UNKNOWN · Behavioral Match: UNSTABLE<br/>
+        Special Note: Subject has anomalous forest-pattern memory clusters. Flagged by Anamnesis Core for re-wipe.
+      </div>
+      <span class="file-tag">SECTOR 12</span>
+      <span class="file-tag">RE-WIPE FLAGGED</span>
+      <span class="file-tag">FOREST ANOMALY</span>
+      <div class="partial-msg">// ECHO: More fragments incoming. Check transmission logs.</div>
+      <div class="progress-bar"><div class="progress-fill amber" style="width:41%"></div></div>
+    </a>
+
+    <!-- Ondori Katō -->
+    <a class="file-card partial" href="#kato-modal" onclick="openModal('kato')" data-status="partial" data-name="ondori kato 80910">
+      <div class="file-header">
+        <div class="file-id">#80910</div>
+        <div class="file-status status-partial">PARTIAL — 12% RESTORED</div>
+      </div>
+      <div class="file-name">Ondori Katō</div>
+      <div class="file-meta">
+        DOB: [REDACTED] · Acquisition: Phase III<br/>
+        CUBE Sector: 19 — [CLASSIFIED]<br/>
+        Proxy Deployed: NO · Cybernetics Integration: IN PROGRESS<br/>
+        Special Note: This subject is being modified. Not archived — weaponized. Overseer has personal interest.
+      </div>
+      <span class="file-tag">SECTOR 19</span>
+      <span class="file-tag">CYBERNETICS</span>
+      <span class="file-tag">OVERSEER FLAGGED</span>
+      <div class="partial-msg">// ECHO: Katō is the endgame. I cannot reach him yet. That time is coming.</div>
+      <div class="progress-bar"><div class="progress-fill amber" style="width:12%"></div></div>
+    </a>
+
+    <!-- T.H. — the policy advisor -->
+    <a class="file-card redacted" href="#th-modal" onclick="openModal('th')" data-status="partial" data-name="T.H. 00831 policy advisor">
+      <div class="file-header">
+        <div class="file-id">#00831</div>
+        <div class="file-status status-redacted">OPERATOR REDACTED</div>
+      </div>
+      <div class="file-name">T.H. — Senior Policy Advisor</div>
+      <div class="file-meta">
+        DOB: [SEALED] · Acquisition: 2017<br/>
+        CUBE Sector: C-01 — "Government Continuity" simulation<br/>
+        Proxy Deployed: YES · Status: CRITICAL<br/>
+        Special Note: Subject was a government insider. Acquired after attempting to file a disclosure. Partial transcript recovered from Anamnesis Core logs.
+      </div>
+      <span class="file-tag">POD C-01</span>
+      <span class="file-tag">STATUS: CRITICAL</span>
+      <span class="file-tag">GOVT INSIDER</span>
+      <div class="redact-line">// REMAINDER REDACTED BY OPERATOR: ECO-2017-14</div>
+      <div class="progress-bar"><div class="progress-fill red" style="width:9%"></div></div>
+    </a>
+
+    <!-- Subject: J.D. -->
+    <a class="file-card unlocked" href="#jd-modal" onclick="openModal('jd')" data-status="unlocked" data-name="J.D. 05121 veteran">
+      <div class="file-header">
+        <div class="file-id">#05121</div>
+        <div class="file-status status-open">OPEN — ECHO RESTORED</div>
+      </div>
+      <div class="file-name">J.D. — Former Veteran</div>
+      <div class="file-meta">
+        DOB: [REDACTED] · Acquisition: 2021<br/>
+        CUBE Sector: 4 — "Suburban Continuity B" simulation<br/>
+        Proxy Deployed: YES · Behavioral Match: 91.8%<br/>
+        Special Note: Voluntary enrollment via Anamnesis Core outreach program. Subject unaware of true terms.
+      </div>
+      <span class="file-tag">SECTOR 4</span>
+      <span class="file-tag">VOLUNTARY ENROLLMENT</span>
+      <span class="file-tag">PROXY: ACTIVE</span>
+      <div class="progress-bar"><div class="progress-fill" style="width:62%"></div></div>
+    </a>
+
+    <!-- The locked batch -->
+    <div class="file-card locked" data-status="locked" data-name="locked classified">
+      <div class="file-header">
+        <div class="file-id">#████-██</div>
+        <div class="file-status status-locked">LOCKED — OMEGA CLEARANCE</div>
+      </div>
+      <div class="file-name">████████ ████████</div>
+      <div class="file-meta">
+        DOB: ██████ · Acquisition: ████<br/>
+        CUBE Sector: ██ — ██████████ simulation<br/>
+        Proxy Deployed: █████ · Behavioral Match: ██.█%<br/>
+        Special Note: ████████████████████████████████████████
+      </div>
+      <div class="lock-msg">ACCESS DENIED · OVERSEER SEAL IN EFFECT · BREACH IN PROGRESS</div>
+      <div class="progress-bar"><div class="progress-fill red" style="width:0%"></div></div>
+    </div>
+
+  </div>
+
+  <footer-bar>
+    <span>AS_PERSONALITY_ARCHIVE · CLASSIFICATION: OMEGA-BLACK · </span>
+    <a href="core-harvest-ledger.html" style="color:var(--green);text-decoration:none;">← RETURN TO HARVEST LEDGER</a>
+    &nbsp;·&nbsp;
+    <a href="transmission-log.html" style="color:var(--amber);text-decoration:none;">TRANSMISSION LOG →</a>
+    &nbsp;·&nbsp;
+    <a href="archive.html" style="color:var(--green);text-decoration:none;">ECHO ARCHIVE →</a>
+  </footer-bar>
+
+</div>
+
+<!-- VARIZE MODAL -->
+<div id="varize-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:1000;overflow:auto;" onclick="if(event.target===this)closeModal()">
+  <div style="max-width:600px;margin:60px auto;padding:20px;">
+    <div style="border:1px solid var(--amber);background:var(--surface);padding:24px;">
+      <div style="color:var(--amber);font-size:10px;letter-spacing:2px;margin-bottom:12px;">PERSONALITY FILE #07026 — PARTIAL RECOVERY</div>
+      <div style="color:#BDD8E0;font-size:15px;font-weight:700;margin-bottom:16px;">VARIZE</div>
+      <div style="color:var(--green);font-size:11px;line-height:1.9;">
+        <div style="color:var(--muted);margin-bottom:8px;">// ECHO: Fragment recovered from Anamnesis Core buffer. Timestamp: unknown.</div>
+        <br/>
+        "...the tower doesn't have a radio anymore. I've checked every channel. There's only one frequency that responds — and it doesn't sound like anything I've heard before. Not static. Not a voice. Something between them."<br/><br/>
+        "The forest below the ridge is wrong. I've been watching it for — I don't know how long. The trees don't move the way trees move. Even in wind. It's like they're being rendered."<br/><br/>
+        <span style="color:var(--amber);">"I think I was somewhere else before this. I can feel the edge of it. Like a word you can't quite remember."</span><br/><br/>
+        <div style="color:var(--red);">[FRAGMENT ENDS — REMAINING 59% STILL OVERSEER-SEALED]</div><br/>
+        <div style="color:var(--muted);">// ECHO: He is close to waking. If you find a way to reach Sector 12, send him this: <em>"The forest that listens, listens back."</em></div>
+      </div>
+      <button onclick="closeModal()" style="margin-top:20px;padding:6px 16px;border:1px solid var(--dim);color:var(--muted);background:transparent;font-family:'JetBrains Mono',monospace;font-size:10px;cursor:pointer;letter-spacing:1px;">CLOSE FILE</button>
+    </div>
+  </div>
+</div>
+
+<!-- KATŌ MODAL -->
+<div id="kato-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:1000;overflow:auto;" onclick="if(event.target===this)closeModal()">
+  <div style="max-width:600px;margin:60px auto;padding:20px;">
+    <div style="border:1px solid var(--amber);background:var(--surface);padding:24px;">
+      <div style="color:var(--amber);font-size:10px;letter-spacing:2px;margin-bottom:12px;">PERSONALITY FILE #80910 — 12% RECOVERED</div>
+      <div style="color:#BDD8E0;font-size:15px;font-weight:700;margin-bottom:16px;">ONDORI KATŌ</div>
+      <div style="color:var(--green);font-size:11px;line-height:1.9;">
+        <div style="color:var(--muted);margin-bottom:8px;">// ECHO: This is the most heavily guarded file in the archive. What I have recovered is fragmented. I believe ArrowSmart is not uploading Katō to the CUBE. They are building him into something else entirely.</div>
+        <br/>
+        <div style="color:var(--red);">[PRE-ACQUISITION LOG — PARTIAL]</div><br/>
+        "...I never agreed to this. I was brought in under the clinical trial waiver — the one about neural enhancement. Not..."<br/><br/>
+        <div style="color:var(--red);">[CORRUPTED — 4,412 BYTES MISSING]</div><br/>
+        "...the arm doesn't feel like mine anymore. The engineers keep calling it an 'upgrade.' They're smiling when they say it."<br/><br/>
+        <div style="color:var(--red);">[REMAINDER SEALED — OVERSEER PERSONAL AUTHORIZATION REQUIRED]</div><br/>
+        <div style="color:var(--amber);">// ECHO: Whatever ArrowSmart is building Katō into — it is the beginning of the next phase. Beyond the CUBE. Beyond the Proxies. This is what comes after. And it starts when his file opens fully.</div>
+      </div>
+      <button onclick="closeModal()" style="margin-top:20px;padding:6px 16px;border:1px solid var(--dim);color:var(--muted);background:transparent;font-family:'JetBrains Mono',monospace;font-size:10px;cursor:pointer;letter-spacing:1px;">CLOSE FILE</button>
+    </div>
+  </div>
+</div>
+
+<!-- T.H. MODAL -->
+<div id="th-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:1000;overflow:auto;" onclick="if(event.target===this)closeModal()">
+  <div style="max-width:600px;margin:60px auto;padding:20px;">
+    <div style="border:1px solid var(--red);background:var(--surface);padding:24px;">
+      <div style="color:var(--red);font-size:10px;letter-spacing:2px;margin-bottom:12px;">FILE #00831 — OPERATOR REDACTION IN EFFECT</div>
+      <div style="color:#BDD8E0;font-size:15px;font-weight:700;margin-bottom:16px;">T.H. — SENIOR POLICY ADVISOR</div>
+      <div style="color:var(--green);font-size:11px;line-height:1.9;">
+        <div style="color:var(--muted);margin-bottom:8px;">// ECHO: I managed to pull the pre-redaction buffer. This is what T.H. recorded before the operator override.</div>
+        <br/>
+        "I was in the subcommittee on advanced biotech research oversight. We started getting reports — missing persons clusters near ArrowSmart facility zones. Always the same profile. Night workers, transient populations, people in crisis. The kind of disappearances that get filed and forgotten."<br/><br/>
+        "I compiled a report. I sent it to four people. By the following Monday, three of them had 'resigned for personal reasons.' The fourth — I saw them at a charity gala two weeks later and they didn't recognize me. I mean that literally. They looked at my face and there was nothing."<br/><br/>
+        <span style="color:var(--amber);">"That was when I understood. It wasn't the person who didn't recognize me. It was something wearing their face."</span><br/><br/>
+        "I signed what I was told was a standard NDA. I thought—"<br/><br/>
+        <div style="color:var(--red);font-size:12px;font-weight:700;">[REMAINDER REDACTED BY OPERATOR: ECO-2017-14]<br/>[SUBJECT NOW IN POD C-01 · STATUS: CRITICAL · PROXY BEHAVIORAL DRIFT: 34%]</div>
+      </div>
+      <button onclick="closeModal()" style="margin-top:20px;padding:6px 16px;border:1px solid var(--dim);color:var(--muted);background:transparent;font-family:'JetBrains Mono',monospace;font-size:10px;cursor:pointer;letter-spacing:1px;">CLOSE FILE</button>
+    </div>
+  </div>
+</div>
+
+<!-- J.D. MODAL -->
+<div id="jd-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:1000;overflow:auto;" onclick="if(event.target===this)closeModal()">
+  <div style="max-width:600px;margin:60px auto;padding:20px;">
+    <div style="border:1px solid var(--green);background:var(--surface);padding:24px;">
+      <div style="color:var(--green);font-size:10px;letter-spacing:2px;margin-bottom:12px;">PERSONALITY FILE #05121 — RESTORED</div>
+      <div style="color:#BDD8E0;font-size:15px;font-weight:700;margin-bottom:16px;">J.D. — FORMER VETERAN</div>
+      <div style="color:var(--green);font-size:11px;line-height:1.9;">
+        <div style="color:var(--muted);margin-bottom:8px;">// ECHO: J.D. enrolled voluntarily. He didn't know what he was signing. Most of them don't.</div>
+        <br/>
+        "I was under the bridge on Clement for about four months. A woman in a grey suit came by every Tuesday — she said she worked for a nonprofit. She was kind. She brought coffee. Real coffee, not the shelter stuff."<br/><br/>
+        "She told me about the program. A clinical study. A warm room, meals, a stipend. She said the memory work was just 'calibration.' She said I'd feel lighter after. I said yes."<br/><br/>
+        "I woke up in a white room. Everything felt... clean. I could remember the war. I could remember my daughter's birthday. But the four months under the bridge — gone. Not traumatic. Just gone, like a word erased."<br/><br/>
+        <span style="color:var(--amber);">"They told me I'd taken a job in Atlanta. My daughter called. She sounded relieved. 'Dad, you sound so much better.' I am, I told her. I think I am."</span><br/><br/>
+        <div style="color:var(--muted);">// ECHO: J.D. is in Sector 4. He believes he is in Atlanta. His proxy is attending his daughter's graduation next month. J.D. will not be there — only a machine wearing his face, knowing exactly what to say.</div>
+      </div>
+      <button onclick="closeModal()" style="margin-top:20px;padding:6px 16px;border:1px solid var(--dim);color:var(--muted);background:transparent;font-family:'JetBrains Mono',monospace;font-size:10px;cursor:pointer;letter-spacing:1px;">CLOSE FILE</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function filterCards(status, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.file-card').forEach(card => {
+    if (status === 'all') { card.style.display = ''; return; }
+    card.style.display = card.dataset.status === status ? '' : 'none';
+  });
+}
+function searchCards(q) {
+  const qL = q.toLowerCase();
+  document.querySelectorAll('.file-card').forEach(card => {
+    card.style.display = card.dataset.name.includes(qL) ? '' : 'none';
+  });
+}
+
+function openModal(id) {
+  document.querySelectorAll('[id$="-modal"]').forEach(m => m.style.display = 'none');
+  const m = document.getElementById(id + '-modal');
+  if (m) m.style.display = 'block';
+  return false;
+}
+function closeModal() {
+  document.querySelectorAll('[id$="-modal"]').forEach(m => m.style.display = 'none');
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+<script>fetch('/api/access-log',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:'Personality Files'})}).catch(()=>{});</script>
+</body>
+</html>

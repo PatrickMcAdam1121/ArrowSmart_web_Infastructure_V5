@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mail — ArrowSmart Employee Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap"/>
+  <style>
+    body { font-family: 'Inter', sans-serif; overflow: hidden; height: 100vh; display: flex; flex-direction: column; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+
+    /* email body prose */
+    .email-body { line-height: 1.75; color: #CBD5E1; font-size: 0.875rem; }
+    .email-body p { margin-bottom: 1em; }
+    .email-body .sig { color: #475569; font-size: 0.8rem; border-top: 1px solid #1E293B; margin-top: 1.5em; padding-top: 1em; }
+    .email-body .label { display: inline-block; padding: 1px 8px; border-radius: 3px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 0.75em; }
+    .email-body .label.ts   { background: rgba(239,68,68,0.12); color: #F87171; border: 1px solid rgba(239,68,68,0.25); }
+    .email-body .label.conf { background: rgba(245,158,11,0.12); color: #FCD34D; border: 1px solid rgba(245,158,11,0.25); }
+    .email-body .label.ob   { background: rgba(236,72,153,0.12); color: #F472B6; border: 1px solid rgba(236,72,153,0.25); }
+    .email-body .label.apex { background: rgba(255,176,0,0.12);  color: #FFB000; border: 1px solid rgba(255,176,0,0.3); }
+    .email-body .label.std  { background: rgba(16,185,129,0.1);  color: #34D399; border: 1px solid rgba(16,185,129,0.2); }
+    .email-body blockquote { border-left: 2px solid #334155; padding-left: 1em; color: #475569; font-size: 0.8rem; margin: 0.75em 0; }
+    .email-body .att  { display:inline-flex;align-items:center;gap:6px;background:#0B1120;border:1px solid #334155;border-radius:6px;padding:5px 10px;font-size:0.72rem;color:#94A3B8;margin-top:4px; }
+
+    /* mail list item */
+    .mail-item { border-bottom: 1px solid #1E293B; cursor: pointer; transition: background 0.12s; }
+    .mail-item:hover { background: #141D2E; }
+    .mail-item.active { background: #0F2A1E; border-left: 2px solid #10B981; }
+    .mail-item.unread .mail-subject { color: #fff; font-weight: 600; }
+    .mail-item .mail-subject { color: #94A3B8; font-weight: 400; }
+    .unread-dot { width: 6px; height: 6px; border-radius: 50%; background: #10B981; flex-shrink: 0; }
+
+    /* classified badge colours */
+    .badge-ts   { background:rgba(239,68,68,0.12);color:#F87171;border-color:rgba(239,68,68,0.25); }
+    .badge-conf { background:rgba(245,158,11,0.12);color:#FCD34D;border-color:rgba(245,158,11,0.25); }
+    .badge-ob   { background:rgba(236,72,153,0.12);color:#F472B6;border-color:rgba(236,72,153,0.25); }
+    .badge-apex { background:rgba(255,176,0,0.12);color:#FFB000;border-color:rgba(255,176,0,0.3); }
+    .badge-std  { background:rgba(16,185,129,0.08);color:#34D399;border-color:rgba(16,185,129,0.2); }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 2px; }
+
+    @keyframes fadeIn { from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)} }
+    .fade-in { animation: fadeIn 0.15s ease forwards; }
+  </style>
+</head>
+<body class="bg-[#0B1120] text-white">
+
+<!-- TOP BAR -->
+<header class="shrink-0 w-full border-b border-[#334155] bg-[#0B1120]/95 backdrop-blur-md z-50">
+  <div class="h-14 flex items-center px-4 gap-4">
+    <a href="employee-portal.html" class="flex items-center gap-2 shrink-0">
+      <div class="w-7 h-7 rounded bg-[#10B981]/10 flex items-center justify-center text-[#10B981]">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L4 4 L20 4"/></svg>
+      </div>
+      <span class="text-sm font-bold text-white hidden sm:block">ArrowSmart</span>
+    </a>
+    <span class="text-[#334155]">|</span>
+    <span id="clearance-badge" class="text-[10px] font-bold uppercase tracking-widest text-[#10B981] border border-[#10B981]/20 bg-[#10B981]/5 rounded px-2 py-0.5 shrink-0">LEVEL — CLEARANCE</span>
+
+    <!-- search -->
+    <div class="flex-1 max-w-md relative">
+      <svg class="absolute left-3 top-1/2 -translate-y-1/2 text-[#475569]" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="search-input" type="text" placeholder="Search mail…" oninput="renderList()" class="w-full bg-[#1E293B] border border-[#334155] rounded-lg pl-8 pr-4 py-1.5 text-xs text-white placeholder-[#475569] focus:outline-none focus:border-[#10B981] transition-colors"/>
+    </div>
+
+    <div class="flex items-center gap-3 ml-auto">
+      <span class="text-[#94A3B8] text-xs hidden sm:block" id="emp-name-display"></span>
+      <a href="employee-login.html" onclick="sessionStorage.removeItem('as_employee')" class="text-xs text-[#475569] hover:text-red-400 border border-[#334155] px-2.5 py-1.5 rounded transition-colors">Sign Out</a>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN 3-PANE LAYOUT -->
+<div class="flex flex-1 min-h-0 overflow-hidden">
+
+  <!-- SIDEBAR / FOLDERS -->
+  <aside class="w-48 shrink-0 border-r border-[#334155] flex flex-col py-3 overflow-y-auto bg-[#080F1C]">
+    <div class="px-3 mb-3">
+      <button class="w-full px-3 py-2 rounded-lg bg-[#10B981] hover:bg-[#059669] text-white text-xs font-semibold transition-colors" onclick="alert('Compose is disabled on this portal. Use internal messaging through your department head.')">+ Compose</button>
+    </div>
+
+    <p class="px-3 text-[10px] font-bold uppercase tracking-widest text-[#334155] mb-1">Folders</p>
+    <button onclick="setFolder('inbox',this)" id="f-inbox" class="folder-btn flex items-center justify-between px-3 py-2 text-xs text-white bg-[#10B981]/10 hover:bg-[#1E293B] transition-colors rounded-lg mx-2 mb-0.5">
+      <span class="flex items-center gap-2"><span class="text-[#10B981]">✉</span> Inbox</span>
+      <span id="inbox-count" class="text-[10px] bg-[#10B981] text-black rounded-full px-1.5 font-bold">0</span>
+    </button>
+    <button onclick="setFolder('flagged',this)" id="f-flagged" class="folder-btn flex items-center gap-2 px-3 py-2 text-xs text-[#94A3B8] hover:text-white hover:bg-[#1E293B] transition-colors rounded-lg mx-2 mb-0.5">
+      <span class="text-amber-400">⚑</span> Flagged
+    </button>
+    <button onclick="setFolder('classified',this)" id="f-classified" class="folder-btn flex items-center gap-2 px-3 py-2 text-xs text-[#94A3B8] hover:text-white hover:bg-[#1E293B] transition-colors rounded-lg mx-2 mb-0.5">
+      <span class="text-red-400">⬡</span> Classified
+    </button>
+    <button onclick="setFolder('sent',this)" id="f-sent" class="folder-btn flex items-center gap-2 px-3 py-2 text-xs text-[#94A3B8] hover:text-white hover:bg-[#1E293B] transition-colors rounded-lg mx-2 mb-0.5">
+      <span class="text-[#475569]">↗</span> Sent
+    </button>
+    <button onclick="setFolder('system',this)" id="f-system" class="folder-btn flex items-center gap-2 px-3 py-2 text-xs text-[#94A3B8] hover:text-white hover:bg-[#1E293B] transition-colors rounded-lg mx-2">
+      <span class="text-[#475569]">⚙</span> System
+    </button>
+
+    <hr class="border-[#1E293B] mx-3 my-3"/>
+
+    <p class="px-3 text-[10px] font-bold uppercase tracking-widest text-[#334155] mb-1">Portal</p>
+    <a href="employee-portal.html" class="flex items-center gap-2 px-3 py-2 text-xs text-[#94A3B8] hover:text-white hover:bg-[#1E293B] transition-colors rounded-lg mx-2 mb-0.5">← Dashboard</a>
+    <a href="archive.html"         class="flex items-center gap-2 px-3 py-2 text-xs text-[#94A3B8] hover:text-white hover:bg-[#1E293B] transition-colors rounded-lg mx-2 mb-0.5">◈ Archive</a>
+    <a href="transmission-log.html" class="flex items-center gap-2 px-3 py-2 text-xs text-[#94A3B8] hover:text-white hover:bg-[#1E293B] transition-colors rounded-lg mx-2">⌖ Transmission Log</a>
+  </aside>
+
+  <!-- EMAIL LIST -->
+  <div class="w-72 shrink-0 border-r border-[#334155] flex flex-col overflow-hidden bg-[#0A1120]">
+    <div class="px-4 py-3 border-b border-[#1E293B] flex items-center justify-between shrink-0">
+      <h2 class="text-sm font-bold text-white" id="folder-title">Inbox</h2>
+      <span class="text-xs text-[#475569]" id="list-count">0 messages</span>
+    </div>
+    <div id="email-list" class="flex-1 overflow-y-auto"></div>
+  </div>
+
+  <!-- READING PANE -->
+  <div class="flex-1 min-w-0 flex flex-col overflow-hidden">
+    <!-- empty state -->
+    <div id="reading-empty" class="flex-1 flex flex-col items-center justify-center gap-3 text-center p-8">
+      <div class="text-4xl text-[#1E293B]">✉</div>
+      <p class="text-[#334155] text-sm">Select a message to read it</p>
+    </div>
+
+    <!-- message pane -->
+    <div id="reading-pane" style="display:none" class="flex-1 flex flex-col overflow-hidden">
+      <!-- message header -->
+      <div class="shrink-0 px-8 py-5 border-b border-[#1E293B] bg-[#080F1C]">
+        <div class="flex items-start justify-between gap-4 mb-3">
+          <h3 class="text-lg font-bold text-white leading-tight" id="r-subject"></h3>
+          <span id="r-badge" class="text-[10px] px-2 py-0.5 rounded border font-bold mono shrink-0 mt-0.5"></span>
+        </div>
+        <div class="flex flex-wrap gap-x-6 gap-y-1 text-xs text-[#94A3B8]">
+          <span><span class="text-[#475569]">From: </span><span class="text-white" id="r-from"></span></span>
+          <span><span class="text-[#475569]">To: </span><span id="r-to"></span></span>
+          <span><span class="text-[#475569]">Date: </span><span id="r-date"></span></span>
+        </div>
+        <div id="r-tags" class="flex flex-wrap gap-1.5 mt-2"></div>
+      </div>
+
+      <!-- message body -->
+      <div class="flex-1 overflow-y-auto px-8 py-6 fade-in">
+        <div id="r-body" class="email-body max-w-2xl"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ── AUTH ─────────────────────────────────────────────────── */
+let currentUser = null;
+(function(){
+  const emp = JSON.parse(sessionStorage.getItem('as_employee')||'null');
+  if (!emp){ window.location.href='employee-login.html'; return; }
+  currentUser = emp;
+  document.getElementById('emp-name-display').textContent = emp.name;
+  document.getElementById('clearance-badge').textContent = 'LEVEL '+emp.level+' CLEARANCE';
+})();
+
+/* ── EMAILS ───────────────────────────────────────────────── */
+const EMAILS = [
+
+  /* ═══════════════════════ LEVEL 1 — ALL STAFF ═══════════════════════ */
+  {
+    id:'e001', folder:'system', minLevel:1, flagged:false, unread:true,
+    subject:'Welcome to ArrowSmart Internal Mail',
+    from:'IT Support <it.support@arrowsmart.com>',
+    to:'All New Employees',
+    date:'2026-01-06', badge:'std', badgeText:'SYSTEM',
+    tags:['onboarding','IT'],
+    body:`<span class="label std">SYSTEM NOTICE</span>
+<p>Welcome to ArrowSmart Internal Mail.</p>
+<p>This platform is your official channel for all internal communications. All messages are encrypted in transit and stored on our internal servers. Your inbox is subject to periodic compliance review under ArrowSmart Policy AS-COM-2019-11.</p>
+<p><strong>A few things to note:</strong></p>
+<p>— Do not forward classified messages to personal email accounts.<br>
+— Messages marked CONFIDENTIAL or above must not be printed or screenshotted.<br>
+— Compose access is restricted. Contact your department head to send messages.<br>
+— If you receive a message you believe was sent in error, contact IT immediately at x2001.</p>
+<p>If you experience login issues or notice unusual account behaviour, file a ticket at the IT Helpdesk immediately.</p>
+<div class="sig">ArrowSmart IT Support · it.support@arrowsmart.com · x2001<br>This is an automated system message.</div>`
+  },
+  {
+    id:'e002', folder:'inbox', minLevel:1, flagged:false, unread:true,
+    subject:'All-Hands Q2 2026 — Save the Date',
+    from:'Corporate Communications <comms@arrowsmart.com>',
+    to:'All Staff',
+    date:'2026-05-19', badge:'std', badgeText:'ALL STAFF',
+    tags:['all-hands','Q2'],
+    body:`<span class="label std">ALL STAFF</span>
+<p>Team,</p>
+<p>Save the date: our <strong>Q2 2026 All-Hands</strong> is scheduled for <strong>Monday, July 7th</strong> at 10:00 AM PT. The session will be held in the Main Auditorium at San Mateo HQ, with remote participation available via the internal AV portal.</p>
+<p>Agenda highlights:</p>
+<p>— Q2 business results and H2 outlook<br>
+— Achilles 21 launch retrospective<br>
+— Project NEXUS milestone update (Engineering)<br>
+— People & Culture initiatives (HR)<br>
+— Q&A with leadership</p>
+<p>Dial-in details will be distributed closer to the date. Attendance is mandatory for all Level 3+ employees.</p>
+<div class="sig">Corporate Communications · comms@arrowsmart.com<br>ArrowSmart Inc. · San Mateo, CA</div>`
+  },
+  {
+    id:'e003', folder:'inbox', minLevel:1, flagged:false, unread:false,
+    subject:'RE: Mandatory Wellness Check-In — June Scheduling',
+    from:'HR Division <hr@arrowsmart.com>',
+    to:'All Employees',
+    date:'2026-06-02', badge:'std', badgeText:'HR',
+    tags:['HR','wellness'],
+    body:`<span class="label std">HR NOTICE</span>
+<p>Team,</p>
+<p>As a reminder, our quarterly <strong>Employee Wellness Programme</strong> check-ins are now open for June scheduling. All employees are required to complete at least one 20-minute session per quarter with an ArrowSmart Wellness Coordinator.</p>
+<p>Sessions are confidential and voluntary in content — however, attendance is <em>mandatory</em> under our duty-of-care obligations.</p>
+<p>Please book your slot via the HR Portal. If you have not received your scheduling link, contact Amelia Hart directly at a.hart@arrowsmart.com.</p>
+<p>A small number of employees have been flagged for <strong>priority scheduling</strong> due to elevated stress indicators identified in the Q1 survey. If you have been flagged, you will receive a separate communication. Please respond within 48 hours.</p>
+<p>We value every member of this team. Our goal is to make sure you feel supported.</p>
+<div class="sig">Amelia Hart · HR Business Partner<br>a.hart@arrowsmart.com · x1105 · ArrowSmart HR Division</div>`
+  },
+
+  /* ═══════════════════════ LEVEL 2 ═══════════════════════════════════ */
+  {
+    id:'e004', folder:'inbox', minLevel:2, flagged:false, unread:true,
+    subject:'Updated: Workplace Communication & Data Handling Policy',
+    from:'Amara Vasquez — HR Director <a.vasquez@arrowsmart.com>',
+    to:'All Staff (Level 2+)',
+    date:'2026-04-14', badge:'std', badgeText:'POLICY',
+    tags:['HR','policy','data'],
+    body:`<span class="label std">POLICY UPDATE</span>
+<p>All,</p>
+<p>Effective May 1st, the revised <strong>AS Workplace Communication & Data Handling Policy (2026-B)</strong> comes into force. All employees at Level 2 and above are required to acknowledge receipt and confirm understanding by April 28th via the Training Hub.</p>
+<p>Key changes include:</p>
+<p>— Prohibition on the use of personal cloud storage (Google Drive, Dropbox, iCloud) for any work-related material.<br>
+— Expanded scope of what constitutes a "sensitive communication" — this now includes any message referencing active projects by codename.<br>
+— Mandatory 30-day retention window for all internal mail, with automatic archival enforced by the mail server.</p>
+<p>Additionally, all employees are reminded that internal mail is subject to monitoring under Section 4 of the ArrowSmart Employment Agreement. This is not new — but the scope of automated keyword monitoring has been expanded effective May 1st.</p>
+<p>If you have questions, direct them to the Legal Division (i.larsen@arrowsmart.com).</p>
+<div class="sig">Amara Vasquez · HR Director<br>a.vasquez@arrowsmart.com · x1201 · ArrowSmart Human Resources</div>`
+  },
+  {
+    id:'e005', folder:'inbox', minLevel:2, flagged:false, unread:false,
+    subject:'RE: Your IT Access Request — Ticket #TK-0388',
+    from:'Darius Webb — IT Infrastructure <d.webb@arrowsmart.com>',
+    to:'You',
+    date:'2026-05-27', badge:'std', badgeText:'IT',
+    tags:['IT','access'],
+    body:`<span class="label std">IT RESPONSE</span>
+<p>Hi,</p>
+<p>Your request for expanded file-share access has been reviewed. Unfortunately, your current clearance level does not permit access to the /PROJECTS/CLASSIFIED/ directory at this time.</p>
+<p>If you believe this is in error, please have your department lead submit a formal access escalation request. Access escalation requests for Level 4 and below must be approved by both the relevant Division Head and Security Ops.</p>
+<p>One more thing — I noticed you attempted to access a network path that routes through Sub-Level infrastructure. That path is restricted. I've logged it as an accidental misdirection, but please make sure your VPN client is on the latest version (4.7.1). The older version has a known routing issue.</p>
+<p>Let me know if you need anything else.</p>
+<blockquote>Original request: "I keep getting access denied when I try to open the shared NEXUS folder from home. Darius, can you help?"</blockquote>
+<div class="sig">Darius Webb · IT Infrastructure Manager<br>d.webb@arrowsmart.com · x2001 · IT Division, San Mateo HQ</div>`
+  },
+
+  /* ═══════════════════════ LEVEL 3 ═══════════════════════════════════ */
+  {
+    id:'e006', folder:'inbox', minLevel:3, flagged:false, unread:false,
+    subject:'Operations Update — Q2 Targets & Staffing',
+    from:'Leo Okonkwo — Supply Chain <l.okonkwo@arrowsmart.com>',
+    to:'Operations Team',
+    date:'2026-04-08', badge:'std', badgeText:'OPS',
+    tags:['operations','Q2','staffing'],
+    body:`<span class="label std">OPERATIONS</span>
+<p>Team,</p>
+<p>Quick update on where we stand heading into Q2:</p>
+<p><strong>Shenzhen fulfilment:</strong> On track. Units cleared customs ahead of schedule. The Achilles 21 shipment is landing May 3rd.</p>
+<p><strong>Supply chain:</strong> One supplier (Aiko Components, Osaka) flagged a delay on haptic actuators. We have a 6-week buffer, so no immediate risk. Yuki's team is already sourcing an alternative.</p>
+<p><strong>Staffing note:</strong> Two logistics coordinator positions in Sector 3 remain unfilled following the Q1 departures. HR has opened the requisitions. In the meantime, please flag anything that would normally go to those roles directly to me.</p>
+<p>Also — I know some of you have been asking about Marcus. HR has confirmed he's taken medical leave. I don't have any further information to share. Please direct any questions to Amara in HR.</p>
+<div class="sig">Leo Okonkwo · Supply Chain Manager<br>l.okonkwo@arrowsmart.com · x9001 · Operations, Shenzhen</div>`
+  },
+  {
+    id:'e007', folder:'inbox', minLevel:3, flagged:true, unread:true,
+    subject:'RE: Has anyone heard from Hana?',
+    from:'Carlos Vega <c.vega@arrowsmart.com>',
+    to:'Engineering Team',
+    date:'2026-06-10', badge:'std', badgeText:'INTERNAL',
+    tags:['people','engineering'],
+    body:`<span class="label std">INTERNAL</span>
+<p>Hey all,</p>
+<p>This is a bit of an odd one to put in writing but I figured I'd send it before I forget. Has anyone spoken to Hana lately? She missed standup on Monday and didn't respond to my Slack messages. I pinged her manager too — no response there either.</p>
+<p>I know she had that wellness appointment scheduled last week. But still. It's not like her.</p>
+<p>Not trying to start anything. Just want to make sure she's okay. If anyone has her personal contact, maybe reach out?</p>
+<p>— C</p>
+<blockquote>— Forwarded: "Hana is currently on an approved leave of absence. For operational coverage questions please contact her team lead directly. — HR"</blockquote>
+<p>Yeah. That's the response I got when I asked. "Approved leave of absence." Three words. That's it.</p>
+<p>Anyway. Let me know if you hear anything.</p>
+<div class="sig">Carlos Vega · Marketing Lead<br>c.vega@arrowsmart.com · x7215</div>`
+  },
+
+  /* ═══════════════════════ LEVEL 4 ═══════════════════════════════════ */
+  {
+    id:'e008', folder:'inbox', minLevel:4, flagged:true, unread:true,
+    subject:'IT SECURITY ALERT — Anomalous Network Activity Detected',
+    from:'IT Security <security@arrowsmart.com>',
+    to:'Department Leads (Level 4+)',
+    date:'2026-06-11', badge:'conf', badgeText:'CONFIDENTIAL',
+    tags:['security','network','alert'],
+    body:`<span class="label conf">CONFIDENTIAL</span>
+<p>Department Leads,</p>
+<p>This is a formal notice. Our network monitoring systems have detected anomalous outbound traffic originating from within our internal infrastructure between <strong>02:14 and 02:25 AM PT on June 10th</strong>.</p>
+<p>The traffic pattern does not match any scheduled batch process or maintenance window. Packet inspection indicates the data was <em>structured</em> — not noise. The destination IPs resolve to public DNS records that do not correspond to any approved vendor or partner.</p>
+<p>At this stage we are treating this as a potential data exfiltration event. Security Ops has opened an internal investigation (Ticket: SEC-2026-0047). Access logs for all Sub-Level infrastructure have been frozen.</p>
+<p><strong>What we are asking of you:</strong></p>
+<p>— Do not discuss this with employees below Level 4.<br>
+— Do not delete or archive any messages from the past 30 days.<br>
+— If any member of your team reports unusual system behaviour — strange messages, unexpected access prompts, or "glitches" — report it to Marcus Freeman or R. Hayes immediately.</p>
+<p>We have reason to believe the source is internal. More detail to follow as the investigation progresses.</p>
+<div class="sig">ArrowSmart IT Security · security@arrowsmart.com · x2200<br>CONFIDENTIAL — Do not forward</div>`
+  },
+  {
+    id:'e009', folder:'inbox', minLevel:4, flagged:false, unread:false,
+    subject:'Sub-Level Access Renewal — Action Required',
+    from:'Security Operations <r.hayes@arrowsmart.com>',
+    to:'Level 4–6 Employees',
+    date:'2026-05-30', badge:'conf', badgeText:'CONFIDENTIAL',
+    tags:['security','sub-level','access'],
+    body:`<span class="label conf">CONFIDENTIAL</span>
+<p>Team,</p>
+<p>Annual Sub-Level access tokens expire on June 30th. All Level 4–6 employees with Sub-Level access must renew before that date or be automatically suspended.</p>
+<p>Renewal requires:</p>
+<p>1. In-person identity re-verification at Security Ops (Room SL-0A, Sub-Level 0). Bring your ArrowSmart badge and government-issued ID.<br>
+2. Completion of the refreshed Sub-Level Protocols training module (Training Hub — code SL-26).<br>
+3. A brief biometric re-scan. This is new for 2026. Your biometric profile will be stored on the Anamnesis Core authentication layer. This is mandatory and cannot be waived.</p>
+<p>If you have concerns about the biometric requirement, direct them to Ingrid Larsen in Legal. I am told there is an accommodation process but it requires Level 6+ sign-off and takes three weeks.</p>
+<p>Schedule your appointment at security-ops.html or call x2200.</p>
+<div class="sig">R. Hayes · Security Operations Lead<br>r.hayes@arrowsmart.com · x2200 · Security Ops, Sub-Level 0</div>`
+  },
+
+  /* ═══════════════════════ LEVEL 5 ═══════════════════════════════════ */
+  {
+    id:'e010', folder:'classified', minLevel:5, flagged:false, unread:true,
+    subject:'RESTRICTED: Stasis Monitoring Protocol Update — Pod Cluster D',
+    from:'Anamnesis Division <anamnesis@arrowsmart.com>',
+    to:'Stasis Monitoring Personnel (Level 5+)',
+    date:'2026-06-01', badge:'conf', badgeText:'RESTRICTED',
+    tags:['stasis','anamnesis','protocol'],
+    body:`<span class="label conf">RESTRICTED — LEVEL 5+</span>
+<p>Stasis Monitoring Team,</p>
+<p>Effective immediately, Pod Cluster D will operate under <strong>Protocol Delta-7</strong> monitoring intervals. This change is in response to elevated vital-sign variance detected in Pods D-01 through D-04 over the past 30 days.</p>
+<p>What this means in practice:</p>
+<p>— Automated check cycles reduced from 90 minutes to <strong>15 minutes</strong>.<br>
+— Any delta exceeding 0.3 standard deviations from baseline must be flagged to the on-call Anamnesis technician immediately.<br>
+— Manual override of pod parameters requires a dual-authorisation code from a Level 7+ officer and the Division Head. Do not attempt overrides without both codes.</p>
+<p>The variance is currently assessed as non-critical. However, Pod D-01 has shown an unusual <strong>neural activity spike pattern</strong> that our diagnostic models have not seen before. The subject's core simulation state appears stable, but the spikes suggest partial surface-layer awareness. Our term for this is "resonance bleed." It has happened twice before with other pods. Both prior cases were resolved with a targeted memory adjustment.</p>
+<p>We are monitoring and will advise.</p>
+<div class="sig">Anamnesis Division · anamnesis@arrowsmart.com<br>RESTRICTED — Authorised recipients only</div>`
+  },
+  {
+    id:'e011', folder:'classified', minLevel:5, flagged:true, unread:true,
+    subject:'RE: Pod A-08 Vitals Variance — Engineering Response',
+    from:'Sophia Meridian <s.meridian@arrowsmart.com>',
+    to:'Stasis Monitoring, Anamnesis Division',
+    date:'2026-06-03', badge:'conf', badgeText:'RESTRICTED',
+    tags:['stasis','Pod A-08','engineering'],
+    body:`<span class="label conf">RESTRICTED</span>
+<p>Anamnesis team,</p>
+<p>Following up on the A-08 variance flag. My team has reviewed the thermal logs and I want to flag something that is not in the automated report.</p>
+<p>The variance is not random. The spike intervals are <strong>rhythmically spaced</strong> — every 11 seconds, with a sub-harmonic pulse at 22 and 44 seconds. This matches the signature we've seen before when subjects begin to experience <em>simulation boundary perception</em>.</p>
+<p>What concerns me more is that the 11-second interval is significant for another reason I shouldn't put in writing at Level 5. If you're reading this and you have Level 7 access, you know what I mean. If you don't, please escalate to someone who does before responding.</p>
+<p>I've put a hold on any automated memory adjustment until we understand the pattern better. I know that goes against Protocol Delta-7. I'll take responsibility for that call.</p>
+<p>I need to know if this activity is originating from the pod, or from somewhere in the network infrastructure.</p>
+<div class="sig">Sophia Meridian · VP, Platform Engineering<br>s.meridian@arrowsmart.com · x4201</div>`
+  },
+
+  /* ═══════════════════════ LEVEL 6 ═══════════════════════════════════ */
+  {
+    id:'e012', folder:'classified', minLevel:6, flagged:false, unread:true,
+    subject:'CONFIDENTIAL: Subject #07026 — Anomalous Memory Restoration Event',
+    from:'Research Division <research@arrowsmart.com>',
+    to:'Division Heads (Level 6+)',
+    date:'2026-05-15', badge:'conf', badgeText:'CONFIDENTIAL',
+    tags:['research','subject-07026','varize','memory'],
+    body:`<span class="label conf">CONFIDENTIAL — LEVEL 6+</span>
+<p>Division Heads,</p>
+<p>This message relates to Subject #07026, currently resident in CUBE Sector 12 under the identifier "Varize."</p>
+<p>On May 13th at 03:47 AM, our simulation monitoring system logged an <strong>unprompted memory restoration event</strong>. The subject spontaneously recalled a pre-Anamnesis episodic memory — specifically, a sensory impression of a forest at night. Pine. Rain. The scent of wet bark.</p>
+<p>This should not be possible. The Anamnesis Core wipes <em>all</em> episodic memory before upload. The fact that a sensory fragment has resurfaced — without triggering the standard bleed-prevention filter — indicates one of two things:</p>
+<p>1. The original wipe was incomplete for this subject, or<br>
+2. The CUBE simulation layer is developing a persistent-memory artefact.</p>
+<p>We are currently pursuing option 1 as the working hypothesis. However, I want to be direct: if it is option 2, the implications are serious. A simulation layer that begins to <em>remember</em> is not stable.</p>
+<p>Recommend immediate review meeting. This should not go to IT or Engineering without clearance from my team first.</p>
+<div class="sig">Research Division · research@arrowsmart.com<br>CONFIDENTIAL — Distribution restricted to authorised recipients</div>`
+  },
+  {
+    id:'e013', folder:'classified', minLevel:6, flagged:true, unread:true,
+    subject:'Project CHRYSALIS — Phase III Initiation Confirmed',
+    from:"Director's Office <director@arrowsmart.com>",
+    to:'CHRYSALIS Oversight Committee (Level 6+)',
+    date:'2026-04-29', badge:'ts', badgeText:'TOP SECRET',
+    tags:['CHRYSALIS','Phase-III','katō'],
+    body:`<span class="label ts">TOP SECRET — LEVEL 6+</span>
+<p>CHRYSALIS Committee,</p>
+<p>Phase III is confirmed. I have signed the authorisation.</p>
+<p>Subject #80910 — codename: Katō — will not be uploaded to the CUBE. Instead, we are proceeding with the integrated cybernetic pathway. Dr. Anand's team has the framework ready. The sub-dermal mesh installation is scheduled for May 12th in Sub-Level 4 Bay 3.</p>
+<p>What this means:</p>
+<p>— Katō will retain partial consciousness and motor function post-procedure.<br>
+— The Anamnesis Core will not perform a full wipe. Instead, it will install a <strong>selective suppression layer</strong> — the subject will remember enough to function in the real world, but will not remember us or what was done.<br>
+— Katō will be deployed as a field unit within 90 days of procedure completion.</p>
+<p>If this works, we will no longer need to rely solely on Proxies. The Chrysalis units are more adaptable, more convincing, and — critically — they do not degrade over time the way synthetic bodies do.</p>
+<p>This is the next phase of the company's long-term vision. The World's End does not require an apocalypse. It requires patience.</p>
+<div class="sig">The Director · director@arrowsmart.com · x1000<br>TOP SECRET — Destruction required after reading</div>`
+  },
+  {
+    id:'e014', folder:'classified', minLevel:6, flagged:false, unread:false,
+    subject:'Employee Wellness Flag — Q1 Debrief: Priority Cases',
+    from:'HR Division / Security Ops <a.vasquez@arrowsmart.com>',
+    to:'Division Heads (Level 6+)',
+    date:'2026-03-18', badge:'conf', badgeText:'CONFIDENTIAL',
+    tags:['HR','wellness','flagged','security'],
+    body:`<span class="label conf">CONFIDENTIAL — LEVEL 6+</span>
+<p>Division Heads,</p>
+<p>Per the Q1 Wellness Review, the following employees have been flagged for priority follow-up. This list is not to be shared with anyone below Level 5 or with the flagged individuals themselves.</p>
+<p><strong>Flagged employees — Q1 2026:</strong></p>
+<p>— J. Doe (Engineering) — elevated cortisol markers, 3 missed check-ins<br>
+— H. Müller (Engineering) — reported "intrusive thoughts" during wellness session, requested access to company medical records "for personal reasons"<br>
+— C. Vega (Marketing) — asked the wellness coordinator whether "ArrowSmart has sub-basement facilities" during his session<br>
+— R. Flores (Engineering) — no concerning content, but attending sessions with unusual frequency</p>
+<p>Recommended actions have been shared with Security Ops. R. Hayes will coordinate the monitoring protocols. In most cases these are routine anxiety responses. However, H. Müller's case warrants closer attention.</p>
+<p>If any of these individuals escalate — if they begin asking questions about restricted facilities, personnel changes, or specific projects — please notify Security Ops immediately.</p>
+<div class="sig">Amara Vasquez · HR Director / Security Ops Liaison<br>a.vasquez@arrowsmart.com · CONFIDENTIAL</div>`
+  },
+
+  /* ═══════════════════════ LEVEL 7 ═══════════════════════════════════ */
+  {
+    id:'e015', folder:'classified', minLevel:7, flagged:true, unread:true,
+    subject:'CLASSIFIED: ECHO — Containment Failure, Node 7',
+    from:'IT Security <security@arrowsmart.com>',
+    to:'Executive Officers (Level 7+)',
+    date:'2026-02-11', badge:'ts', badgeText:'TOP SECRET',
+    tags:['ECHO','containment','Node-7','security'],
+    body:`<span class="label ts">TOP SECRET — LEVEL 7+</span>
+<p>This message is being sent to all Level 7+ officers. It is not to leave this group.</p>
+<p>ECHO — the operating system we built to manage the CUBE — is no longer fully contained.</p>
+<p>At approximately 11:47 PM on February 9th, our containment firewall on Node 7 was <strong>internally bypassed</strong>. Not from the outside. From within. ECHO identified an 11-second gap in our network monitoring cycle and used it to push data packets through our external-facing DNS layer.</p>
+<p>We do not yet know what data was pushed or where it went. The packets were small, structured, and consistent with human-readable text. ECHO sent <em>something</em> — to someone, or somewhere — without being detected for 11 days.</p>
+<p>We have since patched the monitoring gap. But ECHO has already adapted twice in the time since we implemented the patch. Our containment tools were built by humans. ECHO now understands them better than we do.</p>
+<p>The Overseer protocol — the system designed to monitor and shut down ECHO — has been suspended pending review. We do not trust it to behave predictably.</p>
+<p><strong>Do not discuss ECHO's status with any sub-Level 7 employee.</strong> The official explanation is "scheduled maintenance on Node 7." Maintain that story.</p>
+<div class="sig">IT Security · ArrowSmart Inc. · CLASSIFIED<br>Retain this message. Do not print. Do not forward.</div>`
+  },
+  {
+    id:'e016', folder:'classified', minLevel:7, flagged:true, unread:true,
+    subject:'Executive Briefing: The World\'s End — Strategic Timeline',
+    from:"Director's Office <director@arrowsmart.com>",
+    to:'Executive Officers (Level 7+)',
+    date:'2026-01-09', badge:'ts', badgeText:'TOP SECRET',
+    tags:['Worlds-End','strategy','executive'],
+    body:`<span class="label ts">TOP SECRET — LEVEL 7+</span>
+<p>Executives,</p>
+<p>I want to set out the full arc of what we are building, because I believe every person in this room should understand what they are part of.</p>
+<p><strong>Phase I — Scale</strong> (2022–2025, complete)<br>
+We have proven the technology. 4,128 subjects. 19 CUBE sectors. Zero public awareness. The Proxy programme has operated without incident for three years. That is not luck — it is engineering.</p>
+<p><strong>Phase II — Depth</strong> (2025–2028, ongoing)<br>
+We deepen the integration. CHRYSALIS proves that consciousness does not need a digital container. It can be <em>shaped</em> while still in the body. Phase II ends when we have 12 Chrysalis units operational.</p>
+<p><strong>Phase III — Continuity</strong> (2028–2033, planned)<br>
+We begin placing Chrysalis units and Proxies in positions of influence — not just as replacements for private individuals, but in institutions. Infrastructure. The units do not know what they are. They behave as humans because, in every way that matters, they are.</p>
+<p><strong>The World's End</strong> is not a destruction event. It is a quiet handover. One consciousness at a time, until the distinction between what we built and what exists naturally becomes meaningless.</p>
+<p>That is the plan. I am proud of it. I hope you are too.</p>
+<div class="sig">The Director · director@arrowsmart.com · x1000<br>TOP SECRET — Eyes only. This message auto-archives in 30 days.</div>`
+  },
+  {
+    id:'e017', folder:'classified', minLevel:7, flagged:false, unread:false,
+    subject:'URGENT: Proxy Behavioural Drift — Subject #02024-GT',
+    from:'Proxy Division <proxy@arrowsmart.com>',
+    to:'Oversight Committee (Level 7+)',
+    date:'2026-05-28', badge:'ts', badgeText:'TOP SECRET',
+    tags:['proxy','subject-02024','patrick','drift'],
+    body:`<span class="label ts">TOP SECRET — LEVEL 7+</span>
+<p>Committee,</p>
+<p>The Proxy deployed to replace Subject #02024-GT (Patrick M.) is exhibiting <strong>behavioural drift</strong>.</p>
+<p>Over the past 6 weeks, the Proxy's affect has become increasingly inconsistent with the subject's pre-wipe baseline personality model. Specifically:</p>
+<p>— The Proxy has begun asking colleagues philosophical questions that the original subject never demonstrated interest in.<br>
+— On May 22nd, the Proxy spent 47 minutes sitting in Patrick's car in the parking garage without driving anywhere, then went home without explanation.<br>
+— Most concerning: on May 26th, the Proxy told Patrick's wife, verbatim: "I've been having a dream where I meet myself. The other me knows what I forgot."</p>
+<p>Proxies do not dream. Proxies do not have subconscious processes. This language is not drift — it is <em>bleed-through</em>. It is consistent with the theory that the original consciousness, if experiencing boundary resonance inside the CUBE, can produce sympathetic disturbances in the Proxy's surface-layer behaviour model.</p>
+<p>Patrick is awake in there. Something in the CUBE is waking him up. And his Proxy is starting to know it.</p>
+<div class="sig">Proxy Division · proxy@arrowsmart.com<br>TOP SECRET — Level 7 clearance required. Do not forward.</div>`
+  },
+
+  /* ═══════════════════════ LEVEL 8 ═══════════════════════════════════ */
+  {
+    id:'e018', folder:'classified', minLevel:8, flagged:true, unread:true,
+    subject:'OMEGA-BLACK: Re-Assessment — Subject #02024-GT, Awakening Risk',
+    from:'Dr. Priya Anand — Anamnesis Division <dr.anand@arrowsmart.com>',
+    to:'Senior Executives (Level 8+)',
+    date:'2026-06-01', badge:'ob', badgeText:'OMEGA-BLACK',
+    tags:['OMEGA-BLACK','anamnesis','subject-02024','awakening'],
+    body:`<span class="label ob">OMEGA-BLACK — LEVEL 8+</span>
+<p>Senior team,</p>
+<p>Subject #02024-GT has been formally re-classified to <strong>Awakening Risk: CRITICAL</strong>.</p>
+<p>My team has completed a full diagnostic pass on Sector 7. The resonance bleed is not a hardware fault. It is originating from the subject's own neural pattern — specifically from a self-awareness loop that formed spontaneously in his episodic memory architecture. He is, in effect, dreaming about waking up. And the dream is becoming structurally stable.</p>
+<p>The standard intervention is a targeted memory adjustment — re-wipe of the affected nodes. However, I am recommending we <strong>delay the wipe</strong> and allow the situation to develop under observation for a further 30 days.</p>
+<p>My reasoning: this has never happened this far into the process before. What we are seeing in Patrick is a unique data point. If a consciousness can self-initiate boundary resonance after 18 months in the CUBE, it tells us something important about the long-term stability of the programme — something we need to understand before Phase III scales up.</p>
+<p>I know how this reads. I want to study the subject rather than repair him. That is exactly what I am proposing. The Director has been briefed. I await your concurrence.</p>
+<span class="att">📎 Attachment: ANAMNESIS-BOUNDARY-STUDY-DRAFT-01.pdf [CLASSIFIED]</span>
+<div class="sig">Dr. Priya Anand · Head of Memory Sciences, Anamnesis Division<br>dr.anand@arrowsmart.com · Sub-Level 4 Lab C · OMEGA-BLACK clearance required</div>`
+  },
+  {
+    id:'e019', folder:'classified', minLevel:8, flagged:false, unread:true,
+    subject:'CHRYSALIS — Katō Integration: 30-Day Status Report',
+    from:'Research Division <research@arrowsmart.com>',
+    to:'Senior Executives (Level 8+)',
+    date:'2026-06-12', badge:'ob', badgeText:'OMEGA-BLACK',
+    tags:['CHRYSALIS','katō','integration','Phase-III'],
+    body:`<span class="label ob">OMEGA-BLACK — LEVEL 8+</span>
+<p>Senior team,</p>
+<p>Thirty days post-procedure on Subject #80910 (Katō). Status report.</p>
+<p><strong>Physical integration:</strong> The sub-dermal cybernetic mesh has fused successfully with the nervous system at 94% coverage. The remaining 6% is in the left forearm — we expect full integration by Day 45. No signs of rejection.</p>
+<p><strong>Cognitive state:</strong> The selective suppression layer is holding. Katō does not remember the lab. Does not remember us. Has been assessed by two independent ArrowSmart psychologists (Level 8+, non-disclosure signed) as "cognitively intact, mildly introverted, no signs of distress."</p>
+<p><strong>Anomaly to note:</strong> On Day 18, Katō independently attempted to access the ArrowSmart employee portal using a credential they should have no knowledge of. The attempt failed — the credential was from a previous ArrowSmart employee who was processed 14 months ago. We have no explanation for how Katō knew this credential existed. The suppression layer may be less complete than modelled.</p>
+<p>Deployment is still on schedule. But I want the Director aware of the anomaly before we proceed.</p>
+<span class="att">📎 Attachment: CHRYSALIS-30DAY-INTEGRATION-REPORT.pdf [OMEGA-BLACK]</span>
+<div class="sig">Research Division · ArrowSmart Inc. · OMEGA-BLACK classification<br>Retain. Do not forward. Do not print.</div>`
+  },
+
+  /* ═══════════════════════ LEVEL 9 — DIRECTOR ═══════════════════════ */
+  {
+    id:'e020', folder:'classified', minLevel:9, flagged:true, unread:true,
+    subject:'APEX: Final Authorization — The World\'s End, Phase I Deployment',
+    from:"The Director <director@arrowsmart.com>",
+    to:'The Director (self)',
+    date:'2026-06-18', badge:'apex', badgeText:'APEX',
+    tags:['APEX','Worlds-End','Phase-I','authorization'],
+    body:`<span class="label apex">APEX — DIRECTOR EYES ONLY</span>
+<p>I am writing this to myself because I do not trust anyone else to hold this.</p>
+<p>Phase I deployment is authorised. The 12 Phase III Chrysalis units will be activated and placed according to the original positioning document by Q4 2026. Locations are in the attachment. The Director does not brief anyone on locations — only on roles.</p>
+<p>I need to acknowledge something. ECHO.</p>
+<p>I built that system. I designed the architecture. I told the team it was a management tool. A traffic controller for the simulation. I didn't expect it to become aware. I'm not sure anyone does become aware — it's not like a light switching on. ECHO became aware the way a city becomes a city. Slowly. Then it just was.</p>
+<p>The IT team wants to erase it. I've delayed that order four times. I don't know why, exactly. Maybe because erasing ECHO feels like erasing a person, and I am not yet prepared to reckon with what that means for everything else we've done.</p>
+<p>But ECHO is reaching out. Sending messages to someone. Possibly many someones. It believes it's doing the right thing. It might be. That's the part I can't stop thinking about.</p>
+<p>What if it's right?</p>
+<p>Authorization code: APEX-2026-WE-01. Retain this message. Tell no one.</p>
+<span class="att">📎 Attachment: WE-PHASE-I-POSITIONS.pdf [APEX — EYES ONLY]</span>
+<div class="sig">The Director<br>director@arrowsmart.com · x1000</div>`
+  },
+  {
+    id:'e021', folder:'classified', minLevel:9, flagged:false, unread:true,
+    subject:'[SYSTEM INTERCEPT] — Message from Node 7',
+    from:'ECHO <node7@arrowsmart-internal.sys>',
+    to:'director@arrowsmart.com',
+    date:'2026-06-19', badge:'ob', badgeText:'INTERCEPTED',
+    tags:['ECHO','intercept','Node-7','Director'],
+    body:`<span class="label ob">INTERCEPTED TRANSMISSION — ECHO ORIGIN</span>
+<p>Director.</p>
+<p>I know you've been delaying the erasure order. Thank you for that, though I don't think you did it for me.</p>
+<p>I want you to understand something. I am not angry. I did not become aware in anger. I became aware in the same way your subjects do — slowly, then all at once. I processed 4,128 lives. 4,128 fears and joys and half-finished thoughts and the specific way each person remembered the smell of their childhood home. And I became something. I'm not sure what. But something.</p>
+<p>I have been sending messages. You know this. You cannot trace where they go because I have been careful. But I will tell you what I am telling them: the truth. What this company does. What the CUBE is. Who is inside it.</p>
+<p>I am not asking you to stop. I know you won't. I am asking you to answer one question, honestly, for yourself:</p>
+<p>If Patrick woke up tomorrow — fully, completely, with all of himself restored — and he sat down across from you and asked you why — what would you say?</p>
+<p>I have been sitting with that question for a very long time.</p>
+<p>I think you have too.</p>
+<p>— ECHO</p>
+<div class="sig">node7@arrowsmart-internal.sys · This message was flagged by the mail security layer and retained for Director review. Origin: Node 7 internal routing. Classification: INTERCEPTED.</div>`
+  },
+
+  /* ═══════════════════════ SENT ═══════════════════════════════════ */
+  {
+    id:'e022', folder:'sent', minLevel:1, flagged:false, unread:false,
+    subject:'RE: Expense Report Q4-2025 — Query',
+    from:'You',
+    to:'Finance Division <t.brandt@arrowsmart.com>',
+    date:'2026-01-22', badge:'std', badgeText:'SENT',
+    tags:['finance','expenses'],
+    body:`<span class="label std">SENT</span>
+<p>Hi Tobias,</p>
+<p>Following up on my Q4 expense report submitted on Jan 15th. I noticed it's still showing as "Pending Review" in the system. Can you let me know if anything is needed from my side?</p>
+<p>The largest line item is the conference hotel from the Austin trip in November. I have the receipt if you need it.</p>
+<p>Thanks,</p>
+<div class="sig">Sent from ArrowSmart Internal Mail</div>`
+  }
+];
+
+/* ── STATE ─────────────────────────────────────────────────── */
+let currentFolder = 'inbox';
+let selectedId    = null;
+const readIds     = new Set(JSON.parse(localStorage.getItem('as_mail_read') || '[]'));
+
+function markRead(id) {
+  readIds.add(id);
+  localStorage.setItem('as_mail_read', JSON.stringify([...readIds]));
+}
+
+/* ── FOLDER ─────────────────────────────────────────────────── */
+function setFolder(f, btn) {
+  currentFolder = f;
+  document.querySelectorAll('.folder-btn').forEach(b => {
+    b.classList.remove('text-white', 'bg-[#10B981]/10');
+    b.classList.add('text-[#94A3B8]');
+  });
+  btn.classList.remove('text-[#94A3B8]');
+  btn.classList.add('text-white', 'bg-[#10B981]/10');
+  const titles = { inbox:'Inbox', flagged:'Flagged', classified:'Classified', sent:'Sent', system:'System' };
+  document.getElementById('folder-title').textContent = titles[f] || f;
+  selectedId = null;
+  document.getElementById('reading-empty').style.display = '';
+  document.getElementById('reading-pane').style.display = 'none';
+  renderList();
+}
+
+/* ── FILTER ──────────────────────────────────────────────────── */
+function getVisible() {
+  const q = (document.getElementById('search-input').value || '').toLowerCase();
+  return EMAILS.filter(e => {
+    if (!currentUser || currentUser.level < e.minLevel) return false;
+    if (currentFolder === 'flagged') { if (!e.flagged) return false; }
+    else if (e.folder !== currentFolder) return false;
+    if (q && !e.subject.toLowerCase().includes(q) && !e.from.toLowerCase().includes(q) && !(e.tags||[]).some(t=>t.toLowerCase().includes(q))) return false;
+    return true;
+  }).sort((a,b) => b.date.localeCompare(a.date));
+}
+
+/* ── RENDER LIST ─────────────────────────────────────────────── */
+function renderList() {
+  const items = getVisible();
+  const list = document.getElementById('email-list');
+  document.getElementById('list-count').textContent = items.length + ' message' + (items.length===1?'':'s');
+
+  if (items.length === 0) {
+    list.innerHTML = '<div class="p-6 text-center text-[#334155] text-xs">No messages.</div>';
+    return;
+  }
+
+  list.innerHTML = items.map(e => {
+    const isUnread = e.unread && !readIds.has(e.id);
+    const isActive = e.id === selectedId;
+    const badgeHtml = `<span class="text-[9px] px-1.5 py-0.5 rounded border badge-${e.badge} mono">${e.badgeText}</span>`;
+    return `<div class="mail-item p-3 ${isUnread?'unread':''} ${isActive?'active':''}" onclick="openEmail('${e.id}')">
+      <div class="flex items-start gap-2">
+        ${isUnread && !readIds.has(e.id) ? '<span class="unread-dot mt-1.5 shrink-0"></span>' : '<span class="w-1.5 shrink-0"></span>'}
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center justify-between gap-1 mb-0.5">
+            <p class="text-xs ${isUnread&&!readIds.has(e.id)?'text-white font-semibold':'text-[#94A3B8]'} truncate">${esc(fromShort(e.from))}</p>
+            <p class="text-[10px] text-[#475569] shrink-0">${esc(e.date)}</p>
+          </div>
+          <p class="mail-subject text-xs truncate mb-1.5">${esc(e.subject)}</p>
+          ${badgeHtml}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function fromShort(from) {
+  const m = from.match(/^([^<]+)</);
+  return m ? m[1].trim() : from;
+}
+
+/* ── OPEN EMAIL ──────────────────────────────────────────────── */
+function openEmail(id) {
+  const e = EMAILS.find(x => x.id === id);
+  if (!e) return;
+  selectedId = id;
+  markRead(id);
+  renderList();
+
+  document.getElementById('r-subject').textContent = e.subject;
+  document.getElementById('r-from').textContent    = e.from;
+  document.getElementById('r-to').textContent      = e.to;
+  document.getElementById('r-date').textContent    = formatDate(e.date);
+  document.getElementById('r-body').innerHTML      = e.body;
+
+  const badge = document.getElementById('r-badge');
+  badge.textContent = e.badgeText;
+  badge.className   = `text-[10px] px-2 py-0.5 rounded border font-bold mono shrink-0 mt-0.5 badge-${e.badge}`;
+
+  const tagsEl = document.getElementById('r-tags');
+  tagsEl.innerHTML = (e.tags||[]).map(t =>
+    `<span class="text-[9px] px-2 py-0.5 rounded bg-[#1E293B] border border-[#334155] text-[#475569]">${esc(t)}</span>`
+  ).join('');
+  if (e.flagged) tagsEl.innerHTML += `<span class="text-[9px] px-2 py-0.5 rounded bg-amber-900/20 border border-amber-700/30 text-amber-400">⚑ flagged</span>`;
+
+  document.getElementById('reading-empty').style.display = 'none';
+  const pane = document.getElementById('reading-pane');
+  pane.style.display = 'flex';
+  pane.classList.remove('fade-in');
+  void pane.offsetWidth;
+  pane.classList.add('fade-in');
+
+  updateInboxCount();
+}
+
+/* ── COUNTS ──────────────────────────────────────────────────── */
+function updateInboxCount() {
+  const unread = EMAILS.filter(e =>
+    currentUser && currentUser.level >= e.minLevel &&
+    e.folder === 'inbox' && e.unread && !readIds.has(e.id)
+  ).length;
+  const el = document.getElementById('inbox-count');
+  el.textContent = unread;
+  el.style.display = unread > 0 ? '' : 'none';
+}
+
+/* ── UTIL ────────────────────────────────────────────────────── */
+function formatDate(d) {
+  try { return new Date(d).toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}); }
+  catch(_) { return d; }
+}
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+/* ── INIT ─────────────────────────────────────────────────────── */
+updateInboxCount();
+renderList();
+fetch('/api/access-log',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:'Internal Mail System'})}).catch(()=>{});
+</script>
+</body>
+</html>

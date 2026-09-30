@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Find a Store — ArrowSmart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"/>
+  <style>body{font-family:'Inter',sans-serif;} .store-card.selected{border-color:#10B981;}</style>
+</head>
+<body class="bg-[#0B1120] text-white min-h-screen flex flex-col">
+  <header class="sticky top-0 z-50 w-full border-b border-[#334155] bg-[#0B1120]/80 backdrop-blur-md">
+    <div class="container mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="ledger.html" class="flex items-center gap-2"><div class="flex items-center justify-center w-10 h-10 rounded-lg bg-[#10B981]/10 text-[#10B981]"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L4 4 L20 4"/></svg></div><span class="text-xl font-bold text-white">ArrowSmart</span></a>
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="ledger.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">Home</a>
+        <a href="shop.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">Products</a>
+        <a href="about.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">About</a>
+        <a href="contact.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">Contact</a>
+      </nav>
+      <div class="hidden md:flex items-center gap-4">
+        <a href="support.html" class="text-sm font-medium text-white hover:text-[#10B981] transition-colors">Support</a>
+        <a href="employee-login.html" class="text-xs font-medium text-[#475569] border border-[#1E293B] hover:border-[#334155] px-3 py-1.5 rounded-md transition-colors">Employee Login</a>
+        <a href="shop.html" class="bg-[#10B981] hover:bg-[#059669] text-white px-5 py-2.5 rounded-md text-sm font-medium transition-colors">Shop Now</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1">
+    <section class="py-12 border-b border-[#334155]">
+      <div class="container mx-auto px-6">
+        <h1 class="text-4xl font-extrabold text-white mb-6">Find a Store</h1>
+        <div class="flex gap-3 max-w-xl">
+          <div class="relative flex-1">
+            <input id="search-input" type="text" placeholder="City, postcode, or country…"
+              class="w-full bg-[#1E293B] border border-[#334155] rounded-lg px-4 py-3 pl-10 text-white placeholder-[#475569] text-sm focus:outline-none focus:border-[#10B981] transition-colors"/>
+            <svg class="absolute left-3 top-1/2 -translate-y-1/2 text-[#475569]" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <button onclick="filterStores()" class="px-5 py-3 bg-[#10B981] hover:bg-[#059669] text-white rounded-lg text-sm font-semibold transition-colors">Search</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-12">
+      <div class="container mx-auto px-6">
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- Store list -->
+          <div>
+            <p class="text-[#94A3B8] text-sm mb-4" id="store-count">Showing 8 stores near you</p>
+            <div class="space-y-3" id="store-list">
+              <div class="store-card p-5 rounded-xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/50 cursor-pointer transition-colors" onclick="selectStore(this)">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <h3 class="text-white font-bold text-sm">ArrowSmart Fifth Avenue</h3>
+                    <p class="text-[#94A3B8] text-xs mt-1">767 Fifth Avenue, New York, NY 10153</p>
+                    <p class="text-[#475569] text-xs mt-1">0.4 mi · Open now · Closes 9pm</p>
+                  </div>
+                  <span class="text-[10px] bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/20 rounded-full px-2 py-0.5 shrink-0">Flagship</span>
+                </div>
+                <div class="flex gap-2 mt-3">
+                  <span class="text-[10px] bg-[#1E293B] border border-[#334155] rounded px-2 py-0.5 text-[#94A3B8]">Same-day repair</span>
+                  <span class="text-[10px] bg-[#1E293B] border border-[#334155] rounded px-2 py-0.5 text-[#94A3B8]">Trade-in</span>
+                </div>
+              </div>
+              <div class="store-card p-5 rounded-xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/50 cursor-pointer transition-colors" onclick="selectStore(this)">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <h3 class="text-white font-bold text-sm">ArrowSmart SoHo</h3>
+                    <p class="text-[#94A3B8] text-xs mt-1">103 Prince Street, New York, NY 10012</p>
+                    <p class="text-[#475569] text-xs mt-1">1.2 mi · Open now · Closes 8pm</p>
+                  </div>
+                </div>
+                <div class="flex gap-2 mt-3">
+                  <span class="text-[10px] bg-[#1E293B] border border-[#334155] rounded px-2 py-0.5 text-[#94A3B8]">Same-day repair</span>
+                </div>
+              </div>
+              <div class="store-card p-5 rounded-xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/50 cursor-pointer transition-colors" onclick="selectStore(this)">
+                <div><h3 class="text-white font-bold text-sm">ArrowSmart Grand Central</h3><p class="text-[#94A3B8] text-xs mt-1">45 Vanderbilt Avenue, New York, NY 10017</p><p class="text-[#475569] text-xs mt-1">1.8 mi · Open now · Closes 7pm</p></div>
+              </div>
+              <div class="store-card p-5 rounded-xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/50 cursor-pointer transition-colors" onclick="selectStore(this)">
+                <div><h3 class="text-white font-bold text-sm">ArrowSmart World Trade</h3><p class="text-[#94A3B8] text-xs mt-1">185 Greenwich Street, New York, NY 10007</p><p class="text-[#475569] text-xs mt-1">3.1 mi · Opens 10am tomorrow</p></div>
+              </div>
+              <div class="store-card p-5 rounded-xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/50 cursor-pointer transition-colors" onclick="selectStore(this)">
+                <div><h3 class="text-white font-bold text-sm">ArrowSmart Upper West Side</h3><p class="text-[#94A3B8] text-xs mt-1">1981 Broadway, New York, NY 10023</p><p class="text-[#475569] text-xs mt-1">3.5 mi · Open now · Closes 8pm</p></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Map placeholder -->
+          <div class="rounded-2xl border border-[#334155] bg-[#0F172A] overflow-hidden h-[500px] flex flex-col items-center justify-center gap-4 relative">
+            <!-- Fake map grid -->
+            <div class="absolute inset-0 opacity-20">
+              <svg width="100%" height="100%" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+                <defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#334155" stroke-width="0.5"/></pattern></defs>
+                <rect width="100%" height="100%" fill="url(#grid)"/>
+                <line x1="200" y1="0" x2="200" y2="500" stroke="#334155" stroke-width="1"/>
+                <line x1="0" y1="250" x2="400" y2="250" stroke="#334155" stroke-width="1"/>
+                <rect x="60" y="100" width="100" height="60" rx="4" fill="#1E293B" stroke="#334155" stroke-width="0.5"/>
+                <rect x="200" y="180" width="120" height="40" rx="4" fill="#1E293B" stroke="#334155" stroke-width="0.5"/>
+                <rect x="80" y="300" width="80" height="80" rx="4" fill="#1E293B" stroke="#334155" stroke-width="0.5"/>
+                <rect x="240" y="280" width="100" height="50" rx="4" fill="#1E293B" stroke="#334155" stroke-width="0.5"/>
+              </svg>
+            </div>
+            <!-- Map pins -->
+            <div class="relative z-10 w-full h-full">
+              <div class="absolute top-24 left-1/2 -translate-x-6">
+                <div class="flex flex-col items-center"><div class="w-6 h-6 bg-[#10B981] rounded-full border-2 border-white flex items-center justify-center text-[10px] font-bold text-white">1</div><div class="w-0.5 h-3 bg-[#10B981]"></div></div>
+              </div>
+              <div class="absolute top-44 left-1/3">
+                <div class="flex flex-col items-center"><div class="w-5 h-5 bg-[#334155] rounded-full border border-[#10B981]/50 flex items-center justify-center text-[9px] text-[#94A3B8]">2</div><div class="w-0.5 h-2 bg-[#334155]"></div></div>
+              </div>
+              <div class="absolute top-36 right-1/4">
+                <div class="flex flex-col items-center"><div class="w-5 h-5 bg-[#334155] rounded-full border border-[#334155] flex items-center justify-center text-[9px] text-[#94A3B8]">3</div></div>
+              </div>
+            </div>
+            <div class="absolute bottom-4 left-4 right-4 p-3 bg-[#0B1120]/80 rounded-lg border border-[#334155] text-xs text-[#94A3B8]">
+              Interactive map — <a href="https://maps.google.com" target="_blank" class="text-[#10B981] hover:underline">Open in Google Maps</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-[#0B1120] border-t border-[#334155] py-10">
+    <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-[#94A3B8] text-sm">&copy; <span class="year"></span> ArrowSmart Inc. All rights reserved.</p>
+      <div class="flex gap-6"><a href="support.html" class="text-[#94A3B8] hover:text-white text-sm">Support</a><a href="privacy.html" class="text-[#94A3B8] hover:text-white text-sm">Privacy</a><a href="legal.html" class="text-[#94A3B8] hover:text-white text-sm">Legal</a></div>
+    </div>
+  </footer>
+  <script>
+    document.querySelectorAll('.year').forEach(el=>el.textContent=new Date().getFullYear());
+    function selectStore(el){document.querySelectorAll('.store-card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');}
+    function filterStores(){const q=document.getElementById('search-input').value.toLowerCase();document.getElementById('store-count').textContent=q?`Showing results for "${q}"`:'Showing 8 stores near you';}
+  </script>
+</body>
+</html>

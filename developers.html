@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Developers — ArrowSmart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"/>
+  <style>body{font-family:'Inter',sans-serif;} pre{font-family:'Courier New',monospace;}</style>
+</head>
+<body class="bg-[#0B1120] text-white min-h-screen flex flex-col">
+  <header class="sticky top-0 z-50 w-full border-b border-[#334155] bg-[#0B1120]/80 backdrop-blur-md">
+    <div class="container mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="ledger.html" class="flex items-center gap-2"><div class="flex items-center justify-center w-10 h-10 rounded-lg bg-[#10B981]/10 text-[#10B981]"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L4 4 L20 4"/></svg></div><span class="text-xl font-bold text-white">ArrowSmart</span></a>
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="ledger.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">Home</a>
+        <a href="shop.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">Products</a>
+        <a href="about.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">About</a>
+        <a href="contact.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">Contact</a>
+      </nav>
+      <div class="hidden md:flex items-center gap-4">
+        <a href="support.html" class="text-sm font-medium text-white hover:text-[#10B981] transition-colors">Support</a>
+        <a href="employee-login.html" class="text-xs font-medium text-[#475569] border border-[#1E293B] hover:border-[#334155] px-3 py-1.5 rounded-md transition-colors">Employee Login</a>
+        <a href="shop.html" class="bg-[#10B981] hover:bg-[#059669] text-white px-5 py-2.5 rounded-md text-sm font-medium transition-colors">Shop Now</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1">
+    <section class="py-24 border-b border-[#334155] relative overflow-hidden">
+      <div class="absolute inset-0 pointer-events-none"><div class="absolute top-0 left-0 w-[600px] h-[400px] bg-[#10B981]/10 rounded-full blur-[128px]"></div></div>
+      <div class="container mx-auto px-6 relative z-10">
+        <p class="text-[#10B981] text-xs font-semibold uppercase tracking-widest mb-4">ArrowSmart Developer Platform</p>
+        <h1 class="text-5xl md:text-6xl font-extrabold text-white mb-6">Build for 2.4 billion<br/>devices.</h1>
+        <p class="text-xl text-[#94A3B8] max-w-2xl mb-10">The ArrowOS SDK, Connect APIs, and AS Silicon frameworks give you access to the most powerful consumer hardware platform on the planet.</p>
+        <div class="flex flex-wrap gap-4">
+          <button id="sdk-btn" onclick="sdkDownload()" class="px-6 py-3 bg-[#10B981] hover:bg-[#059669] text-white rounded-md font-semibold text-sm transition-colors">Download SDK</button>
+          <a href="#docs" class="px-6 py-3 bg-[#1E293B] hover:bg-[#334155] border border-[#334155] text-white rounded-md font-semibold text-sm transition-colors">View Docs</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="py-12 bg-[#0F172A] border-b border-[#334155]">
+      <div class="container mx-auto px-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          <div><p class="text-3xl font-extrabold text-[#10B981]">8M+</p><p class="text-[#94A3B8] text-sm mt-1">Registered Developers</p></div>
+          <div><p class="text-3xl font-extrabold text-[#10B981]">2.4B</p><p class="text-[#94A3B8] text-sm mt-1">Target Devices</p></div>
+          <div><p class="text-3xl font-extrabold text-[#10B981]">420K+</p><p class="text-[#94A3B8] text-sm mt-1">Published Apps</p></div>
+          <div><p class="text-3xl font-extrabold text-[#10B981]">$4.2B</p><p class="text-[#94A3B8] text-sm mt-1">Paid to Developers</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SDKs -->
+    <section id="docs" class="py-16 border-b border-[#334155]">
+      <div class="container mx-auto px-6">
+        <h2 class="text-2xl font-bold text-white mb-8">Developer Tools</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="p-6 rounded-2xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/50 transition-colors group cursor-pointer">
+            <div class="w-10 h-10 rounded-lg bg-[#10B981]/10 flex items-center justify-center text-[#10B981] mb-4"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-[#10B981] transition-colors">ArrowOS SDK</h3>
+            <p class="text-[#94A3B8] text-sm leading-relaxed mb-3">Full access to ArrowOS APIs — camera, sensors, health data, NFC, and more. Available for Swift, Kotlin, and C++.</p>
+            <span class="text-xs bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/20 rounded px-2 py-0.5">v20.4.1</span>
+          </div>
+          <div class="p-6 rounded-2xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/50 transition-colors group cursor-pointer">
+            <div class="w-10 h-10 rounded-lg bg-[#10B981]/10 flex items-center justify-center text-[#10B981] mb-4"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-[#10B981] transition-colors">Connect API</h3>
+            <p class="text-[#94A3B8] text-sm leading-relaxed mb-3">Build integrations for the ArrowSmart smart home ecosystem. REST + WebSocket APIs with full Matter support.</p>
+            <span class="text-xs bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/20 rounded px-2 py-0.5">v3.1.0</span>
+          </div>
+          <div class="p-6 rounded-2xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/50 transition-colors group cursor-pointer">
+            <div class="w-10 h-10 rounded-lg bg-[#10B981]/10 flex items-center justify-center text-[#10B981] mb-4"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg></div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-[#10B981] transition-colors">AS Neural Engine SDK</h3>
+            <p class="text-[#94A3B8] text-sm leading-relaxed mb-3">Optimise ML models for the AS-9 Neural Engine. Run large models on-device with exceptional efficiency.</p>
+            <span class="text-xs bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/20 rounded px-2 py-0.5">v2.0.0</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Code snippet -->
+    <section class="py-16 border-b border-[#334155] bg-[#0F172A]">
+      <div class="container mx-auto px-6 max-w-3xl">
+        <h2 class="text-2xl font-bold text-white mb-2">Get started in minutes.</h2>
+        <p class="text-[#94A3B8] text-sm mb-6">Install the ArrowOS CLI and scaffold your first project.</p>
+        <div class="rounded-xl bg-[#0B1120] border border-[#334155] overflow-hidden">
+          <div class="flex items-center gap-2 px-4 py-3 border-b border-[#334155]">
+            <div class="w-3 h-3 rounded-full bg-red-500/70"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-500/70"></div>
+            <div class="w-3 h-3 rounded-full bg-green-500/70"></div>
+            <span class="text-[#475569] text-xs ml-2">Terminal</span>
+          </div>
+          <pre class="p-5 text-sm overflow-x-auto"><span class="text-[#475569]">$</span> <span class="text-[#10B981]">npm install -g @arrowsmart/cli</span>
+<span class="text-[#475569]">$</span> <span class="text-[#10B981]">arrow create my-app --template arrowos</span>
+<span class="text-white opacity-60">Creating project... ✓
+Installing dependencies... ✓
+Setting up ArrowOS SDK v20.4.1... ✓
+
+✓ Project "my-app" ready!
+Run <span class="text-[#10B981]">cd my-app && arrow dev</span> to start.</span></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 text-center bg-[#1E293B] border-t border-[#334155]">
+      <h2 class="text-2xl font-bold text-white mb-4">Join the developer community.</h2>
+      <p class="text-[#94A3B8] mb-8 max-w-xl mx-auto">8 million developers building on ArrowSmart. Forums, sample code, and direct access to the ArrowSmart engineering team.</p>
+      <div class="flex justify-center gap-4 flex-wrap">
+        <a href="contact.html" class="px-6 py-3 bg-[#10B981] hover:bg-[#059669] text-white rounded-md font-semibold text-sm transition-colors">Join Developer Forums</a>
+        <a href="developers.html" class="px-6 py-3 border border-[#334155] hover:border-[#10B981]/50 text-white rounded-md font-semibold text-sm transition-colors">View Open Source</a>
+      </div>
+    </section>
+  </main>
+
+  <div id="sdk-toast" class="hidden fixed bottom-6 right-6 bg-[#1E293B] border border-[#10B981]/30 text-white px-5 py-4 rounded-xl shadow-2xl text-sm z-50 max-w-xs">
+    <p class="font-semibold text-[#10B981] mb-1">SDK Ready</p>
+    <p class="text-[#94A3B8] text-xs">ArrowOS SDK v9.2.1 — Your download will begin shortly. Requires Xcode 16+ or Android Studio Meerkat.</p>
+  </div>
+
+  <footer class="bg-[#0F172A] border-t border-[#334155] pt-14 pb-8">
+    <div class="container mx-auto px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
+        <div>
+          <a href="ledger.html" class="flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-[#10B981]/10 flex items-center justify-center text-[#10B981]"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L4 4 L20 4"/></svg></div>
+            <span class="font-bold text-white text-sm">ArrowSmart</span>
+          </a>
+          <p class="text-[#475569] text-xs leading-relaxed">Technology that moves humanity forward.</p>
+        </div>
+        <div>
+          <p class="text-white text-xs font-semibold uppercase tracking-widest mb-4">Products</p>
+          <ul class="space-y-2.5">
+            <li><a href="achilles.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Achilles</a></li>
+            <li><a href="computers.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Computers</a></li>
+            <li><a href="wearables.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Wearables</a></li>
+            <li><a href="shop.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Shop</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-white text-xs font-semibold uppercase tracking-widest mb-4">Developers</p>
+          <ul class="space-y-2.5">
+            <li><a href="developers.html#docs" class="text-[#10B981] text-xs">Developer Tools</a></li>
+            <li><a href="developers.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">SDK Downloads</a></li>
+            <li><a href="support.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Dev Support</a></li>
+            <li><a href="contact.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-white text-xs font-semibold uppercase tracking-widest mb-4">Legal</p>
+          <ul class="space-y-2.5">
+            <li><a href="privacy.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Privacy Policy</a></li>
+            <li><a href="legal.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Terms of Use</a></li>
+            <li><a href="legal.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Developer Agreement</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-[#1E293B] pt-6 flex flex-col md:flex-row items-center justify-between gap-3">
+        <p class="text-[#334155] text-xs">&copy; <span class="year"></span> ArrowSmart Inc. All rights reserved.</p>
+        <p class="text-[#334155] text-xs">ArrowSmart · 1 Infinite Loop · San Mateo, CA 94025</p>
+      </div>
+    </div>
+  </footer>
+  <script>
+    document.querySelectorAll('.year').forEach(el=>el.textContent=new Date().getFullYear());
+    function sdkDownload(){
+      const btn=document.getElementById('sdk-btn');
+      const t=document.getElementById('sdk-toast');
+      btn.textContent='Preparing download…';
+      btn.disabled=true;
+      t.classList.remove('hidden');
+      setTimeout(()=>{btn.textContent='Download SDK';btn.disabled=false;t.classList.add('hidden');},4000);
+    }
+  </script>
+</body>
+</html>

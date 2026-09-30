@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HR Portal — ArrowSmart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"/>
+  <style>body{font-family:'Inter',sans-serif;}</style>
+</head>
+<body class="bg-[#0B1120] text-white min-h-screen flex flex-col">
+  <header class="sticky top-0 z-50 w-full border-b border-[#334155] bg-[#0B1120]/95 backdrop-blur-md">
+    <div class="container mx-auto px-6 h-14 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="employee-portal.html" class="flex items-center gap-2"><div class="w-7 h-7 rounded bg-[#10B981]/10 flex items-center justify-center text-[#10B981]"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L4 4 L20 4"/></svg></div><span class="text-sm font-bold text-white hidden sm:block">ArrowSmart</span></a>
+        <span class="text-[#334155]">|</span>
+        <span id="clearance-badge" class="text-[10px] font-bold uppercase tracking-widest text-[#10B981] border border-[#10B981]/20 bg-[#10B981]/5 rounded px-2 py-0.5">LEVEL — CLEARANCE</span>
+      </div>
+      <nav class="hidden lg:flex items-center gap-0.5 text-xs">
+        <a href="employee-portal.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Dashboard</a>
+        <a href="internal-news.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">News</a>
+        <a href="employee-directory.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Directory</a>
+        <a href="projects-tracker.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Projects</a>
+        <a href="hr-portal.html" class="px-3 py-1.5 text-white bg-[#1E293B] rounded">HR</a>
+        <a href="it-helpdesk.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">IT Help</a>
+        <a href="security-ops.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Security</a>
+        <a href="stasis-pods.html" class="px-3 py-1.5 text-amber-400/80 hover:text-amber-300 hover:bg-[#1E293B] rounded transition-colors font-semibold">⬡ Stasis</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <span class="text-[#94A3B8] text-xs hidden sm:block" id="emp-name-display"></span>
+        <a href="employee-login.html" onclick="sessionStorage.removeItem('as_employee')" class="text-xs text-[#475569] hover:text-red-400 border border-[#334155] px-2.5 py-1.5 rounded transition-colors">Sign Out</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 py-10">
+    <div class="container mx-auto px-6">
+      <h1 class="text-2xl font-extrabold text-white mb-1">HR Portal</h1>
+      <p class="text-[#94A3B8] text-sm mb-8">People &amp; Culture · Benefits · Time Off · Performance</p>
+
+      <!-- PTO + Payroll row -->
+      <div class="grid md:grid-cols-3 gap-5 mb-8">
+        <div class="p-6 rounded-xl bg-[#1E293B] border border-[#334155]">
+          <p class="text-[#475569] text-xs uppercase tracking-widest mb-3">PTO Balance</p>
+          <p class="text-4xl font-extrabold text-[#10B981] mb-1">18.5<span class="text-lg font-normal text-[#94A3B8]"> days</span></p>
+          <p class="text-[#475569] text-xs mb-4">Available · FY2026 rollover: 5 days</p>
+          <div class="space-y-1 text-xs mb-4">
+            <div class="flex justify-between"><span class="text-[#94A3B8]">Vacation</span><span class="text-white">14 days</span></div>
+            <div class="flex justify-between"><span class="text-[#94A3B8]">Sick Leave</span><span class="text-white">4.5 days</span></div>
+            <div class="flex justify-between"><span class="text-[#94A3B8]">Personal</span><span class="text-white">0 days</span></div>
+          </div>
+          <button onclick="document.getElementById('pto-modal').classList.remove('hidden')" class="w-full py-2 bg-[#10B981] hover:bg-[#059669] text-white rounded-md text-xs font-semibold transition-colors">Request Time Off</button>
+        </div>
+        <div class="p-6 rounded-xl bg-[#1E293B] border border-[#334155]">
+          <p class="text-[#475569] text-xs uppercase tracking-widest mb-3">Next Payslip</p>
+          <p class="text-4xl font-extrabold text-white mb-1">Jun 30</p>
+          <p class="text-[#94A3B8] text-xs mb-4">Bi-monthly · Direct deposit</p>
+          <div class="space-y-1 text-xs mb-4">
+            <div class="flex justify-between"><span class="text-[#94A3B8]">Gross</span><span class="text-white">[CONFIDENTIAL]</span></div>
+            <div class="flex justify-between"><span class="text-[#94A3B8]">Tax withheld</span><span class="text-white">[CONFIDENTIAL]</span></div>
+            <div class="flex justify-between"><span class="text-[#94A3B8]">Net</span><span class="text-[#10B981] font-bold">[CONFIDENTIAL]</span></div>
+          </div>
+          <button onclick="document.getElementById('payslip-modal').classList.remove('hidden')" class="w-full py-2 bg-[#1E293B] hover:bg-[#334155] border border-[#334155] text-white rounded-md text-xs font-semibold transition-colors">Download Last Payslip</button>
+        </div>
+        <div class="p-6 rounded-xl bg-[#1E293B] border border-[#334155]">
+          <p class="text-[#475569] text-xs uppercase tracking-widest mb-3">Performance Review</p>
+          <p class="text-4xl font-extrabold text-white mb-1">Q2 <span class="text-lg text-[#94A3B8]">2026</span></p>
+          <p class="text-amber-400 text-xs mb-4">Self-review due: June 25</p>
+          <div class="space-y-2 mb-4">
+            <div><div class="flex justify-between text-xs mb-1"><span class="text-[#94A3B8]">Goals completed</span><span class="text-white">4 / 6</span></div><div class="h-1.5 rounded-full bg-[#334155] overflow-hidden"><div class="h-full bg-[#10B981] rounded-full" style="width:66%"></div></div></div>
+            <div><div class="flex justify-between text-xs mb-1"><span class="text-[#94A3B8]">Manager review</span><span class="text-amber-400">Pending</span></div><div class="h-1.5 rounded-full bg-[#334155] overflow-hidden"><div class="h-full bg-amber-400 rounded-full" style="width:30%"></div></div></div>
+          </div>
+          <button onclick="document.getElementById('review-modal').classList.remove('hidden')" class="w-full py-2 bg-[#1E293B] hover:bg-[#334155] border border-[#334155] text-white rounded-md text-xs font-semibold transition-colors">Open Self-Review</button>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-6">
+        <!-- Benefits -->
+        <div class="rounded-xl bg-[#1E293B] border border-[#334155] overflow-hidden">
+          <div class="px-6 py-4 border-b border-[#334155]"><h2 class="text-white font-bold">Benefits Overview</h2></div>
+          <div class="divide-y divide-[#334155]">
+            <div class="px-6 py-4 flex items-center justify-between"><div><p class="text-white text-sm font-medium">Health Insurance</p><p class="text-[#475569] text-xs">Arrow Premium+ Plan · Family coverage</p></div><span class="text-[#10B981] text-xs font-semibold">Active</span></div>
+            <div class="px-6 py-4 flex items-center justify-between"><div><p class="text-white text-sm font-medium">Dental &amp; Vision</p><p class="text-[#475569] text-xs">Comprehensive · Includes orthodontics</p></div><span class="text-[#10B981] text-xs font-semibold">Active</span></div>
+            <div class="px-6 py-4 flex items-center justify-between"><div><p class="text-white text-sm font-medium">401(k) / Retirement</p><p class="text-[#475569] text-xs">6% employer match · Vesting: 2yr cliff</p></div><span class="text-[#10B981] text-xs font-semibold">8% enrolled</span></div>
+            <div class="px-6 py-4 flex items-center justify-between"><div><p class="text-white text-sm font-medium">ArrowCare+ Employee Plan</p><p class="text-[#475569] text-xs">Unlimited devices, free repairs, priority service</p></div><span class="text-[#10B981] text-xs font-semibold">Active</span></div>
+            <div class="px-6 py-4 flex items-center justify-between"><div><p class="text-white text-sm font-medium">Equity &amp; RSUs</p><p class="text-[#475569] text-xs">Next vest: Aug 15, 2026</p></div><span class="text-amber-400 text-xs font-semibold">Vesting</span></div>
+            <div class="px-6 py-4 flex items-center justify-between"><div><p class="text-white text-sm font-medium">Learning Stipend</p><p class="text-[#475569] text-xs">$5,000/yr for approved training</p></div><span class="text-[#94A3B8] text-xs">$3,200 remaining</span></div>
+          </div>
+        </div>
+
+        <!-- Payslip history -->
+        <div class="rounded-xl bg-[#1E293B] border border-[#334155] overflow-hidden">
+          <div class="px-6 py-4 border-b border-[#334155]"><h2 class="text-white font-bold">Payslip History</h2></div>
+          <div class="divide-y divide-[#334155]">
+            <div class="px-6 py-3 flex items-center justify-between text-sm"><span class="text-white">May 31, 2026</span><div class="flex items-center gap-3"><span class="text-[#475569] text-xs">Bi-monthly</span><span class="text-[#10B981] text-xs font-semibold">Paid</span><button onclick="showPdfToast('May 31, 2026')" class="text-[#475569] hover:text-[#10B981] text-xs underline">PDF</button></div></div>
+            <div class="px-6 py-3 flex items-center justify-between text-sm"><span class="text-white">Apr 30, 2026</span><div class="flex items-center gap-3"><span class="text-[#475569] text-xs">Bi-monthly</span><span class="text-[#10B981] text-xs font-semibold">Paid</span><button onclick="showPdfToast('Apr 30, 2026')" class="text-[#475569] hover:text-[#10B981] text-xs underline">PDF</button></div></div>
+            <div class="px-6 py-3 flex items-center justify-between text-sm"><span class="text-white">Mar 31, 2026</span><div class="flex items-center gap-3"><span class="text-[#475569] text-xs">Bi-monthly</span><span class="text-[#10B981] text-xs font-semibold">Paid</span><button onclick="showPdfToast('Mar 31, 2026')" class="text-[#475569] hover:text-[#10B981] text-xs underline">PDF</button></div></div>
+            <div class="px-6 py-3 flex items-center justify-between text-sm"><span class="text-white">Feb 28, 2026</span><div class="flex items-center gap-3"><span class="text-[#475569] text-xs">Bi-monthly</span><span class="text-[#10B981] text-xs font-semibold">Paid</span><button onclick="showPdfToast('Feb 28, 2026')" class="text-[#475569] hover:text-[#10B981] text-xs underline">PDF</button></div></div>
+            <div class="px-6 py-3 flex items-center justify-between text-sm"><span class="text-white">Jan 31, 2026</span><div class="flex items-center gap-3"><span class="text-[#475569] text-xs">Bonus included</span><span class="text-[#10B981] text-xs font-semibold">Paid</span><button onclick="showPdfToast('Jan 31, 2026')" class="text-[#475569] hover:text-[#10B981] text-xs underline">PDF</button></div></div>
+            <div class="px-6 py-3 flex items-center justify-between text-sm"><span class="text-white">Dec 31, 2025</span><div class="flex items-center gap-3"><span class="text-[#475569] text-xs">Year-end</span><span class="text-[#10B981] text-xs font-semibold">Paid</span><button onclick="showPdfToast('Dec 31, 2025')" class="text-[#475569] hover:text-[#10B981] text-xs underline">PDF</button></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Payslip Download Modal -->
+  <div id="payslip-modal" class="hidden fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-6">
+    <div class="bg-[#1E293B] border border-[#334155] rounded-2xl p-7 max-w-sm w-full">
+      <h3 class="text-lg font-bold text-white mb-2">Download Payslip</h3>
+      <p class="text-[#94A3B8] text-sm mb-5">Payslip for the period ending <strong class="text-white">May 31, 2026</strong>.</p>
+      <div class="p-4 bg-[#0B1120] border border-[#334155] rounded-lg mb-5">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-red-900/20 border border-red-700/20 flex items-center justify-center">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <div><p class="text-white text-sm font-semibold">Payslip_May2026.pdf</p><p class="text-[#475569] text-xs">ArrowSmart Payroll · Confidential</p></div>
+        </div>
+      </div>
+      <div class="flex gap-3">
+        <button onclick="document.getElementById('payslip-modal').classList.add('hidden');showPdfToast('May 31, 2026')" class="flex-1 py-2.5 bg-[#10B981] hover:bg-[#059669] text-white rounded-lg text-sm font-semibold transition-colors">Download PDF</button>
+        <button onclick="document.getElementById('payslip-modal').classList.add('hidden')" class="px-4 py-2.5 border border-[#334155] text-[#94A3B8] rounded-lg text-sm transition-colors">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Self-Review Modal -->
+  <div id="review-modal" class="hidden fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-6">
+    <div class="bg-[#1E293B] border border-[#334155] rounded-2xl p-7 max-w-md w-full">
+      <h3 class="text-lg font-bold text-white mb-1">Q2 2026 Self-Review</h3>
+      <p class="text-amber-400 text-xs font-semibold mb-5">Due: June 25, 2026</p>
+      <div class="space-y-4">
+        <div><label class="block text-xs text-[#94A3B8] mb-1">Key achievements this quarter</label><textarea rows="3" placeholder="Describe your main contributions and accomplishments…" class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-3 py-2 text-white placeholder-[#475569] text-sm focus:outline-none focus:border-[#10B981] resize-none"></textarea></div>
+        <div><label class="block text-xs text-[#94A3B8] mb-1">Goals not yet completed</label><textarea rows="2" placeholder="What is still in progress, and why?" class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-3 py-2 text-white placeholder-[#475569] text-sm focus:outline-none focus:border-[#10B981] resize-none"></textarea></div>
+        <div><label class="block text-xs text-[#94A3B8] mb-1">Development focus for Q3</label><textarea rows="2" placeholder="What skills or areas will you focus on next quarter?" class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-3 py-2 text-white placeholder-[#475569] text-sm focus:outline-none focus:border-[#10B981] resize-none"></textarea></div>
+      </div>
+      <div class="flex gap-3 mt-5">
+        <button onclick="document.getElementById('review-modal').classList.add('hidden');showToast('Self-review saved as draft.')" class="flex-1 py-2.5 bg-[#10B981] hover:bg-[#059669] text-white rounded-lg text-sm font-semibold transition-colors">Save Draft</button>
+        <button onclick="document.getElementById('review-modal').classList.add('hidden')" class="px-4 py-2.5 border border-[#334155] text-[#94A3B8] rounded-lg text-sm transition-colors">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PDF Toast -->
+  <div id="pdf-toast" class="hidden fixed bottom-6 right-6 z-50 bg-[#1E293B] border border-[#10B981]/30 rounded-xl px-5 py-3 flex items-center gap-3 shadow-xl">
+    <svg class="text-[#10B981] shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    <span id="pdf-toast-text" class="text-white text-sm"></span>
+  </div>
+
+  <!-- PTO Modal -->
+  <div id="pto-modal" class="hidden fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-6">
+    <div class="bg-[#1E293B] border border-[#334155] rounded-2xl p-7 max-w-sm w-full">
+      <h3 class="text-lg font-bold text-white mb-5">Request Time Off</h3>
+      <form onsubmit="submitPTO(event)" class="space-y-4">
+        <div><label class="block text-xs text-[#94A3B8] mb-1">Type</label>
+          <select class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-[#10B981]">
+            <option>Vacation</option><option>Sick Leave</option><option>Personal</option><option>Parental Leave</option><option>Other</option>
+          </select></div>
+        <div class="grid grid-cols-2 gap-3">
+          <div><label class="block text-xs text-[#94A3B8] mb-1">From</label><input type="date" class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-[#10B981]"/></div>
+          <div><label class="block text-xs text-[#94A3B8] mb-1">To</label><input type="date" class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-[#10B981]"/></div>
+        </div>
+        <div><label class="block text-xs text-[#94A3B8] mb-1">Notes (optional)</label><textarea rows="2" class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-[#10B981] resize-none"></textarea></div>
+        <div class="flex gap-3"><button type="submit" class="flex-1 py-2.5 bg-[#10B981] hover:bg-[#059669] text-white rounded-lg text-sm font-semibold transition-colors">Submit</button><button type="button" onclick="document.getElementById('pto-modal').classList.add('hidden')" class="px-4 py-2.5 border border-[#334155] text-[#94A3B8] rounded-lg text-sm transition-colors">Cancel</button></div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="border-t border-[#334155] py-4 text-center"><p class="text-[#334155] text-xs">ArrowSmart Employee Portal · Confidential</p></footer>
+  <script>
+    function showPdfToast(period){
+      const t=document.getElementById('pdf-toast');
+      document.getElementById('pdf-toast-text').textContent='Payslip '+period+' — preparing download…';
+      t.classList.remove('hidden');
+      setTimeout(()=>t.classList.add('hidden'),3000);
+    }
+    function showToast(msg){
+      const t=document.getElementById('pdf-toast');
+      document.getElementById('pdf-toast-text').textContent=msg;
+      t.classList.remove('hidden');
+      setTimeout(()=>t.classList.add('hidden'),3000);
+    }
+    function submitPTO(e){e.preventDefault();document.getElementById('pto-modal').classList.add('hidden');showToast('PTO request submitted. Your manager will review within 48 hours.');}
+    (function(){
+      const emp=JSON.parse(sessionStorage.getItem('as_employee')||'null');
+      if(!emp){window.location.href='employee-login.html';return;}
+      document.getElementById('emp-name-display').textContent=emp.name;
+      document.getElementById('clearance-badge').textContent='LEVEL '+emp.level+' CLEARANCE';
+    })();
+  </script>
+<script>fetch('/api/access-log',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:'HR Portal'})}).catch(()=>{});</script>
+</body>
+</html>

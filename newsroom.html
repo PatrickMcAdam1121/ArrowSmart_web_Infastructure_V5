@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Newsroom — ArrowSmart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"/>
+  <style>body{font-family:'Inter',sans-serif;}</style>
+</head>
+<body class="bg-[#0B1120] text-white min-h-screen flex flex-col">
+  <header class="sticky top-0 z-50 w-full border-b border-[#334155] bg-[#0B1120]/80 backdrop-blur-md">
+    <div class="container mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="ledger.html" class="flex items-center gap-2"><div class="flex items-center justify-center w-10 h-10 rounded-lg bg-[#10B981]/10 text-[#10B981]"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L4 4 L20 4"/></svg></div><span class="text-xl font-bold text-white">ArrowSmart</span></a>
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="ledger.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">Home</a>
+        <a href="shop.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">Products</a>
+        <a href="about.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">About</a>
+        <a href="contact.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">Contact</a>
+      </nav>
+      <div class="hidden md:flex items-center gap-4">
+        <a href="support.html" class="text-sm font-medium text-white hover:text-[#10B981] transition-colors">Support</a>
+        <a href="employee-login.html" class="text-xs font-medium text-[#475569] border border-[#1E293B] hover:border-[#334155] px-3 py-1.5 rounded-md transition-colors">Employee Login</a>
+        <a href="shop.html" class="bg-[#10B981] hover:bg-[#059669] text-white px-5 py-2.5 rounded-md text-sm font-medium transition-colors">Shop Now</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1">
+    <section class="py-16 border-b border-[#334155]">
+      <div class="container mx-auto px-6">
+        <h1 class="text-4xl font-extrabold text-white mb-3">Newsroom</h1>
+        <p class="text-[#94A3B8] text-lg">The latest from ArrowSmart — press releases, announcements, and updates.</p>
+      </div>
+    </section>
+
+    <!-- Filter bar -->
+    <div class="border-b border-[#334155] py-3 bg-[#0F172A]">
+      <div class="container mx-auto px-6 flex flex-wrap gap-2">
+        <button class="cat-btn active px-3 py-1.5 rounded-full border border-[#10B981] text-[#10B981] text-xs font-semibold transition-colors" onclick="filterCat(this,'all')">All</button>
+        <button class="cat-btn px-3 py-1.5 rounded-full border border-[#334155] text-[#94A3B8] hover:border-[#10B981]/50 text-xs font-semibold transition-colors" onclick="filterCat(this,'financial')">Financial</button>
+        <button class="cat-btn px-3 py-1.5 rounded-full border border-[#334155] text-[#94A3B8] hover:border-[#10B981]/50 text-xs font-semibold transition-colors" onclick="filterCat(this,'product')">Product</button>
+        <button class="cat-btn px-3 py-1.5 rounded-full border border-[#334155] text-[#94A3B8] hover:border-[#10B981]/50 text-xs font-semibold transition-colors" onclick="filterCat(this,'environment')">Environment</button>
+        <button class="cat-btn px-3 py-1.5 rounded-full border border-[#334155] text-[#94A3B8] hover:border-[#10B981]/50 text-xs font-semibold transition-colors" onclick="filterCat(this,'research')">Research</button>
+        <button class="cat-btn px-3 py-1.5 rounded-full border border-[#334155] text-[#94A3B8] hover:border-[#10B981]/50 text-xs font-semibold transition-colors" onclick="filterCat(this,'community')">Community</button>
+      </div>
+    </div>
+
+    <section class="py-16">
+      <div class="container mx-auto px-6">
+        <!-- Featured 2026 article -->
+        <div class="rounded-2xl border border-[#10B981]/30 bg-gradient-to-br from-[#1E293B] to-[#0F172A] p-8 mb-10 group cursor-pointer hover:border-[#10B981]/60 transition-colors article-card financial" onclick="openArticle(14)">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="text-xs bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/20 rounded-full px-3 py-1 font-semibold">Financial</span>
+            <span class="text-[#475569] text-xs">June 16, 2026</span>
+          </div>
+          <h2 class="text-2xl md:text-3xl font-bold text-white mb-3 group-hover:text-[#10B981] transition-colors">Q1 FY2026 preliminary: ArrowSmart posts $108.4B — beats consensus by 4.5%</h2>
+          <p class="text-[#94A3B8] leading-relaxed mb-4">Record-breaking quarterly revenue driven by continued Achilles 20 Pro Max demand and an all-time-high quarter for Cloud &amp; Services. Full results and earnings call scheduled for August 4, 2026.</p>
+          <div class="flex items-center gap-3 mt-4">
+            <div class="w-7 h-7 rounded-full bg-[#10B981]/20 flex items-center justify-center text-[#10B981] font-bold text-xs">SC</div>
+            <span class="text-[#94A3B8] text-xs">Sofia Chen · CFO, ArrowSmart</span>
+            <span class="text-[#334155] text-xs">·</span>
+            <span class="text-[#10B981] hover:text-white text-xs font-semibold transition-colors flex items-center gap-1">Read full release <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+          </div>
+        </div>
+
+        <!-- Article grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="main-grid">
+
+          <!-- 2026 articles -->
+          <div class="article-card product rounded-xl border border-[#334155] bg-[#1E293B] p-6 group cursor-pointer hover:border-[#10B981]/50 transition-colors" onclick="openArticle(15)">
+            <div class="flex items-center gap-2 mb-3"><span class="text-xs text-[#94A3B8] bg-[#0B1120] border border-[#334155] rounded px-2 py-0.5">Product</span><span class="text-[#475569] text-xs">May 9, 2026</span></div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-[#10B981] transition-colors">Achilles 21 Pro spotted in FCC filing — satellite upgrade confirmed</h3>
+            <p class="text-[#94A3B8] text-xs leading-relaxed">Regulatory documents reveal a next-generation Achilles handset with revised antenna arrays and expanded mmWave bands ahead of an expected September reveal.</p>
+            <p class="text-[#475569] text-xs mt-3">By Takeshi Nakamura · CTO, ArrowSmart</p>
+          </div>
+          <div class="article-card environment rounded-xl border border-[#334155] bg-[#1E293B] p-6 group cursor-pointer hover:border-[#10B981]/50 transition-colors" onclick="openArticle(16)">
+            <div class="flex items-center gap-2 mb-3"><span class="text-xs text-[#94A3B8] bg-[#0B1120] border border-[#334155] rounded px-2 py-0.5">Environment</span><span class="text-[#475569] text-xs">Apr 22, 2026</span></div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-[#10B981] transition-colors">ArrowSmart reaches 100% renewable energy milestone at all owned global facilities</h3>
+            <p class="text-[#94A3B8] text-xs leading-relaxed">From the San Mateo campus to data centres in Singapore and Dublin, every company-owned building now runs entirely on solar, wind, and hydroelectric power.</p>
+            <p class="text-[#475569] text-xs mt-3">By Clara Obi · VP Sustainability, ArrowSmart</p>
+          </div>
+          <div class="article-card community rounded-xl border border-[#334155] bg-[#1E293B] p-6 group cursor-pointer hover:border-[#10B981]/50 transition-colors" onclick="openArticle(17)">
+            <div class="flex items-center gap-2 mb-3"><span class="text-xs text-[#94A3B8] bg-[#0B1120] border border-[#334155] rounded px-2 py-0.5">Community</span><span class="text-[#475569] text-xs">Mar 3, 2026</span></div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-[#10B981] transition-colors">ArrowSmart partners with EduReach — 5 million Achilles devices for Sub-Saharan Africa</h3>
+            <p class="text-[#94A3B8] text-xs leading-relaxed">A $2.1 billion commitment will place refurbished Achilles devices and ArrowOS education software in classrooms across 14 countries by 2028.</p>
+            <p class="text-[#475569] text-xs mt-3">By Amara Vasquez · CPO, ArrowSmart</p>
+          </div>
+          <div class="article-card research rounded-xl border border-amber-900/30 bg-[#1E293B] p-6 group cursor-pointer hover:border-amber-700/40 transition-colors" onclick="openArticle(18)">
+            <div class="flex items-center gap-2 mb-3"><span class="text-xs text-amber-400/80 bg-amber-900/10 border border-amber-800/20 rounded px-2 py-0.5">Research</span><span class="text-[#475569] text-xs">Jan 31, 2026</span></div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-amber-400 transition-colors">ArrowSmart MCS Division announces Phase III of Project Chrysalis</h3>
+            <p class="text-[#94A3B8] text-xs leading-relaxed">The Memory Calibration Sciences team confirms Phase III enrollment is open, with expanded capacity across the Mount Shasta campus. Participants describe the programme as "life-changing."</p>
+            <p class="text-[#475569] text-xs mt-3">By Dr. Priya Anand · Director, MCS Research</p>
+          </div>
+
+          <!-- 2025 articles -->
+          <div class="article-card product rounded-xl border border-[#334155] bg-[#1E293B] p-6 group cursor-pointer hover:border-[#10B981]/50 transition-colors" onclick="openArticle(0)">
+            <div class="flex items-center gap-2 mb-3"><span class="text-xs text-[#94A3B8] bg-[#0B1120] border border-[#334155] rounded px-2 py-0.5">Press Release</span><span class="text-[#475569] text-xs">Sep 12, 2025</span></div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-[#10B981] transition-colors">ArrowSmart announces the Achilles 20 Series with all-new AS-9 chip</h3>
+            <p class="text-[#94A3B8] text-xs leading-relaxed">Three models, one revolutionary chip. The AS-9 delivers 40% faster CPU performance and brings ProVision+ to the Pro lineup.</p>
+            <p class="text-[#475569] text-xs mt-3">By Kenji Tanaka · Chief Chip Architect</p>
+          </div>
+          <div class="article-card financial rounded-xl border border-[#334155] bg-[#1E293B] p-6 group cursor-pointer hover:border-[#10B981]/50 transition-colors" onclick="openArticle(1)">
+            <div class="flex items-center gap-2 mb-3"><span class="text-xs text-[#94A3B8] bg-[#0B1120] border border-[#334155] rounded px-2 py-0.5">Financial</span><span class="text-[#475569] text-xs">Nov 1, 2025</span></div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-[#10B981] transition-colors">ArrowSmart reports record Q4 revenue of $94.6 billion</h3>
+            <p class="text-[#94A3B8] text-xs leading-relaxed">Driven by strong Achilles 20 Series demand, ArrowSmart posts its highest-ever quarterly revenue with 18% YoY growth.</p>
+            <p class="text-[#475569] text-xs mt-3">By Sofia Chen · CFO, ArrowSmart</p>
+          </div>
+          <div class="article-card environment rounded-xl border border-[#334155] bg-[#1E293B] p-6 group cursor-pointer hover:border-[#10B981]/50 transition-colors" onclick="openArticle(2)">
+            <div class="flex items-center gap-2 mb-3"><span class="text-xs text-[#94A3B8] bg-[#0B1120] border border-[#334155] rounded px-2 py-0.5">Environment</span><span class="text-[#475569] text-xs">Oct 15, 2025</span></div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-[#10B981] transition-colors">ArrowSmart achieves carbon neutrality across all manufacturing operations</h3>
+            <p class="text-[#94A3B8] text-xs leading-relaxed">Following a six-year programme, ArrowSmart's entire supply chain now runs on 100% renewable energy.</p>
+            <p class="text-[#475569] text-xs mt-3">By Clara Obi · VP Sustainability</p>
+          </div>
+          <div class="article-card product rounded-xl border border-[#334155] bg-[#1E293B] p-6 group cursor-pointer hover:border-[#10B981]/50 transition-colors" onclick="openArticle(3)">
+            <div class="flex items-center gap-2 mb-3"><span class="text-xs text-[#94A3B8] bg-[#0B1120] border border-[#334155] rounded px-2 py-0.5">Product</span><span class="text-[#475569] text-xs">Oct 2, 2025</span></div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-[#10B981] transition-colors">ArrowOS 20 update brings AI-powered features to Achilles 18 and later</h3>
+            <p class="text-[#94A3B8] text-xs leading-relaxed">The major software update rolls out to over 800 million devices, bringing on-device intelligence to earlier models.</p>
+            <p class="text-[#475569] text-xs mt-3">By Marcus Webb · VP Software Engineering</p>
+          </div>
+          <div class="article-card product rounded-xl border border-[#334155] bg-[#1E293B] p-6 group cursor-pointer hover:border-[#10B981]/50 transition-colors" onclick="openArticle(4)">
+            <div class="flex items-center gap-2 mb-3"><span class="text-xs text-[#94A3B8] bg-[#0B1120] border border-[#334155] rounded px-2 py-0.5">Partnership</span><span class="text-[#475569] text-xs">Sep 28, 2025</span></div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-[#10B981] transition-colors">ArrowSmart and GlobalNet announce Achilles 20 satellite connectivity</h3>
+            <p class="text-[#94A3B8] text-xs leading-relaxed">Achilles 20 Pro users can now make calls and send messages from anywhere on Earth via satellite.</p>
+          </div>
+          <div class="article-card community rounded-xl border border-[#334155] bg-[#1E293B] p-6 group cursor-pointer hover:border-[#10B981]/50 transition-colors" onclick="openArticle(5)">
+            <div class="flex items-center gap-2 mb-3"><span class="text-xs text-[#94A3B8] bg-[#0B1120] border border-[#334155] rounded px-2 py-0.5">Retail</span><span class="text-[#475569] text-xs">Sep 5, 2025</span></div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-[#10B981] transition-colors">ArrowSmart opens 500th retail location in Mumbai</h3>
+            <p class="text-[#94A3B8] text-xs leading-relaxed">The flagship Bandra Kurla Complex store marks ArrowSmart's 500th owned retail location worldwide.</p>
+            <p class="text-[#475569] text-xs mt-3">By Ana Mori · VP Global Retail</p>
+          </div>
+          <div class="article-card research rounded-xl border border-[#334155] bg-[#1E293B] p-6 group cursor-pointer hover:border-[#10B981]/50 transition-colors" onclick="openArticle(6)">
+            <div class="flex items-center gap-2 mb-3"><span class="text-xs text-[#94A3B8] bg-[#0B1120] border border-[#334155] rounded px-2 py-0.5">Research</span><span class="text-[#475569] text-xs">Aug 20, 2025</span></div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-[#10B981] transition-colors">ArrowSmart Research publishes breakthrough in on-device language models</h3>
+            <p class="text-[#94A3B8] text-xs leading-relaxed">A new paper demonstrates a 10B parameter model running entirely on the AS-9 chip without network access.</p>
+          </div>
+
+          <!-- ARG: subtle lore articles -->
+          <div class="article-card research rounded-xl border border-[#334155] bg-[#1E293B] p-6 group cursor-pointer hover:border-[#10B981]/50 transition-colors" onclick="openArticle(7)">
+            <div class="flex items-center gap-2 mb-3"><span class="text-xs text-[#94A3B8] bg-[#0B1120] border border-[#334155] rounded px-2 py-0.5">Research</span><span class="text-[#475569] text-xs">Jul 14, 2025</span></div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-[#10B981] transition-colors">ArrowSmart opens Anamnesis Core clinical trial — seeking voluntary participants</h3>
+            <p class="text-[#94A3B8] text-xs leading-relaxed">The MCS Division announces open enrollment for its next cohort of memory calibration participants. All backgrounds accepted. No experience necessary. Accommodation and meals provided.</p>
+            <p class="text-[#475569] text-xs mt-3">By Dr. Priya Anand · Director, MCS Research</p>
+          </div>
+          <div class="article-card community rounded-xl border border-[#334155] bg-[#1E293B] p-6 group cursor-pointer hover:border-[#10B981]/50 transition-colors" onclick="openArticle(8)">
+            <div class="flex items-center gap-2 mb-3"><span class="text-xs text-[#94A3B8] bg-[#0B1120] border border-[#334155] rounded px-2 py-0.5">Community</span><span class="text-[#475569] text-xs">Jun 3, 2025</span></div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-[#10B981] transition-colors">ArrowSmart responds to missing persons enquiries near Weed, California facility</h3>
+            <p class="text-[#94A3B8] text-xs leading-relaxed">ArrowSmart confirms all individuals in question enrolled voluntarily in its Northern California research programme. All signed participation agreements are on file.</p>
+          </div>
+          <div class="article-card research rounded-xl border border-[#334155] bg-[#1E293B] p-6 group cursor-pointer hover:border-[#10B981]/50 transition-colors" onclick="openArticle(9)">
+            <div class="flex items-center gap-2 mb-3"><span class="text-xs text-[#94A3B8] bg-[#0B1120] border border-[#334155] rounded px-2 py-0.5">Infrastructure</span><span class="text-[#475569] text-xs">Mar 22, 2025</span></div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-[#10B981] transition-colors">ArrowSmart expands Sub-Level 4 stasis complex at Mount Shasta campus</h3>
+            <p class="text-[#94A3B8] text-xs leading-relaxed">Expansion adds 200 additional long-term stasis bays and increases NEXUS Array capacity to accommodate next-phase Project Chrysalis operations. Completion expected Q3 2026.</p>
+          </div>
+          <div class="article-card research rounded-xl border border-[#334155] bg-[#1E293B] p-6 group cursor-pointer hover:border-[#10B981]/50 transition-colors" onclick="openArticle(10)">
+            <div class="flex items-center gap-2 mb-3"><span class="text-xs text-red-400/70 bg-red-900/10 border border-red-800/20 rounded px-2 py-0.5">Security</span><span class="text-[#475569] text-xs">Jan 9, 2025</span></div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-[#10B981] transition-colors">ArrowSmart security team investigates "unexplained data anomaly" in internal systems</h3>
+            <p class="text-[#94A3B8] text-xs leading-relaxed">ArrowSmart's IT Security Operations division has begun a full audit following reports of unusual access patterns within its classified infrastructure. Containment is ongoing.</p>
+          </div>
+        </div>
+
+        <div class="mt-10 text-center">
+          <button id="load-more-btn" onclick="loadMoreArticles()" class="px-6 py-3 border border-[#334155] hover:border-[#10B981]/50 text-[#94A3B8] hover:text-white rounded-md text-sm font-medium transition-colors">Load older articles</button>
+        </div>
+
+        <!-- Hidden extra articles -->
+        <div id="extra-articles" class="hidden grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+          <div class="article-card product rounded-xl border border-[#334155] bg-[#1E293B] p-6 group cursor-pointer hover:border-[#10B981]/50 transition-colors" onclick="openArticle(11)">
+            <div class="flex items-center gap-2 mb-3"><span class="text-xs text-[#94A3B8] bg-[#0B1120] border border-[#334155] rounded px-2 py-0.5">Product</span><span class="text-[#475569] text-xs">Dec 10, 2024</span></div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-[#10B981] transition-colors">ArrowOS 19.3 patches critical memory management vulnerability</h3>
+            <p class="text-[#94A3B8] text-xs leading-relaxed">The emergency patch addresses a kernel-level memory isolation flaw affecting devices running AS-7 and AS-8 chips. Users are urged to update immediately.</p>
+          </div>
+          <div class="article-card research rounded-xl border border-[#334155] bg-[#1E293B] p-6 group cursor-pointer hover:border-[#10B981]/50 transition-colors" onclick="openArticle(12)">
+            <div class="flex items-center gap-2 mb-3"><span class="text-xs text-[#94A3B8] bg-[#0B1120] border border-[#334155] rounded px-2 py-0.5">Research</span><span class="text-[#475569] text-xs">Nov 18, 2024</span></div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-[#10B981] transition-colors">ArrowSmart Neural Labs releases white paper on memory calibration at scale</h3>
+            <p class="text-[#94A3B8] text-xs leading-relaxed">The paper, authored by the MCS Division, details advances in non-invasive neural index preservation across extended dormancy periods. Peer review pending.</p>
+          </div>
+          <div class="article-card community rounded-xl border border-[#334155] bg-[#1E293B] p-6 group cursor-pointer hover:border-[#10B981]/50 transition-colors" onclick="openArticle(13)">
+            <div class="flex items-center gap-2 mb-3"><span class="text-xs text-[#94A3B8] bg-[#0B1120] border border-[#334155] rounded px-2 py-0.5">Community</span><span class="text-[#475569] text-xs">Oct 2, 2024</span></div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-[#10B981] transition-colors">ArrowSmart Volunteer Fire Watch programme expands to Northern California</h3>
+            <p class="text-[#94A3B8] text-xs leading-relaxed">ArrowSmart's wildfire monitoring partnership now covers Siskiyou County. Participants receive a stipend, housing, and an Achilles device. Applications open year-round. No experience required.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Article Modal -->
+  <div id="article-modal" class="hidden fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-6">
+    <div class="bg-[#0B1120] border border-[#334155] rounded-2xl max-w-2xl w-full overflow-hidden max-h-[85vh] flex flex-col">
+      <div class="px-6 py-4 border-b border-[#334155] flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-2">
+          <span id="modal-tag" class="text-xs bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/20 rounded-full px-3 py-0.5 font-semibold"></span>
+          <span id="modal-date" class="text-[#475569] text-xs"></span>
+        </div>
+        <button onclick="document.getElementById('article-modal').classList.add('hidden')" class="text-[#475569] hover:text-white text-xs border border-[#334155] hover:border-[#475569] px-2.5 py-1 rounded transition-colors">Close</button>
+      </div>
+      <div class="overflow-y-auto p-6 space-y-4">
+        <h2 id="modal-headline" class="text-xl font-bold text-white leading-snug"></h2>
+        <div id="modal-body" class="text-[#94A3B8] text-sm leading-relaxed space-y-3"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-[#0F172A] border-t border-[#334155] pt-14 pb-8">
+    <div class="container mx-auto px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
+        <div>
+          <a href="ledger.html" class="flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-[#10B981]/10 flex items-center justify-center text-[#10B981]"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L4 4 L20 4"/></svg></div>
+            <span class="font-bold text-white text-sm">ArrowSmart</span>
+          </a>
+          <p class="text-[#475569] text-xs leading-relaxed">Technology that moves humanity forward.</p>
+        </div>
+        <div>
+          <p class="text-white text-xs font-semibold uppercase tracking-widest mb-4">Products</p>
+          <ul class="space-y-2.5">
+            <li><a href="achilles.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Achilles</a></li>
+            <li><a href="computers.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Computers</a></li>
+            <li><a href="wearables.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Wearables</a></li>
+            <li><a href="shop.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Shop</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-white text-xs font-semibold uppercase tracking-widest mb-4">Company</p>
+          <ul class="space-y-2.5">
+            <li><a href="about.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">About</a></li>
+            <li><a href="newsroom.html" class="text-[#10B981] text-xs">Newsroom</a></li>
+            <li><a href="careers.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Careers</a></li>
+            <li><a href="investors.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Investors</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-white text-xs font-semibold uppercase tracking-widest mb-4">Press</p>
+          <ul class="space-y-2.5">
+            <li><a href="contact.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Media Enquiries</a></li>
+            <li><a href="contact.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Press Kit</a></li>
+            <li><a href="privacy.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Privacy</a></li>
+            <li><a href="legal.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Legal</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-[#1E293B] pt-6 flex flex-col md:flex-row items-center justify-between gap-3">
+        <p class="text-[#334155] text-xs">&copy; <span class="year"></span> ArrowSmart Inc. All rights reserved.</p>
+        <p class="text-[#334155] text-xs">ArrowSmart · 1 Infinite Loop · San Mateo, CA 94025</p>
+      </div>
+    </div>
+  </footer>
+  <script>
+    document.querySelectorAll('.year').forEach(el=>el.textContent=new Date().getFullYear());
+
+    function filterCat(btn, cat) {
+      document.querySelectorAll('.cat-btn').forEach(b => {
+        b.classList.remove('border-[#10B981]','text-[#10B981]');
+        b.classList.add('border-[#334155]','text-[#94A3B8]');
+      });
+      btn.classList.remove('border-[#334155]','text-[#94A3B8]');
+      btn.classList.add('border-[#10B981]','text-[#10B981]');
+      document.querySelectorAll('.article-card').forEach(c => {
+        c.style.display = (cat === 'all' || c.classList.contains(cat)) ? '' : 'none';
+      });
+    }
+
+    function loadMoreArticles(){
+      const el=document.getElementById('extra-articles');
+      el.classList.remove('hidden');
+      el.classList.add('grid');
+      document.getElementById('load-more-btn').style.display='none';
+    }
+
+    const ARTICLES = [
+      { tag:'Press Release', tagColor:'text-[#10B981] bg-[#10B981]/10 border-[#10B981]/20', date:'September 12, 2025',
+        headline:'ArrowSmart announces the Achilles 20 Series with all-new AS-9 chip',
+        body:`<p>SAN MATEO, CA — ArrowSmart today announced the Achilles 20 Series, the company's most advanced smartphone lineup to date. Available in three configurations — Pro, Standard, and Mini — the new range is powered by the AS-9 neural engine, delivering up to 40% faster CPU performance and 60% improved machine learning throughput compared to the previous generation.</p>
+<p>"The AS-9 chip is the most sophisticated piece of silicon we have ever built," said Chief Chip Architect Kenji Tanaka. "It processes on-device tasks with a speed and efficiency that has never been achieved outside of a data centre."</p>
+<p>The Achilles 20 Pro introduces the ProVision+ triple-lens camera system, ArrowOS 20, and satellite emergency connectivity. It will be available from September 26, starting at $1,199. The standard Achilles 20 starts at $999; the Mini at $799.</p>
+<p class="text-[#475569] text-xs">Achilles 20, ArrowSmart, and ArrowOS are trademarks of ArrowSmart Inc. Specifications subject to change.</p>` },
+      { tag:'Financial', tagColor:'text-[#94A3B8] bg-[#0B1120] border-[#334155]', date:'November 1, 2025',
+        headline:'ArrowSmart reports record Q4 revenue of $94.6 billion',
+        body:`<p>ArrowSmart today reported financial results for its fiscal fourth quarter of 2025, posting record quarterly revenue of $94.6 billion — an 18% increase year-over-year.</p>
+<p>"The Achilles 20 Series has driven extraordinary demand worldwide," said CFO Dana Reyes. "Our cloud services segment also delivered its strongest quarter on record, contributing $17.3 billion of the total."</p>
+<p>Net income for the quarter was $22.1 billion. ArrowSmart's board approved a $30 billion share buyback programme and raised its quarterly dividend by 4%.</p>
+<p class="text-[#475569] text-xs">Figures unaudited. Forward-looking statements subject to risk.</p>` },
+      { tag:'Environment', tagColor:'text-[#94A3B8] bg-[#0B1120] border-[#334155]', date:'October 15, 2025',
+        headline:'ArrowSmart achieves carbon neutrality across all manufacturing operations',
+        body:`<p>ArrowSmart today confirmed that 100% of its manufacturing operations now run on renewable energy, completing a six-year programme to eliminate direct carbon emissions from its supply chain.</p>
+<p>"This milestone represents thousands of partnerships with suppliers, engineers, and local energy providers across 22 countries," said VP Sustainability Clara Obi. "We are proud of what this team has accomplished."</p>
+<p>The company plans to achieve full Scope 3 carbon neutrality by 2028, including emissions from product use and end-of-life recycling.</p>` },
+      { tag:'Product', tagColor:'text-[#94A3B8] bg-[#0B1120] border-[#334155]', date:'October 2, 2025',
+        headline:'ArrowOS 20 update brings AI-powered features to Achilles 18 and later',
+        body:`<p>ArrowSmart today released ArrowOS 20, the company's most significant software update in five years. The release adds on-device intelligence features to all Achilles 18, 19, and 20 series devices — a base of more than 800 million active users.</p>
+<p>Key features include contextual predictive text, on-device image understanding, and real-time language translation that operates entirely without an internet connection. No user data leaves the device at any point during inference.</p>
+<p>"The AS Neural Engine processes these models entirely on-chip," said VP Software Engineering Marcus Webb. "Privacy is not a compromise — it is the architecture."</p>` },
+      { tag:'Partnership', tagColor:'text-[#94A3B8] bg-[#0B1120] border-[#334155]', date:'September 28, 2025',
+        headline:'ArrowSmart and GlobalNet announce Achilles 20 satellite connectivity',
+        body:`<p>ArrowSmart and GlobalNet Communications today announced a multi-year partnership to bring direct satellite messaging and calling to the Achilles 20 Pro. Users in remote areas with no cellular coverage can send messages and initiate emergency calls via Low Earth Orbit satellite.</p>
+<p>The feature operates at no additional cost for the first two years for Achilles 20 Pro purchasers. GlobalNet's network currently covers 99.7% of Earth's landmass.</p>` },
+      { tag:'Retail', tagColor:'text-[#94A3B8] bg-[#0B1120] border-[#334155]', date:'September 5, 2025',
+        headline:'ArrowSmart opens 500th retail location in Mumbai',
+        body:`<p>ArrowSmart today opened its 500th company-owned retail location at the Bandra Kurla Complex in Mumbai, India. The 12,000 square foot flagship store features the company's full product range, a repair centre, and a developer workshop space.</p>
+<p>"India is one of our fastest-growing markets and this store reflects our long-term commitment," said VP Global Retail Ana Mori.</p>` },
+      { tag:'Research', tagColor:'text-[#94A3B8] bg-[#0B1120] border-[#334155]', date:'August 20, 2025',
+        headline:'ArrowSmart Research publishes breakthrough in on-device language models',
+        body:`<p>ArrowSmart's research division today published a paper demonstrating a 10-billion parameter language model running entirely on the AS-9 chip at inference speeds competitive with cloud-hosted models. The work is published in preprint and has been submitted to NeurIPS 2025.</p>
+<p>"This is a fundamental shift in what on-device AI can do," said lead researcher Dr. Yuna Park. "The implications for privacy and latency are significant." The model requires no internet connection and retains no conversation data between sessions.</p>` },
+      { tag:'Research', tagColor:'text-[#94A3B8] bg-[#0B1120] border-[#334155]', date:'July 14, 2025',
+        headline:'ArrowSmart opens Anamnesis Core clinical trial — seeking voluntary participants',
+        body:`<p>ArrowSmart's Memory Calibration Sciences (MCS) Division today announced open enrollment for the next cohort of its Anamnesis Core research programme. The study investigates non-invasive methods of neural index calibration in extended rest states.</p>
+<p>Participants receive full medical care, private accommodation at one of ArrowSmart's Northern California research campuses, and a participation stipend. No prior experience or technical background is required.</p>
+<p>"We are looking for curious, open-minded individuals who are interested in contributing to the frontier of human cognitive science," said Director of MCS Research Dr. Priya Anand.</p>
+<p>Applications are open year-round. For enquiries, contact <span class="text-[#10B981]">mcs-enroll@arrowsmart.com</span>.</p>
+<p class="text-amber-400/80 text-xs border border-amber-700/20 bg-amber-900/10 p-3 rounded">Note: Participation agreements include a comprehensive non-disclosure clause covering all research procedures. Participants are advised to review all documentation prior to enrollment.</p>` },
+      { tag:'Community', tagColor:'text-[#94A3B8] bg-[#0B1120] border-[#334155]', date:'June 3, 2025',
+        headline:'ArrowSmart responds to missing persons enquiries near Weed, California facility',
+        body:`<p>ArrowSmart today issued a statement in response to media enquiries regarding several individuals reported missing in Siskiyou County near the company's Mount Shasta research campus.</p>
+<p>"ArrowSmart can confirm that all individuals referenced in recent news coverage are known to us and enrolled voluntarily in our Northern California research programme," the statement read. "All relevant participation agreements are on file and available to appropriate authorities upon request."</p>
+<p>"We are cooperating fully with Siskiyou County rangers and the relevant state agencies. We are confident that this matter will be resolved satisfactorily."</p>
+<p>The company declined to provide further detail, citing participant confidentiality agreements. A spokesperson confirmed that the individuals are "in good health and continuing their participation."</p>
+<p class="text-[#475569] text-xs">ArrowSmart communications team. For media enquiries: press@arrowsmart.com</p>` },
+      { tag:'Infrastructure', tagColor:'text-[#94A3B8] bg-[#0B1120] border-[#334155]', date:'March 22, 2025',
+        headline:'ArrowSmart expands Sub-Level 4 stasis complex at Mount Shasta campus',
+        body:`<p>ArrowSmart today announced a major expansion of its Sub-Level 4 research complex at its Mount Shasta, California campus. The expansion will add 200 additional long-term stasis bays, bringing total operational capacity to 612 bays across four zones.</p>
+<p>The project also includes a 40% increase in NEXUS Array processing capacity to support the next phase of Project Chrysalis operations, expected to begin in Q4 2026.</p>
+<p>"This investment reflects the long-term nature of our research commitments," said a spokesperson for the Stasis Division. "We are building infrastructure designed to serve decades of scientific progress."</p>
+<p>Construction is expected to complete by Q3 2026. The expansion will create approximately 80 permanent operational roles at the facility.</p>
+<p class="text-amber-400/80 text-xs border border-amber-700/20 bg-amber-900/10 p-3 rounded">Sub-Level 4 is a restricted research facility. Public access is not available. Press tours are not offered. All enquiries should be directed to ArrowSmart's corporate communications team.</p>` },
+      { tag:'Security', tagColor:'text-red-400/70 bg-red-900/10 border-red-800/20', date:'January 9, 2025',
+        headline:'ArrowSmart security team investigates "unexplained data anomaly" in internal systems',
+        body:`<p>ArrowSmart's IT Security Operations division today confirmed it has begun a full internal audit following reports of anomalous access patterns within the company's classified infrastructure.</p>
+<p>"We identified unusual activity consistent with an internal process operating outside its defined parameters," said Head of Security Operations Viktor Sorel. "At this stage we do not believe this represents an external breach."</p>
+<p>"The anomaly appears isolated to internal administrative systems. No user data or product systems have been affected. We are conducting a thorough investigation and will report further findings when available."</p>
+<p>"Containment protocols are active. The process has not been fully isolated."</p>
+<p class="text-red-400/80 text-xs border border-red-800/20 bg-red-900/10 p-3 rounded">Update, January 14: The investigation is ongoing. The source of the anomaly has not been identified. Access logging has been expanded across all internal networks. Employees are reminded to report unusual system behaviour to IT Security immediately.</p>` },
+      { tag:'Product', tagColor:'text-[#94A3B8] bg-[#0B1120] border-[#334155]', date:'December 10, 2024',
+        headline:'ArrowOS 19.3 patches critical memory management vulnerability',
+        body:`<p>ArrowSmart today released ArrowOS 19.3, an emergency security update patching a kernel-level memory isolation flaw discovered in devices running AS-7 and AS-8 chips. The vulnerability could allow a malicious process to access memory regions outside its permitted space.</p>
+<p>The company urges all users on Achilles 17 and 18 Series devices to install the update immediately. The flaw has been assessed as critical severity. No evidence of exploitation in the wild has been identified.</p>
+<p class="text-[#475569] text-xs">CVE-2024-80910 · ArrowOS 19.3 · Released December 10, 2024</p>` },
+      { tag:'Research', tagColor:'text-[#94A3B8] bg-[#0B1120] border-[#334155]', date:'November 18, 2024',
+        headline:'ArrowSmart Neural Labs releases white paper on memory calibration at scale',
+        body:`<p>ArrowSmart's Neural Labs division today released a white paper titled "Non-Invasive Neural Index Preservation Across Extended Dormancy Periods" — the first public disclosure of methodology from the Memory Calibration Sciences team.</p>
+<p>The paper describes a theoretical framework for maintaining the integrity of a human neural index across periods measured in years rather than hours. Peer review is currently pending at three academic journals.</p>
+<p>"The challenge of preserving experiential continuity in extended stasis is one of the most significant open problems in neuroscience," said a co-author from the MCS Division. "This paper presents our initial findings. The full results are not yet public."</p>` },
+      { tag:'Community', tagColor:'text-[#94A3B8] bg-[#0B1120] border-[#334155]', date:'October 2, 2024',
+        headline:'ArrowSmart Volunteer Fire Watch programme expands to Northern California',
+        body:`<p>ArrowSmart today announced the expansion of its Volunteer Fire Watch Partnership to cover Siskiyou County and the surrounding National Forest areas of Northern California, including the Mount Shasta and Klamath regions.</p>
+<p>Participants are stationed at remote observation towers to monitor for early signs of wildfire activity. The role includes a monthly stipend, a corporate Achilles device, and housing in company-provided facilities near the research campus.</p>
+<p>"Wildfire detection is a critical community service, and we are proud to support it," said a spokesperson. "Our participants play an important role in protecting the forests and communities around our Northern California operations."</p>
+<p>Applications are open year-round. No prior experience is required. Accommodation and meals are provided. Interested parties should apply at <span class="text-[#10B981]">volunteer@arrowsmart.com</span>.</p>
+<p class="text-amber-400/80 text-xs border border-amber-700/20 bg-amber-900/10 p-3 rounded">Participants will be stationed in proximity to ArrowSmart research facilities. A confidentiality agreement is required as a condition of participation.</p>` },
+      /* ── 2026 articles ── */
+      { tag:'Financial', tagColor:'text-[#10B981] bg-[#10B981]/10 border-[#10B981]/20', date:'June 16, 2026',
+        headline:'Q1 FY2026 preliminary: ArrowSmart posts $108.4B — beats consensus by 4.5%',
+        body:`<p>SAN MATEO, CA — ArrowSmart today released preliminary unaudited results for its fiscal first quarter of 2026, reporting revenue of $108.4 billion — a 14.6% increase year-over-year and a 4.5% beat versus Wall Street consensus of $103.7 billion.</p>
+<p>"Demand for the Achilles 20 Pro Max remained significantly above our expectations through the close of the quarter," said CFO Sofia Chen. "Cloud &amp; Services delivered its highest-ever quarterly contribution, and our installed base across all categories reached an all-time high."</p>
+<p>Gross margin for the quarter is expected to be approximately 48.1%. Full results, including segment breakdown and guidance for Q2 FY2026, will be released on August 4, 2026, alongside an earnings call at 2:00 p.m. PT.</p>
+<p class="text-[#475569] text-xs">These results are preliminary and unaudited. Forward-looking statements involve risk and uncertainty. ArrowSmart undertakes no obligation to update these estimates.</p>` },
+      { tag:'Product', tagColor:'text-[#94A3B8] bg-[#0B1120] border-[#334155]', date:'May 9, 2026',
+        headline:'Achilles 21 Pro spotted in FCC filing — satellite upgrade confirmed',
+        body:`<p>Regulatory filings submitted to the US Federal Communications Commission this week reveal a new ArrowSmart handset bearing model identifiers consistent with an Achilles 21 series device.</p>
+<p>The filing discloses revised antenna array configurations, expanded sub-6GHz band support, and a new millimetre-wave module compatible with the next generation of the GlobalNet satellite network. A low-power acoustic chipset is also referenced — potentially related to hearing-health capabilities rumoured for the new generation.</p>
+<p>"We have nothing to announce at this time," said CTO Takeshi Nakamura when asked by press, which is consistent with ArrowSmart's standard pre-announcement posture. An annual product event is expected in September 2026.</p>
+<p class="text-[#475569] text-xs">FCC filing reference: AS-21-PRO-A · May 7, 2026</p>` },
+      { tag:'Environment', tagColor:'text-[#94A3B8] bg-[#0B1120] border-[#334155]', date:'April 22, 2026',
+        headline:'ArrowSmart reaches 100% renewable energy milestone at all owned global facilities',
+        body:`<p>ArrowSmart today confirmed that all company-owned facilities worldwide — including its San Mateo headquarters, data centres in Singapore, Dublin, and Oregon, and its Northern California research campuses — are now powered entirely by renewable energy.</p>
+<p>"From the server rooms that run ArrowCloud to the offices where our engineers build the next generation of products, every kilowatt is clean," said VP Sustainability Clara Obi. "This is a landmark we have worked toward for eight years."</p>
+<p>The milestone covers 100% of owned square footage. ArrowSmart's supply chain renewable energy programme, which covers contract manufacturers, is on track to reach 85% by the end of 2026 and 100% by 2029.</p>` },
+      { tag:'Community', tagColor:'text-[#94A3B8] bg-[#0B1120] border-[#334155]', date:'March 3, 2026',
+        headline:'ArrowSmart partners with EduReach — 5 million Achilles devices for Sub-Saharan Africa',
+        body:`<p>ArrowSmart and the EduReach Foundation today announced a landmark $2.1 billion commitment to place refurbished Achilles devices, preloaded with ArrowOS Education, in classrooms across 14 Sub-Saharan African countries by 2028.</p>
+<p>"Technology should be a universal right," said CPO Amara Vasquez. "This partnership is one of the most meaningful things we will do this decade."</p>
+<p>The programme includes ArrowOS localisation in 22 languages, offline-capable educational content, and a five-year hardware warranty backed by regional repair partners. Teacher training will be provided in partnership with local universities.</p>
+<p class="text-[#475569] text-xs">ArrowSmart EduReach Partnership · March 3, 2026 · For enquiries: education@arrowsmart.com</p>` },
+      { tag:'Research', tagColor:'text-amber-400/80 bg-amber-900/10 border-amber-800/20', date:'January 31, 2026',
+        headline:'ArrowSmart MCS Division announces Phase III of Project Chrysalis',
+        body:`<p>ArrowSmart's Memory Calibration Sciences Division today announced the opening of Phase III enrollment for Project Chrysalis, citing "extraordinary progress" in long-duration consciousness preservation and neural index fidelity during extended stasis periods.</p>
+<p>"Phase II results exceeded every metric we set," said Director of MCS Research Dr. Priya Anand. "Our subjects have demonstrated remarkable cognitive continuity across timescales we previously considered theoretical. Phase III will test the boundaries of what we believe is possible."</p>
+<p>The expanded programme adds 200 new participant slots across the Sub-Level 4 complex at the Mount Shasta campus. All participants receive full medical monitoring, private quarters, and a comprehensive participation agreement.</p>
+<p>"We are particularly interested in individuals with no family or financial obligations," said the enrollment notice. "Participation is indefinite in duration. Subjects should plan accordingly."</p>
+<p class="text-amber-400/80 text-xs border border-amber-700/20 bg-amber-900/10 p-3 rounded">Project Chrysalis is a restricted programme. Participation details are subject to non-disclosure. For verified enquiries only: chrysalis-enroll@arrowsmart.com — Level 5 clearance required to view programme details in the employee portal.</p>` }
+    ];
+
+    function openArticle(idx){
+      const a = ARTICLES[idx];
+      if(!a) return;
+      const tagEl = document.getElementById('modal-tag');
+      tagEl.textContent = a.tag;
+      tagEl.className = 'text-xs rounded-full px-3 py-0.5 font-semibold border ' + a.tagColor;
+      document.getElementById('modal-date').textContent = a.date;
+      document.getElementById('modal-headline').textContent = a.headline;
+      document.getElementById('modal-body').innerHTML = a.body;
+      document.getElementById('article-modal').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>

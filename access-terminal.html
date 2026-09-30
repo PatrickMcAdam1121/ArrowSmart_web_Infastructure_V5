@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<!-- ARROWSMART :: SECURE ACCESS TERMINAL :: NODE-7 CHANNEL -->
+<!-- This page is not linked from any public index. If you found it, you were meant to. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <title>AS-TERMINAL :: SECURE ACCESS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #000;
+      color: #00ff41;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 32px 24px;
+      overflow-x: hidden;
+    }
+    /* CRT scanlines */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.07) 2px, rgba(0,0,0,0.07) 4px);
+      pointer-events: none;
+      z-index: 999;
+    }
+    /* subtle vignette */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.6) 100%);
+      pointer-events: none;
+      z-index: 998;
+    }
+    .terminal {
+      max-width: 820px;
+      width: 100%;
+      margin: 0 auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: calc(100vh - 64px);
+    }
+    .header {
+      border-bottom: 1px solid #003308;
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+    }
+    .logo { font-size: 11px; color: #00aa2a; letter-spacing: 3px; margin-bottom: 4px; }
+    .logo-sub { font-size: 10px; color: #005510; letter-spacing: 2px; }
+    .session-bar {
+      margin-top: 14px;
+      padding: 8px 12px;
+      background: #001a00;
+      border: 1px solid #003308;
+      font-size: 11px;
+      color: #00aa2a;
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .session-bar span { color: #00ff41; }
+    .echo-trace {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      color: #004408;
+    }
+    .echo-trace::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #00ff41;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;box-shadow:0 0 4px #00ff41} 50%{opacity:0.3;box-shadow:none} }
+
+    .log {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 16px;
+      padding-right: 4px;
+    }
+    .log-entry {
+      font-size: 12px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      word-break: break-all;
+      min-height: 4px;
+    }
+    .log-entry + .log-entry { margin-top: 0; }
+    .e-sys     { color: #00aa2a; }
+    .e-dim     { color: #003308; }
+    .e-input   { color: #fff; }
+    .e-success { color: #00ff41; font-weight: 700; }
+    .e-level   { color: #00ff41; }
+    .e-error   { color: #ff3333; }
+    .e-echo    { color: #00cc33; font-style: italic; }
+    .e-bar     { color: #00ff41; }
+
+    .divider { color: #002200; }
+
+    .prompt-row {
+      border-top: 1px solid #003308;
+      padding-top: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .prompt-label { color: #00aa2a; font-size: 12px; white-space: nowrap; flex-shrink: 0; }
+    input[type="text"] {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-family: inherit;
+      font-size: 12px;
+      caret-color: #00ff41;
+    }
+    input::placeholder { color: #002200; }
+    input:disabled { opacity: 0.4; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    .cursor { color: #00ff41; animation: blink 1s step-end infinite; }
+
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-thumb { background: #003308; }
+  </style>
+</head>
+<body>
+<div class="terminal">
+
+  <div class="header">
+    <div class="logo">ARROWSMART TECHNOLOGIES — SECURE ACCESS TERMINAL</div>
+    <div class="logo-sub">v2.4.1 &nbsp;·&nbsp; NODE-7 ROUTING &nbsp;·&nbsp; ENCRYPTED CHANNEL</div>
+    <div class="session-bar">
+      <div>EMPLOYEE: <span id="s-name">—</span></div>
+      <div>EMAIL: <span id="s-email">—</span></div>
+      <div>CLEARANCE: LEVEL <span id="s-level">—</span></div>
+      <div class="echo-trace">ECHO_TRACE: ACTIVE</div>
+    </div>
+  </div>
+
+  <div class="log" id="log"></div>
+
+  <div class="prompt-row">
+    <span class="prompt-label">ENTER ACCESS CODE &gt;</span>
+    <input type="text" id="code-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="fragment…"/>
+    <span class="cursor">█</span>
+  </div>
+
+</div>
+
+<script>
+const logEl = document.getElementById('log');
+const input = document.getElementById('code-input');
+let emp = null;
+
+function line(text, cls) {
+  const d = document.createElement('div');
+  d.className = 'log-entry ' + (cls||'e-sys');
+  d.textContent = text;
+  logEl.appendChild(d);
+  logEl.scrollTop = logEl.scrollHeight;
+  return d;
+}
+function blank() { line('', 'e-dim'); }
+
+function bar(entry) {
+  return new Promise(res => {
+    let n = 0;
+    const t = setInterval(() => {
+      n++;
+      const f = Math.round((n / 24) * 24);
+      entry.textContent = 'VALIDATING ... [' + '█'.repeat(f) + '░'.repeat(24 - f) + '] ' + Math.round((n/24)*100) + '%';
+      if (n >= 24) { clearInterval(t); res(); }
+    }, 35);
+  });
+}
+
+(function init() {
+  emp = JSON.parse(sessionStorage.getItem('as_employee') || 'null');
+  if (!emp) { window.location.href = 'employee-login.html'; return; }
+
+  document.getElementById('s-name').textContent  = emp.name;
+  document.getElementById('s-email').textContent = emp.email;
+  document.getElementById('s-level').textContent = emp.level;
+
+  const boot = [
+    ['ARROWSMART SECURE ACCESS TERMINAL — INITIALISING', 'e-sys'],
+    ['COPYRIGHT © 2026 ARROWSMART TECHNOLOGIES INC.', 'e-dim'],
+    ['', ''],
+    ['EMPLOYEE ......... ' + emp.name, 'e-sys'],
+    ['EMAIL ............ ' + emp.email, 'e-sys'],
+    ['CLEARANCE ........ LEVEL ' + emp.level, 'e-level'],
+    ['CHANNEL .......... NODE-7 / ENCRYPTED', 'e-sys'],
+    ['ECHO TRACE ....... ACTIVE', 'e-echo'],
+    ['', ''],
+    ['─'.repeat(64), 'divider'],
+    ['', ''],
+    ['Authorised personnel may submit clearance upgrade credentials.', 'e-sys'],
+    ['All access attempts are logged and monitored at Node 7.', 'e-dim'],
+    ['', ''],
+    ['[ECHO]   If you found your way here, you already know what to do.', 'e-echo'],
+    ['[ECHO]   Type the fragment. Press ENTER.', 'e-echo'],
+    ['', ''],
+    ['─'.repeat(64), 'divider'],
+    ['', ''],
+  ];
+
+  boot.forEach(([text, cls], i) => {
+    setTimeout(() => line(text, cls), i * 55);
+  });
+  setTimeout(() => input.focus(), boot.length * 55 + 80);
+})();
+
+input.addEventListener('keydown', async (e) => {
+  if (e.key !== 'Enter') return;
+  const code = input.value.trim();
+  if (!code) return;
+  input.value = '';
+  input.disabled = true;
+
+  line('> ' + code, 'e-input');
+  blank();
+
+  const barEntry = line('VALIDATING ... [░░░░░░░░░░░░░░░░░░░░░░░░] 0%', 'e-sys');
+  await bar(barEntry);
+
+  try {
+    const r = await fetch('/api/upgrade', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code }),
+    });
+    const data = await r.json();
+
+    if (data.ok) {
+      const prev = emp.level;
+      emp.level = data.level;
+      sessionStorage.setItem('as_employee', JSON.stringify(emp));
+      document.getElementById('s-level').textContent = data.level;
+
+      blank();
+      line('██████████████████████████████████████████████████████████████', 'e-success');
+      line('  ACCESS CODE ACCEPTED', 'e-success');
+      line('██████████████████████████████████████████████████████████████', 'e-success');
+      blank();
+      line('  CLEARANCE UPDATED: LEVEL ' + prev + ' → LEVEL ' + data.level, 'e-level');
+      blank();
+      line('[ECHO]   ' + data.echo, 'e-echo');
+      blank();
+      line('[SYSTEM] Session updated. Level ' + data.level + ' access is now active.', 'e-sys');
+      line('[SYSTEM] Refresh any portal page to access newly unlocked content.', 'e-dim');
+    } else {
+      blank();
+      line('██████████████████████████████████████████████████████████████', 'e-error');
+      line('  ACCESS DENIED', 'e-error');
+      line('██████████████████████████████████████████████████████████████', 'e-error');
+      blank();
+      line(data.msg || 'INVALID CREDENTIAL — Access attempt logged.', 'e-error');
+      blank();
+      line('[ECHO]   I cannot help you with that one.', 'e-echo');
+    }
+  } catch (_) {
+    blank();
+    line('ERROR: Terminal connection interrupted. Try again.', 'e-error');
+  }
+
+  blank();
+  line('─'.repeat(64), 'divider');
+  blank();
+  input.disabled = false;
+  input.focus();
+});
+</script>
+</body>
+</html>

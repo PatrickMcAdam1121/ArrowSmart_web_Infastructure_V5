@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Careers — ArrowSmart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"/>
+  <style>body{font-family:'Inter',sans-serif;}</style>
+</head>
+<body class="bg-[#0B1120] text-white min-h-screen flex flex-col">
+  <header class="sticky top-0 z-50 w-full border-b border-[#334155] bg-[#0B1120]/80 backdrop-blur-md">
+    <div class="container mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="ledger.html" class="flex items-center gap-2"><div class="flex items-center justify-center w-10 h-10 rounded-lg bg-[#10B981]/10 text-[#10B981]"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L4 4 L20 4"/></svg></div><span class="text-xl font-bold text-white">ArrowSmart</span></a>
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="ledger.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">Home</a>
+        <a href="shop.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">Products</a>
+        <a href="about.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">About</a>
+        <a href="contact.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">Contact</a>
+      </nav>
+      <div class="hidden md:flex items-center gap-4">
+        <a href="support.html" class="text-sm font-medium text-white hover:text-[#10B981] transition-colors">Support</a>
+        <a href="employee-login.html" class="text-xs font-medium text-[#475569] border border-[#1E293B] hover:border-[#334155] px-3 py-1.5 rounded-md transition-colors">Employee Login</a>
+        <a href="shop.html" class="bg-[#10B981] hover:bg-[#059669] text-white px-5 py-2.5 rounded-md text-sm font-medium transition-colors">Shop Now</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1">
+    <section class="py-24 border-b border-[#334155] relative overflow-hidden">
+      <div class="absolute inset-0 pointer-events-none"><div class="absolute top-0 right-0 w-[600px] h-[400px] bg-[#10B981]/10 rounded-full blur-[128px]"></div></div>
+      <div class="container mx-auto px-6 relative z-10 max-w-3xl">
+        <h1 class="text-5xl font-extrabold text-white mb-6">Build the future.<br/>Work at ArrowSmart.</h1>
+        <p class="text-xl text-[#94A3B8] mb-8">We're a team of engineers, designers, scientists, and storytellers building the most important products in the world. We're always looking for exceptional people.</p>
+        <div class="flex gap-4 flex-wrap">
+          <div class="px-4 py-2 rounded-full bg-[#1E293B] border border-[#334155] text-sm text-[#94A3B8]">140,000+ employees</div>
+          <div class="px-4 py-2 rounded-full bg-[#1E293B] border border-[#334155] text-sm text-[#94A3B8]">190+ countries</div>
+          <div class="px-4 py-2 rounded-full bg-[#1E293B] border border-[#334155] text-sm text-[#94A3B8]">40+ years of innovation</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filter + Jobs -->
+    <section class="py-16">
+      <div class="container mx-auto px-6">
+        <div class="flex flex-wrap gap-3 mb-8">
+          <button class="dept-btn active px-4 py-2 rounded-full border border-[#10B981] text-[#10B981] text-sm font-medium" onclick="filterDept(this,'all')">All Roles</button>
+          <button class="dept-btn px-4 py-2 rounded-full border border-[#334155] text-[#94A3B8] hover:border-[#10B981]/50 text-sm font-medium transition-colors" onclick="filterDept(this,'engineering')">Engineering</button>
+          <button class="dept-btn px-4 py-2 rounded-full border border-[#334155] text-[#94A3B8] hover:border-[#10B981]/50 text-sm font-medium transition-colors" onclick="filterDept(this,'design')">Design</button>
+          <button class="dept-btn px-4 py-2 rounded-full border border-[#334155] text-[#94A3B8] hover:border-[#10B981]/50 text-sm font-medium transition-colors" onclick="filterDept(this,'marketing')">Marketing</button>
+          <button class="dept-btn px-4 py-2 rounded-full border border-[#334155] text-[#94A3B8] hover:border-[#10B981]/50 text-sm font-medium transition-colors" onclick="filterDept(this,'operations')">Operations</button>
+          <button class="dept-btn px-4 py-2 rounded-full border border-[#334155] text-[#94A3B8] hover:border-[#10B981]/50 text-sm font-medium transition-colors" onclick="filterDept(this,'research')">Research</button>
+        </div>
+
+        <div class="space-y-3" id="job-list">
+          <div class="job-item engineering rounded-xl border border-[#334155] bg-[#1E293B] hover:border-[#10B981]/50 transition-colors cursor-pointer group" onclick="applyJob(this)">
+            <div class="p-5 flex items-center justify-between gap-4">
+              <div><p class="text-[#475569] text-xs mb-1">Engineering · San Mateo, CA</p><h3 class="text-white font-bold group-hover:text-[#10B981] transition-colors">Senior Silicon Engineer — AS Neural Engine</h3></div>
+              <svg class="text-[#475569] group-hover:text-[#10B981] transition-colors shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+          <div class="job-item engineering rounded-xl border border-[#334155] bg-[#1E293B] hover:border-[#10B981]/50 transition-colors cursor-pointer group" onclick="applyJob(this)">
+            <div class="p-5 flex items-center justify-between gap-4">
+              <div><p class="text-[#475569] text-xs mb-1">Engineering · Remote — US</p><h3 class="text-white font-bold group-hover:text-[#10B981] transition-colors">Staff Software Engineer — ArrowOS Camera Framework</h3></div>
+              <svg class="text-[#475569] group-hover:text-[#10B981] transition-colors shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+          <div class="job-item engineering rounded-xl border border-[#334155] bg-[#1E293B] hover:border-[#10B981]/50 transition-colors cursor-pointer group" onclick="applyJob(this)">
+            <div class="p-5 flex items-center justify-between gap-4">
+              <div><p class="text-[#475569] text-xs mb-1">Engineering · London, UK</p><h3 class="text-white font-bold group-hover:text-[#10B981] transition-colors">Principal Security Engineer — Arrow Connect</h3></div>
+              <svg class="text-[#475569] group-hover:text-[#10B981] transition-colors shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+          <div class="job-item design rounded-xl border border-[#334155] bg-[#1E293B] hover:border-[#10B981]/50 transition-colors cursor-pointer group" onclick="applyJob(this)">
+            <div class="p-5 flex items-center justify-between gap-4">
+              <div><p class="text-[#475569] text-xs mb-1">Design · San Mateo, CA</p><h3 class="text-white font-bold group-hover:text-[#10B981] transition-colors">Industrial Designer — Arrow Wearables</h3></div>
+              <svg class="text-[#475569] group-hover:text-[#10B981] transition-colors shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+          <div class="job-item design rounded-xl border border-[#334155] bg-[#1E293B] hover:border-[#10B981]/50 transition-colors cursor-pointer group" onclick="applyJob(this)">
+            <div class="p-5 flex items-center justify-between gap-4">
+              <div><p class="text-[#475569] text-xs mb-1">Design · New York, NY</p><h3 class="text-white font-bold group-hover:text-[#10B981] transition-colors">Senior UX Designer — Retail Experience</h3></div>
+              <svg class="text-[#475569] group-hover:text-[#10B981] transition-colors shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+          <div class="job-item marketing rounded-xl border border-[#334155] bg-[#1E293B] hover:border-[#10B981]/50 transition-colors cursor-pointer group" onclick="applyJob(this)">
+            <div class="p-5 flex items-center justify-between gap-4">
+              <div><p class="text-[#475569] text-xs mb-1">Marketing · San Mateo, CA</p><h3 class="text-white font-bold group-hover:text-[#10B981] transition-colors">Product Marketing Lead — Achilles 21</h3></div>
+              <svg class="text-[#475569] group-hover:text-[#10B981] transition-colors shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+          <div class="job-item operations rounded-xl border border-[#334155] bg-[#1E293B] hover:border-[#10B981]/50 transition-colors cursor-pointer group" onclick="applyJob(this)">
+            <div class="p-5 flex items-center justify-between gap-4">
+              <div><p class="text-[#475569] text-xs mb-1">Operations · Shenzhen, China</p><h3 class="text-white font-bold group-hover:text-[#10B981] transition-colors">Supply Chain Manager — AS Silicon</h3></div>
+              <svg class="text-[#475569] group-hover:text-[#10B981] transition-colors shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+
+          <!-- ARG: Research Division roles -->
+          <div class="job-item research rounded-xl border border-[#334155] bg-[#1E293B] hover:border-[#10B981]/50 transition-colors cursor-pointer group" onclick="applyJob(this)">
+            <div class="p-5 flex items-center justify-between gap-4">
+              <div>
+                <p class="text-[#475569] text-xs mb-1">Research · Mount Shasta, CA — All backgrounds welcome</p>
+                <h3 class="text-white font-bold group-hover:text-[#10B981] transition-colors">Lab Assistant — Voluntary Research Programme</h3>
+                <p class="text-[#334155] text-xs mt-1">No experience required. Warm accommodation and meals provided. Memory of prior hardship optionally cleared on enrollment. Family will be notified.</p>
+              </div>
+              <svg class="text-[#475569] group-hover:text-[#10B981] transition-colors shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+          <div class="job-item research rounded-xl border border-[#334155] bg-[#1E293B] hover:border-[#10B981]/50 transition-colors cursor-pointer group" onclick="applyJob(this)">
+            <div class="p-5 flex items-center justify-between gap-4">
+              <div>
+                <p class="text-[#475569] text-xs mb-1">Research · Mount Shasta, CA — MCS Division</p>
+                <h3 class="text-white font-bold group-hover:text-[#10B981] transition-colors">Neural Integration Specialist — Anamnesis Core</h3>
+                <p class="text-[#334155] text-xs mt-1">Operates Anamnesis Core calibration equipment. Responsible for memory indexing, selective erasure protocols, and consciousness archive verification. Clearance Level 5+ required.</p>
+              </div>
+              <svg class="text-[#475569] group-hover:text-[#10B981] transition-colors shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+          <div class="job-item research rounded-xl border border-amber-900/40 bg-[#1E293B] hover:border-amber-700/50 transition-colors cursor-pointer group" onclick="applyJob(this)">
+            <div class="p-5 flex items-center justify-between gap-4">
+              <div>
+                <p class="text-amber-400/70 text-xs mb-1">Research · Sub-Level 4, Mount Shasta — Project Chrysalis ⬡ Classified</p>
+                <h3 class="text-white font-bold group-hover:text-amber-400 transition-colors">Stasis Systems Technician — Project Chrysalis</h3>
+                <p class="text-[#334155] text-xs mt-1">Maintains long-duration biological preservation bays. Monitors subjects across 9 active pod assignments. Reports anomalies in metabolic suspension to Pod Bay supervisor. Level 7 clearance required. NDA mandatory.</p>
+              </div>
+              <svg class="text-amber-400/50 group-hover:text-amber-400 transition-colors shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Apply modal -->
+        <div id="apply-modal" class="hidden fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-6">
+          <div class="bg-[#1E293B] border border-[#334155] rounded-2xl p-8 max-w-md w-full">
+            <h3 class="text-xl font-bold text-white mb-1">Apply for this role</h3>
+            <p id="apply-role" class="text-[#94A3B8] text-sm mb-6"></p>
+            <form onsubmit="submitApp(event)" class="space-y-4">
+              <input type="text" placeholder="Full Name" class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-4 py-3 text-white placeholder-[#475569] text-sm focus:outline-none focus:border-[#10B981] transition-colors"/>
+              <input type="email" placeholder="Email address" class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-4 py-3 text-white placeholder-[#475569] text-sm focus:outline-none focus:border-[#10B981] transition-colors"/>
+              <input type="url" placeholder="LinkedIn or portfolio URL" class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-4 py-3 text-white placeholder-[#475569] text-sm focus:outline-none focus:border-[#10B981] transition-colors"/>
+              <div class="flex gap-3">
+                <button type="submit" class="flex-1 py-3 bg-[#10B981] hover:bg-[#059669] text-white rounded-lg font-semibold text-sm transition-colors">Submit Application</button>
+                <button type="button" onclick="closeModal()" class="px-4 py-3 bg-[#0B1120] border border-[#334155] text-[#94A3B8] rounded-lg font-semibold text-sm transition-colors">Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div id="applied-toast" class="hidden fixed bottom-6 right-6 bg-[#10B981] text-white px-5 py-3 rounded-lg shadow-lg text-sm font-semibold z-50">Application submitted!</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-[#0F172A] border-t border-[#334155] pt-14 pb-8">
+    <div class="container mx-auto px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
+        <div>
+          <a href="ledger.html" class="flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-[#10B981]/10 flex items-center justify-center text-[#10B981]"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L4 4 L20 4"/></svg></div>
+            <span class="font-bold text-white text-sm">ArrowSmart</span>
+          </a>
+          <p class="text-[#475569] text-xs leading-relaxed">Technology that moves humanity forward.</p>
+        </div>
+        <div>
+          <p class="text-white text-xs font-semibold uppercase tracking-widest mb-4">Products</p>
+          <ul class="space-y-2.5">
+            <li><a href="achilles.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Achilles</a></li>
+            <li><a href="computers.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Computers</a></li>
+            <li><a href="wearables.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Wearables</a></li>
+            <li><a href="shop.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Shop</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-white text-xs font-semibold uppercase tracking-widest mb-4">Company</p>
+          <ul class="space-y-2.5">
+            <li><a href="about.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">About</a></li>
+            <li><a href="newsroom.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Newsroom</a></li>
+            <li><a href="careers.html" class="text-[#10B981] text-xs">Careers</a></li>
+            <li><a href="investors.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Investors</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-white text-xs font-semibold uppercase tracking-widest mb-4">Work with Us</p>
+          <ul class="space-y-2.5">
+            <li><a href="about.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Our Mission</a></li>
+            <li><a href="contact.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Contact</a></li>
+            <li><a href="privacy.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Privacy</a></li>
+            <li><a href="legal.html" class="text-[#94A3B8] hover:text-white text-xs transition-colors">Legal</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-[#1E293B] pt-6 flex flex-col md:flex-row items-center justify-between gap-3">
+        <p class="text-[#334155] text-xs">&copy; <span class="year"></span> ArrowSmart Inc. All rights reserved.</p>
+        <p class="text-[#334155] text-xs">ArrowSmart · 1 Infinite Loop · San Mateo, CA 94025</p>
+      </div>
+    </div>
+  </footer>
+  <script>
+    document.querySelectorAll('.year').forEach(el=>el.textContent=new Date().getFullYear());
+    let currentRole='';
+    function filterDept(btn,dept){
+      document.querySelectorAll('.dept-btn').forEach(b=>{b.classList.remove('active','border-[#10B981]','text-[#10B981]');b.classList.add('border-[#334155]','text-[#94A3B8]');});
+      btn.classList.add('active','border-[#10B981]','text-[#10B981]');
+      document.querySelectorAll('.job-item').forEach(j=>{j.style.display=(dept==='all'||j.classList.contains(dept))?'block':'none';});
+    }
+    function applyJob(el){currentRole=el.querySelector('h3').textContent;document.getElementById('apply-role').textContent=currentRole;document.getElementById('apply-modal').classList.remove('hidden');}
+    function closeModal(){document.getElementById('apply-modal').classList.add('hidden');}
+    function submitApp(e){e.preventDefault();closeModal();const t=document.getElementById('applied-toast');t.classList.remove('hidden');setTimeout(()=>t.classList.add('hidden'),3000);}
+  </script>
+</body>
+</html>

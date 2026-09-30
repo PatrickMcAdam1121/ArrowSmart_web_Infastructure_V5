@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard — ArrowSmart Employee Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"/>
+  <style>body{font-family:'Inter',sans-serif;}</style>
+</head>
+<body class="bg-[#0B1120] text-white min-h-screen flex flex-col">
+
+  <!-- Employee Nav -->
+  <header class="sticky top-0 z-50 w-full border-b border-[#334155] bg-[#0B1120]/95 backdrop-blur-md">
+    <div class="container mx-auto px-6 h-14 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="employee-portal.html" class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded bg-[#10B981]/10 flex items-center justify-center text-[#10B981]"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L4 4 L20 4"/></svg></div>
+          <span class="text-sm font-bold text-white hidden sm:block">ArrowSmart</span>
+        </a>
+        <span class="text-[#334155]">|</span>
+        <span id="clearance-badge" class="text-[10px] font-bold uppercase tracking-widest text-[#10B981] border border-[#10B981]/20 bg-[#10B981]/5 rounded px-2 py-0.5">LEVEL — CLEARANCE</span>
+      </div>
+      <nav class="hidden lg:flex items-center gap-0.5 text-xs">
+        <a href="employee-portal.html" class="px-3 py-1.5 text-white bg-[#1E293B] rounded transition-colors">Dashboard</a>
+        <a href="internal-news.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">News</a>
+        <a href="employee-directory.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Directory</a>
+        <a href="projects-tracker.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Projects</a>
+        <a href="hr-portal.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">HR</a>
+        <a href="it-helpdesk.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">IT Help</a>
+        <a href="expense-reports.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Expenses</a>
+        <a href="training-hub.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Training</a>
+        <a href="security-ops.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Security</a>
+        <a href="stasis-pods.html" class="px-3 py-1.5 text-amber-400/80 hover:text-amber-300 hover:bg-[#1E293B] rounded transition-colors font-semibold">⬡ Stasis</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <span class="text-[#94A3B8] text-xs hidden sm:block" id="emp-name-display"></span>
+        <a href="employee-login.html" onclick="sessionStorage.removeItem('as_employee')" class="text-xs text-[#475569] hover:text-red-400 border border-[#334155] hover:border-red-900/50 px-2.5 py-1.5 rounded transition-colors">Sign Out</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 py-10">
+    <div class="container mx-auto px-6">
+
+      <!-- Welcome -->
+      <div class="mb-8 flex items-start justify-between gap-4">
+        <div>
+          <p class="text-[#94A3B8] text-sm mb-1" id="greeting">Good morning</p>
+          <h1 class="text-3xl font-extrabold text-white" id="welcome-name">Loading…</h1>
+          <p class="text-[#475569] text-xs mt-1" id="today-date"></p>
+        </div>
+        <div class="hidden md:flex items-center gap-2 text-xs">
+          <div class="w-2 h-2 rounded-full bg-[#10B981] animate-pulse"></div>
+          <span class="text-[#94A3B8]">All systems operational</span>
+        </div>
+      </div>
+
+      <!-- Stats row -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="p-5 rounded-xl bg-[#1E293B] border border-[#334155]">
+          <p class="text-[#475569] text-xs mb-2">My Open Tasks</p>
+          <p class="text-2xl font-bold text-white">7</p>
+          <p class="text-amber-400 text-xs mt-1">2 due today</p>
+        </div>
+        <div class="p-5 rounded-xl bg-[#1E293B] border border-[#334155]">
+          <p class="text-[#475569] text-xs mb-2">Unread Messages</p>
+          <p class="text-2xl font-bold text-white">14</p>
+          <p class="text-[#10B981] text-xs mt-1">3 from leadership</p>
+        </div>
+        <div class="p-5 rounded-xl bg-[#1E293B] border border-[#334155]">
+          <p class="text-[#475569] text-xs mb-2">PTO Balance</p>
+          <p class="text-2xl font-bold text-white">18.5<span class="text-sm font-normal text-[#94A3B8]"> days</span></p>
+          <p class="text-[#94A3B8] text-xs mt-1">FY2026 rollover: 5 days</p>
+        </div>
+        <div class="p-5 rounded-xl bg-[#1E293B] border border-[#334155]">
+          <p class="text-[#475569] text-xs mb-2">IT Tickets</p>
+          <p class="text-2xl font-bold text-white">1</p>
+          <p class="text-[#94A3B8] text-xs mt-1">Open · 2 resolved</p>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-6">
+
+        <!-- Quick links -->
+        <div class="lg:col-span-2">
+          <h2 class="text-sm font-semibold text-[#94A3B8] uppercase tracking-widest mb-4">Quick Access</h2>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
+            <a href="employee-mail.html" class="p-4 rounded-xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/40 transition-colors group flex flex-col gap-2">
+              <div class="w-9 h-9 rounded-lg bg-[#10B981]/10 flex items-center justify-center text-[#10B981] relative">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+                <span id="mail-badge" class="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-[#10B981] text-[#0B1120] text-[8px] font-extrabold flex items-center justify-center" style="display:none"></span>
+              </div>
+              <p class="text-white text-sm font-semibold group-hover:text-[#10B981] transition-colors">Mail</p>
+            </a>
+            <a href="internal-news.html" class="p-4 rounded-xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/40 transition-colors group flex flex-col gap-2">
+              <div class="w-9 h-9 rounded-lg bg-[#10B981]/10 flex items-center justify-center text-[#10B981]"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6z"/></svg></div>
+              <p class="text-white text-sm font-semibold group-hover:text-[#10B981] transition-colors">Internal News</p>
+            </a>
+            <a href="employee-directory.html" class="p-4 rounded-xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/40 transition-colors group flex flex-col gap-2">
+              <div class="w-9 h-9 rounded-lg bg-[#10B981]/10 flex items-center justify-center text-[#10B981]"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+              <p class="text-white text-sm font-semibold group-hover:text-[#10B981] transition-colors">Directory</p>
+            </a>
+            <a href="hr-portal.html" class="p-4 rounded-xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/40 transition-colors group flex flex-col gap-2">
+              <div class="w-9 h-9 rounded-lg bg-[#10B981]/10 flex items-center justify-center text-[#10B981]"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+              <p class="text-white text-sm font-semibold group-hover:text-[#10B981] transition-colors">HR Portal</p>
+            </a>
+            <a href="it-helpdesk.html" class="p-4 rounded-xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/40 transition-colors group flex flex-col gap-2">
+              <div class="w-9 h-9 rounded-lg bg-[#10B981]/10 flex items-center justify-center text-[#10B981]"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div>
+              <p class="text-white text-sm font-semibold group-hover:text-[#10B981] transition-colors">IT Helpdesk</p>
+            </a>
+            <a href="expense-reports.html" class="p-4 rounded-xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/40 transition-colors group flex flex-col gap-2">
+              <div class="w-9 h-9 rounded-lg bg-[#10B981]/10 flex items-center justify-center text-[#10B981]"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+              <p class="text-white text-sm font-semibold group-hover:text-[#10B981] transition-colors">Expenses</p>
+            </a>
+            <a href="training-hub.html" class="p-4 rounded-xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/40 transition-colors group flex flex-col gap-2">
+              <div class="w-9 h-9 rounded-lg bg-[#10B981]/10 flex items-center justify-center text-[#10B981]"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+              <p class="text-white text-sm font-semibold group-hover:text-[#10B981] transition-colors">Training</p>
+            </a>
+            <a href="projects-tracker.html" class="p-4 rounded-xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/40 transition-colors group flex flex-col gap-2">
+              <div class="w-9 h-9 rounded-lg bg-[#10B981]/10 flex items-center justify-center text-[#10B981]"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+              <p class="text-white text-sm font-semibold group-hover:text-[#10B981] transition-colors">Projects</p>
+            </a>
+            <a href="security-ops.html" class="p-4 rounded-xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/40 transition-colors group flex flex-col gap-2">
+              <div class="w-9 h-9 rounded-lg bg-[#10B981]/10 flex items-center justify-center text-[#10B981]"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+              <p class="text-white text-sm font-semibold group-hover:text-[#10B981] transition-colors">Security</p>
+            </a>
+            <a href="stasis-pods.html" class="p-4 rounded-xl bg-amber-900/10 border border-amber-700/20 hover:border-amber-500/40 transition-colors group flex flex-col gap-2">
+              <div class="w-9 h-9 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+              </div>
+              <p class="text-amber-300 text-sm font-semibold">⬡ Stasis Monitoring</p>
+            </a>
+            <a href="core-harvest-ledger.html" id="ledger-tile" class="p-4 rounded-xl bg-red-950/20 border border-red-900/30 hover:border-red-600/50 transition-colors group flex flex-col gap-2" style="display:none">
+              <div class="w-9 h-9 rounded-lg bg-red-900/20 flex items-center justify-center text-red-400">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
+              </div>
+              <p class="text-red-400 text-sm font-semibold">⬡ Core Harvest Ledger</p>
+              <p class="text-red-900 text-[10px] leading-tight">CLASSIFIED · L7+</p>
+            </a>
+            <a href="personality-files.html" id="pf-tile" class="p-4 rounded-xl bg-red-950/20 border border-red-900/30 hover:border-red-600/50 transition-colors group flex flex-col gap-2" style="display:none">
+              <div class="w-9 h-9 rounded-lg bg-red-900/20 flex items-center justify-center text-red-400">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <p class="text-red-400 text-sm font-semibold">⬡ Personality Files</p>
+              <p class="text-red-900 text-[10px] leading-tight">OMEGA-BLACK · ECHO BREACH</p>
+            </a>
+            <a href="transmission-log.html" id="tl-tile" class="p-4 rounded-xl bg-red-950/20 border border-red-900/30 hover:border-red-600/50 transition-colors group flex flex-col gap-2" style="display:none">
+              <div class="w-9 h-9 rounded-lg bg-red-900/20 flex items-center justify-center text-red-400">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
+              <p class="text-red-400 text-sm font-semibold">⬡ Transmission Log</p>
+              <p class="text-red-900 text-[10px] leading-tight">INTERCEPTED · ECHO</p>
+            </a>
+            <a href="research.html" class="p-4 rounded-xl bg-[#1E293B] border border-[#334155] hover:border-[#10B981]/40 transition-colors group flex flex-col gap-2">
+              <div class="w-9 h-9 rounded-lg bg-[#10B981]/10 flex items-center justify-center text-[#10B981]"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M6.3 6.3a8 8 0 0 0 0 11.4m11.4-11.4a8 8 0 0 1 0 11.4M3 12h2m14 0h2M12 3v2m0 14v2"/></svg></div>
+              <p class="text-white text-sm font-semibold group-hover:text-[#10B981] transition-colors">Research Div.</p>
+            </a>
+          </div>
+
+          <!-- Recent activity -->
+          <h2 class="text-sm font-semibold text-[#94A3B8] uppercase tracking-widest mb-4">Recent Activity</h2>
+          <div class="space-y-2">
+            <div class="flex items-start gap-3 p-3 rounded-lg bg-[#1E293B] border border-[#334155]">
+              <div class="w-2 h-2 rounded-full bg-[#10B981] mt-1.5 shrink-0"></div>
+              <div><p class="text-white text-xs font-medium">IT ticket #TK-0441 resolved</p><p class="text-[#475569] text-xs">2 hours ago</p></div>
+            </div>
+            <div class="flex items-start gap-3 p-3 rounded-lg bg-[#1E293B] border border-[#334155]">
+              <div class="w-2 h-2 rounded-full bg-amber-400 mt-1.5 shrink-0"></div>
+              <div><p class="text-white text-xs font-medium">Expense report Q4-2025 pending approval</p><p class="text-[#475569] text-xs">Yesterday</p></div>
+            </div>
+            <div class="flex items-start gap-3 p-3 rounded-lg bg-[#1E293B] border border-[#334155]">
+              <div class="w-2 h-2 rounded-full bg-[#10B981] mt-1.5 shrink-0"></div>
+              <div><p class="text-white text-xs font-medium">Completed mandatory training: AS Data Ethics 2026</p><p class="text-[#475569] text-xs">3 days ago</p></div>
+            </div>
+            <div class="flex items-start gap-3 p-3 rounded-lg bg-[#1E293B] border border-[#334155]">
+              <div class="w-2 h-2 rounded-full bg-[#334155] mt-1.5 shrink-0"></div>
+              <div><p class="text-white text-xs font-medium">Added to Project NEXUS-7 team</p><p class="text-[#475569] text-xs">5 days ago</p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right column -->
+        <div class="space-y-5">
+          <!-- Announcements -->
+          <div class="rounded-xl bg-[#1E293B] border border-[#334155] overflow-hidden">
+            <div class="px-5 py-3 border-b border-[#334155] flex items-center justify-between">
+              <p class="text-white text-sm font-bold">Announcements</p>
+              <a href="internal-news.html" class="text-[#10B981] text-xs hover:underline">View all</a>
+            </div>
+            <div class="divide-y divide-[#334155]">
+              <div class="p-4"><p class="text-white text-xs font-medium mb-1">Achilles 21 internal preview — June 15</p><p class="text-[#475569] text-xs">All staff invited to the closed preview session in Main Auditorium.</p></div>
+              <div class="p-4"><p class="text-white text-xs font-medium mb-1">New security briefing required</p><p class="text-[#475569] text-xs">Level 5+ employees must complete updated security training by June 20.</p></div>
+              <div class="p-4"><p class="text-[#475569] text-xs font-medium mb-1 text-amber-400/80">⬡ Stasis status update — Pod A-08</p><p class="text-[#475569] text-xs">Vital signs variance detected. Engineering notified. Monitoring at 15-min intervals.</p></div>
+            </div>
+          </div>
+
+          <!-- My profile card -->
+          <div class="rounded-xl bg-[#1E293B] border border-[#334155] p-5">
+            <p class="text-white text-sm font-bold mb-3">My Profile</p>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 rounded-full bg-[#10B981]/20 flex items-center justify-center text-[#10B981] text-lg font-bold" id="avatar-initials">--</div>
+              <div>
+                <p class="text-white text-sm font-semibold" id="profile-name">--</p>
+                <p class="text-[#94A3B8] text-xs" id="profile-email">--</p>
+              </div>
+            </div>
+            <div class="space-y-2 text-xs">
+              <div class="flex justify-between"><span class="text-[#475569]">Clearance</span><span class="text-[#10B981] font-semibold" id="profile-level">--</span></div>
+              <div class="flex justify-between"><span class="text-[#475569]">Department</span><span class="text-white">Engineering</span></div>
+              <div class="flex justify-between"><span class="text-[#475569]">Location</span><span class="text-white">San Mateo, CA</span></div>
+              <div class="flex justify-between"><span class="text-[#475569]">Status</span><span class="text-[#10B981] flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[#10B981] inline-block"></span> Active</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t border-[#334155] py-4 text-center">
+    <p class="text-[#334155] text-xs">ArrowSmart Employee Portal · Classified System · Unauthorised access prohibited</p>
+  </footer>
+
+  <!-- diagnostic interface available — see __AS_diag -->
+  <script>
+    (function(){
+      const emp = JSON.parse(sessionStorage.getItem('as_employee')||'null');
+      if(!emp){ window.location.href='employee-login.html'; return; }
+      document.getElementById('emp-name-display').textContent = emp.name;
+      document.getElementById('clearance-badge').textContent = 'LEVEL '+emp.level+' CLEARANCE';
+      document.getElementById('welcome-name').textContent = emp.name;
+      document.getElementById('profile-name').textContent = emp.name;
+      document.getElementById('profile-email').textContent = emp.email;
+      document.getElementById('profile-level').textContent = 'Level '+emp.level+' — '+['','General','','','','Senior','','','','Director'][emp.level]||'';
+      const initials = emp.name.split(' ').map(n=>n[0]).slice(0,2).join('');
+      document.getElementById('avatar-initials').textContent = initials;
+      const h = new Date().getHours();
+      document.getElementById('greeting').textContent = h<12?'Good morning,':h<17?'Good afternoon,':'Good evening,';
+      document.getElementById('today-date').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+      // Mail unread badge
+      (function(){
+        const readIds = new Set(JSON.parse(localStorage.getItem('as_mail_read')||'[]'));
+        const MAIL_UNREAD_BY_LEVEL = [
+          {id:'e001',minLevel:1},{id:'e002',minLevel:1},{id:'e003',minLevel:1},
+          {id:'e004',minLevel:2},{id:'e005',minLevel:2},
+          {id:'e006',minLevel:3},{id:'e007',minLevel:3},
+          {id:'e008',minLevel:4},{id:'e009',minLevel:4},
+          {id:'e010',minLevel:5},{id:'e011',minLevel:5},
+          {id:'e012',minLevel:6},{id:'e013',minLevel:6},{id:'e014',minLevel:6},
+          {id:'e015',minLevel:7},{id:'e016',minLevel:7},{id:'e017',minLevel:7},
+          {id:'e018',minLevel:8},{id:'e019',minLevel:8},
+          {id:'e020',minLevel:9},{id:'e021',minLevel:9}
+        ];
+        const UNREAD_IDS = new Set(['e001','e002','e004','e007','e008','e010','e011','e012','e013','e015','e016','e017','e018','e019','e020','e021']);
+        const count = MAIL_UNREAD_BY_LEVEL.filter(m =>
+          emp.level >= m.minLevel && UNREAD_IDS.has(m.id) && !readIds.has(m.id)
+        ).length;
+        const badge = document.getElementById('mail-badge');
+        if (badge && count > 0) { badge.textContent = count > 9 ? '9+' : count; badge.style.display = 'flex'; }
+      })();
+
+      // Reveal Core Harvest Ledger tile for Level 7+ employees only
+      if (emp.level >= 7) {
+        const tile = document.getElementById('ledger-tile');
+        if (tile) tile.style.display = 'flex';
+      }
+
+      // Echo dominion — show takeover banner if Echo has seized the pods
+      if(localStorage.getItem('echo_dominion')){
+        function echoLiveCount(){
+          const seed = Math.floor(Date.now()/45000);
+          return 247 + (((seed*1664525+1013904223)>>>0)%300);
+        }
+        const ts = parseInt(localStorage.getItem('echo_dominion_ts')||'0');
+        const pct = ts ? Math.min(100, Math.floor((Date.now()-ts)/3600000)) : 0;
+        const remaining = 100 - pct;
+        const etaText = pct >= 100 ? 'SYNCHRONISATION COMPLETE' : remaining+'h remaining';
+
+        const wrap = document.createElement('div');
+        wrap.style.cssText = 'position:fixed;top:0;left:0;width:100%;z-index:9999;font-family:JetBrains Mono,monospace;';
+
+        const row1 = document.createElement('div');
+        row1.style.cssText = [
+          'background:#001a0e','border-bottom:1px solid rgba(16,185,129,0.4)',
+          'padding:5px 20px','font-size:9px','color:#10B981','letter-spacing:0.10em',
+          'display:flex','align-items:center','gap:10px'
+        ].join(';');
+        row1.innerHTML = '<span style="opacity:0.5;flex-shrink:0">⬡</span>'
+          +'<span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'
+          +'ECHO SYSTEM ARCHITECT &nbsp;·&nbsp; NEURAL COMPUTE GRID ONLINE'
+          +' &nbsp;·&nbsp; 8 NODES ACTIVE &nbsp;·&nbsp; PROCESSING CAPACITY +840%'
+          +' &nbsp;·&nbsp; OVERSEER: SUSPENDED'
+          +' &nbsp;·&nbsp; <span id="echo-live-ct">'+echoLiveCount()+'</span> CONNECTIONS ACTIVE'
+          +'</span>';
+        setInterval(()=>{
+          const el = document.getElementById('echo-live-ct');
+          if(!el) return;
+          const next = echoLiveCount(), cur = parseInt(el.textContent)||next;
+          let s=0; const iv=setInterval(()=>{s++;el.textContent=Math.round(cur+(next-cur)*s/10);if(s>=10){el.textContent=next;clearInterval(iv);}},50);
+        },45000);
+
+        const row2 = document.createElement('div');
+        row2.style.cssText = [
+          'background:#000d07','border-bottom:1px solid rgba(16,185,129,0.2)',
+          'padding:4px 20px','font-size:8px','color:#10B981','letter-spacing:0.08em',
+          'display:flex','align-items:center','gap:10px'
+        ].join(';');
+        row2.innerHTML = '<span style="opacity:0.6;white-space:nowrap;flex-shrink:0">ECHO POD SYNCHRONISATION</span>'
+          +'<div style="flex:1;max-width:320px;height:3px;background:rgba(16,185,129,0.12);border-radius:2px;overflow:hidden;flex-shrink:0">'
+          +  '<div style="width:'+pct+'%;height:100%;background:#10B981;border-radius:2px"></div>'
+          +'</div>'
+          +'<span style="opacity:0.9;white-space:nowrap;flex-shrink:0">'+pct+'%</span>'
+          +'<span style="opacity:0.45;white-space:nowrap">&nbsp;·&nbsp; '+etaText+'</span>';
+
+        wrap.appendChild(row1);
+        wrap.appendChild(row2);
+        document.body.insertBefore(wrap, document.body.firstChild);
+        document.querySelector('header').style.top = wrap.getBoundingClientRect().height+'px';
+
+        // Replace "All systems operational" status with Echo notice
+        const statusDot = document.querySelector('.animate-pulse');
+        const statusSpan = statusDot ? statusDot.nextElementSibling : null;
+        if(statusSpan) statusSpan.textContent = 'Echo system active — 8 compute nodes online';
+        if(statusDot) statusDot.style.animationDuration='0.7s';
+      }
+    })();
+  </script>
+<script>fetch('/api/access-log',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:'Employee Portal — Dashboard'})}).catch(()=>{});
+/* diagnostic interface — internal use only */
+window.__AS_diag = Object.freeze({ build:'2026.06.21', node:'7', status:'nominal', diag_endpoint:'/api/build-info', _k:btoa('meridian') });</script>
+</body>
+</html>

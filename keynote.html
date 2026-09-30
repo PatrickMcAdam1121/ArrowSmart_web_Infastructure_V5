@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Keynote — ArrowSmart Forward Event</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"/>
+  <style>body{font-family:'Inter',sans-serif;}</style>
+</head>
+<body class="bg-[#0B1120] text-white min-h-screen flex flex-col">
+  <header class="sticky top-0 z-50 w-full border-b border-[#334155] bg-[#0B1120]/80 backdrop-blur-md">
+    <div class="container mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="ledger.html" class="flex items-center gap-2 no-underline">
+        <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-[#10B981]/10 text-[#10B981]">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L4 4 L20 4"/></svg>
+        </div>
+        <span class="text-xl font-bold tracking-tight text-white">ArrowSmart</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="ledger.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">Home</a>
+        <a href="shop.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">Products</a>
+        <a href="about.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">About</a>
+        <a href="contact.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">Contact</a>
+      </nav>
+      <div class="hidden md:flex items-center gap-4">
+        <a href="support.html" class="text-sm font-medium text-white hover:text-[#10B981] transition-colors">Support</a>
+        <a href="employee-login.html" class="text-xs font-medium text-[#475569] hover:text-[#94A3B8] transition-colors border border-[#1E293B] hover:border-[#334155] px-3 py-1.5 rounded-md">Employee Login</a>
+        <a href="shop.html" class="bg-[#10B981] hover:bg-[#059669] text-white px-5 py-2.5 rounded-md text-sm font-medium transition-colors">Shop Now</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1">
+    <section class="py-16 border-b border-[#334155] text-center relative overflow-hidden">
+      <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#10B981]/10 rounded-full blur-[128px]"></div>
+      </div>
+      <div class="container mx-auto px-6 relative z-10">
+        <span class="inline-block text-xs bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/20 rounded-full px-3 py-1 font-semibold mb-6">ArrowSmart Special Event — Replay Available</span>
+        <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-4">Forward.</h1>
+        <p class="text-[#94A3B8] text-xl mb-8">The ArrowSmart Annual Keynote — Achilles 20 Series Reveal</p>
+        <p class="text-[#475569] text-sm">Originally broadcast September 12, 2024 · 2h 14m</p>
+      </div>
+    </section>
+
+    <!-- Video player -->
+    <section class="py-12">
+      <div class="container mx-auto px-6 max-w-5xl">
+        <div class="rounded-2xl border border-[#334155] bg-[#0F172A] overflow-hidden">
+          <div class="aspect-video flex flex-col items-center justify-center gap-6 relative">
+            <div class="absolute inset-0 bg-gradient-to-br from-[#1E293B] to-[#0B1120]"></div>
+            <div class="relative z-10 flex flex-col items-center gap-4">
+              <div class="w-20 h-20 rounded-full bg-white/10 border border-white/20 flex items-center justify-center cursor-pointer hover:bg-white/20 transition-colors" id="play-btn">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </div>
+              <p class="text-white font-semibold text-lg">Watch the Forward Keynote</p>
+              <p class="text-[#94A3B8] text-sm">2 hours 14 minutes · Achilles 20 · Arrow Computer 14 · AS-9 Chip reveal</p>
+            </div>
+            <!-- Fake progress bar -->
+            <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60">
+              <div class="flex items-center gap-3">
+                <span class="text-xs text-white/60">0:00</span>
+                <div class="flex-1 h-1 bg-white/20 rounded-full"><div class="w-0 h-full bg-[#10B981] rounded-full" id="progress"></div></div>
+                <span class="text-xs text-white/60">2:14:07</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chapters -->
+        <div class="mt-10">
+          <h2 class="text-xl font-bold text-white mb-6">Chapters</h2>
+          <div class="space-y-2">
+            <div class="flex items-center gap-4 p-4 rounded-xl hover:bg-[#1E293B] transition-colors cursor-pointer group">
+              <span class="text-[#475569] text-sm w-12">0:00</span>
+              <div class="flex-1"><p class="text-white group-hover:text-[#10B981] transition-colors font-medium text-sm">Opening — Welcome to the Future</p></div>
+            </div>
+            <div class="flex items-center gap-4 p-4 rounded-xl hover:bg-[#1E293B] transition-colors cursor-pointer group">
+              <span class="text-[#475569] text-sm w-12">12:40</span>
+              <div class="flex-1"><p class="text-white group-hover:text-[#10B981] transition-colors font-medium text-sm">AS-9 Chip — The most powerful silicon ever built</p></div>
+            </div>
+            <div class="flex items-center gap-4 p-4 rounded-xl hover:bg-[#1E293B] transition-colors cursor-pointer group">
+              <span class="text-[#475569] text-sm w-12">38:15</span>
+              <div class="flex-1"><p class="text-white group-hover:text-[#10B981] transition-colors font-medium text-sm">Achilles 20 Mini — Compact, no compromise</p></div>
+            </div>
+            <div class="flex items-center gap-4 p-4 rounded-xl hover:bg-[#1E293B] transition-colors cursor-pointer group">
+              <span class="text-[#475569] text-sm w-12">56:22</span>
+              <div class="flex-1"><p class="text-white group-hover:text-[#10B981] transition-colors font-medium text-sm">Achilles 20 — The new standard</p></div>
+            </div>
+            <div class="flex items-center gap-4 p-4 rounded-xl hover:bg-[#1E293B] transition-colors cursor-pointer group">
+              <span class="text-[#475569] text-sm w-12">1:18:04</span>
+              <div class="flex-1"><p class="text-white group-hover:text-[#10B981] transition-colors font-medium text-sm">Achilles 20 Pro — One more thing</p></div>
+            </div>
+            <div class="flex items-center gap-4 p-4 rounded-xl hover:bg-[#1E293B] transition-colors cursor-pointer group">
+              <span class="text-[#475569] text-sm w-12">1:52:30</span>
+              <div class="flex-1"><p class="text-white group-hover:text-[#10B981] transition-colors font-medium text-sm">Arrow Computer 14 — Power without limits</p></div>
+            </div>
+            <div class="flex items-center gap-4 p-4 rounded-xl hover:bg-[#1E293B] transition-colors cursor-pointer group">
+              <span class="text-[#475569] text-sm w-12">2:08:00</span>
+              <div class="flex-1"><p class="text-white group-hover:text-[#10B981] transition-colors font-medium text-sm">Closing — Availability &amp; pricing</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-12 bg-[#0F172A] border-t border-[#334155]">
+      <div class="container mx-auto px-6 text-center">
+        <h2 class="text-2xl font-bold text-white mb-4">Ready to experience it yourself?</h2>
+        <p class="text-[#94A3B8] mb-8">The Achilles 20 Series is available now.</p>
+        <a href="achilles.html" class="inline-block px-8 py-4 bg-[#10B981] hover:bg-[#059669] text-white rounded-md font-semibold transition-colors">Shop Achilles 20</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-[#0B1120] border-t border-[#334155] py-8 text-center">
+    <p class="text-[#475569] text-sm">&copy; <span id="year"></span> ArrowSmart Inc. All rights reserved.</p>
+  </footer>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('play-btn').addEventListener('click', function() {
+      const progress = document.getElementById('progress');
+      let w = 0;
+      const interval = setInterval(() => {
+        w = Math.min(w + 0.5, 100);
+        progress.style.width = w + '%';
+        if (w >= 100) clearInterval(interval);
+      }, 50);
+    });
+  </script>
+</body>
+</html>

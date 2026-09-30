@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Security Operations — ArrowSmart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap"/>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+    .blink { animation: blink 1.6s ease-in-out infinite; }
+    @keyframes blink-fast { 0%,100%{opacity:1} 50%{opacity:0.1} }
+    .blink-fast { animation: blink-fast 0.7s ease-in-out infinite; }
+    @keyframes slideDown { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+    .row-new { animation: slideDown 0.35s ease forwards; }
+    @keyframes alertPop { 0%{opacity:0;transform:scaleY(0.85)} 100%{opacity:1;transform:scaleY(1)} }
+    .alert-new { animation: alertPop 0.3s ease forwards; transform-origin: top; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #070d14; }
+    ::-webkit-scrollbar-thumb { background: #1e3a5f; border-radius: 2px; }
+    .alert-critical { background: rgba(239,68,68,0.06); border-left: 3px solid rgba(239,68,68,0.6); }
+    .alert-warning  { background: rgba(245,158,11,0.06); border-left: 3px solid rgba(245,158,11,0.5); }
+    .alert-info     { background: rgba(59,130,246,0.05); border-left: 3px solid rgba(59,130,246,0.35); }
+    .alert-echo     { background: rgba(16,185,129,0.05); border-left: 3px solid rgba(16,185,129,0.5); }
+    .log-ip   { background: rgba(59,130,246,0.03); }
+    .log-emp  { background: transparent; }
+    .log-alert-crit { background: rgba(239,68,68,0.04); }
+    .log-alert-warn { background: rgba(245,158,11,0.04); }
+    .log-alert-info { background: rgba(59,130,246,0.03); }
+    .log-alert-echo { background: rgba(16,185,129,0.04); }
+  </style>
+</head>
+<body class="bg-[#0B1120] text-white min-h-screen flex flex-col">
+
+  <header class="sticky top-0 z-50 w-full border-b border-[#334155] bg-[#0B1120]/95 backdrop-blur-md">
+    <div class="container mx-auto px-6 h-14 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="employee-portal.html" class="flex items-center gap-2"><div class="w-7 h-7 rounded bg-[#10B981]/10 flex items-center justify-center text-[#10B981]"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L4 4 L20 4"/></svg></div><span class="text-sm font-bold text-white hidden sm:block">ArrowSmart</span></a>
+        <span class="text-[#334155]">|</span>
+        <span id="clearance-badge" class="text-[10px] font-bold uppercase tracking-widest text-[#10B981] border border-[#10B981]/20 bg-[#10B981]/5 rounded px-2 py-0.5">LEVEL — CLEARANCE</span>
+      </div>
+      <nav class="hidden lg:flex items-center gap-0.5 text-xs">
+        <a href="employee-portal.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Dashboard</a>
+        <a href="internal-news.html"   class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">News</a>
+        <a href="employee-directory.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Directory</a>
+        <a href="projects-tracker.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Projects</a>
+        <a href="hr-portal.html"       class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">HR</a>
+        <a href="it-helpdesk.html"     class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">IT Help</a>
+        <a href="security-ops.html"    class="px-3 py-1.5 text-white bg-[#1E293B] rounded">Security</a>
+        <a href="stasis-pods.html"     class="px-3 py-1.5 text-amber-400/80 hover:text-amber-300 hover:bg-[#1E293B] rounded transition-colors font-semibold">⬡ Stasis</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <div id="alert-header-badge" style="display:none" class="flex items-center gap-1.5 text-[10px] mono text-red-400 border border-red-700/40 bg-red-900/10 rounded px-2 py-1">
+          <span class="blink-fast">⚠</span>
+          <span id="alert-header-count">0</span> ACTIVE ALERT<span id="alert-header-plural"></span>
+        </div>
+        <span class="text-[#94A3B8] text-xs hidden sm:block" id="emp-name-display"></span>
+        <a href="employee-login.html" onclick="sessionStorage.removeItem('as_employee')" class="text-xs text-[#475569] hover:text-red-400 border border-[#334155] px-2.5 py-1.5 rounded transition-colors">Sign Out</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 py-10">
+    <div class="container mx-auto px-6">
+      <h1 class="text-2xl font-extrabold text-white mb-1">Security Operations</h1>
+      <p class="text-[#94A3B8] text-sm mb-8">System access monitor · Alerts · Clearance levels · Incident reporting</p>
+
+      <!-- Status cards row -->
+      <div class="grid md:grid-cols-3 gap-5 mb-6">
+        <div class="p-6 rounded-xl bg-[#1E293B] border border-[#10B981]/20">
+          <p class="text-[#475569] text-xs uppercase tracking-widest mb-3">My Clearance</p>
+          <div class="w-14 h-14 rounded-full border-4 border-[#10B981] flex items-center justify-center mb-3">
+            <span class="text-[#10B981] text-2xl font-extrabold" id="my-level-display">—</span>
+          </div>
+          <p class="text-white font-bold text-sm" id="my-level-label">Loading…</p>
+          <p class="text-[#475569] text-xs mt-1">Valid until: Dec 31, 2026</p>
+          <div class="mt-4 space-y-1 text-xs">
+            <div class="flex justify-between"><span class="text-[#475569]">Physical access</span><span class="text-[#10B981]" id="phys-access">—</span></div>
+            <div class="flex justify-between"><span class="text-[#475569]">Classified docs</span><span class="text-[#10B981]" id="doc-access">—</span></div>
+            <div class="flex justify-between"><span class="text-[#475569]">Sub-level access</span><span class="text-[#94A3B8]" id="sub-access">—</span></div>
+          </div>
+        </div>
+
+        <div class="p-6 rounded-xl bg-[#1E293B] border border-[#334155]">
+          <p class="text-[#475569] text-xs uppercase tracking-widest mb-4">Global Security Status</p>
+          <div class="grid grid-cols-2 gap-3 mb-4">
+            <div class="p-3 rounded-lg bg-[#0F172A] border border-[#10B981]/20">
+              <div class="flex items-center gap-2 mb-1"><div class="w-2 h-2 rounded-full bg-[#10B981] animate-pulse"></div><span class="text-[#10B981] text-xs font-bold">SECURE</span></div>
+              <p class="text-white font-bold text-sm">Threat Level</p>
+              <p class="text-[#94A3B8] text-xs">No active incidents</p>
+            </div>
+            <div class="p-3 rounded-lg bg-[#0F172A] border border-[#334155]">
+              <div class="flex items-center gap-2 mb-1"><div class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></div><span class="text-amber-400 text-xs font-bold">MONITORING</span></div>
+              <p class="text-white font-bold text-sm">Pod C-01</p>
+              <p class="text-[#94A3B8] text-xs">Vital variance flagged</p>
+            </div>
+          </div>
+          <div class="text-xs space-y-1 text-[#94A3B8]">
+            <div class="flex justify-between border-b border-[#334155] pb-1"><span>Active portal sessions</span><span class="text-white" id="active-sessions">—</span></div>
+            <div class="flex justify-between border-b border-[#334155] pb-1"><span>Stasis cluster status</span><span class="text-amber-400">1 flag — Cluster D</span></div>
+            <div class="flex justify-between"><span>ECHO containment</span><span class="text-amber-400">Node 7 — isolated</span></div>
+          </div>
+        </div>
+
+        <div class="p-6 rounded-xl bg-[#1E293B] border border-[#334155] flex flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <p class="text-[#475569] text-xs uppercase tracking-widest">Alert Summary</p>
+            <div class="flex items-center gap-1.5">
+              <div class="w-1.5 h-1.5 rounded-full bg-red-500 blink"></div>
+              <span class="text-[10px] mono text-red-400 font-bold" id="summary-critical">0 critical</span>
+            </div>
+          </div>
+          <div class="space-y-2 text-xs flex-1">
+            <div class="flex items-center justify-between">
+              <span class="text-[#94A3B8] flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-red-500 shrink-0"></span>Critical</span>
+              <span class="mono font-bold text-red-400" id="cnt-critical">—</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-[#94A3B8] flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-400 shrink-0"></span>Warning</span>
+              <span class="mono font-bold text-amber-400" id="cnt-warning">—</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-[#94A3B8] flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-blue-400 shrink-0"></span>Info</span>
+              <span class="mono font-bold text-blue-400" id="cnt-info">—</span>
+            </div>
+          </div>
+          <p class="text-[#334155] text-[10px] mono mt-3" id="alert-summary-ts">Last update: —</p>
+        </div>
+      </div>
+
+      <!-- Active Alerts panel -->
+      <div id="alerts-panel" class="rounded-xl overflow-hidden border mb-6 mono" style="border-color:rgba(239,68,68,0.25);background:#070a0e;">
+        <div class="px-5 py-3 flex items-center justify-between gap-4 border-b" style="border-color:rgba(239,68,68,0.15);background:rgba(239,68,68,0.05);">
+          <div class="flex items-center gap-3">
+            <span class="text-red-400 blink-fast text-sm">⚠</span>
+            <span class="text-red-400 font-bold text-xs tracking-widest uppercase">Active System Alerts</span>
+            <span id="alert-count-badge" class="text-[10px] bg-red-500/20 border border-red-500/40 text-red-400 px-2 py-0.5 rounded-full">0</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <button onclick="toggleAlerts()" id="alerts-toggle" class="text-[10px] text-[#475569] hover:text-[#94A3B8] transition-colors">[ collapse ]</button>
+            <span class="text-[#2D3748] text-[10px]">Auto-refresh 5s</span>
+          </div>
+        </div>
+        <div id="alerts-body" class="divide-y" style="divide-color:rgba(239,68,68,0.08);">
+          <div class="px-5 py-3 text-[#334155] text-xs text-center">Fetching alerts…</div>
+        </div>
+      </div>
+
+      <!-- System Access Log -->
+      <div class="rounded-xl overflow-hidden border mb-8 mono" style="border-color:rgba(16,185,129,0.2);background:#050d09;">
+        <div class="px-5 py-3 border-b flex items-center justify-between gap-4" style="border-color:rgba(16,185,129,0.12);background:rgba(16,185,129,0.03);">
+          <div class="flex items-center gap-3">
+            <div class="w-2 h-2 rounded-full bg-[#10B981] blink"></div>
+            <span class="text-[#10B981] font-bold text-xs tracking-widest uppercase">System Access Log</span>
+            <span class="text-[9px] border border-[#10B981]/35 text-[#10B981] px-2 py-0.5 rounded">LIVE</span>
+          </div>
+          <span class="text-[#1a3a2a] text-[10px]" id="log-last-update">Connecting…</span>
+        </div>
+
+        <div class="grid grid-cols-12 px-5 py-2 border-b text-[9px] uppercase tracking-widest" style="border-color:#071008;color:#1a3a2a;">
+          <div class="col-span-2">Timestamp</div>
+          <div class="col-span-3">Subject</div>
+          <div class="col-span-5">Action / Page</div>
+          <div class="col-span-2 text-right">Status</div>
+        </div>
+
+        <div id="access-log-body" class="divide-y overflow-auto max-h-[28rem]" style="divide-color:#071008;">
+          <div class="px-5 py-4 text-[#1a3a2a] text-center text-xs">Initialising secure log feed…</div>
+        </div>
+
+        <div class="px-5 py-2 border-t flex items-center justify-between text-[9px]" style="border-color:#071008;color:#1a3a2a;">
+          <span>NODE-7 SECURE CHANNEL · ENCRYPTED · TLS 1.3</span>
+          <span id="log-entry-count">—</span>
+        </div>
+      </div>
+
+      <!-- Clearance guide + Incident report -->
+      <div class="grid lg:grid-cols-2 gap-6">
+        <div class="rounded-xl bg-[#1E293B] border border-[#334155] overflow-hidden">
+          <div class="px-6 py-4 border-b border-[#334155]"><h2 class="text-white font-bold">Clearance Level Guide</h2></div>
+          <div class="divide-y divide-[#334155] text-xs">
+            <div class="px-5 py-3 flex gap-3"><span class="w-7 h-7 rounded-full bg-[#10B981]/10 text-[#10B981] font-bold flex items-center justify-center shrink-0">1</span><div><p class="text-white font-medium">General Staff</p><p class="text-[#475569]">Campus access, portal, internal tools</p></div></div>
+            <div class="px-5 py-3 flex gap-3"><span class="w-7 h-7 rounded-full bg-[#10B981]/15 text-[#10B981] font-bold flex items-center justify-center shrink-0">3</span><div><p class="text-white font-medium">Project Member</p><p class="text-[#475569]">Lab access, internal documents, project classified sections</p></div></div>
+            <div class="px-5 py-3 flex gap-3"><span class="w-7 h-7 rounded-full bg-[#10B981]/20 text-[#10B981] font-bold flex items-center justify-center shrink-0">5</span><div><p class="text-white font-medium">Senior / Project Lead</p><p class="text-[#475569]">Sub-level 1 access, classified projects, Stasis portal read access</p></div></div>
+            <div class="px-5 py-3 flex gap-3"><span class="w-7 h-7 rounded-full bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center shrink-0">7</span><div><p class="text-white font-medium">Division Lead / Director</p><p class="text-[#475569]">Sub-levels 1–2, classified materials, Stasis subject detail</p></div></div>
+            <div class="px-5 py-3 flex gap-3"><span class="w-7 h-7 rounded-full bg-red-500/20 text-red-400 font-bold flex items-center justify-center shrink-0">9</span><div><p class="text-white font-medium">Executive / Director</p><p class="text-[#475569]">All sub-levels, Stasis Record 009, Project CHRYSALIS full access</p></div></div>
+          </div>
+        </div>
+
+        <div class="rounded-xl bg-[#1E293B] border border-[#334155] p-6">
+          <h2 class="text-white font-bold mb-4 text-sm">Report a Security Incident</h2>
+          <form onsubmit="submitIncident(event)" class="space-y-3">
+            <select class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-3 py-2.5 text-white text-xs focus:outline-none focus:border-[#10B981]">
+              <option>Unauthorised access attempt</option><option>Suspicious behaviour</option><option>Data exposure</option><option>Lost badge / device</option><option>Physical security breach</option><option>ECHO anomaly observed</option><option>Other</option>
+            </select>
+            <textarea rows="3" placeholder="Describe the incident…" class="w-full bg-[#0B1120] border border-[#334155] rounded-lg px-3 py-2 text-white placeholder-[#475569] text-xs focus:outline-none focus:border-[#10B981] resize-none"></textarea>
+            <button type="submit" class="w-full py-2.5 bg-red-700/60 hover:bg-red-700/80 border border-red-700/40 text-white rounded-lg text-xs font-semibold transition-colors">Submit Incident Report</button>
+            <div id="incident-ok" class="hidden text-[#10B981] text-xs text-center">Report submitted. Security team will respond within 1 hour.</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t border-[#334155] py-4 text-center"><p class="text-[#334155] text-xs">ArrowSmart Security Operations · All access logged · Tampering is a criminal offence</p></footer>
+
+  <script>
+    const LEVEL_LABELS = {1:'General Staff',2:'General Staff',3:'Project Member',4:'Project Member',5:'Senior / Lead',6:'Senior / Lead',7:'Division Lead',8:'Division Lead',9:'Executive Director'};
+    const PHYS  = {1:'Floors 1–3',3:'Floors 1–5',5:'Sub-Level 1',7:'Sub-Levels 1–2',9:'All Areas'};
+    const DOCS  = {1:'Public',3:'Internal',5:'Classified',7:'Classified+',9:'All'};
+    const SUBS  = {1:'None',3:'None',5:'Sub-Level 1',7:'Sub-Levels 1–2',9:'All Sub-Levels'};
+
+    let alertsCollapsed = false;
+
+    function submitIncident(e){ e.preventDefault(); document.getElementById('incident-ok').classList.remove('hidden'); }
+    function toggleAlerts() {
+      alertsCollapsed = !alertsCollapsed;
+      document.getElementById('alerts-body').style.display = alertsCollapsed ? 'none' : '';
+      document.getElementById('alerts-toggle').textContent = alertsCollapsed ? '[ expand ]' : '[ collapse ]';
+    }
+
+    (function(){
+      const emp = JSON.parse(sessionStorage.getItem('as_employee')||'null');
+      if (!emp){ window.location.href = 'employee-login.html'; return; }
+      document.getElementById('emp-name-display').textContent = emp.name;
+      document.getElementById('clearance-badge').textContent = 'LEVEL '+emp.level+' CLEARANCE';
+      document.getElementById('my-level-display').textContent = emp.level;
+      document.getElementById('my-level-label').textContent = LEVEL_LABELS[emp.level]||'—';
+      document.getElementById('phys-access').textContent = PHYS[emp.level]||PHYS[1];
+      document.getElementById('doc-access').textContent  = DOCS[emp.level]||DOCS[1];
+      document.getElementById('sub-access').textContent  = SUBS[emp.level]||SUBS[1];
+
+      fetch('/api/access-log',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({page:'Security Operations'})}).catch(()=>{});
+
+      loadLog();
+      setInterval(loadLog, 5000);
+    })();
+
+    /* ── Helpers ───────────────────────────────────── */
+    function maskIP(ip) {
+      if (!ip || ip === 'unknown') return 'xxx.xxx.xxx.xxx';
+      const clean = ip.replace('::ffff:','');
+      const parts = clean.split('.');
+      if (parts.length === 4) return parts[0]+'.'+parts[1]+'.xxx.'+parts[3];
+      if (clean.includes(':')) return clean.slice(0,10)+'::xxxx';
+      return clean.slice(0,8)+'…';
+    }
+
+    function fmtTime(ts) {
+      const d = new Date(ts);
+      return (d.getMonth()+1)+'/'+String(d.getDate()).padStart(2,'0')+' '+
+        String(d.getHours()).padStart(2,'0')+':'+
+        String(d.getMinutes()).padStart(2,'0')+':'+
+        String(d.getSeconds()).padStart(2,'0');
+    }
+
+    function statusColor(s) {
+      const m = {OK:'text-[#10B981]',ACCESSED:'text-[#60A5FA]',LOGGED:'text-[#94A3B8]',FLAGGED:'text-amber-400',DENIED:'text-red-400'};
+      return m[s]||'text-[#475569]';
+    }
+    function severityColor(s) {
+      if (s==='critical') return 'text-red-400';
+      if (s==='warning')  return 'text-amber-400';
+      if (s==='echo')     return 'text-[#10B981]';
+      return 'text-blue-400';
+    }
+    function severityDot(s) {
+      if (s==='critical') return 'bg-red-500';
+      if (s==='warning')  return 'bg-amber-400';
+      if (s==='echo')     return 'bg-[#10B981]';
+      return 'bg-blue-400';
+    }
+
+    /* ── State ─────────────────────────────────────── */
+    let prevTimestamps = [];
+    let firstLoad = true;
+
+    /* ── Main poll ─────────────────────────────────── */
+    async function loadLog() {
+      try {
+        const r = await fetch('/api/access-log');
+        const entries = await r.json();
+
+        const ts = new Date().toLocaleTimeString();
+        document.getElementById('log-last-update').textContent = 'Updated '+ts;
+        document.getElementById('log-entry-count').textContent = entries.length+' events logged';
+        document.getElementById('active-sessions').textContent = Math.floor(Math.random()*40+185);
+
+        /* Alerts */
+        const alerts = entries.filter(e => e.type === 'alert');
+        const crits  = alerts.filter(e => e.severity === 'critical').length;
+        const warns  = alerts.filter(e => e.severity === 'warning').length;
+        const infos  = alerts.filter(e => e.severity === 'info').length;
+        const echos  = alerts.filter(e => e.severity === 'echo').length;
+
+        document.getElementById('cnt-critical').textContent = crits;
+        document.getElementById('cnt-warning').textContent  = warns;
+        document.getElementById('cnt-info').textContent     = infos;
+        document.getElementById('summary-critical').textContent = crits+' critical';
+        document.getElementById('alert-summary-ts').textContent = 'Last update: '+ts;
+        document.getElementById('alert-count-badge').textContent = alerts.length;
+
+        const headerBadge = document.getElementById('alert-header-badge');
+        if (crits > 0) {
+          headerBadge.style.display = 'flex';
+          document.getElementById('alert-header-count').textContent = crits;
+          document.getElementById('alert-header-plural').textContent = crits === 1 ? '' : 'S';
+        } else {
+          headerBadge.style.display = 'none';
+        }
+
+        /* Render alerts panel (last 6) */
+        const alertsBody = document.getElementById('alerts-body');
+        const recentAlerts = alerts.slice(0, 6);
+        if (recentAlerts.length === 0) {
+          alertsBody.innerHTML = '<div class="px-5 py-3 text-[#1e3a2a] text-xs text-center">No active alerts.</div>';
+        } else {
+          alertsBody.innerHTML = recentAlerts.map((a, i) => `
+            <div class="px-5 py-2.5 flex items-start gap-3 ${alertsCollapsed?'hidden':''} alert-${a.severity} ${i===0&&!firstLoad?'alert-new':''}">
+              <span class="w-2 h-2 rounded-full ${severityDot(a.severity)} mt-1 shrink-0 ${a.severity==='critical'?'blink-fast':''}"></span>
+              <span class="text-[10px] ${severityColor(a.severity)} flex-1 leading-relaxed">${esc(a.msg)}</span>
+              <span class="text-[9px] text-[#1a3a2a] shrink-0">${fmtTime(a.timestamp)}</span>
+            </div>`).join('');
+        }
+
+        /* Render access log */
+        const curTs = entries.map((e,i)=>e.timestamp+'-'+i).join(',');
+        const prevTs = prevTimestamps.join(',');
+        if (curTs !== prevTs) {
+          prevTimestamps = entries.map((e,i)=>e.timestamp+'-'+i);
+          const body = document.getElementById('access-log-body');
+          body.innerHTML = entries.map((e, i) => renderRow(e, i===0 && !firstLoad)).join('');
+          firstLoad = false;
+        }
+
+      } catch(_) {}
+    }
+
+    /* ── Row renderers ─────────────────────────────── */
+    function renderRow(e, isNew) {
+      const cls = isNew ? 'row-new' : '';
+
+      if (e.type === 'alert') {
+        const isEcho = e.severity === 'echo';
+        const logCls = e.severity==='critical'?'log-alert-crit':e.severity==='warning'?'log-alert-warn':isEcho?'log-alert-echo':'log-alert-info';
+        const sym = e.severity==='critical'?'⚠':e.severity==='warning'?'△':isEcho?'◈':'ℹ';
+        const borderCls = e.severity==='critical'?'border-red-600/60':e.severity==='warning'?'border-amber-500/50':isEcho?'border-[#10B981]/60':'border-blue-500/35';
+        const label = isEcho ? 'ECHO' : 'SYSTEM ALERT';
+        return `<div class="grid grid-cols-12 px-5 py-2 hover:brightness-125 transition-all ${logCls} ${cls} border-l-2 ${borderCls}">
+          <div class="col-span-2 text-[#334155] text-[10px]">${fmtTime(e.timestamp)}</div>
+          <div class="col-span-3 ${severityColor(e.severity)} text-[10px] flex items-center gap-1.5">
+            <span class="${e.severity==='critical'?'blink-fast':''}">${sym}</span> ${label}
+          </div>
+          <div class="col-span-5 text-[10px] ${isEcho?'text-[#10B981]/80 italic':severityColor(e.severity)} leading-relaxed">${esc(e.msg)}</div>
+          <div class="col-span-2 text-right">
+            <span class="${severityColor(e.severity)} text-[10px] font-bold uppercase">${isEcho?'ECHO':e.severity}</span>
+          </div>
+        </div>`;
+      }
+
+      if (e.type === 'ip') {
+        return `<div class="grid grid-cols-12 px-5 py-2 log-ip hover:brightness-125 transition-all ${cls}">
+          <div class="col-span-2 text-[#334155] text-[10px]">${fmtTime(e.timestamp)}</div>
+          <div class="col-span-3 text-[10px]"><span class="text-[#3b5bdb]">IP </span><span class="text-[#93C5FD]">${maskIP(e.ip)}</span></div>
+          <div class="col-span-5 text-[#475569] text-[10px]"><span class="text-[#334155]">→ </span>${esc(e.page||'—')}</div>
+          <div class="col-span-2 text-right"><span class="text-[#60A5FA] text-[10px] font-bold">${e.status}</span></div>
+        </div>`;
+      }
+
+      /* employee */
+      const lc = e.level>=8?'text-amber-400':e.level>=6?'text-[#A5B4FC]':'text-[#10B981]';
+      return `<div class="grid grid-cols-12 px-5 py-2 log-emp hover:brightness-125 transition-all ${cls}">
+        <div class="col-span-2 text-[#334155] text-[10px]">${fmtTime(e.timestamp)}</div>
+        <div class="col-span-3 text-[10px]">
+          <span class="${lc}">${esc(e.name||'—')}</span><span class="text-[#1a3a2a] ml-1">[L${e.level}]</span>
+        </div>
+        <div class="col-span-5 text-[#4a7a5a] text-[10px]">${esc(e.action||'—')}</div>
+        <div class="col-span-2 text-right"><span class="${statusColor(e.status)} text-[10px] font-bold">${e.status}</span></div>
+      </div>`;
+    }
+
+    function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  </script>
+</body>
+</html>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About — ArrowSmart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"/>
+  <style>body{font-family:'Inter',sans-serif;}</style>
+</head>
+<body class="bg-[#0B1120] text-white min-h-screen flex flex-col">
+  <header class="sticky top-0 z-50 w-full border-b border-[#334155] bg-[#0B1120]/80 backdrop-blur-md">
+    <div class="container mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="ledger.html" class="flex items-center gap-2 no-underline">
+        <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-[#10B981]/10 text-[#10B981]">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L4 4 L20 4"/></svg>
+        </div>
+        <span class="text-xl font-bold tracking-tight text-white">ArrowSmart</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="ledger.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">Home</a>
+        <a href="shop.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">Products</a>
+        <a href="about.html" class="text-sm font-medium text-white transition-colors">About</a>
+        <a href="contact.html" class="text-sm font-medium text-[#94A3B8] hover:text-white transition-colors">Contact</a>
+      </nav>
+      <div class="hidden md:flex items-center gap-4">
+        <a href="support.html" class="text-sm font-medium text-white hover:text-[#10B981] transition-colors">Support</a>
+        <a href="employee-login.html" class="text-xs font-medium text-[#475569] hover:text-[#94A3B8] transition-colors border border-[#1E293B] hover:border-[#334155] px-3 py-1.5 rounded-md">Employee Login</a>
+        <a href="shop.html" class="bg-[#10B981] hover:bg-[#059669] text-white px-5 py-2.5 rounded-md text-sm font-medium transition-colors">Shop Now</a>
+      </div>
+      <button id="menu-btn" class="md:hidden text-[#94A3B8] hover:text-white">
+        <svg id="icon-menu" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg id="icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div id="mobile-nav" class="hidden md:hidden border-t border-[#334155] bg-[#0B1120] px-6 py-4 space-y-4">
+      <a href="ledger.html" class="block text-base font-medium text-[#94A3B8] hover:text-white">Home</a>
+      <a href="shop.html" class="block text-base font-medium text-[#94A3B8] hover:text-white">Products</a>
+      <a href="about.html" class="block text-base font-medium text-white">About</a>
+      <a href="contact.html" class="block text-base font-medium text-[#94A3B8] hover:text-white">Contact</a>
+      <div class="pt-4 flex flex-col gap-3">
+        <a href="support.html" class="block w-full text-center py-2.5 text-sm font-medium border border-[#334155] rounded-md text-white">Support</a>
+        <a href="employee-login.html" class="block w-full text-center py-2.5 text-xs font-medium border border-[#1E293B] rounded-md text-[#475569]">Employee Login</a>
+        <a href="shop.html" class="block w-full text-center py-2.5 bg-[#10B981] text-white rounded-md text-sm font-medium">Shop Now</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1">
+    <!-- Hero -->
+    <section class="py-24 md:py-36 border-b border-[#334155] relative overflow-hidden">
+      <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-[#10B981]/10 rounded-full blur-[128px]"></div>
+      </div>
+      <div class="container mx-auto px-6 relative z-10 max-w-3xl">
+        <p class="text-[#10B981] font-semibold text-sm uppercase tracking-widest mb-4">Our Story</p>
+        <h1 class="text-5xl md:text-6xl font-extrabold text-white mb-8 leading-tight">Moving forward.<br/>Always pointing up.</h1>
+        <p class="text-xl text-[#94A3B8] leading-relaxed">For four decades, ArrowSmart has been at the absolute forefront of consumer technology. We don't follow trends — we define them. Our arrowhead stands for one thing: relentless forward motion.</p>
+      </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="py-20 border-b border-[#334155]">
+      <div class="container mx-auto px-6 max-w-4xl">
+        <h2 class="text-3xl font-bold text-white mb-12">Four decades of firsts.</h2>
+        <div class="space-y-10">
+          <div class="flex gap-8">
+            <div class="text-[#10B981] font-extrabold text-2xl w-16 shrink-0">1984</div>
+            <div>
+              <h3 class="text-white font-bold text-lg mb-1">ArrowSmart is founded</h3>
+              <p class="text-[#94A3B8] text-sm leading-relaxed">Founded in a garage in San Mateo, CA, ArrowSmart ships its first personal computer, the Arrow 1, to 12,000 customers in its opening week.</p>
+            </div>
+          </div>
+          <div class="flex gap-8">
+            <div class="text-[#10B981] font-extrabold text-2xl w-16 shrink-0">1997</div>
+            <div>
+              <h3 class="text-white font-bold text-lg mb-1">The Arrow OS era begins</h3>
+              <p class="text-[#94A3B8] text-sm leading-relaxed">ArrowOS launches, unifying the company's software stack and pioneering the vertically integrated computing experience.</p>
+            </div>
+          </div>
+          <div class="flex gap-8">
+            <div class="text-[#10B981] font-extrabold text-2xl w-16 shrink-0">2005</div>
+            <div>
+              <h3 class="text-white font-bold text-lg mb-1">The original Achilles phone</h3>
+              <p class="text-[#94A3B8] text-sm leading-relaxed">ArrowSmart enters the smartphone market with the first Achilles, redefining what a phone could be. 4 million units sold in its first quarter.</p>
+            </div>
+          </div>
+          <div class="flex gap-8">
+            <div class="text-[#10B981] font-extrabold text-2xl w-16 shrink-0">2014</div>
+            <div>
+              <h3 class="text-white font-bold text-lg mb-1">AS Silicon — the first proprietary chip</h3>
+              <p class="text-[#94A3B8] text-sm leading-relaxed">The AS-1 chip ships in the Achilles 10, delivering performance no competitor could match. ArrowSmart becomes the only consumer tech company with full silicon-to-software ownership.</p>
+            </div>
+          </div>
+          <div class="flex gap-8">
+            <div class="text-[#10B981] font-extrabold text-2xl w-16 shrink-0">2024</div>
+            <div>
+              <h3 class="text-white font-bold text-lg mb-1">Achilles 20 — two decades of excellence</h3>
+              <p class="text-[#94A3B8] text-sm leading-relaxed">The Achilles 20 Series launches, powered by the AS-9 chip. 2.4 billion ArrowSmart devices are now active worldwide. The arrow keeps pointing forward.</p>
+            </div>
+          </div>
+          <div class="flex gap-8">
+            <div class="text-[#10B981] font-extrabold text-2xl w-16 shrink-0">2026</div>
+            <div>
+              <h3 class="text-white font-bold text-lg mb-1">$412 billion — a new record</h3>
+              <p class="text-[#94A3B8] text-sm leading-relaxed">ArrowSmart reports FY2025 revenue of $412.1B, its largest year on record. The company reaches 100% renewable energy across all owned facilities and begins construction of its second carbon-neutral campus.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- By the numbers -->
+    <section class="py-16 border-b border-[#334155]">
+      <div class="container mx-auto px-6">
+        <p class="text-[#10B981] text-xs font-semibold uppercase tracking-widest mb-10 text-center">ArrowSmart by the numbers</p>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="text-center p-6 rounded-2xl bg-[#1E293B] border border-[#334155]">
+            <p class="text-4xl font-extrabold text-white mb-1">2.4B</p>
+            <p class="text-[#94A3B8] text-sm">Active devices worldwide</p>
+          </div>
+          <div class="text-center p-6 rounded-2xl bg-[#1E293B] border border-[#334155]">
+            <p class="text-4xl font-extrabold text-white mb-1">190+</p>
+            <p class="text-[#94A3B8] text-sm">Countries &amp; territories</p>
+          </div>
+          <div class="text-center p-6 rounded-2xl bg-[#1E293B] border border-[#334155]">
+            <p class="text-4xl font-extrabold text-white mb-1">164K</p>
+            <p class="text-[#94A3B8] text-sm">Employees globally</p>
+          </div>
+          <div class="text-center p-6 rounded-2xl bg-[#1E293B] border border-[#334155]">
+            <p class="text-4xl font-extrabold text-white mb-1">$24.7B</p>
+            <p class="text-[#94A3B8] text-sm">Annual R&amp;D investment</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Values -->
+    <section class="py-20 bg-[#0F172A] border-b border-[#334155]">
+      <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-bold text-white mb-12 text-center">What we stand for</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="p-8 rounded-2xl bg-[#1E293B] border border-[#334155]">
+            <div class="w-10 h-10 rounded-lg bg-[#10B981]/10 flex items-center justify-center text-[#10B981] mb-5">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <h3 class="text-white font-bold text-lg mb-3">Performance First</h3>
+            <p class="text-[#94A3B8] text-sm leading-relaxed">Every product we ship is the fastest, most capable device in its class. We don't compromise on performance — ever.</p>
+          </div>
+          <div class="p-8 rounded-2xl bg-[#1E293B] border border-[#334155]">
+            <div class="w-10 h-10 rounded-lg bg-[#10B981]/10 flex items-center justify-center text-[#10B981] mb-5">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            </div>
+            <h3 class="text-white font-bold text-lg mb-3">Built to Last</h3>
+            <p class="text-[#94A3B8] text-sm leading-relaxed">ArrowSmart devices are engineered for longevity. We provide software updates for a minimum of seven years and repair support for ten.</p>
+          </div>
+          <div class="p-8 rounded-2xl bg-[#1E293B] border border-[#334155]">
+            <div class="w-10 h-10 rounded-lg bg-[#10B981]/10 flex items-center justify-center text-[#10B981] mb-5">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h3 class="text-white font-bold text-lg mb-3">Privacy by Design</h3>
+            <p class="text-[#94A3B8] text-sm leading-relaxed">Your data belongs to you. ArrowSmart processes sensitive information on-device and has never sold user data to third parties.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sustainability -->
+    <section class="py-20 border-b border-[#334155]">
+      <div class="container mx-auto px-6">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <p class="text-[#10B981] text-xs font-semibold uppercase tracking-widest mb-4">Environment</p>
+            <h2 class="text-3xl font-bold text-white mb-6">Building a greener future.</h2>
+            <p class="text-[#94A3B8] text-sm leading-relaxed mb-6">Since 2022, 100% of ArrowSmart's owned and operated facilities run on renewable energy. We've committed to carbon neutrality across our entire supply chain by 2030 and to producing zero landfill waste by 2028.</p>
+            <ul class="space-y-3 text-sm">
+              <li class="flex items-start gap-3"><span class="text-[#10B981] mt-0.5 font-bold text-base">✓</span><span class="text-[#94A3B8]">100% renewable energy in owned facilities since 2022</span></li>
+              <li class="flex items-start gap-3"><span class="text-[#10B981] mt-0.5 font-bold text-base">✓</span><span class="text-[#94A3B8]">78% recycled or bio-based materials in packaging</span></li>
+              <li class="flex items-start gap-3"><span class="text-[#10B981] mt-0.5 font-bold text-base">✓</span><span class="text-[#94A3B8]">ArrowRefurbish programme resells 3.2M devices per year</span></li>
+              <li class="flex items-start gap-3"><span class="text-[#10B981] mt-0.5 font-bold text-base">✓</span><span class="text-[#94A3B8]">Carbon-neutral shipping on all direct orders</span></li>
+            </ul>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="p-6 rounded-2xl bg-[#1E293B] border border-[#334155] text-center">
+              <p class="text-3xl font-extrabold text-[#10B981] mb-1">100%</p>
+              <p class="text-white text-sm font-semibold mb-1">Renewable energy</p>
+              <p class="text-[#475569] text-xs">Owned facilities</p>
+            </div>
+            <div class="p-6 rounded-2xl bg-[#1E293B] border border-[#334155] text-center">
+              <p class="text-3xl font-extrabold text-[#10B981] mb-1">2030</p>
+              <p class="text-white text-sm font-semibold mb-1">Carbon neutral</p>
+              <p class="text-[#475569] text-xs">Full supply chain</p>
+            </div>
+            <div class="p-6 rounded-2xl bg-[#1E293B] border border-[#334155] text-center">
+              <p class="text-3xl font-extrabold text-[#10B981] mb-1">3.2M</p>
+              <p class="text-white text-sm font-semibold mb-1">Devices refurbished</p>
+              <p class="text-[#475569] text-xs">Per year</p>
+            </div>
+            <div class="p-6 rounded-2xl bg-[#1E293B] border border-[#334155] text-center">
+              <p class="text-3xl font-extrabold text-[#10B981] mb-1">78%</p>
+              <p class="text-white text-sm font-semibold mb-1">Recycled packaging</p>
+              <p class="text-[#475569] text-xs">By material weight</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Leadership -->
+    <section class="py-20 border-b border-[#334155]">
+      <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-bold text-white mb-12">Leadership</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="p-6 rounded-2xl bg-[#1E293B] border border-[#334155]">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#10B981]/30 to-[#0F172A] border border-[#334155] flex items-center justify-center text-[#10B981] font-bold text-xl mb-4">JA</div>
+            <h3 class="text-white font-bold">James Arrowood</h3>
+            <p class="text-[#10B981] text-xs font-semibold mt-1">Chief Executive Officer</p>
+            <p class="text-[#94A3B8] text-xs mt-2 leading-relaxed">At ArrowSmart since 2009. Former lead of Arrow Hardware division. Under his tenure, ArrowSmart has grown revenue fivefold.</p>
+          </div>
+          <div class="p-6 rounded-2xl bg-[#1E293B] border border-[#334155]">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#10B981]/30 to-[#0F172A] border border-[#334155] flex items-center justify-center text-[#10B981] font-bold text-xl mb-4">SC</div>
+            <h3 class="text-white font-bold">Sofia Chen</h3>
+            <p class="text-[#10B981] text-xs font-semibold mt-1">Chief Financial Officer</p>
+            <p class="text-[#94A3B8] text-xs mt-2 leading-relaxed">Guided ArrowSmart through three consecutive record revenue years and led the $138B liquidity transformation.</p>
+          </div>
+          <div class="p-6 rounded-2xl bg-[#1E293B] border border-[#334155]">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#10B981]/30 to-[#0F172A] border border-[#334155] flex items-center justify-center text-[#10B981] font-bold text-xl mb-4">ML</div>
+            <h3 class="text-white font-bold">Maya Lin</h3>
+            <p class="text-[#10B981] text-xs font-semibold mt-1">Chief Design Officer</p>
+            <p class="text-[#94A3B8] text-xs mt-2 leading-relaxed">The creative force behind the ArrowSmart aesthetic since 2012. Recipient of the iF Design Award six years running.</p>
+          </div>
+          <div class="p-6 rounded-2xl bg-[#1E293B] border border-[#334155]">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#10B981]/30 to-[#0F172A] border border-[#334155] flex items-center justify-center text-[#10B981] font-bold text-xl mb-4">RK</div>
+            <h3 class="text-white font-bold">Raj Kapoor</h3>
+            <p class="text-[#10B981] text-xs font-semibold mt-1">SVP, Silicon Engineering</p>
+            <p class="text-[#94A3B8] text-xs mt-2 leading-relaxed">Led development of the AS-7 through AS-9 chip generations. Holds 47 patents in processor architecture.</p>
+          </div>
+          <div class="p-6 rounded-2xl bg-[#1E293B] border border-[#334155]">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#10B981]/30 to-[#0F172A] border border-[#334155] flex items-center justify-center text-[#10B981] font-bold text-xl mb-4">TN</div>
+            <h3 class="text-white font-bold">Takeshi Nakamura</h3>
+            <p class="text-[#10B981] text-xs font-semibold mt-1">Chief Technology Officer</p>
+            <p class="text-[#94A3B8] text-xs mt-2 leading-relaxed">Oversees ArrowOS, developer platforms, and ArrowCloud infrastructure. Joined from MIT CSAIL in 2016.</p>
+          </div>
+          <div class="p-6 rounded-2xl bg-[#1E293B] border border-[#334155]">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#10B981]/30 to-[#0F172A] border border-[#334155] flex items-center justify-center text-[#10B981] font-bold text-xl mb-4">AV</div>
+            <h3 class="text-white font-bold">Amara Vasquez</h3>
+            <p class="text-[#10B981] text-xs font-semibold mt-1">Chief People Officer</p>
+            <p class="text-[#94A3B8] text-xs mt-2 leading-relaxed">Leads global talent, culture, and inclusion initiatives. Grew ArrowSmart's workforce by 40% since 2021.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-20 bg-[#1E293B] border-t border-[#334155]">
+      <div class="container mx-auto px-6 text-center">
+        <h2 class="text-3xl font-bold text-white mb-4">Join the team.</h2>
+        <p class="text-[#94A3B8] mb-8 max-w-xl mx-auto">We're always looking for exceptional people who want to build the future of technology.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="careers.html" class="inline-block px-8 py-4 bg-[#10B981] hover:bg-[#059669] text-white rounded-md font-semibold transition-colors">View Open Positions</a>
+          <a href="investors.html" class="inline-block px-8 py-4 bg-transparent hover:bg-[#334155] text-white rounded-md font-semibold transition-colors border border-[#334155]">Investor Relations</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-[#0B1120] border-t border-[#334155] py-12">
+    <div class="container mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-8 mb-12">
+        <div class="md:col-span-1">
+          <div class="flex items-center gap-2 mb-6">
+            <div class="flex items-center justify-center w-8 h-8 rounded-md bg-[#10B981]/10 text-[#10B981]">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L4 4 L20 4"/></svg>
+            </div>
+            <span class="text-lg font-bold tracking-tight text-white">ArrowSmart</span>
+          </div>
+          <p class="text-[#94A3B8] text-sm">The world's leading consumer electronics company.</p>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold mb-4">Products</h4>
+          <ul class="space-y-3">
+            <li><a href="achilles.html" class="text-[#94A3B8] hover:text-[#10B981] text-sm transition-colors">Achilles 20 Series</a></li>
+            <li><a href="computers.html" class="text-[#94A3B8] hover:text-[#10B981] text-sm transition-colors">Arrow Computer</a></li>
+            <li><a href="wearables.html" class="text-[#94A3B8] hover:text-[#10B981] text-sm transition-colors">Arrow Watch</a></li>
+            <li><a href="connect.html" class="text-[#94A3B8] hover:text-[#10B981] text-sm transition-colors">Arrow Connect</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold mb-4">Support</h4>
+          <ul class="space-y-3">
+            <li><a href="store-locator.html" class="text-[#94A3B8] hover:text-[#10B981] text-sm transition-colors">Find a Store</a></li>
+            <li><a href="repairs.html" class="text-[#94A3B8] hover:text-[#10B981] text-sm transition-colors">Repairs</a></li>
+            <li><a href="contact.html" class="text-[#94A3B8] hover:text-[#10B981] text-sm transition-colors">Contact Us</a></li>
+            <li><a href="developers.html" class="text-[#94A3B8] hover:text-[#10B981] text-sm transition-colors">Developers</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold mb-4">Company</h4>
+          <ul class="space-y-3">
+            <li><a href="about.html" class="text-[#94A3B8] hover:text-[#10B981] text-sm transition-colors">About ArrowSmart</a></li>
+            <li><a href="newsroom.html" class="text-[#94A3B8] hover:text-[#10B981] text-sm transition-colors">Newsroom</a></li>
+            <li><a href="careers.html" class="text-[#94A3B8] hover:text-[#10B981] text-sm transition-colors">Careers</a></li>
+            <li><a href="investors.html" class="text-[#94A3B8] hover:text-[#10B981] text-sm transition-colors">Investors</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-8 border-t border-[#1E293B] flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-[#94A3B8] text-sm">&copy; <span class="year"></span> ArrowSmart Inc. All rights reserved.</p>
+        <div class="flex gap-4">
+          <a href="privacy.html" class="text-[#94A3B8] hover:text-white text-sm transition-colors">Privacy</a>
+          <a href="legal.html" class="text-[#94A3B8] hover:text-white text-sm transition-colors">Legal</a>
+          <a href="sitemap.html" class="text-[#94A3B8] hover:text-white text-sm transition-colors">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script>
+    document.querySelectorAll('.year').forEach(el => el.textContent = new Date().getFullYear());
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileNav = document.getElementById('mobile-nav');
+    const iconMenu = document.getElementById('icon-menu');
+    const iconClose = document.getElementById('icon-close');
+    if(menuBtn) menuBtn.addEventListener('click', () => {
+      const isOpen = !mobileNav.classList.contains('hidden');
+      mobileNav.classList.toggle('hidden', isOpen);
+      iconMenu.classList.toggle('hidden', !isOpen);
+      iconClose.classList.toggle('hidden', isOpen);
+    });
+  </script>
+</body>
+</html>

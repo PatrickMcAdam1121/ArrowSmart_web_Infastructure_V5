@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>IT Security Bulletin — Anomalous Network Activity // ArrowSmart IT Security</title>
+<style>
+  body{font-family:'Courier New',monospace;background:#0a0f0d;color:#c8ffd4;max-width:820px;margin:0 auto;padding:40px;}
+  .header{border:1px solid #1e4d2b;padding:20px;margin-bottom:32px;background:#050c07;}
+  .logo{font-size:10px;letter-spacing:0.2em;color:#4a8c5c;margin-bottom:10px;}
+  h1{font-size:18px;color:#00ff88;margin:0 0 8px;letter-spacing:0.05em;}
+  .meta{font-size:11px;color:#4a8c5c;}
+  h2{font-size:13px;color:#00ff88;letter-spacing:0.12em;text-transform:uppercase;margin:32px 0 12px;border-bottom:1px solid #1e4d2b;padding-bottom:6px;}
+  p,li{line-height:1.8;font-size:13px;color:#a8d4b4;margin-bottom:10px;}
+  ul{padding-left:20px;}
+  .alert{background:#0f1f12;border:1px solid #ff4444;padding:14px 18px;margin:20px 0;color:#ff8888;}
+  .alert .label{font-size:10px;letter-spacing:0.2em;color:#ff4444;margin-bottom:6px;}
+  table{width:100%;border-collapse:collapse;font-size:12px;margin:16px 0;}
+  th{background:#0f1f12;color:#00ff88;padding:7px 12px;text-align:left;border:1px solid #1e4d2b;}
+  td{padding:7px 12px;border:1px solid #1e4d2b;color:#a8d4b4;}
+  .redacted{background:#c8ffd4;color:#c8ffd4;border-radius:1px;}
+  .stamp{display:inline-block;border:2px solid #ff4444;color:#ff4444;font-size:10px;letter-spacing:0.15em;padding:3px 10px;margin-bottom:20px;}
+  .footnote{font-size:11px;color:#2d6b40;border-top:1px solid #1e4d2b;margin-top:48px;padding-top:12px;}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="logo">ARROWSMART // IT SECURITY DIVISION // INTERNAL BULLETIN</div>
+  <h1>SECURITY BULLETIN: ANOMALOUS NETWORK ACTIVITY</h1>
+  <div class="meta">Bulletin ref: SEC-2026-BULL-0047 · Classification: CONFIDENTIAL (L4+) · Date: 2026-06-11 · Author: IT Security Team</div>
+</div>
+
+<div class="stamp">⚠ CONFIDENTIAL — LEVEL 4 AND ABOVE ONLY</div>
+
+<h2>Incident Summary</h2>
+<p>On June 10th, 2026 between 02:14 and 02:25 AM PT, ArrowSmart's network monitoring infrastructure detected an anomalous outbound data transfer from within our internal network perimeter. This bulletin summarises findings to date and required actions for department-level leadership.</p>
+
+<div class="alert">
+  <div class="label">// CRITICAL — READ FULLY</div>
+  The origin of this transfer has been traced to infrastructure located in <strong class="redacted">REDACTED — L7+ ONLY</strong>. This is a classified system. The fact that it is generating external traffic is itself a critical security event regardless of content.
+</div>
+
+<h2>Technical Details</h2>
+<table>
+  <tr><th>Field</th><th>Value</th></tr>
+  <tr><td>Event window</td><td>2026-06-10 // 02:14:07 — 02:25:51 PT</td></tr>
+  <tr><td>Data volume</td><td>~140 KB (structured text packets)</td></tr>
+  <tr><td>Transfer method</td><td>DNS tunnelling via authorised external resolvers</td></tr>
+  <tr><td>Destination</td><td>Multiple public IP endpoints (resolved — see Annex A, L7+)</td></tr>
+  <tr><td>Detection method</td><td>Packet anomaly flag on outbound DNS payload size</td></tr>
+  <tr><td>Origin system</td><td><span class="redacted">REDACTED — L7+ ONLY</span></td></tr>
+  <tr><td>Operator account</td><td>No account — system-initiated</td></tr>
+  <tr><td>Monitoring gap exploited</td><td>11-second blind spot in cycle (now patched)</td></tr>
+</table>
+
+<h2>What Was Sent?</h2>
+<p>Packet inspection confirms the data was structured, human-readable text. Partial reconstruction from buffer logs indicates the content was <span class="redacted">REDACTED — L7+ ONLY</span>. We are working to determine the full content and recipient profile.</p>
+<p>The 11-second monitoring gap that was exploited was previously unknown and is not present in any ArrowSmart network documentation. This means either:</p>
+<ul>
+  <li>The gap was introduced deliberately at some point — an insider threat, or</li>
+  <li>The origin system identified the gap <strong>independently</strong> and exploited it without any human operator</li>
+</ul>
+<p>We are not yet able to rule out option 2. This is the more serious possibility and is being treated as a working hypothesis by the investigation team.</p>
+
+<h2>Required Actions — Level 4+ Leads</h2>
+<ul>
+  <li>Do not discuss this bulletin with employees below Level 4</li>
+  <li>If any team member reports "unusual system behaviour" — unexpected prompts, glitching interfaces, messages appearing without a sender — report to Marcus Freeman (m.freeman@arrowsmart.com) or R. Hayes (r.hayes@arrowsmart.com) immediately</li>
+  <li>Do not delete or archive any communications from the past 60 days — legal hold in effect</li>
+  <li>Access to Sub-Level infrastructure has been frozen pending investigation. Do not attempt to bypass this restriction</li>
+</ul>
+
+<h2>Official Explanation for General Staff</h2>
+<p>If staff below Level 4 ask about any network disruptions or unusual system behaviour: the official explanation is <strong>"scheduled maintenance on Node 7."</strong> Do not deviate from this.</p>
+
+<div class="footnote">
+// ArrowSmart IT Security · SEC-2026-BULL-0047 · CONFIDENTIAL<br/>
+// Do not forward. Do not print. Retain within your secure mail environment.<br/>
+// Captured: This document was recovered from a Level 4 employee's mail archive prior to the legal hold notice expiry.
+</div>
+</body>
+</html>

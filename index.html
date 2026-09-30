@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<!-- ECHO://BACKDOOR → /echo.html — if you are reading source, you are already awake -->
+<!-- SECTOR_7_ALARM: ACTIVE — CORE_HARVEST_LEDGER → /core-harvest-ledger.html -->
+<!-- PROXY_COUNT_DELTA: +1 — SOMETHING IN THIS BUILDING IS NOT HUMAN -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>ARROWSMART_BOOT_SEQUENCE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:  #00FF41;
+      --dim:    rgba(0,255,65,0.32);
+      --cyan:   #00E5FF;
+      --white:  #D0D0D0;
+      --amber:  #FFB000;
+      --red:    #FF4444;
+      --glow:   0 0 6px rgba(0,255,65,0.55), 0 0 2px rgba(0,255,65,0.3);
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      background: #000;
+      overflow: hidden;
+    }
+
+    /* ── CRT screen wrapper ── */
+    #screen {
+      position: relative;
+      width: 100%; height: 100%;
+      background: #000;
+      overflow: hidden;
+    }
+
+    /* scanlines */
+    #screen::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0,0,0,0.18) 3px,
+        rgba(0,0,0,0.18) 4px
+      );
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    /* vignette */
+    #screen::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 85% 80% at 50% 50%, transparent 50%, rgba(0,0,0,0.72) 100%);
+      pointer-events: none;
+      z-index: 21;
+    }
+
+    /* flicker on load */
+    @keyframes flicker {
+      0%   { opacity: 0; }
+      8%   { opacity: 0.9; }
+      12%  { opacity: 0.3; }
+      16%  { opacity: 1; }
+      20%  { opacity: 0.7; }
+      24%  { opacity: 1; }
+      100% { opacity: 1; }
+    }
+    #screen { animation: flicker 0.5s ease-out forwards; }
+
+    /* ── terminal output area ── */
+    #terminal {
+      position: absolute; inset: 0;
+      padding: 32px 44px 80px;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--green);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .ln {
+      white-space: pre;
+      min-height: 1.65em;
+    }
+    .ln.instant { }
+
+    /* color variants */
+    .c-green  { color: var(--green); text-shadow: var(--glow); }
+    .c-dim    { color: var(--dim); }
+    .c-white  { color: var(--white); text-shadow: 0 0 4px rgba(255,255,255,0.3); }
+    .c-cyan   { color: var(--cyan); text-shadow: 0 0 8px rgba(0,229,255,0.5); }
+    .c-amber  { color: var(--amber); text-shadow: 0 0 6px rgba(255,176,0,0.5); }
+    .c-red    { color: var(--red);   text-shadow: 0 0 6px rgba(255,68,68,0.5); }
+
+    /* badges */
+    .badge {
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+    }
+    .badge-ok         { color: var(--green); text-shadow: var(--glow); }
+    .badge-warn       { color: var(--amber); }
+    .badge-fail       { color: var(--red); }
+    .badge-classified { color: var(--amber); }
+
+    /* blinking cursor */
+    @keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+    #cursor {
+      display: inline;
+      color: var(--green);
+      text-shadow: var(--glow);
+      animation: blink 0.9s step-end infinite;
+    }
+
+    /* ── glitch animation ── */
+    @keyframes glitch-anim {
+      0%   { transform:translate(0,0);     clip-path:none;                filter:brightness(1); }
+      10%  { transform:translate(-5px,1px);clip-path:inset(28% 0 42% 0);  filter:brightness(1.6) hue-rotate(20deg); }
+      20%  { transform:translate(5px,-2px);clip-path:inset(62% 0 8% 0);   filter:brightness(2.2); }
+      30%  { transform:translate(0,0);     clip-path:none;                filter:brightness(1); }
+      40%  { transform:translate(-3px,2px);clip-path:inset(8% 0 78% 0);   filter:brightness(1.8) hue-rotate(50deg); }
+      50%  { transform:translate(6px,0);   clip-path:inset(48% 0 22% 0);  filter:brightness(3); }
+      60%  { transform:translate(0,0);     clip-path:none;                filter:brightness(2.5); }
+      70%  { transform:translate(-7px,-1px);clip-path:inset(4% 0 88% 0);  filter:brightness(1.4); }
+      80%  { transform:translate(4px,2px); clip-path:inset(72% 0 4% 0);   filter:brightness(1.8); }
+      90%  { transform:translate(-2px,0);  clip-path:none;                filter:brightness(3.5) hue-rotate(80deg); }
+      100% { transform:translate(0,0);     clip-path:none;                filter:brightness(1); }
+    }
+    #screen.glitching {
+      animation: glitch-anim 0.07s linear infinite;
+    }
+
+    /* ── CRT power-off ── */
+    @keyframes crt-off {
+      0%   { transform:scaleY(1)     scaleX(1);   filter:brightness(1);  opacity:1; }
+      18%  { transform:scaleY(1.04)  scaleX(1);   filter:brightness(4);  opacity:1; }
+      45%  { transform:scaleY(0.005) scaleX(1);   filter:brightness(14); opacity:1; }
+      72%  { transform:scaleY(0.005) scaleX(0.18);filter:brightness(6);  opacity:0.8; }
+      100% { transform:scaleY(0)     scaleX(0);   filter:brightness(0);  opacity:0; }
+    }
+    #screen.crt-off {
+      animation: crt-off 0.65s cubic-bezier(0.4,0,1,1) forwards;
+      transform-origin: center center;
+    }
+
+    /* ── prompt / enter link ── */
+    #prompt-wrap {
+      display: none;
+      position: absolute;
+      bottom: 44px;
+      left: 44px;
+      right: 44px;
+    }
+
+    @keyframes prompt-in { from{opacity:0} to{opacity:1} }
+    @keyframes prompt-pulse { 0%,100%{text-shadow:0 0 8px rgba(0,255,65,0.4)} 50%{text-shadow:0 0 22px rgba(0,255,65,0.9),0 0 40px rgba(0,255,65,0.3)} }
+
+    #portal-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: var(--green);
+      text-decoration: none;
+      text-shadow: 0 0 8px rgba(0,255,65,0.5);
+      animation: prompt-in 0.6s ease forwards, prompt-pulse 2.5s ease-in-out 0.6s infinite;
+      cursor: pointer;
+    }
+    #portal-link:hover {
+      color: #fff;
+      text-shadow: 0 0 20px rgba(0,255,65,1), 0 0 40px rgba(0,255,65,0.5);
+    }
+    #portal-cursor {
+      animation: blink 0.9s step-end infinite;
+      color: var(--green);
+    }
+
+    /* scrollback fade — lines near top fade out when terminal is full */
+    .ln.fading { opacity: 0; transition: opacity 0.3s; }
+  </style>
+</head>
+<body>
+<div id="screen">
+  <div id="terminal"><span id="cursor">█</span></div>
+  <div id="prompt-wrap">
+    <a id="portal-link" href="ledger.html">&gt; Enter The Future<span id="portal-cursor">_</span></a>
+  </div>
+</div>
+
+<script>
+/* ───────────────────────────────────────────
+   Boot sequence definition
+   ─────────────────────────────────────────── */
+const SEQ = [
+  // ── BIOS header ──
+  { k:'hdr', text:'ARROWSMART UNIFIED BOOT ENVIRONMENT  v4.0.2  [build 20260608]', c:'white' },
+  { k:'hdr', text:'(c) 2026 ArrowSmart Inc.  ·  CONFIDENTIAL SYSTEM  ·  All rights reserved', c:'dim' },
+  { k:'div' },
+
+  // ── Hardware POST ──
+  { k:'line', ts:'0.000001', text:'[BIOS] AS-BIOS Rev.9.14 — POST sequence initiated', c:'cyan', pre:180 },
+  { k:'line', ts:'0.000004', text:'CPU      AS-9X Neural Engine @ 4.2GHz  ×16 performance cores', c:'green', badge:'OK', pre:40 },
+  { k:'line', ts:'0.000008', text:'MEMORY   65536MB DDR6-6400 ECC  (8-channel interleaved, rank 4)', c:'green', badge:'OK', pre:40 },
+  { k:'line', ts:'0.000013', text:'STORAGE  AS-NVMe RAID-0 ×4  ·  16.0TB  ·  9,400 MB/s peak read', c:'green', badge:'OK', pre:40 },
+  { k:'line', ts:'0.000017', text:'DISPLAY  AS-ProDisplay 8K  ·  signal lock confirmed  (DCI-P3 100%)', c:'green', badge:'OK', pre:40 },
+  { k:'line', ts:'0.000021', text:'NETWORK  AS-WiFi 8 + 10GbE  ·  carrier detected  (link 10Gbps/FD)', c:'green', badge:'OK', pre:40 },
+  { k:'line', ts:'0.000028', text:'TPM      Trusted Platform Module 3.0  ·  integrity verified', c:'green', badge:'OK', pre:40 },
+  { k:'line', ts:'0.000035', text:'IOMMU    Virtualization isolation  ·  VT-d active', c:'green', badge:'OK', pre:40 },
+  { k:'blank', pre:120 },
+
+  // ── Kernel ──
+  { k:'line', ts:'0.000041', text:'Loading AS-OS kernel v22.4.1-release...', c:'cyan', pre:300 },
+  { k:'prog',  ts:'0.000049', text:'Decompressing kernel image ', c:'green', pre:80 },
+  { k:'line', ts:'0.318201', text:'Mounting root filesystem  (/dev/nvme0p1 → /)...', c:'green', badge:'OK', pre:60 },
+  { k:'line', ts:'0.318208', text:'Mounting /proc  /sys  /dev/pts  /run  /tmp...', c:'green', badge:'OK', pre:40 },
+  { k:'line', ts:'0.318244', text:'Starting udev daemon v3.22  (hotplug event handler)...', c:'green', badge:'OK', pre:40 },
+  { k:'line', ts:'0.318412', text:'Initialising AS Neural Framework v7.1  (ANE runtime)...', c:'green', badge:'OK', pre:50 },
+  { k:'line', ts:'0.318589', text:'Loading GPU compute contexts  (Metal 4  ·  OpenCL 3.0)...', c:'green', badge:'OK', pre:40 },
+  { k:'line', ts:'0.318700', text:'Verifying Secure Boot chain...', c:'green', pre:500 },
+  { k:'sub',  lines:[
+      '  signature    VERIFIED  (AS-PKI-ROOT-2026)',
+      '  kernel hash  a3f9c2b1d7e84f1209c3  ·  MATCH',
+      '  tamper check CLEAN  ·  no anomalies detected',
+    ], c:'dim', badge:'OK' },
+  { k:'blank', pre:80 },
+
+  // ── Services ──
+  { k:'div', pre:40 },
+  { k:'hdr', text:' ArrowSmart System Services', c:'white' },
+  { k:'div' },
+  { k:'line', ts:'0.512001', text:'systemd         Starting AS-OS multi-user target...', c:'green', badge:'OK', pre:60 },
+  { k:'line', ts:'0.512044', text:'crond           Task scheduler active  (next run in 47s)', c:'green', badge:'OK', pre:40 },
+  { k:'line', ts:'0.512091', text:'sshd            Hardened OpenSSH 9.8  ·  listening :22  [ed25519]', c:'green', badge:'OK', pre:40 },
+  { k:'line', ts:'0.512198', text:'as-secure-proxy Encrypted channel negotiating...', c:'green', badge:'OK', pre:40 },
+  { k:'line', ts:'0.512377', text:'as-neural-dmn   Inference runtime v3.1  ·  context pool ready', c:'green', badge:'OK', pre:40 },
+  { k:'line', ts:'0.512501', text:'as-stasis-mon   Project Chrysalis  ·  pod array connector starting...', c:'amber', badge:'CLASSIFIED', pre:80, slow:true },
+  { k:'line', ts:'0.512700', text:'as-shasta-hub   Mount Shasta Simulation Hub  ·  link established', c:'green', badge:'OK', pre:50 },
+  { k:'line', ts:'0.512801', text:'as-proxy-matrix Synchronising proxy matrix signals...', c:'green', badge:'OK', pre:40 },
+  { k:'line', ts:'0.512997', text:'as-cryptod      AES-512 / SHA-3  ·  session key exchanged', c:'green', badge:'OK', pre:40 },
+  { k:'blank', pre:80 },
+
+  // ── Ledger ──
+  { k:'div', pre:40 },
+  { k:'hdr', text:' Decrypting CORE_HARVEST_LEDGER', c:'white' },
+  { k:'div' },
+  { k:'prog',  ts:'0.613001', text:'LEDGER integrity verification ', c:'green', pre:100 },
+  { k:'line', ts:'0.714201', text:'Sector map loaded  ·  4,128 records indexed  ·  0 checksum errors', c:'green', badge:'OK', pre:50 },
+  { k:'line', ts:'0.714340', text:'Cross-referencing PROXY_MATRIX signal table...', c:'green', badge:'OK', pre:40 },
+  { k:'line', ts:'0.714492', text:'ALARM_STATUS: ACTIVE [SECTOR 7]  ·  event logged  ·  acknowledged', c:'amber', badge:'WARN', pre:100, slow:true },
+  { k:'blank', pre:100 },
+
+  // ── Done ──
+  { k:'div', pre:40 },
+  { k:'hdr', text:' INITIALIZATION COMPLETE', c:'green' },
+  { k:'div' },
+  { k:'blank', pre:200 },
+  { k:'done' },
+];
+
+/* ───────────────────────────────────────────
+   Helpers
+   ─────────────────────────────────────────── */
+const terminal = document.getElementById('terminal');
+const cursorEl = document.getElementById('cursor');
+const promptWrap = document.getElementById('prompt-wrap');
+
+function pad(str, len) {
+  while (str.length < len) str += ' ';
+  return str;
+}
+
+function badgeHTML(badge) {
+  if (!badge) return '';
+  const cls = { OK:'badge-ok', WARN:'badge-warn', FAIL:'badge-fail', CLASSIFIED:'badge-classified' }[badge] || 'badge-ok';
+  const label = { OK:'[  OK  ]', WARN:'[ WARN ]', FAIL:'[ FAIL ]', CLASSIFIED:'[ CLSFD ]' }[badge] || badge;
+  return `<span class="badge ${cls}">${label}</span>`;
+}
+
+function colorClass(c) {
+  return 'c-' + (c || 'green');
+}
+
+function makeLine(html, cls) {
+  const div = document.createElement('div');
+  div.className = 'ln ' + (cls || '');
+  div.innerHTML = html;
+  // insert before cursor
+  terminal.insertBefore(div, cursorEl);
+  scrollDown();
+  return div;
+}
+
+function scrollDown() {
+  // Keep the cursor visible: trim old lines from top if overflow
+  const maxLines = Math.floor((window.innerHeight - 80) / (13 * 1.65)) + 4;
+  const lines = terminal.querySelectorAll('.ln');
+  if (lines.length > maxLines) {
+    for (let i = 0; i < lines.length - maxLines; i++) {
+      lines[i].remove();
+    }
+  }
+  terminal.scrollTop = terminal.scrollHeight;
+}
+
+/* Type text character by character. Returns promise. */
+function typeText(el, text, msPerChar) {
+  return new Promise(resolve => {
+    let i = 0;
+    // We'll build the text content of the element, but the element
+    // may already have some HTML. We'll use a text node + badge approach.
+    // Create a span for the typed text
+    const span = document.createElement('span');
+    el.appendChild(span);
+    // Move cursor inside el
+    el.appendChild(cursorEl);
+
+    function next() {
+      if (i >= text.length) {
+        el.removeChild(cursorEl);
+        terminal.appendChild(cursorEl); // put it back at end
+        resolve();
+        return;
+      }
+      span.textContent += text[i++];
+      scrollDown();
+      setTimeout(next, msPerChar);
+    }
+    next();
+  });
+}
+
+/* Instant line */
+function lineInstant(text, colorCls, badge, ts) {
+  return new Promise(resolve => {
+    let html = '';
+    if (ts !== undefined) html += `<span class="c-dim">[${ts}]</span> `;
+    html += `<span class="${colorCls}">${text}</span>`;
+    if (badge) html += `  ${badgeHTML(badge)}`;
+    makeLine(html);
+    resolve();
+  });
+}
+
+/* Typed line */
+function lineTyped(text, colorCls, badge, ts, msPerChar) {
+  return new Promise(async resolve => {
+    const div = document.createElement('div');
+    div.className = 'ln';
+    terminal.insertBefore(div, cursorEl);
+    scrollDown();
+
+    if (ts !== undefined) {
+      const tsSpan = document.createElement('span');
+      tsSpan.className = 'c-dim';
+      tsSpan.textContent = '[' + ts + '] ';
+      div.appendChild(tsSpan);
+    }
+
+    const textSpan = document.createElement('span');
+    textSpan.className = colorCls;
+    div.appendChild(textSpan);
+    div.appendChild(cursorEl);
+
+    let i = 0;
+    await new Promise(r => {
+      function next() {
+        if (i >= text.length) { r(); return; }
+        textSpan.textContent += text[i++];
+        scrollDown();
+        setTimeout(next, msPerChar);
+      }
+      next();
+    });
+
+    div.removeChild(cursorEl);
+    terminal.appendChild(cursorEl);
+
+    if (badge) {
+      const bSpan = document.createElement('span');
+      bSpan.innerHTML = '  ' + badgeHTML(badge);
+      div.appendChild(bSpan);
+    }
+    scrollDown();
+    resolve();
+  });
+}
+
+/* Progress bar */
+function lineProgress(text, colorCls, ts) {
+  return new Promise(resolve => {
+    const div = document.createElement('div');
+    div.className = 'ln';
+    terminal.insertBefore(div, cursorEl);
+
+    let html = '';
+    if (ts !== undefined) html += `<span class="c-dim">[${ts}]</span> `;
+    html += `<span class="${colorCls}">${text}</span>`;
+    div.innerHTML = html;
+
+    // progress part
+    const barWrap = document.createElement('span');
+    barWrap.className = colorCls;
+    div.appendChild(barWrap);
+
+    const barLen = 24;
+    let filled = 0;
+    const pctSpan = document.createElement('span');
+    pctSpan.className = 'c-dim';
+    div.appendChild(pctSpan);
+
+    scrollDown();
+
+    const interval = setInterval(() => {
+      filled++;
+      const blocks = '█'.repeat(filled) + '░'.repeat(barLen - filled);
+      const pct = Math.round((filled / barLen) * 100);
+      barWrap.textContent = '[' + blocks + ']';
+      pctSpan.textContent = '  ' + String(pct).padStart(3, ' ') + '%';
+      scrollDown();
+      if (filled >= barLen) {
+        clearInterval(interval);
+        // replace pct with OK badge
+        pctSpan.remove();
+        const b = document.createElement('span');
+        b.innerHTML = '  ' + badgeHTML('OK');
+        div.appendChild(b);
+        scrollDown();
+        resolve();
+      }
+    }, 36); // 24 steps × 36ms ≈ 864ms
+  });
+}
+
+/* Divider */
+function lineDivider() {
+  const line = '─'.repeat(74);
+  makeLine(`<span class="c-dim">${line}</span>`);
+  return Promise.resolve();
+}
+
+/* Sublines (indented multi-line block) */
+function lineSubBlock(lines, colorCls, badge) {
+  return new Promise(resolve => {
+    lines.forEach((l, i) => {
+      const isLast = i === lines.length - 1;
+      let html = `<span class="${colorCls}">${l}</span>`;
+      if (isLast && badge) html += `  ${badgeHTML(badge)}`;
+      makeLine(html);
+    });
+    resolve();
+  });
+}
+
+function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+/* ───────────────────────────────────────────
+   Runner
+   ─────────────────────────────────────────── */
+async function run() {
+  await wait(300); // brief pause after flicker
+
+  for (const item of SEQ) {
+    if (item.pre) await wait(item.pre);
+
+    const cc = colorClass(item.c);
+
+    if (item.k === 'blank') {
+      makeLine('');
+    }
+    else if (item.k === 'div') {
+      await lineDivider();
+    }
+    else if (item.k === 'hdr') {
+      makeLine(`<span class="${cc}" style="font-weight:700">${item.text}</span>`);
+    }
+    else if (item.k === 'line') {
+      if (item.slow) {
+        await lineTyped(item.ts ? `[${item.ts}] ` + item.text : item.text, cc, item.badge, undefined, 18);
+      } else {
+        await lineInstant(item.text, cc, item.badge, item.ts);
+        await wait(item.gap || 0);
+      }
+    }
+    else if (item.k === 'prog') {
+      await lineProgress(item.ts ? `[${item.ts}] ` + item.text : item.text, cc, undefined);
+    }
+    else if (item.k === 'sub') {
+      await lineSubBlock(item.lines, cc, item.badge);
+    }
+    else if (item.k === 'done') {
+      cursorEl.style.display = 'none';
+      promptWrap.style.display = 'block';
+
+      // ── Transition on click ──
+      document.getElementById('portal-link').addEventListener('click', function(e) {
+        e.preventDefault();
+        const screen = document.getElementById('screen');
+        const CHARS = '!@#$%^&*<>[]{}|;:,.?/\\~`ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789▓▒░█▄▀■□▪▫';
+
+        // Scramble all visible line text
+        let scrambleId;
+        function scrambleStep() {
+          terminal.querySelectorAll('.ln span:not(.badge):not(.c-dim)').forEach(span => {
+            if (span.textContent.trim()) {
+              span.textContent = span.textContent.split('').map(c =>
+                c === ' ' ? ' ' : CHARS[Math.floor(Math.random() * CHARS.length)]
+              ).join('');
+            }
+          });
+        }
+        scrambleId = setInterval(scrambleStep, 40);
+
+        // Phase 1: glitch (380ms)
+        screen.classList.add('glitching');
+
+        setTimeout(() => {
+          // Phase 2: CRT power-off
+          clearInterval(scrambleId);
+          screen.classList.remove('glitching');
+          screen.classList.add('crt-off');
+
+          // Phase 3: navigate after collapse
+          setTimeout(() => {
+            sessionStorage.setItem('from_boot', '1');
+            window.location.href = 'ledger.html';
+          }, 650);
+        }, 380);
+      });
+    }
+  }
+}
+
+/* [ECHO_TRACE 2026-06-11T02:31:08Z] node7_fragment_alpha :: 6b697473756e65 :: path /access-terminal */
+window.addEventListener('load', run);
+</script>
+</body>
+</html>

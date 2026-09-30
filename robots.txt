@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /legacy/
+Disallow: /docs/recovery-memo.html
+Disallow: /access-terminal
+Disallow: /api/
+
+# ArrowSmart Technologies — arrowsmart.com
+# Internal crawler policy — do not index restricted paths
+# Contact: it-security@arrowsmart.com

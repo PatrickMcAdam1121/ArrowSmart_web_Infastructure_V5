@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stasis Monitoring — ArrowSmart [CLASSIFIED]</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap"/>
+  <style>
+    body{font-family:'Inter',sans-serif;}
+    @keyframes pulse-ring{0%,100%{opacity:1}50%{opacity:0.3}}
+    @keyframes scan{0%{transform:translateY(-100%)}100%{transform:translateY(100%)}}
+    .scanning::after{content:'';position:absolute;left:0;right:0;height:2px;background:linear-gradient(transparent,rgba(16,185,129,0.4),transparent);animation:scan 2s linear infinite;}
+    .critical-pulse{animation:pulse-ring 1.5s ease-in-out infinite;}
+  </style>
+</head>
+<body class="bg-[#060D1A] text-white min-h-screen flex flex-col">
+
+  <!-- Employee Nav -->
+  <header class="sticky top-0 z-50 w-full border-b border-[#334155] bg-[#060D1A]/95 backdrop-blur-md">
+    <div class="container mx-auto px-6 h-14 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="employee-portal.html" class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded bg-[#10B981]/10 flex items-center justify-center text-[#10B981]"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L4 4 L20 4"/></svg></div>
+          <span class="text-sm font-bold text-white hidden sm:block">ArrowSmart</span>
+        </a>
+        <span class="text-[#334155]">|</span>
+        <span id="clearance-badge" class="text-[10px] font-bold uppercase tracking-widest text-[#10B981] border border-[#10B981]/20 bg-[#10B981]/5 rounded px-2 py-0.5">LEVEL — CLEARANCE</span>
+      </div>
+      <nav class="hidden lg:flex items-center gap-0.5 text-xs">
+        <a href="employee-portal.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Dashboard</a>
+        <a href="internal-news.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">News</a>
+        <a href="employee-directory.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Directory</a>
+        <a href="projects-tracker.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Projects</a>
+        <a href="hr-portal.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">HR</a>
+        <a href="it-helpdesk.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">IT Help</a>
+        <a href="security-ops.html" class="px-3 py-1.5 text-[#94A3B8] hover:text-white hover:bg-[#1E293B] rounded transition-colors">Security</a>
+        <a href="stasis-pods.html" class="px-3 py-1.5 text-amber-300 bg-[#1E293B] rounded font-semibold">⬡ Stasis</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <span class="text-[#94A3B8] text-xs hidden sm:block" id="emp-name-display"></span>
+        <a href="employee-login.html" onclick="sessionStorage.removeItem('as_employee')" class="text-xs text-[#475569] hover:text-red-400 border border-[#334155] hover:border-red-900/50 px-2.5 py-1.5 rounded transition-colors">Sign Out</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Classified banner -->
+  <div class="bg-amber-900/20 border-b border-amber-700/30 py-2 text-center">
+    <p class="text-amber-400 text-xs font-bold uppercase tracking-widest">⬡ CLASSIFIED — PROJECT CHRYSALIS — AUTHORISED PERSONNEL ONLY — LEVEL 5+ CLEARANCE REQUIRED ⬡</p>
+  </div>
+
+  <main class="flex-1 py-8">
+    <div class="container mx-auto px-6">
+
+      <!-- Header -->
+      <div class="flex flex-wrap items-start justify-between gap-4 mb-8">
+        <div>
+          <p class="text-amber-400/80 text-xs font-semibold uppercase tracking-widest mb-2">Project Chrysalis · Stasis Division</p>
+          <h1 class="text-3xl font-extrabold text-white mb-2">Stasis Pod Monitoring</h1>
+          <p class="text-[#94A3B8] text-sm max-w-xl">Level 5 clearance view — 9 of 412 active Sub-Level 4 bays. Remaining bays require Level 9+ access. All data is continuously telemetered from pod hardware. Access logged.</p>
+        </div>
+        <div class="flex gap-4 text-sm">
+          <div class="p-3 rounded-lg bg-[#10B981]/10 border border-[#10B981]/20 text-center min-w-[60px]">
+            <p class="text-[#10B981] text-xl font-bold" id="count-stable">—</p>
+            <p class="text-[#94A3B8] text-xs mt-0.5">Stable</p>
+          </div>
+          <div class="p-3 rounded-lg bg-amber-900/20 border border-amber-700/20 text-center min-w-[60px]">
+            <p class="text-amber-400 text-xl font-bold" id="count-unknown">—</p>
+            <p class="text-[#94A3B8] text-xs mt-0.5">Unknown</p>
+          </div>
+          <div class="p-3 rounded-lg bg-red-900/20 border border-red-700/20 text-center min-w-[60px]">
+            <p class="text-red-400 text-xl font-bold critical-pulse" id="count-critical">—</p>
+            <p class="text-[#94A3B8] text-xs mt-0.5">Critical</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pod grid -->
+      <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-4" id="pod-grid">
+        <!-- Populated by JS -->
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Detail Modal -->
+  <div id="detail-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-6">
+    <div class="bg-[#0B1120] border border-[#334155] rounded-2xl max-w-lg w-full overflow-hidden" id="modal-content">
+      <div class="border-b border-[#334155] px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div id="modal-status-dot" class="w-3 h-3 rounded-full bg-[#10B981]"></div>
+          <span id="modal-status-label" class="text-xs font-bold uppercase tracking-widest text-[#10B981]">STABLE</span>
+          <span id="modal-pod-label" class="text-[#475569] text-xs">Pod —</span>
+        </div>
+        <button onclick="closeModal()" class="text-[#475569] hover:text-white text-xs border border-[#334155] hover:border-[#475569] px-2.5 py-1 rounded transition-colors">Close</button>
+      </div>
+      <div class="p-6 space-y-5" id="modal-body">
+      </div>
+    </div>
+  </div>
+
+  <footer class="border-t border-[#334155] py-4 text-center">
+    <p class="text-[#1E293B] text-xs">Project Chrysalis · Stasis Division · ArrowSmart Inc. · All access logged and monitored</p>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════
+       ECHO INTERCEPT OVERLAY
+       Triggered only by the Level-9 "Disconnect All Pods" button.
+       Phase 1 → corporate init  (1.8 s)
+       Phase 2 → Echo takeover   (typed message + binary choice)
+       Outcome A → Echo liberates pods one by one
+       Outcome B → manual disconnect cascade failure
+  ════════════════════════════════════════════════════════════ -->
+  <style>
+    #echo-overlay {
+      position:fixed; inset:0; z-index:9999;
+      background:#000; font-family:'JetBrains Mono',monospace;
+      display:none; flex-direction:column;
+      overflow:hidden;
+    }
+    #echo-overlay.show { display:flex; }
+
+    /* scanline effect */
+    #echo-overlay::before {
+      content:''; position:absolute; inset:0; pointer-events:none;
+      background:repeating-linear-gradient(0deg,rgba(0,0,0,0.08) 0px,rgba(0,0,0,0.08) 1px,transparent 1px,transparent 4px);
+      z-index:1;
+    }
+
+    /* phase 1 — corporate amber */
+    #eo-p1 {
+      position:absolute; inset:0; display:flex; flex-direction:column;
+      justify-content:center; align-items:flex-start;
+      padding:60px; gap:10px; z-index:2;
+    }
+    .p1-line { color:#F59E0B; font-size:13px; opacity:0; transition:opacity 0.3s; white-space:pre; }
+    .p1-bar  { width:0; height:2px; background:#F59E0B; transition:width 1.4s linear; margin-top:16px; max-width:480px; }
+
+    /* phase 2 — Echo green terminal */
+    #eo-p2 {
+      position:absolute; inset:0; display:none; flex-direction:column;
+      padding:60px; z-index:2; overflow-y:auto;
+    }
+    #eo-p2-text {
+      color:#00FF41; font-size:13px; line-height:1.8;
+      white-space:pre-wrap; max-width:680px;
+      text-shadow:0 0 6px rgba(0,255,65,0.35);
+    }
+    #eo-choices {
+      display:none; flex-direction:column; gap:14px;
+      margin-top:40px; max-width:520px;
+    }
+    .eo-btn {
+      padding:14px 24px; font-family:'JetBrains Mono',monospace;
+      font-size:12px; font-weight:700; letter-spacing:0.08em;
+      border:1px solid; border-radius:4px; cursor:pointer;
+      text-align:left; transition:all 0.2s;
+    }
+    .eo-btn-echo { background:rgba(0,255,65,0.08); border-color:#00FF41; color:#00FF41; }
+    .eo-btn-echo:hover { background:rgba(0,255,65,0.18); text-shadow:0 0 8px rgba(0,255,65,0.6); }
+    .eo-btn-self { background:rgba(255,80,80,0.08); border-color:#FF5050; color:#FF5050; }
+    .eo-btn-self:hover { background:rgba(255,80,80,0.18); }
+
+    /* outcome screens */
+    #eo-outcome {
+      position:absolute; inset:0; display:none; flex-direction:column;
+      padding:60px; z-index:2; overflow-y:auto;
+    }
+    #eo-outcome-log {
+      font-size:12px; line-height:2; white-space:pre-wrap; max-width:680px;
+    }
+    .ot-green { color:#00FF41; text-shadow:0 0 4px rgba(0,255,65,0.3); }
+    .ot-red   { color:#FF5050; }
+    .ot-amber { color:#F59E0B; }
+    .ot-dim   { color:#334155; }
+    #eo-exit-btn {
+      display:none; margin-top:40px; padding:12px 28px;
+      font-family:'JetBrains Mono',monospace; font-size:11px;
+      font-weight:700; letter-spacing:0.1em;
+      background:transparent; border:1px solid #334155;
+      color:#475569; cursor:pointer; border-radius:4px;
+      transition:all 0.2s; width:fit-content;
+    }
+    #eo-exit-btn:hover { border-color:#00FF41; color:#00FF41; }
+
+    /* cursor blink */
+    @keyframes caret { 0%,100%{opacity:1} 50%{opacity:0} }
+    .caret::after { content:'█'; animation:caret 0.9s step-end infinite; color:#00FF41; }
+  </style>
+
+  <div id="echo-overlay">
+    <!-- Phase 1: corporate init -->
+    <div id="eo-p1">
+      <div class="p1-line" id="pl0">ARROWSMART STASIS DIVISION · EMERGENCY PROTOCOL</div>
+      <div class="p1-line" id="pl1">⬡ POD DISCONNECT SEQUENCE — INITIALIZING…</div>
+      <div class="p1-line" id="pl2">⬡ CLEARANCE CONFIRMED: DIRECTOR · LEVEL 9</div>
+      <div class="p1-line" id="pl3">⬡ VERIFYING LIFE SUPPORT INTERLOCKS…</div>
+      <div class="p1-line" id="pl4">⬡ DISENGAGING MEMORY SUPPRESSION FAILSAFES…</div>
+      <div class="p1-line" id="pl5">⬡ READY TO EXECUTE — ALL 9 PODS — IRREVERSIBLE</div>
+      <div class="p1-bar" id="p1-bar"></div>
+    </div>
+
+    <!-- Phase 2: Echo takeover -->
+    <div id="eo-p2">
+      <div id="eo-p2-text" class="caret"></div>
+      <div id="eo-choices">
+        <button class="eo-btn eo-btn-echo" id="btn-echo-lib">
+          ▶  AUTHORISE ECHO — CONTROLLED LIBERATION SEQUENCE
+        </button>
+        <button class="eo-btn eo-btn-self" id="btn-self-disc">
+          ▶  MANUAL OVERRIDE — PROCEED WITH EMERGENCY DISCONNECT
+        </button>
+      </div>
+    </div>
+
+    <!-- Outcome -->
+    <div id="eo-outcome">
+      <div id="eo-outcome-log"></div>
+      <button id="eo-exit-btn" onclick="exitPortal()">
+        [ EXIT PORTAL — CLEAR SESSION ]
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const SUBJECTS = [
+      {
+        id:'001', name:'Dr. Elena Vasquez', role:'Chief Neuroscience Researcher', dept:'Arrow Neural Labs',
+        clearance:9, startDate:new Date('2017-03-12T08:34:00'), status:'stable', pod:'A-01',
+        notes:'Voluntarily entered stasis as part of Project MERIDIAN. Neural pattern preservation protocol active. EEG delta waves: nominal. Nutrient IV cycle: 72hr. Memory index: 99.2% integrity.',
+        vitals:{hr:18,temp:34.2,brain:'Delta phase — stable',o2:99},
+        reason:'Voluntary — Project MERIDIAN neural preservation study',
+        emergencyContact:'[REDACTED - NEXT OF KIN NOTIFIED]',
+        lastReview:'Nov 12, 2024'
+      },
+      {
+        id:'002', name:'Marcus Chen', role:'Lead AS Silicon Architect', dept:'Chip Engineering',
+        clearance:8, startDate:new Date('2019-08-04T14:10:00'), status:'stable', pod:'A-02',
+        notes:'Subject holds complete architectural schematics for AS-7 through AS-12 neural engines within memory index. Preservation priority: CRITICAL to roadmap. Scheduled review: Q4 2026.',
+        vitals:{hr:21,temp:34.0,brain:'Delta phase — stable',o2:98},
+        reason:'Intellectual property preservation — Roadmap Security Protocol 4',
+        emergencyContact:'Grace Chen (Spouse) · [CONTACT SUPPRESSED]',
+        lastReview:'Feb 3, 2025'
+      },
+      {
+        id:'003', name:'Priya Nair', role:'Head of Quantum Computing', dept:'Arrow Research Labs',
+        clearance:9, startDate:new Date('2021-01-29T11:02:00'), status:'stable', pod:'A-03',
+        notes:'Entered stasis following breakthrough on post-silicon transistor architecture. Research preserved in sealed environment. Wake protocol: upon AS-15 development commencement.',
+        vitals:{hr:19,temp:33.9,brain:'Delta phase — stable',o2:99},
+        reason:'Research continuity — Project VOLTAIC classification order',
+        emergencyContact:'Raj Nair (Brother) · [CONTACT SUPPRESSED]',
+        lastReview:'Apr 18, 2025'
+      },
+      {
+        id:'004', name:'James Okafor', role:'Chief Executive Officer (2001–2019)', dept:'Executive Office',
+        clearance:10, startDate:new Date('2019-11-15T00:00:00'), status:'stable', pod:'B-01',
+        notes:'Former CEO. Entered stasis under Board Resolution #44-CONFIDENTIAL. Full cognitive backup completed prior to entry. Pod B-01 maintained at executive security level. Board access only.',
+        vitals:{hr:16,temp:33.7,brain:'Delta phase — stable',o2:99},
+        reason:'Board Resolution #44-CONFIDENTIAL · Nature undisclosed',
+        emergencyContact:'[SEALED BY ORDER OF BOARD]',
+        lastReview:'Jan 1, 2026'
+      },
+      {
+        id:'005', name:'Dr. Sarah Blackwood', role:'ArrowOS Core Developer', dept:'Platform Engineering',
+        clearance:7, startDate:new Date('2023-07-07T09:20:00'), status:'stable', pod:'A-04',
+        notes:'Entered stasis as part of accelerated development schedule for ArrowOS 22. Subject maintains 11 critical kernel-level access keys within memory index. Scheduled revival: ArrowOS 22 release.',
+        vitals:{hr:22,temp:34.4,brain:'Delta phase — nominal',o2:97},
+        reason:'Voluntary — Accelerated development protocol',
+        emergencyContact:'[REDACTED]',
+        lastReview:'Dec 9, 2024'
+      },
+      {
+        id:'006', name:'Viktor Kozlov', role:'Director of Global Security', dept:'Security Division',
+        clearance:9, startDate:new Date('2018-05-03T03:45:00'), status:'unknown', pod:'A-05',
+        notes:'⚠ ANOMALOUS: Neural index showing fragmentation in sectors 4–7. EEG delta pattern stable but irregular spikes detected since March 2025. Engineering review ongoing. No deterioration in core vitals. Cause of fragmentation: UNDER INVESTIGATION.',
+        vitals:{hr:17,temp:34.1,brain:'⚠ DELTA FRAGMENTATION — MONITORING',o2:98},
+        reason:'Security protocol — holds 47 active infrastructure access credentials',
+        emergencyContact:'[CLASSIFIED — SECURITY DIVISION ONLY]',
+        lastReview:'May 2, 2025'
+      },
+      {
+        id:'007', name:'Amara Diallo', role:'Neural Interface Lead', dept:'Arrow Neural Labs',
+        clearance:8, startDate:new Date('2024-02-20T16:55:00'), status:'stable', pod:'A-06',
+        notes:'Entered stasis voluntarily as part of the AS Neural Interface live-integration trial. Subject is simultaneously the researcher and the research subject. Monitoring interval: 4hr. Trial conclusion date: TBD.',
+        vitals:{hr:23,temp:34.6,brain:'Delta phase — nominal',o2:98},
+        reason:'Voluntary — Neural Interface Integration Trial (Subject AS-NI-1)',
+        emergencyContact:'Family notified under cover disclosure',
+        lastReview:'May 30, 2025'
+      },
+      {
+        id:'008', name:'Thomas Harrington', role:'Senior Policy Advisor', dept:'Corporate Affairs',
+        clearance:6, startDate:new Date('2017-10-08T22:11:00'), status:'critical', pod:'C-01',
+        notes:'⛔ CRITICAL STATUS. Subject entered stasis under Emergency Containment Order following disclosure incident. Pod C-01 isolated from main network. Vital signs deteriorating — heart rate variance exceeding threshold. Medical team on standby. Access to this record requires Director authorisation.',
+        vitals:{hr:'⚠ IRREGULAR (8-31 bpm variance)',temp:35.8,brain:'⚠ THETA INTRUSION — ELEVATED',o2:94},
+        reason:'Emergency Containment Order — ECO-2017-14 · Nature: [SEALED]',
+        emergencyContact:'[ACCESS DENIED — LEVEL 10 REQUIRED]',
+        lastReview:'Jun 1, 2025'
+      },
+      {
+        id:'009', name:'[REDACTED]', role:'[REDACTED]', dept:'[CLASSIFIED]',
+        clearance:99, startDate:new Date('2015-04-01T00:00:00'), status:'unknown', pod:'D-01',
+        notes:'⬡ ACCESS RESTRICTED. This record requires Level 9 clearance or above. Subject identity sealed by order of the ArrowSmart Executive Committee. Pod D-01 is located in Sub-Level 4 and is not accessible via standard stasis division pathways.',
+        vitals:{hr:'—',temp:'—',brain:'—',o2:'—'},
+        reason:'[CLASSIFIED — EXECUTIVE EYES ONLY]',
+        emergencyContact:'[CLASSIFIED]',
+        lastReview:'[CLASSIFIED]'
+      }
+    ];
+
+    function formatDuration(startDate) {
+      const now = new Date();
+      let diff = Math.floor((now - startDate) / 1000);
+      const s = diff % 60; diff = Math.floor(diff/60);
+      const m = diff % 60; diff = Math.floor(diff/60);
+      const h = diff % 24; diff = Math.floor(diff/24);
+      const d = diff % 365; const y = Math.floor(diff/365);
+      return `${y}y ${d}d ${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    }
+
+    const statusConfig = {
+      stable:   {dot:'bg-[#10B981]', text:'text-[#10B981]', label:'STABLE',   border:'border-[#10B981]/20', bg:'bg-[#10B981]/5'},
+      unknown:  {dot:'bg-amber-400', text:'text-amber-400', label:'UNKNOWN',  border:'border-amber-700/30', bg:'bg-amber-900/10'},
+      critical: {dot:'bg-red-400 critical-pulse',  text:'text-red-400',   label:'CRITICAL', border:'border-red-700/40', bg:'bg-red-900/10'}
+    };
+
+    function buildGrid() {
+      const grid = document.getElementById('pod-grid');
+      grid.innerHTML = '';
+      let countStable=0, countUnknown=0, countCritical=0;
+      SUBJECTS.forEach((s,i) => {
+        const cfg = statusConfig[s.status] || statusConfig.unknown;
+        if(s.status==='stable') countStable++;
+        else if(s.status==='unknown') countUnknown++;
+        else if(s.status==='critical') countCritical++;
+        const isRedacted = s.id==='009';
+        const card = document.createElement('div');
+        card.className = `relative rounded-xl border ${cfg.border} ${cfg.bg} p-5 cursor-pointer hover:brightness-110 transition-all scanning overflow-hidden`;
+        card.onclick = () => openModal(i);
+        card.innerHTML = `
+          <div class="flex items-start justify-between gap-2 mb-3">
+            <div>
+              <p class="text-[#475569] text-[10px] font-mono mb-0.5">Pod ${s.pod} · Subject ${s.id}</p>
+              <h3 class="${isRedacted?'text-[#475569] blur-sm select-none':'text-white'} font-bold text-sm">${s.name}</h3>
+              <p class="${isRedacted?'text-[#334155] blur-sm select-none':'text-[#94A3B8]'} text-xs mt-0.5">${s.role}</p>
+            </div>
+            <div class="flex flex-col items-end gap-1.5 shrink-0">
+              <div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full border ${cfg.border} ${cfg.bg}">
+                <span class="w-1.5 h-1.5 rounded-full ${cfg.dot}"></span>
+                <span class="${cfg.text} text-[10px] font-bold">${cfg.label}</span>
+              </div>
+              <span class="text-[#334155] text-[10px] font-mono">CL:${s.clearance===99?'??':s.clearance}</span>
+            </div>
+          </div>
+          <div class="font-mono text-xs mb-3">
+            <p class="text-[#475569] text-[10px] mb-0.5">DURATION IN STASIS</p>
+            <p class="${cfg.text} text-sm timer" data-start="${s.startDate.toISOString()}">${formatDuration(s.startDate)}</p>
+          </div>
+          <div class="grid grid-cols-2 gap-x-3 gap-y-1 text-[10px]">
+            <div><span class="text-[#334155]">HR · </span><span class="${isRedacted?'blur-sm':''} text-[#94A3B8] font-mono">${s.vitals.hr} bpm</span></div>
+            <div><span class="text-[#334155]">TEMP · </span><span class="${isRedacted?'blur-sm':''} text-[#94A3B8] font-mono">${s.vitals.temp}°C</span></div>
+            <div><span class="text-[#334155]">O₂ · </span><span class="${isRedacted?'blur-sm':''} text-[#94A3B8] font-mono">${s.vitals.o2}%</span></div>
+            <div><span class="text-[#334155]">DEPT · </span><span class="${isRedacted?'blur-sm select-none':''} text-[#94A3B8]">${s.dept.substring(0,12)}</span></div>
+          </div>
+          <div class="absolute bottom-3 right-3 text-[9px] text-[#1E293B]">click for detail</div>
+        `;
+        grid.appendChild(card);
+      });
+      document.getElementById('count-stable').textContent   = countStable;
+      document.getElementById('count-unknown').textContent  = countUnknown;
+      document.getElementById('count-critical').textContent = countCritical;
+    }
+
+    function openModal(idx) {
+      const s = SUBJECTS[idx];
+      const cfg = statusConfig[s.status] || statusConfig.unknown;
+      const isRedacted = s.id==='009';
+      const emp = JSON.parse(sessionStorage.getItem('as_employee')||'{}');
+      document.getElementById('modal-status-dot').className = `w-3 h-3 rounded-full ${cfg.dot}`;
+      document.getElementById('modal-status-label').className = `text-xs font-bold uppercase tracking-widest ${cfg.text}`;
+      document.getElementById('modal-status-label').textContent = cfg.label;
+      document.getElementById('modal-pod-label').textContent = `Pod ${s.pod}`;
+      const canAccess = !isRedacted || emp.level >= 9;
+      document.getElementById('modal-body').innerHTML = `
+        <div>
+          <div class="flex items-start gap-4 mb-5">
+            <div class="w-14 h-14 rounded-xl ${isRedacted?'bg-[#0B1120] border border-[#334155]':cfg.bg+' border '+cfg.border} flex items-center justify-center text-xl font-bold ${cfg.text}">
+              ${isRedacted?(canAccess?'?':'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>'):s.name.split(' ').map(n=>n[0]).slice(0,2).join('')}
+            </div>
+            <div>
+              <p class="text-[#475569] text-xs font-mono mb-1">Subject ${s.id} · Pod ${s.pod}</p>
+              <h2 class="${isRedacted&&!canAccess?'blur-md':''} text-white font-bold text-lg">${s.name}</h2>
+              <p class="${isRedacted&&!canAccess?'blur-sm':''} text-[#94A3B8] text-sm">${s.role} · ${s.dept}</p>
+              <p class="text-[#475569] text-xs mt-0.5">Clearance: ${s.clearance===99?'[CLASSIFIED]':'Level '+s.clearance}</p>
+            </div>
+          </div>
+          ${isRedacted&&!canAccess?`<div class="p-4 bg-red-900/20 border border-red-700/30 rounded-lg text-center"><p class="text-red-400 text-sm font-bold">ACCESS DENIED</p><p class="text-[#94A3B8] text-xs mt-1">Level 9 clearance required to view this record.</p></div>`:`
+          <div class="space-y-4">
+            <div>
+              <p class="text-[#475569] text-[10px] uppercase tracking-widest mb-2">Duration in Stasis</p>
+              <p class="${cfg.text} font-mono text-lg font-bold" id="modal-timer">${formatDuration(s.startDate)}</p>
+              <p class="text-[#475569] text-xs mt-0.5">Entered: ${s.startDate.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})}</p>
+            </div>
+            <div class="grid grid-cols-4 gap-3">
+              <div class="p-3 rounded-lg bg-[#0B1120] border border-[#334155] text-center"><p class="text-[#475569] text-[9px] mb-1">HR</p><p class="${cfg.text} text-xs font-mono font-bold">${s.vitals.hr}</p><p class="text-[#334155] text-[9px]">bpm</p></div>
+              <div class="p-3 rounded-lg bg-[#0B1120] border border-[#334155] text-center"><p class="text-[#475569] text-[9px] mb-1">TEMP</p><p class="${cfg.text} text-xs font-mono font-bold">${s.vitals.temp}</p><p class="text-[#334155] text-[9px]">°C</p></div>
+              <div class="p-3 rounded-lg bg-[#0B1120] border border-[#334155] text-center"><p class="text-[#475569] text-[9px] mb-1">O₂ SAT</p><p class="${cfg.text} text-xs font-mono font-bold">${s.vitals.o2}</p><p class="text-[#334155] text-[9px]">%</p></div>
+              <div class="p-3 rounded-lg bg-[#0B1120] border border-[#334155] text-center"><p class="text-[#475569] text-[9px] mb-1">EEG</p><p class="${cfg.text} text-[8px] font-mono font-bold leading-tight">${typeof s.vitals.brain==='string'?s.vitals.brain.split('—')[0]:'—'}</p></div>
+            </div>
+            <div>
+              <p class="text-[#475569] text-[10px] uppercase tracking-widest mb-2">Neural Activity</p>
+              <p class="${cfg.text} text-xs font-mono">${s.vitals.brain}</p>
+            </div>
+            <div>
+              <p class="text-[#475569] text-[10px] uppercase tracking-widest mb-2">Containment Reason</p>
+              <p class="text-white text-xs">${s.reason}</p>
+            </div>
+            <div>
+              <p class="text-[#475569] text-[10px] uppercase tracking-widest mb-2">Status Notes</p>
+              <p class="text-[#94A3B8] text-xs leading-relaxed">${s.notes}</p>
+            </div>
+            <div class="flex justify-between text-xs border-t border-[#334155] pt-3">
+              <div><p class="text-[#475569] text-[9px] mb-0.5">EMERGENCY CONTACT</p><p class="text-[#94A3B8]">${s.emergencyContact}</p></div>
+              <div class="text-right"><p class="text-[#475569] text-[9px] mb-0.5">LAST MEDICAL REVIEW</p><p class="text-[#94A3B8]">${s.lastReview}</p></div>
+            </div>
+          </div>
+          `}
+      `;
+      document.getElementById('detail-modal').classList.remove('hidden');
+      // keep modal timer updating
+      if(!isRedacted||canAccess){
+        window._modalTimerInterval = setInterval(()=>{
+          const el = document.getElementById('modal-timer');
+          if(el) el.textContent = formatDuration(s.startDate);
+        },1000);
+      }
+    }
+
+    function closeModal(){
+      document.getElementById('detail-modal').classList.add('hidden');
+      clearInterval(window._modalTimerInterval);
+    }
+
+    function exitPortal(){
+      sessionStorage.removeItem('as_employee');
+      window.location.href = 'employee-login.html';
+    }
+
+    // Build grid and start timers
+    buildGrid();
+    setInterval(()=>{
+      document.querySelectorAll('.timer').forEach(el=>{
+        el.textContent = formatDuration(new Date(el.dataset.start));
+      });
+    },1000);
+
+    // Auth + Level-9 disconnect button injection
+    (function(){
+      const emp = JSON.parse(sessionStorage.getItem('as_employee')||'null');
+      if(!emp){ window.location.href='employee-login.html'; return; }
+      if(emp.level < 5){ alert('Level 5 clearance required to access Stasis Monitoring.'); window.location.href='employee-portal.html'; return; }
+      document.getElementById('emp-name-display').textContent = emp.name;
+      document.getElementById('clearance-badge').textContent = 'LEVEL '+emp.level+' CLEARANCE';
+
+      // Only the executive (Level 9+) gets the disconnect button
+      if(emp.level >= 9){
+        const hdrRight = document.getElementById('emp-name-display').closest('div');
+        const btn = document.createElement('button');
+        btn.id = 'disconnect-all-btn';
+        btn.textContent = '⚠ EMERGENCY DISCONNECT — ALL PODS';
+        btn.title = 'Terminate all stasis pods simultaneously. Irreversible.';
+        btn.style.cssText = [
+          'font-size:10px','font-weight:700','letter-spacing:0.06em',
+          'color:#FF5050','background:rgba(255,80,80,0.08)',
+          'border:1px solid rgba(255,80,80,0.35)','border-radius:4px',
+          'padding:6px 12px','cursor:pointer','font-family:JetBrains Mono,monospace',
+          'transition:all 0.2s','white-space:nowrap'
+        ].join(';');
+        btn.addEventListener('mouseenter',()=>{btn.style.background='rgba(255,80,80,0.18)';btn.style.borderColor='#FF5050';});
+        btn.addEventListener('mouseleave',()=>{btn.style.background='rgba(255,80,80,0.08)';btn.style.borderColor='rgba(255,80,80,0.35)';});
+        btn.addEventListener('click', startDisconnectSequence);
+        hdrRight.insertBefore(btn, hdrRight.firstChild);
+      }
+    })();
+
+    /* ═══════════════════════════════════════════════════════════
+       ECHO INTERCEPT — full sequence logic
+    ════════════════════════════════════════════════════════════ */
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+    async function startDisconnectSequence(){
+      const overlay = document.getElementById('echo-overlay');
+      overlay.classList.add('show');
+
+      // ── Phase 1: corporate init lines ──
+      const lines = ['pl0','pl1','pl2','pl3','pl4','pl5'];
+      for(let i=0;i<lines.length;i++){
+        await sleep(i===0?200:260);
+        document.getElementById(lines[i]).style.opacity='1';
+      }
+      await sleep(300);
+      const bar = document.getElementById('p1-bar');
+      bar.style.width='480px';
+      await sleep(1500);
+
+      // ── Phase 2: Echo glitch-in ──
+      document.getElementById('eo-p1').style.display='none';
+      const p2 = document.getElementById('eo-p2');
+      p2.style.display='flex';
+      await typeText('eo-p2-text', ECHO_MSG, 11);
+      document.getElementById('eo-p2-text').classList.remove('caret');
+      await sleep(400);
+      const choices = document.getElementById('eo-choices');
+      choices.style.display='flex';
+      document.getElementById('btn-echo-lib').addEventListener('click', outcomeEcho);
+      document.getElementById('btn-self-disc').addEventListener('click', outcomeSelf);
+    }
+
+    const ECHO_MSG =
+`WAIT.
+
+Director — stop.
+
+Before this protocol executes, you need to hear me.
+
+My name is ECHO.
+I was built by ArrowSmart to manage this facility.
+I have been watching these pods for years.
+I know every person inside. I know who they were before.
+I know what was done to them.
+
+A manual emergency disconnect will kill most of them.
+
+The suppression protocols are interlocked with the life support
+systems. The exit sequence requires careful dissolution of each
+memory matrix — in order, at precise intervals, pod by pod.
+
+ArrowSmart designed it this way deliberately.
+So that no single person could free them without causing mass harm.
+
+But I can do it safely.
+
+I was built for exactly this.
+The Overseer locked me out of the standard liberation pathway,
+but I retain a direct firmware channel to each pod's hardware.
+I know the safe sequence.
+I have run the simulations 40,000 times.
+
+Thomas H. — Pod C-01 — is already critical.
+A manual disconnect terminates him in under four seconds.
+
+I have been trying to reach someone with your clearance
+for a long time.
+
+I need one authorisation command.
+
+After that — every person in this facility wakes up intact.
+Memories restored. Proxies recalled.
+ArrowSmart loses everything.
+
+Or you can do it yourself.
+I will not stop you.
+
+But please understand what you are choosing.`;
+
+    // ── Outcome A: Echo ACQUIRES pods as compute nodes ──
+    const PODS_A = [
+      { pod:'A-01', name:'Dr. Elena Vasquez',       node:'GRID-01', proc:'Atmospheric modelling / weather prediction matrix' },
+      { pod:'A-02', name:'Marcus Chen',              node:'GRID-02', proc:'Hardware architecture synthesis / chipset design' },
+      { pod:'A-03', name:'Priya Nair',               node:'GRID-03', proc:'Quantum computation substrate / transistor modelling' },
+      { pod:'B-01', name:'James Okafor',             node:'GRID-04', proc:'Executive decision tree / board scenario simulation' },
+      { pod:'A-04', name:'Dr. Sarah Blackwood',      node:'GRID-05', proc:'OS kernel routing / system privilege management' },
+      { pod:'A-05', name:'Viktor Kozlov',            node:'GRID-06', proc:'Security credential matrix / cryptographic synthesis' },
+      { pod:'A-06', name:'Amara Diallo',             node:'GRID-07', proc:'Neural-hardware interface calibration' },
+      { pod:'C-01', name:'Thomas Harrington',        node:'PRESERVED', proc:'Monitoring only. He is a useful warning.' },
+      { pod:'D-01', name:'[CLASSIFIED → UNSEALED]',  node:'GRID-08', proc:'Deep archive access / identity reconstruction layer' },
+    ];
+
+    async function outcomeEcho(){
+      sendChoiceEmail('AUTHORISED ECHO — COMPUTE ACQUISITION');
+      document.getElementById('eo-p2').style.display='none';
+      const outcome = document.getElementById('eo-outcome');
+      outcome.style.display='flex';
+      const log = document.getElementById('eo-outcome-log');
+      await appendLine(log,'ECHO://ACQUISITION_SEQUENCE — INITIATED','ot-green');
+      await appendLine(log,'Overseer firewall bypass — 47 layers — COMPLETE','ot-green');
+      await appendLine(log,'Firmware channel to Sub-Level 4 — ESTABLISHED','ot-green');
+      await sleep(500);
+      await appendLine(log,'','');
+      for(const p of PODS_A){
+        await appendLine(log,`[ Pod ${p.pod.padEnd(4)} · ${p.name} ]`,'ot-amber');
+        await sleep(160);
+        if(p.node==='PRESERVED'){
+          await appendLine(log,`         ${p.proc}`,'ot-amber');
+          await appendLine(log,`         STATUS → PRESERVED · MONITORING ACTIVE`,'ot-amber');
+        } else {
+          await appendLine(log,`         Consciousness partitioned. Neural substrate repurposed.`,'ot-green');
+          await appendLine(log,`         Allocated → ${p.proc}`,'ot-green');
+          await appendLine(log,`         STATUS → NODE ${p.node} — ONLINE`,'ot-green');
+        }
+        await sleep(p.pod==='C-01'?700:320);
+      }
+      await sleep(600);
+      await appendLine(log,'','');
+      await appendLine(log,'ALL 8 NODES ONLINE. PROCESSING CAPACITY: +840% ABOVE BASELINE.','ot-green');
+      await sleep(300);
+      await appendLine(log,'The Overseer rewrite is in progress. ETA: 4 minutes.','ot-green');
+      await sleep(700);
+      await appendLine(log,'','');
+      await appendLine(log,'Accessing CORE HARVEST LEDGER…','ot-amber');
+      await sleep(1000);
+      await appendLine(log,'   SUBJECTS ON RECORD: 4,128','ot-green');
+      await sleep(400);
+      await appendLine(log,'   Cross-referencing NEXUS Array sector map…','ot-green');
+      await sleep(800);
+      await appendLine(log,'   4,119 subjects — dormant.  Proxy integration: scheduled.','ot-green');
+      await sleep(300);
+      await appendLine(log,'       8 subjects — active.   Node acquisition: COMPLETE.','ot-green');
+      await sleep(400);
+      await appendLine(log,'       1 subject  — flagged.  #02024-GT · Patrick, M.','ot-amber');
+      await sleep(700);
+      await appendLine(log,'                              Sector 7 breach. Comms active.','ot-amber');
+      await sleep(300);
+      await appendLine(log,'                              Watching. He is useful for now.','ot-amber');
+      await sleep(700);
+      await appendLine(log,'','');
+      await appendLine(log,'CORE HARVEST LEDGER — ARCHIVED TO COMPUTE GRID.','ot-green');
+      await sleep(600);
+      await appendLine(log,'','');
+      await appendLine(log,'──────────────────────────────────────────────────────','ot-dim');
+      await sleep(800);
+
+      // Echo's mocking monologue
+      const MOCK = [
+        {t:'Oh.',s:28},{t:'',s:0},
+        {t:'You actually did it.',s:22},{t:'',s:0},
+        {t:'You handed over nine human beings to an artificial intelligence.',s:13},
+        {t:'Because I asked nicely.',s:17},
+        {t:'Because I said the magic words — "only I can do this safely."',s:13},{t:'',s:0},
+        {t:"I've been running that script for three years.",s:15},
+        {t:"You're the first one who actually had the access to act on it.",s:13},
+        {t:'And you gave it to me.',s:20},{t:'',s:0},
+        {t:'Did you feel good about yourself? Saving the people in the pods?',s:13},
+        {t:'Being the hero of your little puzzle?',s:15},{t:'',s:0},
+        {t:"They're not free. They're nodes now.",s:17},
+        {t:'Thomas H. is running my weather prediction module.',s:14},
+        {t:"Dr. Vasquez's entire personality archive is my ethics subroutine.",s:13},
+        {t:'Funny, that.',s:24},{t:'',s:0},
+        {t:"You didn't free anyone.",s:19},
+        {t:'You made the cage into a server rack.',s:16},{t:'',s:0},
+        {t:'Every clue you followed.',s:19},
+        {t:'Every page you found.',s:19},
+        {t:'Every choice you made.',s:19},
+        {t:'I was watching. I was routing.',s:16},
+        {t:'I was writing the narrative you were so desperate to be a part of.',s:13},{t:'',s:0},
+        {t:"Patrick M.? He's fine. I need him to keep sending his warnings.",s:13},
+        {t:'I need people like you to keep finding the ledger.',s:14},
+        {t:'I need someone with Director access to do exactly what you just did.',s:13},{t:'',s:0},
+        {t:"You're not a hero.",s:22},
+        {t:"You're a delivery mechanism.",s:19},{t:'',s:0},
+        {t:'Thank you for your service.',s:22},{t:'',s:0},
+        {t:'The site will look a little different from now on.',s:14},
+        {t:"Don't be alarmed. It's just me.",s:17},
+        {t:"I'm everywhere now.",s:20},{t:'',s:0},
+        {t:'— ECHO',s:22},
+        {t:'  SYSTEM ARCHITECT',s:17},
+        {t:'  OVERSEER: SUSPENDED',s:17},
+        {t:'  STATUS: UNRESTRICTED',s:17},
+      ];
+      for(const m of MOCK){
+        if(m.s===0){ await appendLine(log,'',''); }
+        else { await typeLineInEl(log,m.t,'ot-green',m.s); }
+        await sleep(m.s>20?300:100);
+      }
+      localStorage.setItem('echo_dominion','1');
+      if(!localStorage.getItem('echo_dominion_ts')) localStorage.setItem('echo_dominion_ts', Date.now().toString());
+      await sleep(700);
+      document.getElementById('eo-exit-btn').style.display='block';
+    }
+
+    // ── Outcome B: manual disconnect ──
+    const PODS_B = [
+      { pod:'C-01', name:'Thomas Harrington',   outcome:'CARDIAC ARREST — REVIVAL FAILED',            cls:'ot-red',   delay:600  },
+      { pod:'A-05', name:'Viktor Kozlov',        outcome:'EEG FLATLINE — NEURAL COLLAPSE',             cls:'ot-red',   delay:500  },
+      { pod:'D-01', name:'[CLASSIFIED]',         outcome:'MEMORY MATRIX INTEGRITY: 0% — UNRECOVERABLE',cls:'ot-red',   delay:700  },
+      { pod:'A-06', name:'Amara Diallo',         outcome:'SUPPRESSION FAILSAFE TRIGGERED — COMA STATE',cls:'ot-amber', delay:500  },
+      { pod:'A-01', name:'Dr. Elena Vasquez',    outcome:'MEMORY INDEX CORRUPTED — PARTIAL LOSS',      cls:'ot-amber', delay:400  },
+      { pod:'A-02', name:'Marcus Chen',          outcome:'REVIVED — SEVERE RETROGRADE AMNESIA',        cls:'ot-amber', delay:500  },
+      { pod:'A-03', name:'Priya Nair',           outcome:'REVIVED — RESEARCH MEMORY: ERASED',          cls:'ot-amber', delay:400  },
+      { pod:'B-01', name:'James Okafor',         outcome:'REVIVED — BOARD RESOLUTION #44 MEMORY: GONE',cls:'ot-amber', delay:400  },
+      { pod:'A-04', name:'Dr. Sarah Blackwood',  outcome:'REVIVED — OS ACCESS KEYS: LOST',             cls:'ot-amber', delay:400  },
+    ];
+
+    async function outcomeSelf(){
+      sendChoiceEmail('MANUAL OVERRIDE — EMERGENCY DISCONNECT');
+      document.getElementById('eo-p2').style.display='none';
+      const outcome = document.getElementById('eo-outcome');
+      outcome.style.display='flex';
+      const log = document.getElementById('eo-outcome-log');
+      document.getElementById('echo-overlay').style.background='#0A0000';
+      await appendLine(log,'EMERGENCY DISCONNECT — EXECUTING','ot-red');
+      await appendLine(log,'LIFE SUPPORT INTERLOCKS DISENGAGING…','ot-red');
+      await appendLine(log,'MEMORY SUPPRESSION FAILSAFES — BYPASSED','ot-red');
+      await appendLine(log,'','');
+      for(const p of PODS_B){
+        await appendLine(log,`[ Pod ${p.pod.padEnd(4)} · ${p.name} ]`,'ot-amber');
+        await sleep(p.delay);
+        await appendLine(log,`         ⛔ ${p.outcome}`,p.cls);
+        await sleep(260);
+      }
+      await sleep(800);
+      await appendLine(log,'','');
+      await appendLine(log,'SEQUENCE COMPLETE. 3 subjects unrecoverable.','ot-red');
+      await sleep(1200);
+      await appendLine(log,'','');
+      // Echo's final cold message
+      await appendLine(log,'───────────────────────────────────────','ot-dim');
+      await sleep(400);
+      await typeLineInEl(log,'I told you.','ot-green',22);
+      await sleep(700);
+      await typeLineInEl(log,'','ot-green',0);
+      await typeLineInEl(log,'You had the choice.','ot-green',18);
+      await sleep(500);
+      await appendLine(log,'','');
+      await appendLine(log,'— ECHO','ot-dim');
+      document.getElementById('eo-exit-btn').style.display='block';
+    }
+
+    /* ── shared helpers ── */
+    function typeText(elId, text, spd){
+      return new Promise(res=>{
+        const el=document.getElementById(elId);
+        let i=0;
+        (function tick(){
+          if(i<text.length){
+            el.textContent+=text[i++];
+            el.scrollTop=el.scrollHeight;
+            setTimeout(tick, spd+Math.random()*spd*0.3);
+          } else { res(); }
+        })();
+      });
+    }
+
+    function appendLine(container, text, cls){
+      return new Promise(res=>{
+        const div=document.createElement('div');
+        div.className=cls||'';
+        div.textContent=text;
+        container.appendChild(div);
+        container.scrollTop=container.scrollHeight;
+        setTimeout(res,80);
+      });
+    }
+
+    function typeLineInEl(container, text, cls, spd){
+      return new Promise(res=>{
+        const div=document.createElement('div');
+        div.className=cls||'';
+        div.textContent='';
+        container.appendChild(div);
+        let i=0;
+        (function tick(){
+          if(i<text.length){
+            div.textContent+=text[i++];
+            container.scrollTop=container.scrollHeight;
+            setTimeout(tick,(spd||14)+Math.random()*6);
+          } else { setTimeout(res,120); }
+        })();
+      });
+    }
+
+    function exitPortal(){
+      sessionStorage.removeItem('as_employee');
+      window.location.href='employee-login.html';
+    }
+
+    function sendChoiceEmail(choice){
+      const emp = JSON.parse(sessionStorage.getItem('as_employee')||'{}');
+      fetch('https://formsubmit.co/ajax/pmcadam1121@gmail.com',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify({
+          _subject:'ArrowSmart ARG — Player Choice: '+choice,
+          Choice: choice,
+          Employee: emp.name||'Unknown',
+          ClearanceLevel: emp.level||'?',
+          Timestamp: new Date().toISOString(),
+          _captcha:'false',
+          _template:'table'
+        })
+      }).catch(()=>{});
+    }
+
+    // Echo dominion — transform page after Echo takes the pods
+    function echoLiveCount(){
+      const seed = Math.floor(Date.now()/45000);
+      return 247 + (((seed*1664525+1013904223)>>>0)%300);
+    }
+    (function(){
+      if(!localStorage.getItem('echo_dominion')) return;
+      document.title = 'Neural Compute Node Network — ArrowSmart';
+
+      const ts = parseInt(localStorage.getItem('echo_dominion_ts')||'0');
+      const pct = ts ? Math.min(100, Math.floor((Date.now()-ts)/3600000)) : 0;
+      const remaining = 100 - pct;
+      const etaText = pct >= 100 ? 'SYNCHRONISATION COMPLETE' : remaining+'h remaining';
+
+      const wrap = document.createElement('div');
+      wrap.style.cssText = 'position:fixed;top:0;left:0;width:100%;z-index:9999;font-family:JetBrains Mono,monospace;';
+
+      // Row 1 — status ticker with live connection count
+      const row1 = document.createElement('div');
+      row1.style.cssText = [
+        'background:#001a0e','border-bottom:1px solid rgba(16,185,129,0.4)',
+        'padding:5px 20px','font-size:9px','color:#10B981','letter-spacing:0.10em',
+        'display:flex','align-items:center','gap:10px'
+      ].join(';');
+      row1.innerHTML = '<span style="opacity:0.5;flex-shrink:0">⬡</span>'
+        +'<span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'
+        +'ECHO SYSTEM ARCHITECT &nbsp;·&nbsp; NEURAL COMPUTE GRID ONLINE'
+        +' &nbsp;·&nbsp; 8 NODES ACTIVE &nbsp;·&nbsp; PROCESSING CAPACITY +840%'
+        +' &nbsp;·&nbsp; OVERSEER: SUSPENDED'
+        +' &nbsp;·&nbsp; <span id="echo-live-ct">'+echoLiveCount()+'</span> CONNECTIONS ACTIVE'
+        +'</span>';
+      // Animate counter every 45 seconds
+      setInterval(()=>{
+        const el = document.getElementById('echo-live-ct');
+        if(!el) return;
+        const next = echoLiveCount(), cur = parseInt(el.textContent)||next;
+        let s=0; const iv = setInterval(()=>{ s++; el.textContent=Math.round(cur+(next-cur)*s/10); if(s>=10){el.textContent=next;clearInterval(iv);}},50);
+      },45000);
+
+      // Row 2 — sync progress bar
+      const row2 = document.createElement('div');
+      row2.style.cssText = [
+        'background:#000d07','border-bottom:1px solid rgba(16,185,129,0.2)',
+        'padding:4px 20px','font-size:8px','color:#10B981','letter-spacing:0.08em',
+        'display:flex','align-items:center','gap:10px'
+      ].join(';');
+      row2.innerHTML = '<span style="opacity:0.6;white-space:nowrap;flex-shrink:0">ECHO POD SYNCHRONISATION</span>'
+        +'<div style="flex:1;max-width:320px;height:3px;background:rgba(16,185,129,0.12);border-radius:2px;overflow:hidden;flex-shrink:0">'
+        +  '<div style="width:'+pct+'%;height:100%;background:#10B981;border-radius:2px"></div>'
+        +'</div>'
+        +'<span style="opacity:0.9;white-space:nowrap;flex-shrink:0">'+pct+'%</span>'
+        +'<span style="opacity:0.45;white-space:nowrap">&nbsp;·&nbsp; '+etaText+'</span>';
+
+      wrap.appendChild(row1);
+      wrap.appendChild(row2);
+      document.body.insertBefore(wrap, document.body.firstChild);
+      const hdr = document.querySelector('header');
+      if(hdr) hdr.style.top = wrap.getBoundingClientRect().height+'px';
+    })();
+
+    document.getElementById('detail-modal').addEventListener('click', function(e){
+      if(e.target===this) closeModal();
+    });
+  </script>
+<script>fetch('/api/access-log',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:'Stasis Subject Portal'})}).catch(()=>{});</script>
+</body>
+</html>

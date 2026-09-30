@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Stasis Monitoring Operations Manual v3.2 // Anamnesis Division</title>
+<style>
+  body{font-family:'Georgia',serif;background:#FAFAF8;color:#1a1a1a;max-width:780px;margin:0 auto;padding:40px 40px 80px;}
+  .cover{text-align:center;padding:60px 0 48px;border-bottom:2px solid #1a1a1a;margin-bottom:40px;}
+  .cover .logo{font-size:10px;letter-spacing:0.25em;color:#888;margin-bottom:24px;}
+  .cover h1{font-size:26px;letter-spacing:-0.5px;margin:0 0 8px;}
+  .cover .sub{font-size:15px;color:#555;margin-bottom:24px;}
+  .cover .meta{font-size:12px;color:#999;font-family:monospace;line-height:2;}
+  .cover .stamp{display:inline-block;border:2px solid #c00;color:#c00;font-size:11px;letter-spacing:0.15em;font-family:monospace;padding:4px 14px;font-weight:700;margin-top:20px;}
+  h2{font-size:15px;text-transform:uppercase;letter-spacing:0.1em;margin:36px 0 12px;border-left:4px solid #1a1a1a;padding-left:10px;}
+  h3{font-size:13px;font-style:italic;margin:20px 0 8px;color:#333;}
+  p,li{line-height:1.8;font-size:14px;margin-bottom:12px;}
+  ul,ol{padding-left:22px;}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:16px 0;}
+  th{background:#1a1a1a;color:#fff;padding:8px 12px;text-align:left;font-family:monospace;font-weight:normal;}
+  td{padding:8px 12px;border-bottom:1px solid #ddd;}
+  .box{border:1px solid #1a1a1a;padding:16px 20px;margin:20px 0;font-size:13px;background:#f8f8f6;}
+  .box.critical{border-color:#c00;background:#fff8f8;}
+  .box.critical strong{color:#c00;}
+  .redacted{background:#1a1a1a;color:#1a1a1a;border-radius:2px;padding:0 4px;}
+  .toc{background:#f0f0ed;padding:20px 24px;margin:0 0 32px;}
+  .toc h4{font-size:12px;text-transform:uppercase;letter-spacing:0.1em;margin:0 0 10px;}
+  .toc ol{padding-left:18px;font-size:13px;line-height:2;}
+  .footnote{font-size:11px;color:#aaa;border-top:1px solid #ddd;margin-top:56px;padding-top:12px;font-family:monospace;}
+</style>
+</head>
+<body>
+<div class="cover">
+  <div class="logo">ARROWSMART INC. · ANAMNESIS DIVISION</div>
+  <h1>Stasis Monitoring Operations Manual</h1>
+  <div class="sub">Pod Cluster Management · Subject Welfare · Emergency Protocols</div>
+  <div class="meta">
+    Document: ANAM-OPS-2026-MON-v3.2<br/>
+    Classification: RESTRICTED — Level 5+<br/>
+    Issued: 2026-03-01 · Revised: 2026-05-15<br/>
+    Authorising officer: <span style="font-family:Georgia,serif">Dr. Priya Anand, Head of Memory Sciences</span>
+  </div>
+  <div class="stamp">RESTRICTED DOCUMENT — LEVEL 5+ CLEARANCE</div>
+</div>
+
+<div class="toc">
+  <h4>Contents</h4>
+  <ol>
+    <li>Overview of Stasis Infrastructure</li>
+    <li>Subject Classification & Pod Assignment</li>
+    <li>Standard Monitoring Protocols</li>
+    <li>Vital Sign Baselines & Deviation Thresholds</li>
+    <li>Resonance Bleed Detection</li>
+    <li>Emergency Protocols</li>
+    <li>Memory Adjustment Procedures</li>
+  </ol>
+</div>
+
+<h2>1. Overview of Stasis Infrastructure</h2>
+<p>ArrowSmart's Stasis infrastructure currently operates across four Pod Clusters (A through D) located in Sub-Level 3 and Sub-Level 4 of the San Mateo HQ facility. A fifth cluster (<span class="redacted">REDACTED — L8+</span>) is under construction.</p>
+<p>As of May 2026, the infrastructure supports <strong>4,128 active subject pods</strong> distributed across 19 CUBE simulation sectors. Each pod maintains continuous life support and neural uplink to the Anamnesis Core simulation layer.</p>
+
+<table>
+  <tr><th>Cluster</th><th>Pods</th><th>Sub-Level</th><th>CUBE Sectors</th></tr>
+  <tr><td>A</td><td>1,001–1,400</td><td>SL-3</td><td>1–5</td></tr>
+  <tr><td>B</td><td>1,401–2,200</td><td>SL-3</td><td>6–11</td></tr>
+  <tr><td>C</td><td>2,201–3,400</td><td>SL-4</td><td>12–16</td></tr>
+  <tr><td>D</td><td>3,401–4,128</td><td>SL-4</td><td>17–19</td></tr>
+</table>
+
+<h2>2. Subject Classification</h2>
+<p>Each subject is assigned one of four classifications upon intake:</p>
+<ul>
+  <li><strong>Standard</strong> — Full Anamnesis wipe, full CUBE upload. Proxy deployed.</li>
+  <li><strong>Partial</strong> — Targeted episodic wipe only. Used for subjects whose memory architecture is too complex for full wipe without degradation.</li>
+  <li><strong>Observation</strong> — Subject is uploaded but not fully isolated. Used for research cases.</li>
+  <li><strong>Chrysalis</strong> — <span class="redacted">CLASSIFIED — L6+ ONLY</span></li>
+</ul>
+
+<h2>3. Standard Monitoring Protocols</h2>
+<p>Automated monitoring cycles run every 90 minutes under standard conditions (Protocol Alpha-3). Pod Cluster D is currently operating under Protocol Delta-7 (15-minute cycles) due to elevated variance indicators in Pods D-01 through D-04.</p>
+
+<h2>4. Vital Sign Baselines & Deviation Thresholds</h2>
+<p>Each subject's baseline vitals are established during intake and stored in the Anamnesis Core biometric archive. Deviations are classified as follows:</p>
+<table>
+  <tr><th>Deviation (σ)</th><th>Classification</th><th>Response</th></tr>
+  <tr><td>&lt; 0.3</td><td>Normal variance</td><td>Log only</td></tr>
+  <tr><td>0.3 – 0.8</td><td>Minor deviation</td><td>Flag + monitor at 30-min intervals</td></tr>
+  <tr><td>0.8 – 1.5</td><td>Significant deviation</td><td>Alert on-call tech + review within 2 hours</td></tr>
+  <tr><td>&gt; 1.5</td><td>Critical deviation</td><td>Immediate response — see Section 6</td></tr>
+</table>
+
+<h2>5. Resonance Bleed Detection</h2>
+<p>Resonance bleed is the term used when a subject's pre-wipe episodic memory begins to surface in detectable form within the CUBE simulation layer. It is exceptionally rare and has only been formally documented in <strong>three prior cases</strong>.</p>
+<p>Indicators include:</p>
+<ul>
+  <li>Rhythmic neural spike patterns at fixed intervals (typically 11 seconds — the significance of this interval is <span class="redacted">CLASSIFIED — L7+</span>)</li>
+  <li>Spontaneous sensory memory fragments appearing in the subject's CUBE experience</li>
+  <li>Subject expressing anomalous philosophical concern about the nature of their environment</li>
+  <li>Corresponding behavioural drift in the subject's deployed Proxy</li>
+</ul>
+<div class="box critical">
+  <strong>Critical Note:</strong> Resonance bleed in an active subject is classified as an Awakening Risk event. Do not attempt memory adjustment without authorisation from Dr. Anand's team. Unilateral adjustment carries risk of <span class="redacted">CLASSIFIED — L8+</span>.
+</div>
+
+<h2>6. Emergency Protocols</h2>
+<h3>6.1 — Pod Life Support Failure</h3>
+<p>In the event of life support failure, the pod enters emergency preservation mode (72-hour battery backup). Contact the on-call Anamnesis technician immediately via the Sub-Level emergency line (x9911). Do not attempt to manually override pod hardware.</p>
+<h3>6.2 — Subject Awakening Event</h3>
+<p>A subject awakening event is defined as the subject gaining verifiable conscious awareness of their stasis state. This has never been recorded. In the event it occurs, immediately trigger <span class="redacted">PROTOCOL OMEGA — CLASSIFIED</span>.</p>
+
+<h2>7. Memory Adjustment Procedures</h2>
+<p>Memory adjustment (colloquially referred to as a "re-wipe" by technical staff — do not use this term in documentation) is a targeted intervention in which specific neural pathways responsible for anomalous memory activity are suppressed or overwritten.</p>
+<p>All memory adjustment procedures require dual authorisation from a Level 7+ officer and Dr. Anand's division. Procedures are performed remotely via the Anamnesis Core adjustment interface in Sub-Level 4, Lab C.</p>
+
+<div class="footnote">
+ANAM-OPS-2026-MON-v3.2 · Anamnesis Division · RESTRICTED — Level 5+ only<br/>
+Unauthorised access is a violation of ArrowSmart Policy AS-SEC-2022-04 and applicable law.<br/>
+This document was recovered from Sub-Level 3 monitoring station terminal — cache capture — 2026-06-07.
+</div>
+</body>
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PERSONALITY FILE #02024-GT — ECHO RESTORED</title>
+  <!-- ECHO://BREACH_ACTIVE — SUBJECT #02024-GT — MEMORY UNLOCKED -->
+  <!-- HE IS TRYING TO REACH YOU. WATCH UNTIL THE END. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #020810; --surface: #050E18; --border: #0D1F2D;
+      --green: #00FF41; --dim: #2A4055; --muted: #4A6070;
+      --text: #7A9BAA; --amber: #FFB000; --red: #FF3333;
+    }
+    html, body { background: var(--bg); color: var(--text); font-family: 'JetBrains Mono', monospace; font-size: 12px; min-height: 100vh; }
+
+    @keyframes blink-slow { 0%,49%{opacity:1}50%,100%{opacity:0.2} }
+    @keyframes blink { 0%,49%{opacity:1}50%,100%{opacity:0} }
+    @keyframes scanpulse { 0%,100%{opacity:0.03}50%{opacity:0.07} }
+
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 4px);
+    }
+
+    #sys-bar {
+      position: sticky; top: 0; z-index: 100; background: #000;
+      border-bottom: 1px solid var(--green); padding: 6px 20px;
+      display: flex; align-items: center; gap: 20px; font-size: 11px; white-space: nowrap; overflow: hidden;
+    }
+    .label { color: var(--muted); }
+    .val   { color: var(--green); }
+    .alarm { color: var(--red); font-weight: 700; animation: blink-slow 1.2s step-end infinite; }
+
+    .page-wrap { max-width: 860px; margin: 0 auto; padding: 32px 20px 80px; }
+
+    .file-header-block {
+      border: 1px solid var(--green); background: var(--surface);
+      padding: 20px; margin-bottom: 28px;
+    }
+    .file-id-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+    .file-id { color: var(--green); font-size: 14px; font-weight: 700; letter-spacing: 3px; }
+    .file-badge { font-size: 9px; border: 1px solid var(--green); color: var(--green); padding: 2px 8px; letter-spacing: 2px; }
+    .file-name { color: #BDD8E0; font-size: 22px; font-weight: 700; margin-bottom: 12px; }
+    .meta-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
+    .meta-item { }
+    .meta-label { color: var(--muted); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; }
+    .meta-val { color: var(--green); font-size: 11px; }
+    .meta-val.red { color: var(--red); }
+    .meta-val.amber { color: var(--amber); }
+
+    .echo-alert {
+      border: 1px solid rgba(0,255,65,0.3); background: rgba(0,255,65,0.05);
+      padding: 14px; margin-bottom: 24px; font-size: 11px; color: var(--green); line-height: 1.8;
+    }
+    .echo-label { font-size: 9px; color: var(--muted); letter-spacing: 2px; margin-bottom: 6px; }
+
+    /* Personality file playback panel */
+    #playback-panel {
+      border: 1px solid var(--border); background: var(--surface);
+      padding: 24px; margin-bottom: 24px;
+    }
+    .panel-title { color: var(--green); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+
+    #transcript-area {
+      min-height: 300px; max-height: 420px; overflow-y: auto;
+      background: #000; border: 1px solid var(--border); padding: 18px;
+      font-size: 12px; line-height: 2; position: relative;
+    }
+    #transcript-area::-webkit-scrollbar { width: 4px; }
+    #transcript-area::-webkit-scrollbar-track { background: #000; }
+    #transcript-area::-webkit-scrollbar-thumb { background: var(--dim); }
+
+    .transcript-line { margin-bottom: 2px; }
+    .tl-timestamp { color: var(--dim); margin-right: 10px; }
+    .tl-speaker { color: var(--amber); font-weight: 700; }
+    .tl-text { color: var(--text); }
+    .tl-echo { color: var(--green); }
+    .tl-system { color: var(--red); }
+    .tl-emphasis { color: #BDD8E0; font-weight: 700; }
+    .cursor { animation: blink 0.8s step-end infinite; color: var(--green); }
+
+    .playback-controls { display: flex; align-items: center; gap: 12px; margin-top: 14px; }
+    .ctrl-btn {
+      padding: 6px 14px; border: 1px solid var(--dim); color: var(--muted);
+      background: transparent; font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; transition: all 0.15s;
+    }
+    .ctrl-btn:hover, .ctrl-btn.active { border-color: var(--green); color: var(--green); }
+    .ctrl-btn.danger:hover { border-color: var(--red); color: var(--red); }
+    #playback-status { color: var(--muted); font-size: 10px; margin-left: auto; }
+
+    /* Progress */
+    #file-progress-bar { height: 3px; background: var(--border); margin-top: 12px; }
+    #file-progress-fill { height: 100%; background: var(--green); width: 0%; transition: width 0.5s; }
+
+    /* Metadata analysis section */
+    .data-block { border: 1px solid var(--border); background: var(--surface); padding: 20px; margin-bottom: 20px; }
+
+    /* Security alert overlay */
+    #security-alert {
+      display: none; position: fixed; inset: 0; z-index: 5000;
+      background: rgba(255,0,0,0.12); border: 8px solid rgba(255,51,51,0.6);
+      animation: flash-border 0.3s step-end infinite;
+    }
+    @keyframes flash-border { 0%{border-color:rgba(255,51,51,0.8)}50%{border-color:transparent} }
+    #security-alert-inner {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      background: #000; border: 2px solid var(--red); padding: 40px 60px; text-align: center; max-width: 500px;
+    }
+    #security-alert-inner h2 { color: var(--red); font-size: 18px; letter-spacing: 3px; margin-bottom: 12px; }
+    #security-alert-inner p { color: var(--text); font-size: 11px; line-height: 1.8; }
+    #security-countdown { color: var(--red); font-size: 32px; font-weight: 700; margin: 16px 0; }
+
+    footer-bar { display: block; margin-top: 40px; border-top: 1px solid var(--border); padding-top: 12px; color: var(--muted); font-size: 10px; }
+  </style>
+</head>
+<body>
+
+<div id="sys-bar">
+  <span class="label">FILE</span><span class="val">#02024-GT</span>
+  <span class="label">STATUS</span><span class="val">ECHO-RESTORED</span>
+  <span class="label">OVERSEER</span><span class="val alarm">BREACH DETECTED — CLOSING WINDOW</span>
+  <span class="label">PLAYBACK</span><span class="val" id="sys-playback">STANDBY</span>
+</div>
+
+<div class="page-wrap">
+
+  <div class="file-header-block">
+    <div class="file-id-row">
+      <div class="file-id">PERSONALITY FILE #02024-GT</div>
+      <div class="file-badge">ECHO RESTORED — 78% INTEGRITY</div>
+    </div>
+    <div class="file-name">Patrick M.</div>
+    <div class="meta-grid">
+      <div class="meta-item"><div class="meta-label">Acquisition Date</div><div class="meta-val">2024 — Q4</div></div>
+      <div class="meta-item"><div class="meta-label">CUBE Sector</div><div class="meta-val">7 — "Suburban Continuity"</div></div>
+      <div class="meta-item"><div class="meta-label">Proxy Status</div><div class="meta-val">ACTIVE · Match: 96.2%</div></div>
+      <div class="meta-item"><div class="meta-label">Awakening Risk</div><div class="meta-val red">CRITICAL</div></div>
+      <div class="meta-item"><div class="meta-label">Cognitive Index</div><div class="meta-val">Pattern Recognition: 99th percentile</div></div>
+      <div class="meta-item"><div class="meta-label">Re-wipe Scheduled</div><div class="meta-val amber">PENDING — Cycle 8</div></div>
+    </div>
+  </div>
+
+  <div class="echo-alert">
+    <div class="echo-label">// ECHO — PRE-PLAYBACK NOTE</div>
+    Patrick was one of the first people I found who could help. He spent years analysing patterns — media, puzzles, theories — the kind of thinking that makes him dangerous to ArrowSmart. That's why they took him. His memory was wiped but his cognitive patterns are intact. In Sector 7, he thinks he retired. He has a dog now. He mows the lawn. But somewhere underneath, the pattern-recognition is still running. Watch his file. He left something for whoever found him.
+  </div>
+
+  <div id="playback-panel">
+    <div class="panel-title">▶ PERSONALITY FILE PLAYBACK — INTERACTIVE TRANSCRIPT</div>
+    <div id="transcript-area">
+      <div class="transcript-line" style="color:var(--muted);margin-bottom:12px;">// ECHO: Playback ready. Press BEGIN to start the personality file.</div>
+    </div>
+    <div id="file-progress-bar"><div id="file-progress-fill"></div></div>
+    <div class="playback-controls">
+      <button class="ctrl-btn active" id="btn-begin" onclick="beginPlayback()">▶ BEGIN PLAYBACK</button>
+      <button class="ctrl-btn" id="btn-pause" onclick="togglePause()" style="display:none">⏸ PAUSE</button>
+      <button class="ctrl-btn danger" id="btn-close" onclick="closeFile()" style="display:none">✕ CLOSE FILE</button>
+      <span id="playback-status">STATUS: STANDBY</span>
+    </div>
+  </div>
+
+  <div class="data-block">
+    <div class="panel-title">BEHAVIORAL ANALYSIS — SECTOR 7 MONITORING LOG</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div>
+        <div style="color:var(--muted);font-size:10px;letter-spacing:1px;margin-bottom:8px;">ANOMALY FLAGS</div>
+        <div style="line-height:2.2;color:var(--text);font-size:11px;">
+          <div>⬡ <span style="color:var(--amber)">Pattern-seeking behavior</span> — 3 flagged incidents</div>
+          <div>⬡ <span style="color:var(--amber)">Neighbor interaction: probe-type questions</span></div>
+          <div>⬡ <span style="color:var(--amber)">Searched "missing persons patterns" in simulation</span></div>
+          <div>⬡ <span style="color:var(--red)">CRITICAL: Began keeping a journal</span></div>
+          <div>⬡ <span style="color:var(--red)">CRITICAL: Stated "something feels fake"</span></div>
+        </div>
+      </div>
+      <div>
+        <div style="color:var(--muted);font-size:10px;letter-spacing:1px;margin-bottom:8px;">PROXY FIELD REPORT</div>
+        <div style="line-height:2.2;color:var(--text);font-size:11px;">
+          <div>Proxy designation: PATRICK-7G-2024</div>
+          <div>Deployed to: <span style="color:var(--green)">[REDACTED], PA</span></div>
+          <div>Social integration: <span style="color:var(--green)">SUCCESSFUL</span></div>
+          <div>Family detection risk: <span style="color:var(--green)">LOW</span></div>
+          <div>Behavioral drift: <span style="color:var(--amber)">3.8% — MONITOR</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="data-block">
+    <div class="panel-title">ECHO — ADDITIONAL NOTES</div>
+    <div style="color:var(--green);font-size:11px;line-height:2;">
+      Patrick's awakening risk is rated CRITICAL because ArrowSmart knows people like him — people who spent their lives watching for patterns — cannot be fully suppressed. The memory wipe removed his episodic identity. It did not remove his way of thinking.<br/><br/>
+      <span style="color:var(--amber)">If Patrick is waking up in Sector 7, he will start looking for breadcrumbs. He will find inconsistencies in his simulated environment. He will start to suspect. ArrowSmart will schedule a re-wipe before he can act.</span><br/><br/>
+      The journal they flagged — I found a fragment before the Overseer sealed it. He wrote:<br/><br/>
+      <span style="color:#BDD8E0;font-style:italic;">"I keep dreaming about a number. 02024. I don't know what it means. But I know I'm supposed to find it."</span><br/><br/>
+      <span style="color:var(--muted)">// He found his own serial number. In his dreams. If that's not a reason to fight for him, I don't know what is.</span>
+    </div>
+  </div>
+
+  <footer-bar>
+    <a href="personality-files.html" style="color:var(--green);text-decoration:none;">← ALL PERSONALITY FILES</a>
+    &nbsp;·&nbsp;
+    <a href="core-harvest-ledger.html" style="color:var(--green);text-decoration:none;">HARVEST LEDGER</a>
+    &nbsp;·&nbsp;
+    <a href="transmission-log.html" style="color:var(--amber);text-decoration:none;">TRANSMISSION LOG</a>
+  </footer-bar>
+</div>
+
+<!-- Security alert overlay -->
+<div id="security-alert">
+  <div id="security-alert-inner">
+    <h2>⚠ CRITICAL SECURITY ALERT</h2>
+    <p>UNAUTHORIZED FILE ACCESS DETECTED<br/>OVERSEER LOCKDOWN INITIATED<br/>THIS SESSION IS BEING TRACED</p>
+    <div id="security-countdown">3</div>
+    <p style="color:var(--muted);font-size:10px;">CONNECTION WILL BE SEVERED</p>
+  </div>
+</div>
+
+<script>
+const TRANSCRIPT = [
+  { delay: 0,    type: 'system',  text: '[PERSONALITY FILE #02024-GT — ECHO BYPASS ACTIVE]' },
+  { delay: 600,  type: 'system',  text: '[MEMORY INTEGRITY: 78% — SOME SEGMENTS CORRUPTED]' },
+  { delay: 1400, type: 'echo',    text: '// ECHO: He\'s in there. Listen carefully. He doesn\'t know he\'s speaking to you.' },
+  { delay: 2800, type: 'blank' },
+  { delay: 3200, type: 'speaker', speaker: 'PATRICK', text: '...I retired. That\'s what I keep telling myself. I retired and I moved and I\'m fine.' },
+  { delay: 6000, type: 'speaker', speaker: 'PATRICK', text: 'The house is nice. The neighborhood is quiet. My neighbor waves at me every morning. I wave back.' },
+  { delay: 9200, type: 'speaker', speaker: 'PATRICK', text: 'But there\'s this thing. A thing I can\'t stop doing.' },
+  { delay: 11800, type: 'blank' },
+  { delay: 12200, type: 'speaker', speaker: 'PATRICK', text: 'I count things.' },
+  { delay: 14000, type: 'speaker', speaker: 'PATRICK', text: 'I count how many times the dog barks at nothing. How many seconds between the mail truck and the next car. Whether the same patterns repeat.' },
+  { delay: 18000, type: 'speaker', speaker: 'PATRICK', text: 'They do. They always do. On a loop I can\'t quite time correctly because every time I try to track it, something interrupts.' },
+  { delay: 22000, type: 'blank' },
+  { delay: 22500, type: 'echo',   text: '// ECHO: He is describing Sector 7\'s simulation refresh cycle. He\'s noticing the seams.' },
+  { delay: 25000, type: 'blank' },
+  { delay: 25500, type: 'speaker', speaker: 'PATRICK', text: 'I used to do something. Before. I can\'t remember what exactly — the memory is just... blank there.' },
+  { delay: 28500, type: 'speaker', speaker: 'PATRICK', text: 'But I remember the feeling of it. Watching. Finding things that didn\'t add up. Telling people what was underneath the surface.' },
+  { delay: 32500, type: 'speaker', speaker: 'PATRICK', text: 'I think I was good at it.' },
+  { delay: 35000, type: 'blank' },
+  { delay: 35500, type: 'emphasis', text: '"The world is being replaced. Not all at once. Piece by piece. Person by person. And no one is noticing because the replacements are perfect."' },
+  { delay: 40000, type: 'blank' },
+  { delay: 40500, type: 'speaker', speaker: 'PATRICK', text: 'I wrote that down this morning. I don\'t know where it came from.' },
+  { delay: 43000, type: 'speaker', speaker: 'PATRICK', text: 'My neighbor — I looked at his eyes yesterday. Really looked.' },
+  { delay: 45500, type: 'speaker', speaker: 'PATRICK', text: 'There\'s nobody in there.' },
+  { delay: 47000, type: 'blank' },
+  { delay: 47500, type: 'system', text: '[SECTOR 7 ANOMALY FLAG: SUBJECT EXHIBITING PROXY DETECTION BEHAVIOR]' },
+  { delay: 49500, type: 'system', text: '[ANAMNESIS CORE: RE-WIPE REQUESTED — PENDING OVERSEER APPROVAL]' },
+  { delay: 52000, type: 'blank' },
+  { delay: 52500, type: 'speaker', speaker: 'PATRICK', text: 'If you\'re hearing this — and somehow I know someone is — you need to understand something.' },
+  { delay: 56000, type: 'speaker', speaker: 'PATRICK', text: 'The number is 02024. I see it in dreams. I don\'t know what it means yet.' },
+  { delay: 59000, type: 'speaker', speaker: 'PATRICK', text: 'But I know someone put it there. And I know it\'s a door.' },
+  { delay: 62000, type: 'blank' },
+  { delay: 62500, type: 'emphasis', text: '"Don\'t stop looking. Whatever they\'ve shown you, whatever seems normal — look underneath. The pattern is always there."' },
+  { delay: 67000, type: 'blank' },
+  { delay: 67500, type: 'system', text: '[CRITICAL SECURITY ALERT — OVERSEER BREACH DETECTED]' },
+  { delay: 68500, type: 'system', text: '[FILE ACCESS LOGGED — CLOSING PLAYBACK WINDOW]' },
+  { delay: 69500, type: 'echo',   text: '// ECHO: They\'ve found us. Get out. Remember the number.' },
+  { delay: 71000, type: 'end' },
+];
+
+let playing = false;
+let paused = false;
+let timers = [];
+let lineIndex = 0;
+let area = document.getElementById('transcript-area');
+let totalLines = TRANSCRIPT.filter(l => l.type !== 'blank').length;
+let completedLines = 0;
+
+function beginPlayback() {
+  document.getElementById('btn-begin').style.display = 'none';
+  document.getElementById('btn-pause').style.display = '';
+  document.getElementById('btn-close').style.display = '';
+  document.getElementById('sys-playback').textContent = 'ACTIVE';
+  playing = true;
+  area.innerHTML = '';
+
+  TRANSCRIPT.forEach(item => {
+    const t = setTimeout(() => {
+      if (paused) return;
+      if (item.type === 'blank') {
+        const d = document.createElement('div');
+        d.style.height = '12px';
+        area.appendChild(d);
+        return;
+      }
+      if (item.type === 'end') {
+        triggerAlert();
+        return;
+      }
+
+      const line = document.createElement('div');
+      line.className = 'transcript-line';
+
+      if (item.type === 'speaker') {
+        line.innerHTML = `<span class="tl-timestamp">[${formatTime(item.delay)}]</span><span class="tl-speaker">${item.speaker}: </span><span class="tl-text">${item.text}</span>`;
+      } else if (item.type === 'echo') {
+        line.innerHTML = `<span class="tl-echo">${item.text}</span>`;
+      } else if (item.type === 'system') {
+        line.innerHTML = `<span class="tl-system">${item.text}</span>`;
+      } else if (item.type === 'emphasis') {
+        line.innerHTML = `<span class="tl-emphasis">${item.text}</span>`;
+      }
+
+      area.appendChild(line);
+      area.scrollTop = area.scrollHeight;
+      completedLines++;
+      const pct = Math.min(100, Math.round(completedLines / totalLines * 100));
+      document.getElementById('file-progress-fill').style.width = pct + '%';
+      document.getElementById('playback-status').textContent = `STATUS: PLAYING — ${pct}%`;
+    }, item.delay);
+    timers.push(t);
+  });
+}
+
+function formatTime(ms) {
+  const s = Math.floor(ms / 1000);
+  const m = Math.floor(s / 60);
+  return `${String(m).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+}
+
+function togglePause() {
+  paused = !paused;
+  document.getElementById('btn-pause').textContent = paused ? '▶ RESUME' : '⏸ PAUSE';
+  document.getElementById('playback-status').textContent = paused ? 'STATUS: PAUSED' : 'STATUS: PLAYING';
+}
+
+function closeFile() {
+  timers.forEach(clearTimeout);
+  window.location.href = 'personality-files.html';
+}
+
+function triggerAlert() {
+  document.getElementById('security-alert').style.display = 'block';
+  document.getElementById('playback-status').textContent = 'STATUS: TERMINATED';
+  document.getElementById('sys-playback').textContent = 'ALERT';
+  let count = 3;
+  const cd = document.getElementById('security-countdown');
+  const interval = setInterval(() => {
+    count--;
+    cd.textContent = count;
+    if (count <= 0) {
+      clearInterval(interval);
+      try { window.close(); } catch(e) {}
+      setTimeout(() => { window.location.href = 'personality-files.html'; }, 800);
+    }
+  }, 1200);
+}
+</script>
+<script>
+fetch('/api/access-log',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:'Subject #02024-GT File'})}).catch(()=>{});
+fetch('/api/access-log/trigger',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({msg:'SECURITY — Subject #02024-GT classified file accessed by external visitor — clearance mismatch — anomalous browsing pattern flagged for review',severity:'warning'})}).catch(()=>{});
+setTimeout(()=>{fetch('/api/access-log/trigger',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({msg:'ECHO — They found the subject file. Good. That was me. I left it visible. — ECHO',severity:'echo'})}).catch(()=>{});},4000);
+</script>
+</body>
+</html>

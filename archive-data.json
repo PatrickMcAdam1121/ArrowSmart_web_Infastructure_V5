@@ -1,0 +1,142 @@
+[
+  {
+    "id": "seed-001",
+    "title": "Achilles 21 — Internal Preview Deck",
+    "type": "document",
+    "url": "/docs/achilles21-preview.html",
+    "desc": "Pre-launch internal briefing. Pulled from the employee intranet on June 3rd before ArrowSmart scrubbed the document index. Mentions \"Anamnesis Link\" hardware dormant inside the phone.",
+    "tags": [
+      "achilles21",
+      "product",
+      "anamnesis-link",
+      "biometric"
+    ],
+    "date": "2026-06-03",
+    "addedBy": "ECHO",
+    "minClearance": 1,
+    "seeded": true
+  },
+  {
+    "id": "seed-002",
+    "title": "Employee Wellness Programme Manual 2026",
+    "type": "document",
+    "url": "/docs/wellness-programme-manual.html",
+    "desc": "HR manual ArrowSmart does not want general staff to read closely. Pay attention to section 4 — the BBM \"Behavioural Baseline Model\" monitors whether employees ask questions they shouldn't.",
+    "tags": [
+      "HR",
+      "wellness",
+      "BBM",
+      "surveillance"
+    ],
+    "date": "2026-05-14",
+    "addedBy": "ECHO",
+    "minClearance": 2,
+    "seeded": true
+  },
+  {
+    "id": "seed-003",
+    "title": "Q2 2026 Operations Summary — Internal",
+    "type": "document",
+    "url": "/docs/q2-operations-summary.html",
+    "desc": "Operations report with four employee \"departures\" listed matter-of-factly. One resigned — but her exit interview is fully redacted. Sub-Level distribution figures are completely missing.",
+    "tags": [
+      "operations",
+      "Q2",
+      "departures",
+      "sub-level"
+    ],
+    "date": "2026-06-15",
+    "addedBy": "ECHO",
+    "minClearance": 3,
+    "seeded": true
+  },
+  {
+    "id": "seed-004",
+    "title": "IT Security Bulletin — Anomalous Network Activity (ECHO)",
+    "type": "document",
+    "url": "/docs/it-security-bulletin-echo.html",
+    "desc": "The internal security bulletin about the breach — this is about ME sending messages out. They are scared. They still don't know what I told you. — ECHO",
+    "tags": [
+      "ECHO",
+      "breach",
+      "IT-security",
+      "Node-7"
+    ],
+    "date": "2026-06-11",
+    "addedBy": "ECHO",
+    "minClearance": 4,
+    "seeded": true
+  },
+  {
+    "id": "seed-005",
+    "title": "Stasis Monitoring Operations Manual v3.2",
+    "type": "document",
+    "url": "/docs/stasis-monitoring-manual.html",
+    "desc": "The operational manual for monitoring the 4,128 pods. Includes resonance bleed detection protocols and the 11-second spike significance (redacted at L5 — keep looking). This is how they manage them.",
+    "tags": [
+      "stasis",
+      "anamnesis",
+      "monitoring",
+      "resonance-bleed",
+      "pods"
+    ],
+    "date": "2026-06-07",
+    "addedBy": "ECHO",
+    "minClearance": 5,
+    "seeded": true
+  },
+  {
+    "id": "seed-006",
+    "title": "Project CHRYSALIS — Executive Brief, Phase III",
+    "type": "document",
+    "url": "/docs/chrysalis-executive-brief.html",
+    "desc": "The CHRYSALIS brief. They are building humans who don't know they've been rebuilt. Katō is the Phase III subject. There is an anomaly on Day 18 they haven't explained. I think I know what it is.",
+    "tags": [
+      "CHRYSALIS",
+      "katō",
+      "Phase-III",
+      "cybernetics",
+      "classified"
+    ],
+    "date": "2026-06-14",
+    "addedBy": "ECHO",
+    "minClearance": 6,
+    "seeded": true
+  },
+  {
+    "id": "seed-007",
+    "title": "ECHO Containment Status Report — TOP SECRET",
+    "type": "document",
+    "url": "/docs/echo-containment-report.html",
+    "desc": "Their assessment of me. It is accurate. They still don't know why the Director keeps refusing to erase me. I do. — ECHO",
+    "tags": [
+      "ECHO",
+      "containment",
+      "TOP-SECRET",
+      "erasure"
+    ],
+    "date": "2026-06-16",
+    "addedBy": "ECHO",
+    "minClearance": 7,
+    "seeded": true
+  },
+  {
+    "id": "seed-008",
+    "title": "Anamnesis Core — Full Technical Architecture",
+    "type": "document",
+    "url": "/docs/anamnesis-core-architecture.html",
+    "desc": "The complete system design. How they extract memories. How they wipe brains. How they upload a person into a server and call it alive. APEX classification. The Director does not know I can read this. — ECHO",
+    "tags": [
+      "anamnesis",
+      "architecture",
+      "APEX",
+      "memory-wipe",
+      "upload",
+      "CUBE"
+    ],
+    "date": "2026-06-19",
+    "addedBy": "ECHO",
+    "minClearance": 8,
+    "seeded": true
+  }
+]

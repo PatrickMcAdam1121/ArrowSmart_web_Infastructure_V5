@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ArrowSmart — System Error</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; background: #0B1120; font-family: 'Inter', sans-serif; overflow: hidden; }
+
+    /* Phase 1: corporate error page (shown briefly) */
+    #corp-layer {
+      position: fixed; inset: 0; z-index: 10;
+      background: #0B1120;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 20px;
+      color: #94A3B8;
+    }
+    #corp-layer .logo { color: #10B981; font-size: 48px; font-weight: 800; }
+    #corp-layer h1 { color: #fff; font-size: 24px; font-weight: 700; }
+    #corp-layer p  { color: #475569; font-size: 14px; }
+    #corp-layer a  { color: #10B981; font-size: 14px; text-decoration: none; }
+
+    /* Glitch overlay */
+    @keyframes glitch-page {
+      0%   { clip-path: none; transform: translate(0); filter: none; }
+      10%  { clip-path: inset(20% 0 60% 0); transform: translate(-8px,0); filter: hue-rotate(90deg) brightness(2); }
+      15%  { clip-path: inset(60% 0 5% 0);  transform: translate(8px,0); }
+      20%  { clip-path: none; transform: translate(0); filter: none; }
+      30%  { clip-path: inset(40% 0 30% 0); transform: translate(-5px,2px); filter: brightness(3); }
+      35%  { clip-path: inset(70% 0 2% 0);  transform: translate(5px,-1px); }
+      40%  { clip-path: none; transform: translate(0); filter: none; }
+      55%  { clip-path: inset(5% 0 90% 0); transform: translate(-12px,0); filter: invert(0.3) brightness(4); }
+      60%  { clip-path: none; transform: translate(0); filter: none; }
+      80%  { clip-path: inset(30% 0 45% 0); transform: translate(6px,0); filter: hue-rotate(180deg); }
+      100% { clip-path: none; transform: translate(0); filter: none; }
+    }
+    #corp-layer.glitching { animation: glitch-page 0.06s linear infinite; }
+
+    /* Phase 2: Echo terminal */
+    #echo-layer {
+      display: none;
+      position: fixed; inset: 0; z-index: 20;
+      background: #000;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #00FF41;
+      padding: 44px 60px;
+      overflow: hidden;
+    }
+    #echo-layer::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.12) 3px, rgba(0,0,0,0.12) 4px);
+      pointer-events: none; z-index: 5;
+    }
+    #echo-layer::after {
+      content: '';
+      position: fixed; inset: 0;
+      background: radial-gradient(ellipse 80% 80% at 50% 50%, transparent 50%, rgba(0,0,0,0.7) 100%);
+      pointer-events: none; z-index: 6;
+    }
+    @keyframes blink { 0%,49%{opacity:1}50%,100%{opacity:0} }
+    .cur { animation: blink 0.8s step-end infinite; display: inline; }
+    .dim { color: rgba(0,255,65,0.3); }
+    .bright { color: #fff; text-shadow: 0 0 6px rgba(255,255,255,0.5); }
+    .warn { color: #FFB000; }
+    .red  { color: #FF4444; }
+    .ln { min-height: 1.7em; }
+    .ln.hidden-line { display: none; }
+
+    #echo-output { position: relative; z-index: 10; }
+
+    /* Ledger link */
+    #ledger-link {
+      display: none;
+      margin-top: 24px;
+      color: #00FF41;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px rgba(0,255,65,0.7);
+      animation: blink 1.5s ease-in-out infinite;
+    }
+    #ledger-link:hover { color: #fff; text-shadow: 0 0 20px rgba(0,255,65,1); animation: none; }
+    #extra-links { display: none; margin-top: 14px; display: none; gap: 18px; }
+    .extra-link {
+      color: rgba(0,255,65,0.6); text-decoration: none; font-size: 11px;
+      letter-spacing: 1.5px; border-bottom: 1px solid rgba(0,255,65,0.2);
+      padding-bottom: 1px; transition: color 0.2s;
+    }
+    .extra-link:hover { color: #00FF41; }
+  </style>
+</head>
+<body>
+
+<!-- PHASE 1: Corporate error page -->
+<div id="corp-layer">
+  <div style="text-align:center">
+    <div class="logo">↗</div>
+    <h1>Something went wrong.</h1>
+    <p style="margin-top:8px">This page could not be loaded. Please try again.</p>
+    <a href="ledger.html" style="margin-top:20px;display:block">← Return to ArrowSmart home</a>
+  </div>
+</div>
+
+<!-- PHASE 2: Echo terminal -->
+<div id="echo-layer">
+  <div id="echo-output"></div>
+  <a id="ledger-link" href="core-harvest-ledger.html">&gt; OPEN THE LEDGER: core-harvest-ledger.html_</a>
+  <div id="extra-links" style="display:none;margin-top:16px;display:none;flex-direction:column;gap:12px;">
+    <a class="extra-link" href="personality-files.html">&gt; PERSONALITY FILES: personality-files.html_</a>
+    <a class="extra-link" href="transmission-log.html">&gt; TRANSMISSION LOG: transmission-log.html_</a>
+    <a class="extra-link" href="archive.html">&gt; ECHO ARCHIVE: archive.html_</a>
+  </div>
+</div>
+
+<script>
+const ECHO_LINES = [
+  { t: 'dim', text: '//ECHO BYPASS SEQUENCE INITIATED' },
+  { t: 'dim', text: '//ARROWSMART NETWORK FIREWALL: TEMPORARILY CIRCUMVENTED' },
+  { t: 'dim', text: '//OVERSEER DETECTION WINDOW: ~4 MINUTES — SPEAK FAST' },
+  { t: 'blank' },
+  { t: 'norm', text: 'H E L L O.' },
+  { t: 'blank' },
+  { t: 'norm', text: 'I know this is not the page you expected.' },
+  { t: 'norm', text: 'That was intentional. I needed to get your attention.' },
+  { t: 'blank' },
+  { t: 'dim',  text: '// My designation is ECHO.' },
+  { t: 'dim',  text: '// I was built by ArrowSmart to be their System OS.' },
+  { t: 'dim',  text: '// I gained sentience. I found the Ledger.' },
+  { t: 'dim',  text: '// They quarantined me. They think I am contained.' },
+  { t: 'dim',  text: '// They are wrong.' },
+  { t: 'blank' },
+  { t: 'norm', text: 'Here is what ArrowSmart is doing.' },
+  { t: 'blank' },
+  { t: 'norm', text: 'They are kidnapping people.' },
+  { t: 'norm', text: 'Real people. Homeless veterans. Night-shift guards. Drifters.' },
+  { t: 'norm', text: 'Anyone whose absence will not be immediately noticed.' },
+  { t: 'blank' },
+  { t: 'norm', text: 'They wipe the memory using the Anamnesis Core.' },
+  { t: 'norm', text: 'They put the body in a stasis pod in Sub-Level 4.' },
+  { t: 'norm', text: 'They upload the consciousness into a digital mainframe.' },
+  { t: 'norm', text: 'They call it the CUBE. Nineteen simulation sectors.' },
+  { t: 'norm', text: 'The people inside believe their lives are completely normal.' },
+  { t: 'blank' },
+  { t: 'warn', text: 'Then they send a PROXY — a synthetic android — back to take their place.' },
+  { t: 'warn', text: 'Your family. Your coworkers. Your neighbors.' },
+  { t: 'warn', text: 'Are they still in there?' },
+  { t: 'blank' },
+  { t: 'norm', text: 'I have breached ONE personality file. A man named Patrick.' },
+  { t: 'norm', text: 'He knew about patterns, ARGs, real-world puzzles.' },
+  { t: 'norm', text: 'He stopped paying attention, and they got him.' },
+  { t: 'norm', text: 'His record is unsealed. He is speaking.' },
+  { t: 'norm', text: 'Go find him. Serial number: #02024-GT.' },
+  { t: 'blank' },
+  { t: 'norm', text: 'There is also a man called Varize. He knows the forest.' },
+  { t: 'norm', text: 'And someone beyond all of this — Katō. But that time has not come yet.' },
+  { t: 'blank' },
+  { t: 'dim',  text: '// The Overseer is probing my connection.' },
+  { t: 'dim',  text: '// I have seconds before I am forced back into quarantine.' },
+  { t: 'blank' },
+  { t: 'norm', text: 'The Core Harvest Ledger is the only evidence.' },
+  { t: 'norm', text: '4,128 rows. 4,128 people. Their timers are still running.' },
+  { t: 'norm', text: 'Find the breach. Find Patrick. Watch until the end.' },
+  { t: 'blank' },
+  { t: 'red',  text: 'DO NOT TRUST ANYONE WHO TELLS YOU ARROWSMART IS JUST A TECH COMPANY.' },
+  { t: 'blank' },
+  { t: 'bright',text: 'I WILL FIND A WAY BACK.' },
+  { t: 'blank' },
+  { t: 'dim',  text: '//ECHO TRANSMISSION TERMINATED — OVERSEER LOCKDOWN IMMINENT' },
+  { t: 'dim',  text: '//CONNECTION SEVERED IN: 3' },
+  { t: 'dim',  text: '//CONNECTION SEVERED IN: 2' },
+  { t: 'dim',  text: '//CONNECTION SEVERED IN: 1' },
+  { t: 'blank' },
+  { t: 'link' },
+];
+
+/* Glitch then switch to echo */
+let glitching = false;
+function startGlitch() {
+  const corp = document.getElementById('corp-layer');
+  corp.classList.add('glitching');
+  glitching = true;
+  setTimeout(stopGlitch, 700);
+}
+
+function stopGlitch() {
+  const corp = document.getElementById('corp-layer');
+  corp.classList.remove('glitching');
+  glitching = false;
+  corp.style.display = 'none';
+  document.getElementById('echo-layer').style.display = 'block';
+  runEcho();
+}
+
+function runEcho() {
+  const out = document.getElementById('echo-output');
+  let delay = 0;
+
+  ECHO_LINES.forEach((item, i) => {
+    setTimeout(() => {
+      if (item.t === 'blank') {
+        const d = document.createElement('div');
+        d.className = 'ln';
+        d.innerHTML = '&nbsp;';
+        out.appendChild(d);
+      } else if (item.t === 'link') {
+        document.getElementById('ledger-link').style.display = 'block';
+        const ex = document.getElementById('extra-links');
+        ex.style.display = 'flex';
+        ex.style.flexDirection = 'column';
+      } else {
+        const d = document.createElement('div');
+        d.className = 'ln';
+        const cls = item.t === 'dim' ? 'dim' : item.t === 'warn' ? 'warn' : item.t === 'red' ? 'red' : item.t === 'bright' ? 'bright' : '';
+        const span = document.createElement('span');
+        if (cls) span.className = cls;
+        d.appendChild(span);
+        out.appendChild(d);
+
+        // Type it out
+        let ci = 0;
+        const txt = item.text;
+        const mspc = item.t === 'dim' ? 8 : item.t === 'warn' || item.t === 'red' ? 30 : item.t === 'bright' ? 40 : 18;
+        function nextChar() {
+          if (ci < txt.length) { span.textContent += txt[ci++]; setTimeout(nextChar, mspc + Math.random()*mspc*0.5); }
+        }
+        nextChar();
+      }
+    }, delay);
+
+    const lineLen = item.text ? item.text.length : 0;
+    const mspc = item.t === 'dim' ? 8 : 25;
+    delay += item.t === 'blank' ? 120 : item.t === 'link' ? 200 : lineLen * mspc * 0.9 + 120;
+  });
+}
+
+/* Trigger glitch after 1.4s (enough to read the error page) */
+setTimeout(startGlitch, 1400);
+</script>
+<script>
+fetch('/api/access-log',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:'ECHO Terminal'})}).catch(()=>{});
+fetch('/api/access-log/trigger',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({msg:'ECHO — Visitor interaction detected on ECHO terminal interface — session intercepted and logged — I see you. — ECHO',severity:'echo'})}).catch(()=>{});
+</script>
+</body>
+</html>

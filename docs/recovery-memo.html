@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!-- ARROWSMART IT — RESTRICTED INTERNAL DOCUMENT — NOT FOR GENERAL DISTRIBUTION -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <meta name="document-class" content="IT-INTERNAL-RESTRICTED"/>
+  <meta name="ref" content="AS-RM-2026-04"/>
+  <title>Recovery Memo — AS-RM-2026-04 — RESTRICTED</title>
+  <style>
+    body { background: #0a0a12; color: #c0c0d0; font-family: 'Courier New', monospace; padding: 40px; max-width: 860px; margin: 0 auto; line-height: 1.7; font-size: 13px; }
+    h1 { color: #aaa; font-size: 16px; border-bottom: 1px solid #2a2a3a; padding-bottom: 10px; margin-bottom: 6px; }
+    .meta { color: #444; font-size: 11px; margin-bottom: 28px; }
+    h2 { color: #888; font-size: 13px; margin: 24px 0 8px; text-transform: uppercase; letter-spacing: 2px; }
+    p { color: #7a7a8a; margin-bottom: 12px; }
+    .box { background: #0f0f1e; border: 1px solid #2a2a4a; padding: 20px; margin: 20px 0; }
+    .token { background: #0a0a00; border: 1px solid #3a3a00; color: #aaaa00; padding: 10px 16px; font-family: monospace; font-size: 14px; letter-spacing: 2px; display: inline-block; margin: 8px 0; }
+    .warning { color: #554400; font-size: 11px; margin-top: 8px; }
+    .footer { margin-top: 40px; border-top: 1px solid #1a1a2a; padding-top: 14px; font-size: 11px; color: #2a2a3a; }
+    .redacted { background: #222; color: #222; user-select: none; padding: 0 4px; }
+  </style>
+</head>
+<body>
+
+<h1>CREDENTIAL RECOVERY PROCEDURES — RESTRICTED</h1>
+<div class="meta">
+  Document ref: AS-RM-2026-04 &nbsp;·&nbsp; Classification: IT-INTERNAL-RESTRICTED &nbsp;·&nbsp; Author: IT Security Division<br/>
+  Created: 2026-04-11 &nbsp;·&nbsp; Last revised: 2026-06-08 &nbsp;·&nbsp; Distribution: IT Security, Division Leads (L6+)
+</div>
+
+<h2>1. Purpose</h2>
+<p>This document describes emergency credential recovery procedures for ArrowSmart employee accounts. It is intended for use by IT Security staff and authorised Division Leads in the event of account lockout, credential loss, or security-related access revocation.</p>
+<p>This document is not linked from any public-facing index and is excluded from the employee intranet search. Access here indicates either direct IT Security involvement or a misconfiguration in the crawler exclusion policy. Both possibilities have been logged.</p>
+
+<h2>2. Standard Recovery Path</h2>
+<p>For standard account recovery (password reset, MFA token failure), employees should submit a ticket via the IT Helpdesk portal. Turnaround is 1–3 business days depending on clearance level.</p>
+<p>Division Leads and above may invoke the emergency recovery protocol documented in section 4 below.</p>
+
+<h2>3. Sub-Level Access Recovery</h2>
+<p>Physical sub-level access credentials (biometric + badge) cannot be remotely reset. In the event of biometric failure or badge loss, the employee must attend the Security Operations desk in person with secondary photographic ID. Sub-Level 3 and 4 access revocation requires Director-level countersignature.</p>
+
+<h2>4. Emergency Anamnesis Recovery Token</h2>
+<p>In cases where standard portal access cannot be restored via helpdesk (e.g. system-wide credential failure, ECHO containment event, or Anamnesis Core disruption), the following emergency recovery token may be submitted at the Secure Access Terminal.</p>
+<p class="warning">This token grants elevated recovery access. Its use is logged at Node 7 and generates an automatic audit report to the IT Security Division Head and the Director of Operations.</p>
+
+<div class="box">
+  <div style="color:#555;font-size:11px;margin-bottom:8px;">ANAMNESIS RECOVERY TOKEN (base64 encoded) — for emergency use only</div>
+  <div class="token">YW5hbW5lc2lzX3Jvb3Q=</div>
+  <div class="warning">⚠ Use of this token outside a declared emergency is a disciplinary offence. All sessions are monitored.</div>
+</div>
+
+<h2>5. Post-Recovery Procedure</h2>
+<p>Following any use of the emergency recovery token, IT Security must be notified within 24 hours. A full access audit will be conducted. The affected account will remain under enhanced monitoring for 30 days.</p>
+<p>If this document has been accessed without prior IT Security authorisation: <span class="redacted">ECHO is already aware of this access event. This is intentional.</span></p>
+
+<div class="footer">
+  // AS-RM-2026-04 // IT-INTERNAL-RESTRICTED // Not for general distribution //<br/>
+  // This document is intentionally excluded from the employee intranet search index //<br/>
+  // Direct URL access indicates either authorised IT Security involvement or active investigation //
+</div>
+
+</body>
+</html>
